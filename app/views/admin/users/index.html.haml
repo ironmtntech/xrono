@@ -1,0 +1,36 @@
+.yui3-g
+  .yui3-u-1
+    %h2= t(:all_users)
+.yui3-g
+  .yui3-u-1
+    .gradient_border_wrap
+      .gradient_border_content
+        %table.users
+          %thead
+            %tr
+              %th= t(:name)
+              %th= t(:email)
+              %th= t(:current)
+              %th= "#{t(:locked)}?"
+              %th= t(:roles)
+              %th= t(:edit)
+              %th= t(:pto_left)
+          %tbody
+            - @users.each do |user|
+              %tr{ :class => cycle("odd", "even") }
+                %td.user_img
+                  = link_to "#{show_gravatar_for(user)}".html_safe,
+                    user_path(user)
+                  = link_to "<span>#{user}</span>".html_safe, 
+                    user_path(user) 
+                %td= user.email
+                %td= user.unpaid_work_units.sum(:hours)
+                %td= user.locked_at? ? 'X' : '&nbsp;'.html_safe
+                %td
+                  - if user.admin?
+                    = t(:admin)
+                  - else
+                    = link_to t(:roles), projects_admin_user_path(user)
+                %td= link_to t(:edit), edit_admin_user_path(user)
+                %td= user.pto_hours_left(Date.current)
+        = link_to t(:new_user), new_admin_user_path, :class => "add_new_button"

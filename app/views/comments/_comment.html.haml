@@ -1,0 +1,19 @@
+.comment_wrap
+  .comment_title
+    = " #{comment.user.first_name} #{comment.user.last_name} commented #{distance_of_time_in_words_to_now(comment.created_at)} ago:"
+  - if comment.active?
+    .comment_real_body
+      .comment_details
+        = show_gravatar_for(comment.user)
+        //= "#{t(:posted)}: #{comment.created_at}"
+      .comment_body
+        %p= comment.comment
+        = form_for comment, :url => {:controller => 'comments', :action => "update", :id => comment.id} do |c|
+          = c.submit "Hide Comment"
+  - else
+    .comment_real_body.hidden_comment{ :style => 'display: none;' }
+      .comment_details
+        = show_gravatar_for(comment.user)
+        //= "#{t(:posted)}: #{comment.created_at}"
+      .comment_body
+        %p= comment.comment

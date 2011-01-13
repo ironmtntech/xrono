@@ -1,0 +1,58 @@
+.yui3-g
+  .yui3-u-1
+    %h2= "#{@project.client}: #{@project}"
+.yui3-g
+  .yui3-u-1
+    .gradient_border_wrap
+      .gradient_border_content
+        %ul.subnav
+          - if admin? || current_user.has_role?(:developer, @project)
+            %li= link_to t(:edit), edit_project_path
+            %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project)
+          %li= link_to "#{t(:back_to_client)}: #{@project.client}" , @project.client
+.yui3-g
+  .yui3-u-1
+    .gradient_border_wrap
+      .gradient_border_content
+        %h3= "#{t(:status)}: #{@project.client.status}"
+        %table.tickets
+          %thead
+            %tr
+              %th= t(:tickets)
+              %th= t(:work_units)
+              %th= t(:uninvoiced_hours)
+              %th= t(:total_hours)
+              - if admin? || current_user.has_role?(:developer, @project)
+                %th= t(:edit)
+          %tfoot
+            %tr
+              %th= t(:all_tickets)
+              %th= @project.work_units.count
+              %th= @project.uninvoiced_hours
+              %th= @project.hours
+              %th &nbsp;
+          %tbody
+            - @tickets.each do |ticket|
+              %tr
+                %td= link_to ticket, ticket
+                %td= ticket.work_units.count
+                %td= ticket.uninvoiced_hours
+                %td= ticket.hours
+                - if admin? || current_user.has_role?(:developer, @project)
+                  %td= link_to t(:edit), edit_ticket_path(ticket)
+.yui3-g
+  .yui3-u-1-2
+    .gradient_border_wrap
+      .gradient_border_content
+        = render :partial => "comments/comments", :locals => {:comments => @project.comments}
+        = render :partial => "comments/comment_form", :locals => { :commentable_id => @project.id,
+          :commentable_field => "project_id",
+          :commentable_type => "Project",
+          :refurl => project_path(@project),
+          :comment_num => @project.id }
+  .yui3-u-1-2
+    .gradient_border_wrap
+      .gradient_border_content
+        #files
+          = render :partial => "file_attachments/file_attachments", :locals => { :file_attachments => @project.file_attachments }
+          = link_to t(:add_file_attachment), new_file_attachment_path( :project_id => @project.id )

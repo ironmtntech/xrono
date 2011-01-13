@@ -1,0 +1,18 @@
+= form_for(@project) do |f|
+  - if @project.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@project.errors.count, "error")
+        = "#{t(:prohibited_this_project_from_being_saved)}:"
+
+      %ul
+      - @project.errors.full_messages.each do |msg|
+        %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+    = hidden_field_tag :client, @project.client.id
+  .actions
+    = f.submit :class => "add_new_button"
+    = link_to t(:cancel), client_path(@project.client)

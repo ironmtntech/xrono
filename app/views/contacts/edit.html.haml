@@ -1,0 +1,10 @@
+.yui3-g
+  .yui3-u-1
+    %h2="Edit #{@contact.first_name} #{@contact.last_name}"
+.yui3-g
+  .yui3-u-1
+    .gradient_border_wrap
+      .gradient_border_content
+        = form_for @contact, :url => client_contact_path do |f| 
+          = render :partial => 'form', :locals => {:f => f}
+

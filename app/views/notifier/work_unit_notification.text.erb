@@ -1,0 +1,15 @@
+For your records, a new work unit has been created:
+
+Client: <%= @work_unit.client %>
+Ticket: <%= @work_unit.ticket %>
+
+Scheduled On: <%= @work_unit.scheduled_at %>
+Developer: <%= @work_unit.user %>
+Hours: <%= @work_unit.hours.to_s %>
+Description: <%= @work_unit.description %>
+GUID: <%= @work_unit.guid %>
+
+Total uninvoiced hours as of <%= Time.current -%>: <%= @work_unit.client %>
+
+Thanks,
+The Xrono Team

@@ -1,0 +1,3 @@
+<%- calendar_output = render(:partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user }) -%>
+$('#calendar').html('<%= escape_javascript(calendar_output) -%>');
+$('#calendar table tbody').effect('highlight');

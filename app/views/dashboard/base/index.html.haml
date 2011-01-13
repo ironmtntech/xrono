@@ -1,0 +1,25 @@
+- content_for :javascripts do
+  = javascript_include_tag "dashboard"
+  = javascript_include_tag "add_taxonomy"
+
+- if @message
+  #message{:title => @message[:title], :style => "display: none;"}
+    %p= @message[:body]
+
+.yui3-g
+  .yui3-u-1
+    .gradient_border_wrap
+      .gradient_border_content
+        #calendar
+          = render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user }
+        %p.week_pagination
+          = render :partial => 'dashboard/base/week_pagination', :locals => { :start_date => @start_date }
+  .yui3-g
+    .yui3-u-1-2
+      .gradient_border_wrap
+        .gradient_border_content
+          = render :partial => 'tickets/add_ticket'
+    .yui3-u-1-2
+      .gradient_border_wrap
+        .gradient_border_content
+          = render :partial => 'work_units/add_work_unit'

@@ -1,0 +1,226 @@
+/* Site Wide */
+
+html {
+  background:url("../images/main_bg.png") repeat-x;
+  background-color:#0F1010;
+}
+
+body {
+  margin: auto;
+  width: 960px;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  color:#cfcfcf;
+}
+
+h2, h3 {
+  border-bottom: 1px solid #cfcfcf;
+  color:#cfcfcf;
+  margin: 10px 0px 6px 0px;
+}
+
+h2 {
+  font-size: 300%;
+}
+
+h3 {
+  font-size: 300%;
+}
+
+strong {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+a, a:visited {
+  color: #66c;
+}
+
+a:hover {
+  color: #99f;
+}
+
+pre {
+  margin-top: 8px;
+}
+
+/* Header Logo and Navigation*/
+#header {
+  margin-top:15px;
+}
+
+h1 a {
+  background:url("../images/xrono_logo.png") no-repeat;
+  height:105px;
+  width:255px;
+  margin-top: 17px;
+  display: block;
+}
+
+h1 a span {
+  display: none;
+}
+
+.nav_container {
+  position: relative;
+}
+
+#nav {
+  background:url("../images/nav_bg.png") no-repeat;
+  height:76px;
+  width:477px;
+  margin: 35px 15px 0 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+}   
+
+#nav li a {
+  height:58px;
+  display:block;
+  outline:none;
+  border:none;
+  float:left;
+}
+
+#nav li a span {
+  display: none;
+}
+
+#nav li.demo a {
+  width:91px;
+  margin:5px 0 0 15px;
+  background:url("../images/demo.png") 0 0 no-repeat;
+}
+
+#nav li.demo a:hover {
+  background:url("../images/demo.png") 0 -58px no-repeat;
+}
+
+#nav li.support a {
+  width:138px;
+  margin: 5px 0 0 30px;
+  background:url("../images/support.png") 0 0 no-repeat;
+}
+
+#nav li.support a:hover {
+  background:url("../images/support.png") 0 -58px no-repeat;
+}
+
+#nav li.download a {
+  width:156px;
+  margin: 5px 0 0 28px;
+  background:url("../images/download.png") 0 0 no-repeat;
+}
+
+#nav li.download a:hover {
+  background:url("../images/download.png") 0 -58px no-repeat;
+}
+
+/* Intro Text */
+#intro_text h2, #intro_text p {
+  margin-right: 20px;
+}
+
+/* Gallery */
+.right_column {
+  position: relative;
+  min-height:210px;
+}
+
+#clock_box {
+  background:url("../images/clock_box.png") no-repeat;
+  width:480px;
+  min-height:250px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#clock_box_content {
+  padding: 10px 0 0 23px;
+}
+#clock_box_content h3 {
+  font-size:2em;
+}
+
+#gallery {
+  margin: 0 0 0 0;
+}
+
+#gallery a {
+  padding: 5px 5px 0 0;
+}
+#gallery img {
+  border:2px solid #666;
+}
+#gallery #row_2 {
+    margin: 5px 0 0 0;
+}
+
+/* Demo */
+#demo table {
+  width: 80%;
+  margin: 10px auto 0px auto;
+}
+
+#demo table td, #demo table th {
+  text-align: center;
+  border: solid #ccc 1px;
+  padding: 5px;
+}
+
+#demo table th {
+  font-weight: bold;
+}
+
+/* Features, Support */
+#features ul, #support ul {
+  padding-left: 15px;
+}
+
+#features li, #support li {
+  margin: 4px 0px;
+  padding-right: 20px;
+  list-style-type: disc;
+}
+
+/* Updates */
+#updates dl dt {
+  font-weight: bold;
+  padding-right: 10px;
+  display: inline;
+}
+
+#updates dl dd {
+  display: inline;
+}
+
+/* Footer */
+#footer {
+  border-top:1px solid #ccc;
+  height:40px;
+  margin: 10px 0px;
+  padding: 6px 0px;
+}
+
+#footer p {
+  color:#ccc;
+  font-size: 116%;
+}
+
+/* Fork Me */
+#fork_me {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
+}
+
+#fork_me a img {
+  border: 0px none;
+}
+
+/* Utility Methods */
+.clear {
+  clear:both;
+}

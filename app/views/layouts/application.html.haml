@@ -1,0 +1,41 @@
+!!! Strict
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %title= yield(:title) + t(:app_name)
+    %meta{"content" => "text/html;charset=UTF-8", "http-equiv" => "content-type"}
+    %link{:rel => "shortcut icon", :href => "/favicon.ico"}
+    = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'compiled/print.css', :media => 'print'
+    /[if lt IE 8]
+      = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
+    = csrf_meta_tag
+    = yield :head
+  %body
+    #header
+      .wrapper
+        - if current_user
+          %a{:class => "logout", :href =>" /logout"} 
+            Logout 
+        %h1
+          %a{:href => "/"}
+            = image_tag @site_settings.site_logo.url
+            %span= t(:company_name)
+      #nav
+        .wrapper= render :partial => "shared/menu"
+    #content
+      .wrapper
+        = render :partial => "shared/flashes"
+        .yui3-g
+          - if (content_column_right = yield :content_column_right).empty?
+            .yui3-u-1= yield
+          - else
+            .yui3-u-4-5= yield
+            .yui3-u-1-5= yield :content_column_right
+    .clear
+    #footer
+      .wrapper
+        %p
+          &copy; 
+          = t(:company_name)
+          2010
+    = render :partial => "shared/javascripts"

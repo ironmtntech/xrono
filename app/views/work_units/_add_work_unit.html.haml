@@ -1,0 +1,42 @@
+#add_work_unit
+  %h3.dashboard_title= t(:add_work_unit)
+
+  = form_for WorkUnit.new(params[:work_unit]) do |f|
+    #work_unit_errors
+    .work_unit_field
+      %label= "#{t(:scheduled_on)}:"
+      = link_to Date.current, "#", :id => "schedule_modal_link"
+
+    #schedule_modal
+      %p= t(:enter_work_units_on_completion_day)
+      .work_unit_field
+        %label= t(:scheduled_at)
+        = text_field_tag :scheduled_at, Date.current
+
+    .work_unit_field
+      %label{:for => "work_unit_client_id"}= "#{t(:client)}:"
+      = collection_select("work_unit", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) })
+
+    .work_unit_field
+      %label{:for => "work_unit_project_id"}= "#{t(:project)}:"
+      = collection_select("work_unit", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) })
+
+    .work_unit_field
+      %label{:for => "work_unit_ticket_id"}= "#{t(:ticket)}:"
+      = collection_select("work_unit", "ticket_id", @tickets, "id", "name", { :prompt => t(:select_a_ticket) })
+
+    .work_unit_field
+      %label{:for => "work_unit_hours_type"}= "#{t(:type)}:"
+      = select_tag("hours_type", options_for_select(['Normal', 'Overtime', 'CTO', 'PTO']))
+
+    .work_unit_field
+      %label{:for => "work_unit_hours"}= "#{t(:hours).capitalize}:"
+      = f.text_field :hours, { :size => 10 }
+
+    .work_unit_field
+      %label{:for => "work_unit_description"}= "#{t(:description)}:"
+      = f.text_area :description, { :rows => 10, :style => "resize: none;"}
+
+    .work_unit_field
+      = f.hidden_field :scheduled_at, :value => Date.current
+      = f.submit t(:create_work_unit), :class => 'add_new_button'

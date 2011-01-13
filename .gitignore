@@ -1,0 +1,12 @@
+.bundle
+config/database.yml
+vendor/bundle/
+db/*.sqlite3
+log/*.log
+tmp/**/*
+capybara*
+*.sw*
+.rvmrc
+public/stylesheets/compiled/*
+coverage/
+public/system

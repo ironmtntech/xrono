@@ -1,0 +1,6 @@
+- work_unit = dashboard_line # I hate that the object would have been named dashboard line to render this collection, solved.
+- work_unit_text = []
+- work_unit_text << "[#{work_unit.ticket.project.client.to_s}]"
+- work_unit_text << pluralize(work_unit.hours, 'hour')
+- work_unit_text << work_unit.description
+%li= link_to(work_unit_text.join(' - '), dashboard_work_unit_path(work_unit))

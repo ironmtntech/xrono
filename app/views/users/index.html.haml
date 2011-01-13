@@ -1,0 +1,20 @@
+.yui3-g
+  .yui3-u-1
+    %h2= t(:all_users)
+.yui3-g
+  .yui3-u-1
+    .gradient_border_wrap
+      .gradient_border_content
+        %table.users
+          %thead
+            %tr
+              %th= t(:name)
+              %th= t(:email)
+          %tbody
+            - @users.each do |user|
+              %tr{ :class => cycle("odd", "even") }
+                %td.user_img
+                  = link_to "#{show_gravatar_for(user)}<span>#{user}</span>".html_safe, user
+                %td= user.email
+        - if admin?
+          = link_to t(:new_user), new_admin_user_path, :class => "add_new_button"

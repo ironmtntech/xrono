@@ -1,0 +1,27 @@
+- if @contact.errors.any?
+  #error_explanation
+    %h2
+      = pluralize(@contact.errors.count, "error")
+      prohibited this contact from being saved:
+    %ul
+    - @contact.errors.full_messages.each do |msg|
+      %li= msg
+.field
+  = f.label :first_name
+  = f.text_field :first_name
+.field
+  = f.label :last_name
+  = f.text_field :last_name
+.field
+  = f.label :email_address
+  = f.text_field :email_address
+.field
+  = f.label :phone_number
+  = f.text_field :phone_number
+.field
+  = f.label :receives_email
+  = f.check_box(:receives_email)
+.actions
+  = f.submit :class => "add_new_button"
+  = link_to "Cancel", clients_path, :class => "cancel_button"
+.clear
