@@ -5,12 +5,12 @@ Xrono is a mature, open source, time tracking solution for your business. Develo
 ==Development Installation
 
 * Fork, then clone the repository to your development environment
-* if you using rvm, create a .rvmrc
+* If you are using rvm, create a .rvmrc
 * gem install bundler
 * bundle install
-* if you get errors involving linecache19, you may need to do something like: "gem install ruby-debug19 -- --with-ruby-include=<path to your ruby install>" then re-run "bundle install"
+* If you get errors involving linecache19, you may need to do something like: "gem install ruby-debug19 -- --with-ruby-include=<path to your ruby install>" then re-run "bundle install"
 * cp config/database.yml.example config/database.yml
-* change config/database.yml as you see fit to match your development environment needs
+* Change config/database.yml as you see fit to match your development environment needs
 * rake db:reset
 * rake db:test:clone
 * rake spec
