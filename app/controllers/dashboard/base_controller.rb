@@ -5,7 +5,7 @@ class Dashboard::BaseController < ApplicationController
 
   def index
     if current_user.has_role?(:developer)
-      unless current_user.work_units_for_day(Date.current.prev_working_day).any? || admin?
+      unless current_user.work_units_for_day(Date.current.prev_working_day).any?
         @message = {:title => t(:management),
           :body => t(:enter_time_for_previous_day)}
       end
