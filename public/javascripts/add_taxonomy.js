@@ -98,7 +98,8 @@ $("#new_work_unit").submit(function() {
     },
     error: function(result)
     {
-      var errors = result.errors
+      var json_result = JSON.parse(result.responseText);
+      var errors = json_result.errors;
       $("#work_unit_errors").data('errors', errors);
       $("#work_unit_errors").dialog('open');
       $("#work_unit_submit").attr('disabled', false);
@@ -118,9 +119,7 @@ $("#work_unit_errors").dialog( {
     var dialog = $("#work_unit_errors");
     dialog.html("");
     if(dialog.data('errors')) {
-      $.each( dialog.data('errors'), function() {
-        dialog.append("<p>" + this + "</p>")
-      });
+      dialog.append("<p>" + dialog.data('errors') + "</p>");
     };
     if(dialog.data('notice')) {
       dialog.append("<p>" + dialog.data('notice') + "</p>")
