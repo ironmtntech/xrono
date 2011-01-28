@@ -10,10 +10,10 @@ set :rvm_type, :user
 require 'bundler/capistrano'
 
 # main details
-set :application, "demo.xrono.com"
-role :web, "demo.xrono.com"
-role :app, "demo.xrono.com"
-role :db, "demo.xrono.com", :primary => true
+set :application, "demo.xrono.org"
+role :web, "demo.xrono.org"
+role :app, "demo.xrono.org"
+role :db, "demo.xrono.org", :primary => true
 
 # server details
 default_run_options[:pty] = true
