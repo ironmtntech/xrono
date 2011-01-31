@@ -8,51 +8,97 @@
 
 require File.expand_path(File.dirname(__FILE__) + "../../spec/blueprints")
 
-# Create 4 clients and 4 users with client role
-print "Creating clients..."
-4.times do
-  client = Client.make
-  2.times { Project.make(:client => client) }
-  User.make.has_role!(:client, client.projects.first)
-end
-puts "done"
-
-# Create several developer accounts
-print "Creating users..."
-User.make(:email => 'admin@xrono.org', :password => '123456', :password_confirmation => '123456').has_role!(:admin)
-User.make(:email => 'dev@xrono.org', :password => '123456', :password_confirmation => '123456').has_role!(:developer, Project.all.shuffle.first)
-User.find_by_email('dev@xrono.org').has_role!(:developer, Project.all.shuffle.first)
-User.make(:email => 'locked@xrono.org', :password => '123456', :password_confirmation => '123456')
-User.make(:email => 'client@xrono.org', :password => '123456', :password_confirmation => '123456').has_role!(:client, Project.all.shuffle.first)
-8.times { User.make.has_role!(:developer, Project.all[rand(Project.all.count)]) }
-puts "done"
-
-# Create 2 tickets per project
-print "Creating tickets..."
-Project.all.each do |project|
-  2.times { Ticket.make(:project => project) }
-end
-puts "done"
-
-# Create a bunch of work units
-print "Creating work units..."
-
-User.all.each do |user|
-  20.times { WorkUnit.make(:ticket => Ticket.for_user(user).shuffle.first,
-                           :user => user,
-                           :scheduled_at => Date.current.beginning_of_week + (-6..6).to_a.shuffle.first.days ) } unless Ticket.for_user(user).empty?
+def it_is_foretold
+  [true,false].rand
 end
 
-puts "done"
+# Clients #
 
-# Create 2 contacts per client
+4.times { Client.make }
+Client.make status: 'Suspended'
+
+
+# Projects #
+
 Client.all.each do |client|
-  2.times { Contact.make(:client => client) }
+  4.times { Project.make client: client }
 end
 
-# Set one client inactive, one suspended
-Client.all[rand(4)].update_attribute(:status, "Suspended")
-Client.all[rand(4)].update_attribute(:status, "Inactive")
 
-# Lock a user
-User.find_by_email('locked@xrono.org').lock_access!
+# Tickets #
+
+Project.all.each do |project|
+  4.times { Ticket.make project: project }
+end
+
+
+# Users #
+
+admin_user     = User.make :email => 'admin@xrono.org'
+developer_user = User.make :email => 'dev@xrono.org'
+locked_user    = User.make :email => 'locked@xrono.org'
+client_user    = User.make :email => 'client@xrono.org'
+
+developers = [ admin_user, developer_user ]
+8.times { developers.push User.make }
+
+
+# Roles #
+
+admin_user.has_role!(:admin)
+
+locked_user.lock_access!
+
+Project.all.each do |project|
+  developers.each { |developer| developer.has_role!(:developer, project) if it_is_foretold }
+  client_user.has_role!(:client, project) if it_is_foretold
+end
+
+
+# Work Units #
+
+monday = Date.current.monday
+friday = monday + 4
+two_weeks_ago = monday.advance(weeks: -1)
+four_weeks_ago = two_weeks_ago.advance(weeks: -2)
+
+(four_weeks_ago..friday).each do |date|
+  developers.each do |user|
+    tickets = Ticket.for_user user
+
+    unless tickets.empty? or date.saturday? or date.sunday? or date == friday
+      4.times { WorkUnit.make user: user,
+                              ticket: tickets.rand,
+                              scheduled_at: date.to_s,
+                              hours_type: 'Normal' }
+    end
+  end
+end
+
+WorkUnit.scheduled_between(four_weeks_ago, two_weeks_ago).each do |work_unit|
+  work_unit.update_attributes paid: "0987",
+                              paid_at: Date.current.to_time,
+                              invoiced: "6543",
+                              invoiced_at: Date.current.to_time
+end
+
+developers.each do |user|
+  tickets = Ticket.for_user user
+  unless tickets.empty?
+    WorkUnit.make user: user, ticket: tickets.rand, scheduled_at: monday.end_of_week.to_time, hours_type: 'Overtime', hours: 4
+    WorkUnit.make user: user, ticket: tickets.rand, scheduled_at: friday.to_time, hours_type: 'CTO', hours: 8
+  end
+  user.work_units.scheduled_between(monday,monday+2).sample.update_attribute(:hours_type,'PTO')
+end
+
+
+
+# Comments #
+
+Client.all.each do |client|
+  4.times { Comment.make user_id: developers.rand.id, commentable_id: client.id }
+end
+
+
+# Finally, an inactive client
+Client.make status: 'Inactive'

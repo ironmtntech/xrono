@@ -54,3 +54,13 @@ Feature: Payroll report
     Given a work_unit exist with description: "Test Work Unit", ticket: ticket "Test Ticket", hours: 1, scheduled_at: "3000-10-01 00:00:00", created_at: "2010-10-01 00:00:00", user: user
     When I go to the admin payroll show page for the user
     Then I should see "3000/10/01" within ".future"
+
+  Scenario: Work units hours add up to equal total
+    Given I am an authenticated user with an admin role
+    Given a user exists
+    Given a work unit exists with hours: 1, hours_type: "Normal", user: user
+    Given a work unit exists with hours: 1, hours_type: "Normal", user: user
+    Given a work unit exists with hours: 2, hours_type: "Overtime", user: user
+    When I go to the admin payroll show page for the user
+    Then I should see "Total For Pay Period: 5.0 Hours"
+
