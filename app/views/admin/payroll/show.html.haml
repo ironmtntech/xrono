@@ -37,7 +37,7 @@
               %tfoot
                 %tr
                   %td.totals{:colspan => 4}= t(:total)
-                  %td.totals= @work_units.select { |x| x.client == client }.sum(&:hours)
+                  %td.totals= @work_units.select { |x| x.client == client }.sum(&:effective_hours)
           = submit_tag t(:submit)
         %h4= "#{t(:total_for_pay_period)}: #{@work_units.sum(:effective_hours)} #{t(:hours)}"
 
