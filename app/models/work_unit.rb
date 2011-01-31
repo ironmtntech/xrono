@@ -90,4 +90,8 @@ class WorkUnit < ActiveRecord::Base
       end
     end
   end
+
+  def overtime?
+    hours_type == "Overtime"
+  end
 end
