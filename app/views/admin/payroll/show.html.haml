@@ -24,12 +24,12 @@
                   %th.payroll_check= t(:check_number)
               %tbody
                 - @work_units.each do |wu|
-                  - if wu.ticket.project.client == client
+                  - if wu.client == client
                     %tr{ :class => cycle("odd", "even") }
                       %td= wu.description
                       %td{:class => wu.scheduled_at.future? ? "future" : "" }
                         = wu.scheduled_at.strftime("%Y/%m/%d")
-                      %td= wu.hours
+                      %td= wu.effective_hours
                       %td
                         - if wu.overtime?
                           = t(:affirmative)
