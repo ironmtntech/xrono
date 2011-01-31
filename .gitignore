@@ -10,3 +10,4 @@ capybara*
 public/stylesheets/compiled/*
 coverage/
 public/system
+db/seeds.rb
