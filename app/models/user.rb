@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   validates_length_of :middle_initial, :is => 1
 
   has_many :work_units
+  has_many :comments
 
   # Scopes
   scope :with_unpaid_work_units, joins(:work_units).where(' work_units.paid IS NULL OR work_units.paid = "" ').group('users.id')

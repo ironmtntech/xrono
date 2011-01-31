@@ -1,27 +1,20 @@
 require 'machinist/active_record'
 require 'sham'
 require 'faker'
+include Faker
 
 Sham.define do
   # User
-  email                                 { |index| "#{index}" + Faker::Internet.email }
-  first_name(:unique => false)          { Faker::Name.first_name }
-  middle_initial(:unique => false)      { ('a'..'z').to_a.rand.capitalize }
-  last_name(:unique => false)           { Faker::Name.last_name }
-  # Client, Project, Ticket
-  name                                  { Faker::Company.name }
-  initials(:unique => true)             { Array.new(3) { (rand(122-97) + 65).chr}.join }
+  email                          { |index| index.to_s + Internet.email         }
   # Work Unit
-  description(:unique => false)         { Faker::Company.bs }
-  hours(:unique => false)               { rand(5) + 1}
-  scheduled_at(:unique => false)        { Time.now }
-  hours_type(:unique => false)          { ["Normal", "Overtime", "CTO", "PTO"][rand(4)] }
+  description(:unique => false)  { Lorem.paragraph                             }
+  hours(:unique => false)        { BigDecimal("0.1")*rand(9) + rand(3)         }
+  scheduled_at(:unique => false) { Date.current                                }
+  hours_type(:unique => false)   { ["Normal", "Overtime", "CTO", "PTO"].sample }
   # Contact
-  email_address                                 { |index| "#{index}" + Faker::Internet.email }
-  first_name(:unique => false)          { Faker::Name.first_name }
-  last_name(:unique => false)           { Faker::Name.last_name }
-  # Site Settings
-  overtime_multiplier(:unique => false) { rand(3) + 1 }
+  email_address                  { |index| "#{index}" + Internet.email         }
+  first_name(:unique => false)   { Name.first_name                             }
+  last_name(:unique => false)    { Name.last_name                              }
 end
 
 Contact.blueprint do
@@ -33,33 +26,34 @@ end
 
 User.blueprint do
   email
-  password 'password'
-  password_confirmation 'password'
-  first_name
-  last_name
-  middle_initial
+  password                         { '123456'               }
+  password_confirmation            { '123456'               }
+  first_name                       { Name.first_name        }
+  last_name(:unique => false)      { Name.last_name         }
+  middle_initial(:unique => false) { ('A'..'Z').to_a.sample }
 end
 
 Client.blueprint do
-  name
-  initials
-  status { 'Active' }
+  name     { [ Name.last_name, Name.last_name, Company.suffix ].join ' ' }
+  initials { name.scan(/([A-Z])/).join.first(3)                          }
+  status   { 'Active'                                                    }
 end
 
 Project.blueprint do
-  name
-  client { Client.make }
+  name   { Internet.domain_name.humanize }
+  client { Client.make                   }
 end
 
 Ticket.blueprint do
-  name
-  project { Project.make }
+  project     { Project.make                        }
+  name        { Lorem.words(2).join(' ').capitalize }
+  description { Lorem.sentence                      }
 end
 
 WorkUnit.blueprint do
   # Note: The default is for unpaid and for uninvoiced
   ticket { Ticket.make }
-  user { User.make }
+  user   { User.make   }
   description
   hours
   scheduled_at
@@ -75,6 +69,16 @@ WorkUnit.blueprint(:invoiced) do
 end
 
 SiteSettings.blueprint do
-  overtime_multiplier
-  total_yearly_pto_per_user { 40 }
+  overtime_multiplier       { rand(3) + 1 }
+  total_yearly_pto_per_user { 40          }
 end
+
+Comment.blueprint do
+  title            { Lorem.words(2).join(' ')            }
+  comment          { Lorem.words(5).join(' ').capitalize }
+  commentable_id   { Client.make.id                      }
+  commentable_type { 'Client'                            }
+  user_id          { User.make                           }
+  active           { true                                }
+end
+
