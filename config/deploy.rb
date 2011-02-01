@@ -1,11 +1,3 @@
-require 'erb'
-
-# RVM bootstrap
-$:.unshift(File.expand_path("~/.rvm/lib"))
-require 'rvm/capistrano'
-set :rvm_ruby_string, '1.9.2-head@xrono'
-set :rvm_type, :user
-
 # Bundler bootstrap
 require 'bundler/capistrano'
 
@@ -52,6 +44,7 @@ namespace :deploy do
   desc "Symlink shared resources on each release"
   task :symlink_shared, :roles => :app do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/config/initializers/gmail.rb #{release_path}/config/initializers/gmail.rb"
   end
 end
 
