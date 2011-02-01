@@ -8,14 +8,25 @@ class Ticket < ActiveRecord::Base
   validates_presence_of :project_id
   validates_presence_of :name
 
-  scope :for_client, lambda{|client| joins({:project => [:client]}).where("clients.id = ?", client.id) }
-  scope :for_project, lambda {|project| where('project_id = ?', project.id) }
+  scope :for_client,     lambda{|client|     joins({:project => [:client]}).where("clients.id = ?", client.id) }
+  scope :for_project,    lambda{|project|    where('project_id = ?', project.id) }
+  scope :for_project_id, lambda{|project_id| where :project_id => project_id }
 
   scope :sort_by_name, order('name ASC')
 
-  def self.for_user(user)
-    select {|t| t.allows_access?(user) }
-  end
+  named_scope :for_user, lambda{|user|
+    joins("INNER JOIN projects     p ON p.id=tickets.project_id")
+   .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
+   .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
+   .where("ru.user_id = #{user.id}")
+  }
+
+  named_scope :for_user_and_role, lambda{|user, role|
+    joins("INNER JOIN projects     p ON p.id=tickets.project_id")
+   .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
+   .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
+   .where("ru.user_id = #{user.id} AND r.name = '#{role}'")
+  }
 
   def client
     project.client
