@@ -1,11 +1,3 @@
-require 'erb'
-
-# RVM bootstrap
-$:.unshift(File.expand_path("~/.rvm/lib"))
-require 'rvm/capistrano'
-set :rvm_ruby_string, '1.9.2-head@xrono'
-set :rvm_type, :user
-
 # Bundler bootstrap
 require 'bundler/capistrano'
 
