@@ -21,6 +21,8 @@ class WorkUnitsController < ApplicationController
       render :json => {:success => false, :errors => "You must select a ticket." }, :layout => false, :status => 406 and return
     elsif params[:work_unit][:hours].blank?
       render :json => {:success => false, :errors => "You must input number of hours." }, :layout => false, :status => 406 and return
+    elsif params[:hours_type].blank?
+      render :json => {:success => false, :errors => "You must select an hours type." }, :layout => false, :status => 406 and return
     elsif params[:work_unit][:description].blank?
       render :json => {:success => false, :errors => "You must supply a description for the work unit." }, :layout => false, :status => 406 and return
     end
