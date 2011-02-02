@@ -12,7 +12,7 @@
     = yield :head
   %body
     #header
-      .wrapper
+      %div{class: "wrapper #{current_user.full_width ? 'full_width' : nil}"}
         - if current_user
           %a{:class => "logout", :href =>" /logout"} 
             Logout 
@@ -21,9 +21,10 @@
             = image_tag @site_settings.site_logo.url
             %span= t(:company_name)
       #nav
-        .wrapper= render :partial => "shared/menu"
+        %div{class: "wrapper #{current_user.full_width ? 'full_width' : nil}"}
+          = render :partial => "shared/menu"
     #content
-      .wrapper
+      %div{class: "wrapper #{current_user.full_width ? 'full_width' : nil}"}
         = render :partial => "shared/flashes"
         .yui3-g
           - if (content_column_right = yield :content_column_right).empty?
@@ -33,7 +34,7 @@
             .yui3-u-1-5= yield :content_column_right
     .clear
     #footer
-      .wrapper
+      %div{class: "wrapper #{current_user.full_width ? 'full_width' : nil}"}
         %p
           &copy; 
           = t(:company_name)

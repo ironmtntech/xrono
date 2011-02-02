@@ -1,3 +1,6 @@
+- content_for :javascripts do
+  = javascript_include_tag "calendar"
+
 %table
   %thead
     %tr.calendar_top
@@ -18,7 +21,12 @@
               - user.work_units_for_day(date).each do |work_unit|
                 %li{:class => "work_unit " << work_unit.hours_type.downcase }
                   = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description }
+                  %span.description= '- ' + work_unit.description
+
       %td
         %ul
           %li#current_hours= "#{t(:current)}: #{user.unpaid_work_units.sum(:effective_hours)}"
           %li#pto_left= "#{t(:pto_left)}: #{user.pto_hours_left(start_date)}"
+          %button#button Click Me
+
+

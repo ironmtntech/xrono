@@ -54,6 +54,9 @@ body {
 .wrapper {
   margin: auto; /* center in viewport */
   width: 974px;
+  &.full_width {
+    width: 98%; 
+  }
   .logout {
     float:right;
     padding: 4px 9px 0 0;
@@ -300,6 +303,9 @@ h4.dashboard_title {
     }
     &.cto a, &.pto a {
       color: #33840c; 
+    }
+    .description {
+      display: none;
     }
   }
 }
