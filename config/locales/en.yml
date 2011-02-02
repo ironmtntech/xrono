@@ -172,3 +172,5 @@ en:
   remove_site_logo: "Remove site logo"
   marked_attachment_as_invalid: "Attachment was marked as invalid."
   could_not_mark_attachment_as_invalid: "Couldn't mark attachment as invalid."
+  edit_user: "Edit User"
+  full_width: "Full Width"
