@@ -6,103 +6,110 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-unless RAILS_ENV == "production"
+require File.expand_path(File.dirname(__FILE__) + "../../spec/blueprints")
 
-  require File.expand_path(File.dirname(__FILE__) + "../../spec/blueprints")
+def it_is_foretold
+  [true,false].rand
+end
 
-  def it_is_foretold
-    [true,false].rand
-  end
+# Clients #
 
-  # Clients #
-
-  4.times { Client.make }
-  Client.make status: 'Suspended'
+4.times { Client.make }
+Client.make status: 'Suspended'
 
 
-  # Projects #
+# Projects #
 
-  Client.all.each do |client|
-    4.times { Project.make client: client }
-  end
-
-
-  # Tickets #
-
-  Project.all.each do |project|
-    4.times { Ticket.make project: project }
-  end
+Client.all.each do |client|
+  4.times { Project.make client: client }
+end
 
 
-  # Users #
+# Tickets #
 
-  admin_user     = User.make :email => 'admin@xrono.org'
-  developer_user = User.make :email => 'dev@xrono.org'
-  locked_user    = User.make :email => 'locked@xrono.org'
-  client_user    = User.make :email => 'client@xrono.org'
-
-  developers = [ admin_user, developer_user ]
-  8.times { developers.push User.make }
+Project.all.each do |project|
+  4.times { Ticket.make project: project }
+end
 
 
-  # Roles #
+# Users #
 
-  admin_user.has_role!(:admin)
+admin_user     = User.make :email => 'admin@xrono.org'
+developer_user = User.make :email => 'dev@xrono.org'
+locked_user    = User.make :email => 'locked@xrono.org'
+client_user    = User.make :email => 'client@xrono.org'
 
-  locked_user.lock_access!
-
-  Project.all.each do |project|
-    developers.each { |developer| developer.has_role!(:developer, project) if it_is_foretold }
-    client_user.has_role!(:client, project) if it_is_foretold
-  end
+developers = [ admin_user, developer_user ]
+8.times { developers.push User.make }
 
 
-  # Work Units #
+# Roles #
 
-  monday = Date.current.monday
-  friday = monday + 4
-  two_weeks_ago = monday.advance(weeks: -1)
-  four_weeks_ago = two_weeks_ago.advance(weeks: -2)
+admin_user.has_role!(:admin)
 
-  (four_weeks_ago..friday).each do |date|
-    developers.each do |user|
-      tickets = Ticket.for_user user
+locked_user.lock_access!
 
-      unless tickets.empty? or date.saturday? or date.sunday? or date == friday
-        4.times { WorkUnit.make user: user,
-                                ticket: tickets.rand,
-                                scheduled_at: date.to_s,
-                                hours_type: 'Normal' }
-      end
-    end
-  end
+Project.all.each do |project|
+  developers.each { |developer| developer.has_role!(:developer, project) if it_is_foretold }
+  client_user.has_role!(:client, project) if it_is_foretold
+end
 
-  WorkUnit.scheduled_between(four_weeks_ago, two_weeks_ago).each do |work_unit|
-    work_unit.update_attributes paid: "0987",
-                                paid_at: Date.current.to_time,
-                                invoiced: "6543",
-                                invoiced_at: Date.current.to_time
-  end
 
+# Work Units #
+
+monday = Date.current.monday
+friday = monday + 4
+two_weeks_ago = monday.advance(weeks: -1)
+four_weeks_ago = two_weeks_ago.advance(weeks: -2)
+
+(four_weeks_ago..friday).each do |date|
   developers.each do |user|
     tickets = Ticket.for_user user
-    unless tickets.empty?
-      WorkUnit.make user: user, ticket: tickets.rand, scheduled_at: monday.end_of_week.to_time, hours_type: 'Overtime', hours: 4
-      WorkUnit.make user: user, ticket: tickets.rand, scheduled_at: friday.to_time, hours_type: 'CTO', hours: 8
+
+    unless tickets.empty? or date.saturday? or date.sunday? or date == friday
+      4.times { WorkUnit.make user: user,
+                              ticket: tickets.rand,
+                              scheduled_at: date.to_s,
+                              hours_type: 'Normal' }
     end
-    user.work_units.scheduled_between(monday,monday+2).sample.update_attribute(:hours_type,'PTO')
   end
-
-
-
-  # Comments #
-
-  Client.all.each do |client|
-    4.times { Comment.make user_id: developers.rand.id, commentable_id: client.id }
-  end
-
-
-  # Finally, an inactive client
-  Client.make status: 'Inactive'
-
 end
+
+WorkUnit.scheduled_between(four_weeks_ago, two_weeks_ago).each do |work_unit|
+  work_unit.update_attributes paid: "0987",
+                              paid_at: Date.current.to_time,
+                              invoiced: "6543",
+                              invoiced_at: Date.current.to_time
+end
+
+developers.each do |user|
+  tickets = Ticket.for_user user
+  unless tickets.empty?
+    WorkUnit.make user: user, ticket: tickets.rand, scheduled_at: monday.end_of_week.to_time, hours_type: 'Overtime', hours: 4
+    WorkUnit.make user: user, ticket: tickets.rand, scheduled_at: friday.to_time, hours_type: 'CTO', hours: 8
+  end
+  user.work_units.scheduled_between(monday,monday+2).sample.update_attribute(:hours_type,'PTO')
+end
+
+
+
+# Comments #
+
+Client.all.each do |client|
+  4.times { Comment.make user_id: developers.rand.id, commentable_id: client.id }
+end
+
+
+# Finally, an inactive client
+Client.make status: 'Inactive'
+
+
+# Delete uploaded files, and log file
+begin
+  FileUtils.rm_r "#{::Rails.root.to_s}/public/system"
+rescue
+  nil
+end
+FileUtils.rm "#{::Rails.root.to_s}/log/#{RAILS_ENV}.log"
+FileUtils.touch "#{::Rails.root.to_s}/log/#{RAILS_ENV}.log"
+
