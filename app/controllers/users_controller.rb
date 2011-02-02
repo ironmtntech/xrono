@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
   before_filter :load_user, :only => [:show, :edit, :change_password, :historical_time]
-  before_filter :require_current_user, :only => [:edit, :change_password]
+
+  access_control do
+    allow :admin
+    allow :developer, :to => [:edit, :change_password], :if => :user_is_current_user?
+    allow :developer, :to => [:index, :show, :historical_time]
+    allow :client, :to => [:edit, :change_password], :if => :user_is_current_user?
+    allow :client, :to => [:index, :show, :historical_time]
+  end
 
   def index
     @users = User.unlocked.sort_by_name
@@ -28,16 +35,14 @@ class UsersController < ApplicationController
   def historical_time
   end
 
-  protected
+  private
 
     def load_user
       @user = User.find(params[:id])
     end
 
-    def require_current_user
-      unless @user == current_user
-        flash[:error] = t(:cannot_make_changes_to_another_user)
-        redirect_to dashboard_path
-      end
+    def user_is_current_user?
+      @user == current_user
     end
+
 end
