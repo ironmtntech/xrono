@@ -8,7 +8,7 @@
         %ul.subnav
           %li= link_to t(:historical_time_report), historical_time_user_path
           - if @user == current_user
-            %li= link_to t(:change_password), edit_user_path(@user)
+            %li= link_to "Edit User", edit_user_path(@user)
 .yui3-g
   .yui3-u-1
     .gradient_border_wrap

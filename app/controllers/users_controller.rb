@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :load_user, :only => [:show, :edit, :change_password, :historical_time]
+  before_filter :load_user, :only => [:show, :edit, :change_password, :historical_time, :update]
   before_filter :require_current_user, :only => [:edit, :change_password]
 
   def index
@@ -26,6 +26,18 @@ class UsersController < ApplicationController
   end
 
   def historical_time
+  end
+
+  def update
+    @user.full_width = params[:user][:full_width]
+    if @user.save
+      flash[:notice] = t(:user_updated_successfully)
+      redirect_to @user
+    else
+      flash.now[:error] = t(:user_updated_unsuccessfully)
+      render :action => 'edit'
+    end
+
   end
 
   protected

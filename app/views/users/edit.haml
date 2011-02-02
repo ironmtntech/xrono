@@ -1,1 +1,18 @@
-= render :partial => "change_password_form", :locals => {:user => @user}
+
+.yui3-g
+  .yui3-u-1
+    %h2= t(:edit_user)
+.yui3-g
+  .yui3-u-1-2
+    .gradient_border_wrap
+      .gradient_border_content
+        = form_for @user do |u|
+          %p
+            %label{:for => "full_width"}= t(:full_width)
+            = u.check_box(:full_width)
+          %p
+            = submit_tag t(:update)
+  .yui3-u-1-2
+    .gradient_border_wrap
+      .gradient_border_content
+        = render :partial => "change_password_form", :locals => {:user => @user}
