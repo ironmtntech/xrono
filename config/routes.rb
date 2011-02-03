@@ -24,11 +24,11 @@ AssetTrackerTutorial::Application.routes.draw do
     resources :contacts
   end
 
-  resources :projects do
+  resources :projects, :except => [:index, :destroy] do
     resources :comments
   end
 
-  resources :tickets do
+  resources :tickets, :except => [:index, :destroy] do
     resources :comments
   end
 
