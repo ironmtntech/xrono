@@ -17,6 +17,9 @@
   .work_unit_field
     = f.label :status
     = f.select :status, client_status_select(@client.status)
+  .work_unit_field
+    = f.label :overtime_multiplier
+    = f.text_field :overtime_multiplier
   .actions
     = f.submit :class => "add_new_button"
     = link_to t(:cancel), clients_path, :class => "cancel_button"
