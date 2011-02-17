@@ -263,7 +263,7 @@ h4.dashboard_title {
   }
 }
 
-#calendar table {
+.calendar table {
   border: 1px solid #ccc;
   width:100%;
   font-size:1.1em;
@@ -283,6 +283,11 @@ h4.dashboard_title {
     font-size:1.1em;
     color:#f2f1f1;
     @include linear-gradient(color-stops(#9fa8aa, #acbabd));
+    a.expand {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   }
   tbody {
     @include linear-gradient(color-stops(#fff, #ececec));
@@ -310,7 +315,7 @@ h4.dashboard_title {
   }
 }
 
-#client table th, .gradient_border_content table th, #calendar th, .users th, .clients th {
+#client table th, .gradient_border_content table th, .calendar th, .users th, .clients th {
   background:#577084\0;
 }
 

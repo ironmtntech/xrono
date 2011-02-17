@@ -10,7 +10,7 @@
   .yui3-u-1
     .gradient_border_wrap
       .gradient_border_content
-        #calendar
+        .calendar
           = render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user }
         %p.week_pagination
           = render :partial => 'dashboard/base/week_pagination', :locals => { :start_date => @start_date }

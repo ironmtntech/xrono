@@ -1,6 +1,6 @@
 //hide/show work unit description
 function set_trigger_for_work_unit(){
-  $('#button').click(function() {
+  $('.expand').click(function() {
     $('.description').each(function() {
       $(this).toggle('fast');
     });
