@@ -284,9 +284,8 @@ h4.dashboard_title {
     color:#f2f1f1;
     @include linear-gradient(color-stops(#9fa8aa, #acbabd));
     a.expand {
-      position: absolute;
-      top: 0;
-      right: 0;
+      float: right;
+      text-decoration: none;
     }
   }
   tbody {
@@ -315,7 +314,7 @@ h4.dashboard_title {
   }
 }
 
-#client table th, .gradient_border_content table th, .calendar th, .users th, .clients th {
+#client table th, .gradient_border_content table th, #calendar th, .users th, .clients th {
   background:#577084\0;
 }
 
