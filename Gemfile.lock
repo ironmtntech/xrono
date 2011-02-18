@@ -176,8 +176,8 @@ GEM
       json_pure
       rubyzip
     shoulda (2.11.3)
-    simplecov (0.3.9)
-      simplecov-html (>= 0.3.7)
+    simplecov (0.4.0)
+      simplecov-html (~> 0.4.0)
     simplecov-html (0.4.3)
     spork (0.8.4)
     term-ansicolor (1.0.5)
@@ -227,7 +227,7 @@ DEPENDENCIES
   rspec-rails (= 2.0.1)
   ruby-debug19
   shoulda (~> 2.11.3)
-  simplecov (~> 0.3.6)
+  simplecov (~> 0.4.0)
   spork (~> 0.8.4)
   thin (~> 1.2.7)
   uuid (~> 2.3.1)
