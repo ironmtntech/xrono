@@ -36,15 +36,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.full_width = params[:user][:full_width]
-    if @user.save
+    if @user.update_attributes(params[:user])
       flash[:notice] = t(:user_updated_successfully)
       redirect_to @user
     else
       flash.now[:error] = t(:user_updated_unsuccessfully)
       render :action => 'edit'
     end
-
   end
 
   private
