@@ -12,6 +12,9 @@
   .field
     = f.label :name
     = f.text_field :name
+  .field
+    = f.label :overtime_multiplier
+    = f.text_field :overtime_multiplier
     = hidden_field_tag :client, @project.client.id
   .actions
     = f.submit :class => "add_new_button"

@@ -4,7 +4,7 @@ class WorkUnit < ActiveRecord::Base
   has_many :comments, :as => :commentable
   belongs_to :ticket
   belongs_to :user
-  validates_presence_of :ticket_id, :user_id, :description, :hours, :scheduled_at, :effective_hours
+  validates_presence_of :ticket_id, :user_id, :description, :hours, :scheduled_at, :effective_hours, :hours_type
 
   scope :scheduled_between, lambda{|start_time, end_time| where('scheduled_at BETWEEN ? AND ?', start_time, end_time) }
   scope :unpaid, lambda{ where('paid IS NULL or paid = ""') }
@@ -93,5 +93,9 @@ class WorkUnit < ActiveRecord::Base
         self.effective_hours = hours
       end
     end
+  end
+
+  def overtime?
+    hours_type == "Overtime"
   end
 end

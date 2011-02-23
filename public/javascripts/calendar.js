@@ -1,12 +1,9 @@
 //hide/show work unit description
-function set_trigger_for_work_unit(){
-  $('#button').click(function() {
-    $('.description').each(function() {
-      $(this).toggle('fast');
-    });
+$('.expand').click(function() {
+  $(this).parents('.calendar').find('a').siblings('.description').each(function() {
+    $(this).toggle('fast');
   });
-};
-
-set_trigger_for_work_unit();
+  return false;
+});
 
 

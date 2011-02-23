@@ -3,13 +3,13 @@ For your records, a new work unit has been created:
 Client: <%= @work_unit.client %>
 Ticket: <%= @work_unit.ticket %>
 
-Scheduled On: <%= @work_unit.scheduled_at %>
+Scheduled On: <%= @work_unit.scheduled_at.strftime("%m/%d/%Y") %>
 Developer: <%= @work_unit.user %>
 Hours: <%= @work_unit.hours.to_s %>
 Description: <%= @work_unit.description %>
 GUID: <%= @work_unit.guid %>
 
-Total uninvoiced hours as of <%= Time.current -%>: <%= @work_unit.client %>
+Total uninvoiced hours as of <%= Time.current.strftime("%m/%d/%Y %I:%M %p") -%>: <%= @work_unit.client.work_units.not_invoiced.sum(:effective_hours) %>
 
 Thanks,
 The Xrono Team
