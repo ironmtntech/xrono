@@ -37,7 +37,7 @@ Feature: Client Management
     And I am assigned to the project
     When I am on the client's page
     Then I should see "Projects"
-    And I should not see a link with text "Edit"
+    And I should not see a link with text "Edit" within "#client_details"
 
   Scenario: View a client as an admin
     Given I am an authenticated user with an admin role

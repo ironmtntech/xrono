@@ -10,3 +10,5 @@ capybara*
 public/stylesheets/compiled/*
 coverage/
 public/system
+.DS_Store
+tags

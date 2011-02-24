@@ -30,7 +30,11 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def send_email!
-    Notifier.work_unit_notification(self, email_list).deliver if email_list.length > 0
+    begin
+      Notifier.work_unit_notification(self, email_list).deliver if email_list.length > 0
+    rescue Exception => e
+      logger.warn("At #{Time.now} couldn't deliver notification email for Work Unit: #{ self.id }\n\nHere's the issue: #{e.message}")
+    end
   end
 
   def email_list

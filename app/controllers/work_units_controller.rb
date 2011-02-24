@@ -2,7 +2,7 @@ class WorkUnitsController < ApplicationController
   before_filter :check_for_params, :only => [:create]
   before_filter :load_new_work_unit, :only => [:new, :create]
   before_filter :load_work_unit, :only => [:show, :edit, :update]
-  before_filter :require_access
+  before_filter :load_project
 
   access_control do
     allow :admin
@@ -10,43 +10,11 @@ class WorkUnitsController < ApplicationController
     allow :client, :of => :project, :to => :show
   end
 
-  protected
-
-  def check_for_params
-    if params[:work_unit][:client_id].blank?
-      render :json => {:success => false, :errors => "You must select a client." }, :layout => false, :status => 406 and return
-    elsif params[:work_unit][:project_id].blank?
-      render :json => {:success => false, :errors => "You must select a project." }, :layout => false, :status => 406 and return
-    elsif params[:work_unit][:ticket_id].blank?
-      render :json => {:success => false, :errors => "You must select a ticket." }, :layout => false, :status => 406 and return
-    elsif params[:work_unit][:hours].blank?
-      render :json => {:success => false, :errors => "You must input number of hours." }, :layout => false, :status => 406 and return
-    elsif params[:hours_type].blank?
-      render :json => {:success => false, :errors => "You must select an hours type." }, :layout => false, :status => 406 and return
-    elsif params[:work_unit][:description].blank?
-      render :json => {:success => false, :errors => "You must supply a description for the work unit." }, :layout => false, :status => 406 and return
-    end
-  end
-
-  def load_new_work_unit
-    _params = (params[:work_unit] || {}).dup
-    _params.delete :client_id
-    _params.delete :project_id
-    @work_unit = WorkUnit.new(_params)
-    @work_unit.user = current_user
-    @work_unit.scheduled_at = Time.zone.parse(_params[:scheduled_at])
-    @work_unit.hours_type = params[:hours_type]
-  end
-
-  def load_work_unit
-    @work_unit = WorkUnit.find(params[:id])
-  end
-
-  public
-
+  # GET /work_units/new
   def new
   end
 
+  # POST /work_units
   def create
     if @work_unit.save
       suspended = @work_unit.client.status == "Suspended"
@@ -68,12 +36,15 @@ class WorkUnitsController < ApplicationController
     end
   end
 
+  # GET /work_units/:id
   def show
   end
 
+  # GET /work_units/:id/edit
   def edit
   end
 
+  # PUT /work_units/:id
   def update
     if @work_unit.update_attributes(params[:work_unit])
       flash[:notice] = t(:work_unit_updated_successfully)
@@ -86,10 +57,38 @@ class WorkUnitsController < ApplicationController
 
   private
 
-  def require_access
-    unless @work_unit.allows_access?(current_user)
-      flash[:notice] = t(:access_denied)
-      redirect_to root_path
+    def load_project
+      @project = @work_unit.project
     end
-  end
+
+    def check_for_params
+      if params[:work_unit][:client_id].blank?
+        render :json => {:success => false, :errors => "You must select a client." }, :layout => false, :status => 406 and return
+      elsif params[:work_unit][:project_id].blank?
+        render :json => {:success => false, :errors => "You must select a project." }, :layout => false, :status => 406 and return
+      elsif params[:work_unit][:ticket_id].blank?
+        render :json => {:success => false, :errors => "You must select a ticket." }, :layout => false, :status => 406 and return
+      elsif params[:work_unit][:hours].blank?
+        render :json => {:success => false, :errors => "You must input number of hours." }, :layout => false, :status => 406 and return
+      elsif params[:hours_type].blank?
+        render :json => {:success => false, :errors => "You must select an hours type." }, :layout => false, :status => 406 and return
+      elsif params[:work_unit][:description].blank?
+        render :json => {:success => false, :errors => "You must supply a description for the work unit." }, :layout => false, :status => 406 and return
+      end
+    end
+
+    def load_new_work_unit
+      _params = (params[:work_unit] || {}).dup
+      _params.delete :client_id
+      _params.delete :project_id
+      @work_unit = WorkUnit.new(_params)
+      @work_unit.user = current_user
+      @work_unit.scheduled_at = Time.zone.parse(_params[:scheduled_at])
+      @work_unit.hours_type = params[:hours_type]
+    end
+
+    def load_work_unit
+      @work_unit = WorkUnit.find(params[:id])
+    end
+
 end
