@@ -1,3 +1,6 @@
+- content_for :javascripts do
+  = javascript_include_tag "calendar"
+
 .yui3-g
   .yui3-u-1
     %h2= @user
@@ -8,7 +11,7 @@
         %ul.subnav
           %li= link_to t(:historical_time_report), historical_time_user_path
           - if @user == current_user
-            %li= link_to t(:change_password), edit_user_path(@user)
+            %li= link_to "Edit User", edit_user_path(@user)
 .yui3-g
   .yui3-u-1
     .gradient_border_wrap
@@ -23,3 +26,4 @@
         .clear    
         = render :partial => 'shared/calendar', :locals => { :start_date => Date.current.beginning_of_week, :user => @user }
         = render :partial => 'shared/calendar', :locals => { :start_date => Date.current.advance({:weeks => -1}).beginning_of_week, :user => @user }
+

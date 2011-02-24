@@ -4,7 +4,7 @@ class WorkUnit < ActiveRecord::Base
   has_many :comments, :as => :commentable
   belongs_to :ticket
   belongs_to :user
-  validates_presence_of :ticket_id, :user_id, :description, :hours, :scheduled_at, :effective_hours
+  validates_presence_of :ticket_id, :user_id, :description, :hours, :scheduled_at, :effective_hours, :hours_type
 
   scope :scheduled_between, lambda{|start_time, end_time| where('scheduled_at BETWEEN ? AND ?', start_time, end_time) }
   scope :unpaid, lambda{ where('paid IS NULL or paid = ""') }
@@ -30,7 +30,11 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def send_email!
-    Notifier.work_unit_notification(self, email_list).deliver if email_list.length > 0
+    begin
+      Notifier.work_unit_notification(self, email_list).deliver if email_list.length > 0
+    rescue Exception => e
+      logger.warn("At #{Time.now} couldn't deliver notification email for Work Unit: #{ self.id }\n\nHere's the issue: #{e.message}")
+    end
   end
 
   def email_list

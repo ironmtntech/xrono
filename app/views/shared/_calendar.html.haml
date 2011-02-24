@@ -1,24 +1,33 @@
-%table
-  %thead
-    %tr.calendar_top
-      - (0..6).map{|x| start_date + x.days }.each do |date|
-        %th= "#{date.asctime[0]} - #{date.day}"
-      %th= "#{t(:totals)}:"
-  %tfoot
-    %tr.calendar_foot
-      - (0..6).map{|x| start_date + x.days }.each do |date|
-        %td= "#{t(:total)}: #{user.work_units_for_day(date).sum(:effective_hours)}"
-      %td= "#{t(:week)}: #{user.work_units_for_week(start_date).sum(:effective_hours)}"
-  %tbody
-    %tr
-      - (start_date..(start_date + 6.days)).each do |date|
+.calendar
+  %table
+    %thead
+      %tr.calendar_top
+        - (0..6).map{|x| start_date + x.days }.each do |date|
+          %th= "#{date.asctime[0]} - #{date.day}"
+        %th
+          = link_to '[+/-]', '#', :class => 'expand'
+          = "#{t(:totals)}:"
+    %tfoot
+      %tr.calendar_foot
+        - (0..6).map{|x| start_date + x.days }.each do |date|
+          %td= "#{t(:total)}: #{user.work_units_for_day(date).sum(:effective_hours)}"
+        %td= "#{t(:week)}: #{user.work_units_for_week(start_date).sum(:effective_hours)}"
+    %tbody
+      %tr
+        - (start_date..(start_date + 6.days)).each do |date|
+          %td
+            - unless user.work_units_for_day(date).empty?
+              %ul
+                - user.work_units_for_day(date).each do |work_unit|
+                  %li{:class => "work_unit " << work_unit.hours_type.downcase }
+                    = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description }
+                    %span.description= '- ' + work_unit.description
+
         %td
-          - unless user.work_units_for_day(date).empty?
+          - if start_date == Date.today.beginning_of_week
             %ul
-              - user.work_units_for_day(date).each do |work_unit|
-                %li{:class => "work_unit " << work_unit.hours_type.downcase }
-                  = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description }
-      %td
-        %ul
-          %li#current_hours= "#{t(:current)}: #{user.unpaid_work_units.sum(:effective_hours)}"
-          %li#pto_left= "#{t(:pto_left)}: #{user.pto_hours_left(start_date)}"
+              %li#current_hours= "#{t(:current)}: #{user.unpaid_work_units.sum(:effective_hours)}"
+              %li#pto_left= "#{t(:pto_left)}: #{user.pto_hours_left(Date.today)}"
+              - if user.daily_target_hours
+                %li#target_hours= "#{t(:target_hours_offset)}: #{user.target_hours_offset(Date.today).to_s}"
+

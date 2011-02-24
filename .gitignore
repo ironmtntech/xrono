@@ -11,3 +11,5 @@ public/stylesheets/compiled/*
 coverage/
 public/system
 db/seeds.rb
+.DS_Store
+tags
