@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :first_name, :last_name, :middle_initial
+                  :first_name, :last_name, :middle_initial, :full_width,
+                  :daily_target_hours
 
   validates_presence_of :first_name, :last_name
   validates_length_of :middle_initial, :is => 1
@@ -60,4 +61,18 @@ class User < ActiveRecord::Base
     time = date.to_time_in_current_zone
     SiteSettings.first.total_yearly_pto_per_user - work_units.pto.scheduled_between(time.beginning_of_year, time.end_of_year).sum(:hours)
   end
+
+  def expected_hours(date)
+    raise "Date must be a date object" unless date.is_a?(Date)
+    days_from_prev_weeks = (date.cweek - 1) * 5
+    days_from_cur_week = [date.cwday, 5].min
+    (days_from_prev_weeks + days_from_cur_week) * daily_target_hours
+  end
+
+  def target_hours_offset(date)
+    raise "Date must be a date object" unless date.is_a?(Date)
+    worked_hours = WorkUnit.for_user(self).scheduled_between(date.beginning_of_year, date.end_of_day).sum(:effective_hours)
+    worked_hours - expected_hours(date)
+  end
+
 end

@@ -8,10 +8,13 @@
       .gradient_border_content
         = form_for @user do |u|
           %p
-            %label{:for => "full_width"}= t(:full_width)
+            = u.label :full_width, t(:full_width)
             = u.check_box(:full_width)
           %p
-            = submit_tag t(:update)
+            = u.label :daily_target_hours, t(:daily_target_hours) 
+            = u.text_field(:daily_target_hours)
+          %p
+            = u.submit t(:update)
   .yui3-u-1-2
     .gradient_border_wrap
       .gradient_border_content
