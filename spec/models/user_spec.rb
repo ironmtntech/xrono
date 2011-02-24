@@ -182,21 +182,9 @@ describe User do
     end
 
     it 'should calculate the hours a user needs to meet their daily target hours' do
+      pending()
       should == something
-      
     end
   end
-
-  #def expected_hours(date)
-  #  weekly_hours = (date.cweek - 1) * daily_target_hours * 5
-  #  eff_day = [date.cwday, 5].min
-  #  daily_hours = eff_day * daily_target_hours
-  #  weekly_hours + daily_hours
-  #end
-
-  #def target_hours_offset(date)
-  #  worked_hours = WorkUnit.for_user(self).scheduled_between(date.beginning_of_year, date.end_of_day).sum(:effective_hours)
-  #  worked_hours - expected_hours(date)
-  #end
 
 end
