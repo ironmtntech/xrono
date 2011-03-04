@@ -10,7 +10,7 @@ describe User do
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }
 
-  describe '#with_unpaid_work_units' do
+  describe '.with_unpaid_work_units' do
     subject { User.with_unpaid_work_units }
 
     before do
@@ -23,7 +23,7 @@ describe User do
     end
   end
 
-  describe '#unlocked' do
+  describe '.unlocked' do
     subject { User.unlocked }
 
     before { user.unlock_access! }
@@ -33,7 +33,7 @@ describe User do
     end
   end
 
-  describe '#sort_by_name' do
+  describe '.sort_by_name' do
     subject { User.sort_by_name }
 
     before do
@@ -46,7 +46,7 @@ describe User do
     end
   end
 
-  describe '.initials' do
+  describe '#initials' do
     subject { user.initials }
 
     before { user.update_attributes(:first_name => 'Aaron', :middle_initial => 'B', :last_name => 'Crenshaw') }
@@ -56,7 +56,7 @@ describe User do
     end
   end
 
-  describe '.work_units_for_day' do
+  describe '#work_units_for_day' do
     subject { user.work_units_for_day(Date.current) }
 
     before do
@@ -69,7 +69,7 @@ describe User do
     end
   end
 
-  describe '.clients_for_day' do
+  describe '#clients_for_day' do
     subject { user.clients_for_day(Date.current) }
 
     before do
@@ -84,7 +84,7 @@ describe User do
     end
   end
 
-  describe '.work_units_for_week' do
+  describe '#work_units_for_week' do
     subject { user.work_units_for_week(Date.current) }
 
     before do
@@ -97,7 +97,7 @@ describe User do
     end
   end
 
-  describe '.unpaid_work_units' do
+  describe '#unpaid_work_units' do
     subject { user.unpaid_work_units }
 
     before do
@@ -111,7 +111,7 @@ describe User do
     end
   end
 
-  describe '.to_s' do
+  describe '#to_s' do
     subject { user.to_s }
 
     before { user.update_attributes(:first_name => 'Aaron', :middle_initial => 'B', :last_name => 'Crenshaw') }
@@ -121,7 +121,7 @@ describe User do
     end
   end
 
-  describe '.admin?' do
+  describe '#admin?' do
     subject { user.admin? }
 
     context 'when the user has an admin role' do
@@ -135,7 +135,7 @@ describe User do
     end
   end
 
-  describe '.locked' do
+  describe '#locked' do
     subject { user.locked }
 
     context 'when the user is locked' do
@@ -149,7 +149,7 @@ describe User do
     end
   end
 
-  describe '.pto_hours_left' do
+  describe '#pto_hours_left' do
     subject { user.pto_hours_left(Date.parse('2011-01-01')) }
 
     let(:site_settings) { SiteSettings.make }

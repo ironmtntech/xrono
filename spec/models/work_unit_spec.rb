@@ -17,7 +17,7 @@ describe WorkUnit do
   it { should validate_presence_of :effective_hours }
 
 
-  describe '#scheduled_between' do
+  describe '.scheduled_between' do
     subject { WorkUnit.scheduled_between(Date.yesterday.beginning_of_day, Date.current.end_of_day) }
 
     before do
@@ -30,7 +30,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#unpaid' do
+  describe '.unpaid' do
     subject { WorkUnit.unpaid }
 
     before do
@@ -43,7 +43,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#not_invoiced' do
+  describe '.not_invoiced' do
     subject { WorkUnit.not_invoiced }
 
     before do
@@ -56,7 +56,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#for_client' do
+  describe '.for_client' do
     subject { WorkUnit.for_client client }
 
     let(:ticket) { Ticket.make }
@@ -72,7 +72,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#for_project' do
+  describe '.for_project' do
     subject { WorkUnit.for_project project }
 
     let(:ticket) { Ticket.make }
@@ -88,7 +88,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#for_ticket' do
+  describe '.for_ticket' do
     subject { WorkUnit.for_ticket ticket }
 
     let(:ticket) { Ticket.make }
@@ -103,7 +103,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#for_user' do
+  describe '.for_user' do
     subject { WorkUnit.for_user user }
 
     let(:user) { User.make }
@@ -118,7 +118,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#sort_by_scheduled_at' do
+  describe '.sort_by_scheduled_at' do
     subject { WorkUnit.sort_by_scheduled_at }
 
     before do
@@ -131,7 +131,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#pto' do
+  describe '.pto' do
     subject { WorkUnit.pto }
 
     before do
@@ -144,7 +144,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#cto' do
+  describe '.cto' do
     subject { WorkUnit.cto }
 
     before do
@@ -157,7 +157,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#overtime' do
+  describe '.overtime' do
     subject { WorkUnit.overtime }
 
     before do
@@ -170,7 +170,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#normal' do
+  describe '.normal' do
     subject { WorkUnit.normal }
 
     before do
@@ -183,7 +183,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.validate_client_status' do
+  describe '#validate_client_status' do
     subject { work_unit.validate_client_status }
 
     let(:client) { work_unit.client }
@@ -195,7 +195,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.send_email!' do
+  describe '#send_email!' do
     context 'when there are contacts for the parent client who receive email' do
       let(:contact1) { Contact.make(:client => work_unit.client) }
       let(:contact2) { Contact.make(:client => work_unit.client) }
@@ -211,7 +211,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.email_list' do
+  describe '#email_list' do
     subject { work_unit.email_list }
 
     context 'when there are contacts for the parent client who receive email' do
@@ -229,7 +229,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.client' do
+  describe '#client' do
     subject { work_unit.client }
 
     it 'should return the parent client' do
@@ -237,7 +237,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.project' do
+  describe '#project' do
     subject { work_unit.project }
 
     it 'should return the parent project' do
@@ -245,7 +245,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.unpaid?' do
+  describe '#unpaid?' do
     subject { work_unit.unpaid? }
 
     context 'when the work unit is unpaid' do
@@ -259,7 +259,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.paid?' do
+  describe '#paid?' do
     subject { work_unit.paid? }
 
     context 'when the work unit is unpaid' do
@@ -273,7 +273,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.invoiced?' do
+  describe '#invoiced?' do
     subject { work_unit.invoiced? }
 
     context 'when the work unit is invoiced' do
@@ -287,7 +287,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.not_invoiced?' do
+  describe '#not_invoiced?' do
     subject { work_unit.not_invoiced? }
 
     context 'when the work unit is invoiced' do
@@ -301,7 +301,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.to_s' do
+  describe '#to_s' do
     subject { work_unit.to_s }
 
     before { work_unit.update_attribute(:description, 'New description') }
@@ -311,7 +311,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.allows_access?' do
+  describe '#allows_access?' do
     subject { work_unit.allows_access? user }
 
     let(:user) { User.make }
@@ -332,7 +332,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.overtime_multiplier' do
+  describe '#overtime_multiplier' do
     subject { work_unit.overtime_multiplier }
 
     let(:project) { work_unit.project }
@@ -388,7 +388,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.set_effective_hours!' do
+  describe '#set_effective_hours!' do
     context 'when saving an overtime work unit' do
       before do
         work_unit.project.update_attribute(:overtime_multiplier, 1.5)
