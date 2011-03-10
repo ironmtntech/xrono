@@ -24,10 +24,10 @@
                     %span.description= '- ' + work_unit.description
 
         %td
-          - if start_date == Date.today.beginning_of_week
+          - if start_date == Date.current.beginning_of_week
             %ul
               %li#current_hours= "#{t(:current)}: #{user.unpaid_work_units.sum(:effective_hours)}"
-              %li#pto_left= "#{t(:pto_left)}: #{user.pto_hours_left(Date.today)}"
+              %li#pto_left= "#{t(:pto_left)}: #{user.pto_hours_left(Date.current)}"
               - if user.daily_target_hours
-                %li#target_hours= "#{t(:target_hours_offset)}: #{user.target_hours_offset(Date.today).to_s}"
+                %li#target_hours= "#{t(:target_hours_offset)}: #{user.target_hours_offset(Date.current).to_s}"
 
