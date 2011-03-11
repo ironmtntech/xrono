@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   def pto_hours_left(date)
     raise "Date must be a date object" unless date.is_a?(Date)
     time = date.to_time_in_current_zone
-    SiteSettings.first.total_yearly_pto_per_user - work_units.pto.scheduled_between(time.beginning_of_year, time.end_of_year).sum(:hours)
+    SiteSettings.first.total_yearly_pto_per_user - work_units.pto.scheduled_between(time.beginning_of_year, time).sum(:hours)
   end
 
   def expected_hours(date)
