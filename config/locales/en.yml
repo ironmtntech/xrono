@@ -178,3 +178,5 @@ en:
   target_hours_offset: "Offset"
   internal_client: "Internal Client"
   external_percentage: "External"
+  active_users: "Active Users"
+  inactive_users: "Inactive Users"
