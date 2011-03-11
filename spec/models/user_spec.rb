@@ -187,4 +187,16 @@ describe User do
     end
   end
 
+  describe 'percentage_work_for' do
+    subject { user.percentage_work_for(client, start_date, end_date) }
+
+    before do
+    end
+
+    it 'should calculate the percentage of hours worked for a client as a percentage of all work done' do
+      pending()
+      should == something
+    end
+  end
+
 end

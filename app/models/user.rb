@@ -75,4 +75,16 @@ class User < ActiveRecord::Base
     worked_hours - expected_hours(date)
   end
 
+  def percentage_work_for(client, start_date, end_date)
+    raise "client must be a Client instance" unless client.is_a?(Client)
+    raise "Date must be a date object" unless start_date.is_a?(Date) && end_date.is_a?(Date)
+    # note: I'm returning an integer here, as I think that is specific enough for the
+    # reporting use case, this can easily be changed if future needs demand
+    wu = work_units.scheduled_between(start_date.beginning_of_day, end_date.end_of_day)
+    total_hours = wu.sum(:effective_hours)
+    client_hours = wu.for_client(client).sum(:effective_hours)
+    # Dividing by 0 is bad, mkay?
+    total_hours == 0 ? 0 : ((100 * client_hours)/total_hours).round
+  end
+
 end
