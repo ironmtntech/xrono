@@ -272,11 +272,13 @@ h4.dashboard_title {
   td {
     border: 1px solid #ccc;
     padding: 9px 5px 9px 10px;
+    width: 12.5% !important;
     li {
       font-size:.9em;
     }
   }
   th {
+    width: 12.5% !important;
     border: 1px solid #ccc; 
     padding: 5px 5px 5px 10px;
     font-weight:normal;
