@@ -176,3 +176,5 @@ en:
   full_width: "Full Width"
   daily_target_hours: "Daily Target Hours"
   target_hours_offset: "Offset"
+  internal_client: "Internal Client"
+  external_percentage: "External"
