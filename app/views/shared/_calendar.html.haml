@@ -24,10 +24,12 @@
                     %span.description= '- ' + work_unit.description
 
         %td
-          - if start_date == Date.current.beginning_of_week
-            %ul
+          %ul
+            - if start_date == Date.current.beginning_of_week
               %li#current_hours= "#{t(:current)}: #{user.unpaid_work_units.sum(:effective_hours)}"
-              %li#pto_left= "#{t(:pto_left)}: #{user.pto_hours_left(Date.current)}"
-              - if user.daily_target_hours
-                %li#target_hours= "#{t(:target_hours_offset)}: #{user.target_hours_offset(Date.current).to_s}"
-
+            - if @site_settings.total_yearly_pto_per_user
+              %li#pto_left= "#{t(:pto_left)}: #{user.pto_hours_left(start_date.end_of_week)}"
+            - if user.daily_target_hours
+              %li#target_hours= "#{t(:target_hours_offset)}: #{user.target_hours_offset(last_effective_date(start_date))}"
+            - if @site_settings.client && user.work_units_for_week(start_date).present?
+              %li#external_percentage= "#{t(:external_percentage)}: #{external_work_percentage(user, start_date.beginning_of_week, start_date.end_of_week)}%"
