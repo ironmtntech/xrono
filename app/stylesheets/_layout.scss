@@ -303,16 +303,22 @@ h4.dashboard_title {
       color:#6f8f98;
     } 
   }
-  .work_unit{
-    &.overtime a {
-      color: red;
-    }
-    &.cto a, &.pto a {
-      color: #33840c; 
-    }
+  .work_unit {
     .description {
       display: none;
     }
+  }
+}
+
+.work_unit{
+  &.overtime, &.overtime a {
+    color: red;
+  }
+  &.cto, &.cto a {
+    color: #369; 
+  }
+  &.pto, &.pto a {
+    color: #33840c; 
   }
 }
 
@@ -574,4 +580,8 @@ ul {
 
 .future {
   color: red;
+}
+
+#help {
+  display: none;
 }
