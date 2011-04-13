@@ -543,6 +543,12 @@ table {
   tr.even {
     background:#fff;
   }
+  tr.odd.suspended, tr.odd.inactive {
+    background:#c66;
+  }
+  tr.even.suspended, tr.even.inactive {
+    background:#f66;
+  }
   td {
     border:1px solid #ccc;
     padding: 9px 10px 9px 10px;
