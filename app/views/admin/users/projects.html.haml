@@ -17,7 +17,7 @@
               %th= t(:no_roles)
             - Client.sort_by_name.each do |client|
               - Project.for_client(client).sort_by_name.each do |project|
-                %tr
+                %tr{ :class => "#{cycle("odd", "even")} #{client.status.downcase}" }
                   %td= client
                   %td= project
                   %td= radio_button_tag("project[#{project.id}]", "developer", @user.has_role?(:developer, project))
