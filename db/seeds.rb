@@ -103,7 +103,6 @@ end
 # Finally, an inactive client
 Client.make status: 'Inactive'
 
-
 # Delete uploaded files, and log file
 begin
   FileUtils.rm_r "#{::Rails.root.to_s}/public/system"
@@ -113,3 +112,5 @@ end
 FileUtils.rm "#{::Rails.root.to_s}/log/#{RAILS_ENV}.log"
 FileUtils.touch "#{::Rails.root.to_s}/log/#{RAILS_ENV}.log"
 
+# Create a site settings instance, set it to the first Client
+SiteSettings.make client: Client.first

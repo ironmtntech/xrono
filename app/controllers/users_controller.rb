@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   access_control do
     allow :admin
-    allow :developer, :to => [:edit, :change_password], :if => :user_is_current_user?
+    allow :developer, :to => [:edit, :change_password, :update], :if => :user_is_current_user?
     allow :developer, :to => [:index, :show, :historical_time]
     allow :client, :to => [:edit, :change_password], :if => :user_is_current_user?
     allow :client, :to => [:index, :show, :historical_time]

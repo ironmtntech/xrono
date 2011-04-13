@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110222162404) do
+ActiveRecord::Schema.define(:version => 20110310021732) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20110222162404) do
     t.integer  "site_logo_file_size"
     t.datetime "site_logo_updated_at"
     t.decimal  "total_yearly_pto_per_user", :precision => 10, :scale => 2
+    t.integer  "client_id"
   end
 
   create_table "tickets", :force => true do |t|
