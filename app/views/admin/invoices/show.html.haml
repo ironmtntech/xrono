@@ -25,7 +25,7 @@
                     %th.assigned_to= t(:assigned_to)
                     %th.scheduled_on= t(:scheduled_on)
                     %th.hours= t(:hours).capitalize
-                    %th.overtime= t(:overtime_abbrev)
+                    %th= t(:type)
                     %th.invoice_th= t(:invoice)
                 %tbody
                   - @work_units.each do |wu|
@@ -37,6 +37,8 @@
                           = wu.scheduled_at.strftime("%F")
                         %td= wu.effective_hours
                         %td
+                          %span{:class => "work_unit " << wu.hours_type.downcase }
+                            = wu.hours_type
                         %td
                           = text_field_tag "work_units[#{wu.id}][invoiced]",nil, :class => "global ticket_invoiced_#{ticket.id}"
                           = text_field_tag "work_units[#{wu.id}][invoiced_at]", Time.now.strftime("%F"), :class => "datepicker"

@@ -272,11 +272,13 @@ h4.dashboard_title {
   td {
     border: 1px solid #ccc;
     padding: 9px 5px 9px 10px;
+    width: 12.5% !important;
     li {
       font-size:.9em;
     }
   }
   th {
+    width: 12.5% !important;
     border: 1px solid #ccc; 
     padding: 5px 5px 5px 10px;
     font-weight:normal;
@@ -301,16 +303,22 @@ h4.dashboard_title {
       color:#6f8f98;
     } 
   }
-  .work_unit{
-    &.overtime a {
-      color: red;
-    }
-    &.cto a, &.pto a {
-      color: #33840c; 
-    }
+  .work_unit {
     .description {
       display: none;
     }
+  }
+}
+
+.work_unit{
+  &.overtime, &.overtime a {
+    color: red;
+  }
+  &.cto, &.cto a {
+    color: #369; 
+  }
+  &.pto, &.pto a {
+    color: #33840c; 
   }
 }
 
@@ -535,6 +543,12 @@ table {
   tr.even {
     background:#fff;
   }
+  tr.odd.suspended, tr.odd.inactive {
+    background:#c66;
+  }
+  tr.even.suspended, tr.even.inactive {
+    background:#f66;
+  }
   td {
     border:1px solid #ccc;
     padding: 9px 10px 9px 10px;
@@ -572,4 +586,8 @@ ul {
 
 .future {
   color: red;
+}
+
+#help {
+  display: none;
 }

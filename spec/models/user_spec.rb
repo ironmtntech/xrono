@@ -150,18 +150,18 @@ describe User do
   end
 
   describe '#pto_hours_left' do
-    subject { user.pto_hours_left(Date.parse('2011-01-01')) }
+    subject { user.pto_hours_left(Date.parse('2011-12-31')) }
 
     let(:site_settings) { SiteSettings.make }
 
     before do
       site_settings.update_attributes(:total_yearly_pto_per_user => 40)
       work_unit1.update_attributes(:hours => 2, :hours_type => 'PTO', :scheduled_at => '2011-01-01')
-      work_unit2.update_attributes(:hours => 3, :hours_type => 'PTO', :scheduled_at => '2011-12-31')
+      work_unit2.update_attributes(:hours => 3, :hours_type => 'PTO', :scheduled_at => '2011-12-30')
       work_unit3.update_attributes(:hours => 5, :hours_type => 'PTO', :scheduled_at => '2010-12-31')
     end
 
-    it 'should return the number of PTO hours left for the given year' do
+    it 'should return the number of PTO hours left for the given yearas of the passed date' do
       should == 35
     end
   end
@@ -182,6 +182,18 @@ describe User do
     end
 
     it 'should calculate the hours a user needs to meet their daily target hours' do
+      pending()
+      should == something
+    end
+  end
+
+  describe 'percentage_work_for' do
+    subject { user.percentage_work_for(client, start_date, end_date) }
+
+    before do
+    end
+
+    it 'should calculate the percentage of hours worked for a client as a percentage of all work done' do
       pending()
       should == something
     end
