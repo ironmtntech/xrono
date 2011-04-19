@@ -1,0 +1,6 @@
+- if current_user
+  #user_menu
+    = link_to "Edit #{current_user}", edit_user_path(current_user)
+    |
+    = link_to "Logout", destroy_user_session_path
+

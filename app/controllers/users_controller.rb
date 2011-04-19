@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :load_user, :only => [:show, :edit, :change_password, :historical_time]
+  before_filter :load_user, :only => [:show, :edit, :change_password, :historical_time, :update]
 
   access_control do
     allow :admin
@@ -33,6 +33,16 @@ class UsersController < ApplicationController
   end
 
   def historical_time
+  end
+
+  def update
+    if @user.update_attributes(params[:user])
+      flash[:notice] = t(:user_updated_successfully)
+      redirect_to @user
+    else
+      flash.now[:error] = t(:user_updated_unsuccessfully)
+      render :action => 'edit'
+    end
   end
 
   private

@@ -18,6 +18,9 @@
           .field_wrap
             = f.label :email
             = f.text_field :email
+          .field_wrap 
+            = f.label :daily_target_hours, t(:daily_target_hours) 
+            = f.text_field(:daily_target_hours)
           .field_wrap
             = f.label :password
             = f.password_field :password

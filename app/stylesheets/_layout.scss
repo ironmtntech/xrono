@@ -54,7 +54,10 @@ body {
 .wrapper {
   margin: auto; /* center in viewport */
   width: 974px;
-  .logout {
+  &.full_width {
+    width: 98%; 
+  }
+  #user_menu {
     float:right;
     padding: 4px 9px 0 0;
   }
@@ -260,7 +263,7 @@ h4.dashboard_title {
   }
 }
 
-#calendar table {
+.calendar table {
   border: 1px solid #ccc;
   width:100%;
   font-size:1.1em;
@@ -280,6 +283,10 @@ h4.dashboard_title {
     font-size:1.1em;
     color:#f2f1f1;
     @include linear-gradient(color-stops(#9fa8aa, #acbabd));
+    a.expand {
+      float: right;
+      text-decoration: none;
+    }
   }
   tbody {
     @include linear-gradient(color-stops(#fff, #ececec));
@@ -300,6 +307,9 @@ h4.dashboard_title {
     }
     &.cto a, &.pto a {
       color: #33840c; 
+    }
+    .description {
+      display: none;
     }
   }
 }

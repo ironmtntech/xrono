@@ -174,4 +174,17 @@ describe User do
     end
   end
 
+  describe 'target_hours_offset' do
+    subject { user.target_hours_offset(Date.today) }
+
+    before do
+      work_unit1.update_attributes(:hours => 2, :hours_type => 'Normal', :scheduled_at => '2011-01-01')
+    end
+
+    it 'should calculate the hours a user needs to meet their daily target hours' do
+      pending()
+      should == something
+    end
+  end
+
 end
