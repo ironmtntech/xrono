@@ -6,6 +6,7 @@ class Client < ActiveRecord::Base
   has_many :comments, :as => :commentable
   has_many :file_attachments
   has_many :contacts
+  has_one :site_settings
 
   validates_presence_of :name, :status
   validates_uniqueness_of :name, :allow_nil => false

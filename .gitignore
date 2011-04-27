@@ -1,6 +1,7 @@
 .bundle
 config/database.yml
 vendor/bundle/
+vendor/ruby
 db/*.sqlite3
 log/*.log
 tmp/**/*
@@ -11,3 +12,5 @@ public/stylesheets/compiled/*
 coverage/
 public/system
 db/seeds.rb
+.DS_Store
+tags

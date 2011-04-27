@@ -55,4 +55,4 @@ Feature: User Administration
     Given I am an authenticated user
     Given a user exists with first_name: "Test", last_name: "Man", middle_initial: "T", email: "test@example.com", password: "secret", password_confirmation: "secret"
     When I go to the user's edit page
-    Then I should see "You cannot make changes to another user."
+    Then I should see "Access denied."

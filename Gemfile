@@ -27,7 +27,7 @@ group :test do
   gem 'cucumber-rails', '~> 0.3.2'
   gem 'database_cleaner', '~> 0.5.2'
   gem 'escape_utils', '~> 0.1.9'
-  gem 'faker', '~> 0.3.1'
+  gem 'faker', '~> 0.9.5'
   gem 'forgery', '~> 0.3.5'
   gem 'launchy', '~> 0.3.7'
   gem 'machinist', '~> 1.0.6'
@@ -36,7 +36,7 @@ group :test do
   gem 'rspec', '= 2.0.0'
   gem 'rspec-rails', '= 2.0.1'
   gem 'shoulda', '~> 2.11.3'
-  gem 'simplecov', '~> 0.3.6'
+  gem 'simplecov', '~> 0.4.0'
   gem 'spork', '~> 0.8.4'
   gem 'yajl-ruby', '~> 0.7.8'
 end

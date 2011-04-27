@@ -31,6 +31,7 @@ User.blueprint do
   first_name                       { Name.first_name        }
   last_name(:unique => false)      { Name.last_name         }
   middle_initial(:unique => false) { ('A'..'Z').to_a.sample }
+  daily_target_hours               { 8                      }
 end
 
 Client.blueprint do
@@ -71,6 +72,7 @@ end
 SiteSettings.blueprint do
   overtime_multiplier       { rand(3) + 1 }
   total_yearly_pto_per_user { 40          }
+  client                    { Client.make }
 end
 
 Comment.blueprint do
@@ -81,4 +83,3 @@ Comment.blueprint do
   user_id          { User.make                           }
   active           { true                                }
 end
-

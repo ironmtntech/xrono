@@ -1,5 +1,5 @@
 = link_to t(:previous_week).html_safe, dashboard_path(:date => (@start_date - 1.week).strftime("%F")), :class => "previous_week recent_work get_week_calendar"
-- unless (start_date..(start_date + 6.days)).include?(Date.today)
+- unless (start_date..(start_date + 6.days)).include?(Date.current)
   = link_to t(:current), dashboard_path, :class => "today recent_work get_week_calendar"
-- if (start_date + 6.days) < Date.today
+- if (start_date + 6.days) < Date.current
   = link_to t(:next_week).html_safe, dashboard_path(:date => (@start_date + 1.week)), :class => "next_week recent_work get_week_calendar"

@@ -54,7 +54,10 @@ body {
 .wrapper {
   margin: auto; /* center in viewport */
   width: 974px;
-  .logout {
+  &.full_width {
+    width: 98%; 
+  }
+  #user_menu {
     float:right;
     padding: 4px 9px 0 0;
   }
@@ -260,7 +263,7 @@ h4.dashboard_title {
   }
 }
 
-#calendar table {
+.calendar table {
   border: 1px solid #ccc;
   width:100%;
   font-size:1.1em;
@@ -269,17 +272,23 @@ h4.dashboard_title {
   td {
     border: 1px solid #ccc;
     padding: 9px 5px 9px 10px;
+    width: 12.5% !important;
     li {
       font-size:.9em;
     }
   }
   th {
+    width: 12.5% !important;
     border: 1px solid #ccc; 
     padding: 5px 5px 5px 10px;
     font-weight:normal;
     font-size:1.1em;
     color:#f2f1f1;
     @include linear-gradient(color-stops(#9fa8aa, #acbabd));
+    a.expand {
+      float: right;
+      text-decoration: none;
+    }
   }
   tbody {
     @include linear-gradient(color-stops(#fff, #ececec));
@@ -294,13 +303,22 @@ h4.dashboard_title {
       color:#6f8f98;
     } 
   }
-  .work_unit{
-    &.overtime a {
-      color: red;
+  .work_unit {
+    .description {
+      display: none;
     }
-    &.cto a, &.pto a {
-      color: #33840c; 
-    }
+  }
+}
+
+.work_unit{
+  &.overtime, &.overtime a {
+    color: red;
+  }
+  &.cto, &.cto a {
+    color: #369; 
+  }
+  &.pto, &.pto a {
+    color: #33840c; 
   }
 }
 
@@ -525,6 +543,12 @@ table {
   tr.even {
     background:#fff;
   }
+  tr.odd.suspended, tr.odd.inactive {
+    background:#c66;
+  }
+  tr.even.suspended, tr.even.inactive {
+    background:#f66;
+  }
   td {
     border:1px solid #ccc;
     padding: 9px 10px 9px 10px;
@@ -549,6 +573,29 @@ table.users {
   }
 }
 
+table.invoice {
+  tr.odd.overtime, tr.odd.future {
+    background:#c99;
+    color: #000;
+  }
+  tr.even.overtime, tr.even.future {
+    background:#f99;
+    color: #000;
+  }
+  tr.even.cto {
+    background: #99c;
+  }
+  tr.odd.cto {
+    background: #99f;
+  }
+  tr.even.pto {
+    background: #9c9;
+  }
+  tr.odd.pto {
+    background: #9f9;
+  }
+}
+
 ul {
   margin-left: 15px;
   li {
@@ -562,4 +609,8 @@ ul {
 
 .future {
   color: red;
+}
+
+#help {
+  display: none;
 }

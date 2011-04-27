@@ -12,19 +12,18 @@
     = yield :head
   %body
     #header
-      .wrapper
-        - if current_user
-          %a{:class => "logout", :href =>" /logout"} 
-            Logout 
+      %div{class: wrapper_class}
+        = render partial: "shared/user_menu"
         %h1
           %a{:href => "/"}
             = image_tag @site_settings.site_logo.url
             %span= t(:company_name)
       #nav
-        .wrapper= render :partial => "shared/menu"
+        %div{class: wrapper_class} 
+          = render partial: "shared/menu"
     #content
-      .wrapper
-        = render :partial => "shared/flashes"
+      %div{class: wrapper_class}
+        = render partial: "shared/flashes"
         .yui3-g
           - if (content_column_right = yield :content_column_right).empty?
             .yui3-u-1= yield
@@ -33,9 +32,10 @@
             .yui3-u-1-5= yield :content_column_right
     .clear
     #footer
-      .wrapper
+      %div{class: wrapper_class}
         %p
           &copy; 
           = t(:company_name)
           2010
-    = render :partial => "shared/javascripts"
+    = render partial: "shared/help"
+    = render partial: "shared/javascripts"

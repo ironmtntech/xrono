@@ -1,7 +1,7 @@
 class Admin::WeeklyTimeReportController < ApplicationController
 
   def index
-    redirect_to('/admin/weekly_time_report/' + Date.today.beginning_of_week.strftime("%F"))
+    redirect_to('/admin/weekly_time_report/' + Date.current.beginning_of_week.strftime("%F"))
   end
 
   def show

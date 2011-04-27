@@ -12,7 +12,7 @@ describe Project do
   it { should validate_presence_of :client_id }
   it { should validate_uniqueness_of(:name).scoped_to(:client_id) }
 
-  describe '.to_s' do
+  describe '#to_s' do
     subject { @project.to_s }
 
     it 'returns the name of the project as a string' do
@@ -20,7 +20,7 @@ describe Project do
     end
   end
 
-  describe '.hours' do
+  describe '#hours' do
     it 'should return total number of hours from all tickets on the project' do
       project = Project.make
       ticket_1 = Ticket.make(:project => project)
@@ -31,7 +31,7 @@ describe Project do
     end
   end
 
-  describe '.uninvoiced_hours' do
+  describe '#uninvoiced_hours' do
     it "returns the sum of hours on all the client's work units" do
       work_unit_1 = WorkUnit.make
       ticket = work_unit_1.ticket
@@ -43,7 +43,7 @@ describe Project do
     end
   end
 
-  describe '#for_user' do
+  describe '.for_user' do
     context 'when a user is assigned to a project' do
       it 'returns the projects to which the user is assigned' do
         user = User.make
@@ -57,7 +57,7 @@ describe Project do
     end
   end
 
-  describe '.work_units' do
+  describe '#work_units' do
     it 'returns the children work units for that project' do
       work_unit = WorkUnit.make
       project = work_unit.ticket.project
