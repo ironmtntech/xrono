@@ -1,6 +1,7 @@
 .bundle
 config/database.yml
 vendor/bundle/
+vendor/ruby
 db/*.sqlite3
 log/*.log
 tmp/**/*
