@@ -30,15 +30,12 @@
                 %tbody
                   - @work_units.each do |wu|
                     - if wu.ticket == ticket
-                      %tr{ :class => cycle("odd", "even") }
+                      %tr{ :class => row_class(:hours_type => wu.hours_type, :scheduled_at => wu.scheduled_at) }
                         %td= wu.description.gsub(/\n/,"<br />&nbsp;&nbsp;").html_safe
                         %td= wu.user.first_name
-                        %td{:class => wu.scheduled_at.future? ? "future" : "" }
-                          = wu.scheduled_at.strftime("%F")
+                        %td= wu.scheduled_at.strftime("%F")
                         %td= wu.effective_hours
-                        %td
-                          %span{:class => "work_unit " << wu.hours_type.downcase }
-                            = wu.hours_type
+                        %td= wu.hours_type
                         %td
                           = text_field_tag "work_units[#{wu.id}][invoiced]",nil, :class => "global ticket_invoiced_#{ticket.id}"
                           = text_field_tag "work_units[#{wu.id}][invoiced_at]", Time.now.strftime("%F"), :class => "datepicker"

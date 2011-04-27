@@ -25,14 +25,11 @@
               %tbody
                 - @work_units.each do |wu|
                   - if wu.client == client
-                    %tr{ :class => cycle("odd", "even") }
+                    %tr{ :class => row_class(:hours_type => wu.hours_type, :scheduled_at => wu.scheduled_at) }
                       %td= wu.description
-                      %td{:class => wu.scheduled_at.future? ? "future" : "" }
-                        = wu.scheduled_at.strftime("%Y/%m/%d")
+                      %td= wu.scheduled_at.strftime("%Y/%m/%d")
                       %td= wu.effective_hours
-                      %td
-                        %span{:class => "work_unit " << wu.hours_type.downcase }
-                          = wu.hours_type
+                      %td= wu.hours_type
                       %td= text_field_tag "work_unit[#{wu.id}]", nil, :class => "global autofill_client_#{client.id}"
               %tfoot
                 %tr

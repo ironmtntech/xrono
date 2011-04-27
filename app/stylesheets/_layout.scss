@@ -573,6 +573,29 @@ table.users {
   }
 }
 
+table.invoice {
+  tr.odd.overtime, tr.odd.future {
+    background:#c99;
+    color: #000;
+  }
+  tr.even.overtime, tr.even.future {
+    background:#f99;
+    color: #000;
+  }
+  tr.even.cto {
+    background: #99c;
+  }
+  tr.odd.cto {
+    background: #99f;
+  }
+  tr.even.pto {
+    background: #9c9;
+  }
+  tr.odd.pto {
+    background: #9f9;
+  }
+}
+
 ul {
   margin-left: 15px;
   li {
