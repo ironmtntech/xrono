@@ -223,6 +223,7 @@ DEPENDENCIES
   paperclip (~> 2.3)
   pickle (~> 0.4.2)
   rails (= 3.0.3)
+  rake (= 0.8.7)
   rspec (= 2.0.0)
   rspec-rails (= 2.0.1)
   ruby-debug19
