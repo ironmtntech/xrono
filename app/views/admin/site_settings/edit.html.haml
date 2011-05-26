@@ -20,6 +20,9 @@
             = f.label :total_yearly_pto_per_user
             = f.text_field :total_yearly_pto_per_user
           .field_wrap
+            = f.label :internal_client
+            = f.collection_select(:client_id, Client.all, :id, :to_s, :prompt => true)
+          .field_wrap
             = f.submit 'Update', :class => 'add_new_button'
             = link_to 'Cancel', admin_path, :class => 'cancel_button'
 

@@ -10,7 +10,7 @@ describe Ticket do
   it { should validate_presence_of :project_id }
   it { should validate_presence_of :name }
 
-  describe '.to_s' do
+  describe '#to_s' do
     subject { @ticket.to_s }
 
     it 'returns the name of the ticket as a string' do
@@ -18,7 +18,7 @@ describe Ticket do
     end
   end
 
-  describe '.client' do
+  describe '#client' do
     context 'when a ticket exists' do
       it 'returns the client' do
         ticket = Ticket.make
@@ -27,7 +27,7 @@ describe Ticket do
     end
   end
 
-  describe '.unpaid_hours' do
+  describe '#unpaid_hours' do
     context 'when there are unpaid work units on a ticket' do
       it 'totals the unpaid hours for that ticket' do
         ticket = Ticket.make
@@ -42,7 +42,7 @@ describe Ticket do
     end
   end
 
-  describe '.uninvoiced_hours' do
+  describe '#uninvoiced_hours' do
     context 'when there are uninvoiced work units on a ticket' do
       it 'returns the total number of uninvoiced work units for that ticket' do
         ticket = Ticket.make
@@ -57,7 +57,7 @@ describe Ticket do
     end
   end
 
-  describe '.long_name' do
+  describe '#long_name' do
     it 'returns a descriptive string with the ticket id, project, and client' do
       ticket = Ticket.make
       id = ticket.id
@@ -68,7 +68,7 @@ describe Ticket do
     end
   end
 
-  describe '.allows_access?' do
+  describe '#allows_access?' do
     before(:each) do
       @project = Project.make
       @ticket = Ticket.make(:project => @project)
@@ -85,7 +85,7 @@ describe Ticket do
     end
   end
 
-  describe '#for_user' do
+  describe '.for_user' do
     context 'when a user has access to a project' do
       it 'should return a collection of tickets for all the projects to which the user is assigned' do
         user = User.make
@@ -102,7 +102,7 @@ describe Ticket do
     end
   end
 
-  describe '.hours' do
+  describe '#hours' do
     context 'when there are normal work units with hours' do
       it 'should return the correct sum of hours for those work units' do
         ticket1 = Ticket.make
