@@ -17,12 +17,12 @@ describe WorkUnit do
   it { should validate_presence_of :effective_hours }
 
 
-  describe '.scheduled_between' do
-    subject { WorkUnit.scheduled_between(Date.yesterday.beginning_of_day, Date.current.end_of_day) }
+  describe '#scheduled_between' do
+    subject { WorkUnit.scheduled_between(1.days.ago.beginning_of_day, Time.now.end_of_day)  }
 
     before do
-      work_unit1.update_attribute(:scheduled_at, Date.yesterday)
-      work_unit2.update_attribute(:scheduled_at, Date.current)
+      work_unit1.update_attribute(:scheduled_at, 1.days.ago)
+      work_unit2.update_attribute(:scheduled_at, Time.now)
     end
 
     it 'should return a collection of work units scheduled between the two given dates' do
