@@ -14,6 +14,7 @@ gem 'rails', '3.0.3'
 gem 'thin', '~> 1.2.7'
 gem 'uuid', '~> 2.3.1'
 gem 'jquery-rails'
+gem 'rake', '0.8.7'
 
 group :development do
   gem 'awesome_print', :require => 'ap'

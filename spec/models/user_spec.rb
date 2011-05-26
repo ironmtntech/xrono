@@ -57,20 +57,19 @@ describe User do
   end
 
   describe '.work_units_for_day' do
-    subject { user.work_units_for_day(Date.current) }
 
     before do
-      work_unit1.update_attributes(:scheduled_at => Date.current)
-      work_unit2.update_attributes(:scheduled_at => Date.yesterday)
+      work_unit1.update_attributes(:scheduled_at => Time.now)
+      work_unit2.update_attributes(:scheduled_at => 1.days.ago)
     end
 
     it 'should return a collection of work units for the user scheduled on a given day' do
-      should == [work_unit1]
+      user.work_units_for_day(Time.now).should == [work_unit1]
     end
   end
 
   describe '.clients_for_day' do
-    subject { user.clients_for_day(Date.current) }
+    subject { user.clients_for_day(Time.now) }
 
     before do
       work_unit1.update_attributes(:scheduled_at => Date.current)
