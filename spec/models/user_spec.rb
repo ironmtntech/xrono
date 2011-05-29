@@ -72,8 +72,8 @@ describe User do
     subject { user.clients_for_day(Time.now) }
 
     before do
-      work_unit1.update_attributes(:scheduled_at => Date.current)
-      work_unit2.update_attributes(:scheduled_at => Date.yesterday)
+      work_unit1.update_attributes(:scheduled_at => Time.now)
+      work_unit2.update_attributes(:scheduled_at => Time.now - 1.day)
     end
 
     context 'when the user has work units scheduled for a given day' do
@@ -84,11 +84,11 @@ describe User do
   end
 
   describe '#work_units_for_week' do
-    subject { user.work_units_for_week(Date.current) }
+    subject { user.work_units_for_week(Time.now) }
 
     before do
-      work_unit1.update_attributes(:scheduled_at => Date.current)
-      work_unit2.update_attributes(:scheduled_at => Date.current - 1.week)
+      work_unit1.update_attributes(:scheduled_at => Time.now)
+      work_unit2.update_attributes(:scheduled_at => Time.now - 1.week)
     end
 
     it 'should return a collection of work units for the user scheduled during the week of a given day' do
@@ -101,7 +101,7 @@ describe User do
 
     before do
       work_unit1.update_attributes(:paid => nil, :paid_at => nil)
-      work_unit2.update_attributes(:paid => 'True', :paid_at => Date.current)
+      work_unit2.update_attributes(:paid => 'True', :paid_at => Time.now)
       work_unit3.update_attributes(:user => user2)
     end
 
@@ -149,7 +149,7 @@ describe User do
   end
 
   describe '#pto_hours_left' do
-    subject { user.pto_hours_left(Date.parse('2011-12-31')) }
+    subject { user.pto_hours_left(Date.today.end_of_year) }
 
     let(:site_settings) { SiteSettings.make }
 
@@ -160,7 +160,7 @@ describe User do
       work_unit3.update_attributes(:hours => 5, :hours_type => 'PTO', :scheduled_at => '2010-12-31')
     end
 
-    it 'should return the number of PTO hours left for the given yearas of the passed date' do
+    it 'should return the number of PTO hours left for the given year as of the passed date' do
       should == 35
     end
   end
@@ -174,7 +174,7 @@ describe User do
   end
 
   describe 'target_hours_offset' do
-    subject { user.target_hours_offset(Date.today) }
+    subject { user.target_hours_offset(Time.now) }
 
     before do
       work_unit1.update_attributes(:hours => 2, :hours_type => 'Normal', :scheduled_at => '2011-01-01')
