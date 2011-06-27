@@ -138,6 +138,11 @@ describe WorkUnit do
       work_unit1.update_attribute(:hours, -1)
       work_unit1.should_not be_valid
     end
+
+    it "should not accept characters" do
+      work_unit1.update_attribute(:hours, "asdf#")
+      work_unit1.should_not be_valid
+    end
   end
 
 
