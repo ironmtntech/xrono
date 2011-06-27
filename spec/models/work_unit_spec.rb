@@ -131,6 +131,16 @@ describe WorkUnit do
     end
   end
 
+  describe ".hours" do
+    subject { WorkUnit.hours}
+
+    it "should not allow negative numbers" do
+      work_unit1.update_attribute(:hours => -1)
+      work_unit1.should_not be_valid
+    end
+  end
+
+
   describe '.pto' do
     subject { WorkUnit.pto }
 
@@ -411,4 +421,5 @@ describe WorkUnit do
       end
     end
   end
+
 end
