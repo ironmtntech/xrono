@@ -174,15 +174,14 @@ describe User do
   end
 
   describe 'target_hours_offset' do
-    subject { user.target_hours_offset(Time.now) }
+    subject { user.target_hours_offset(Date.current) }
 
-    before do
-      work_unit1.update_attributes(:hours => 2, :hours_type => 'Normal', :scheduled_at => '2011-01-01')
+    it 'should raise an error on non-date objects' do
+      lambda{ user.target_hours_offset(Time.now) }.should raise_error(RuntimeError)
     end
 
     it 'should calculate the hours a user needs to meet their daily target hours' do
-      pending()
-      should == something
+      should == 0.0
     end
   end
 
@@ -197,5 +196,4 @@ describe User do
       should == something
     end
   end
-
 end
