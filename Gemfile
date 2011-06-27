@@ -7,7 +7,6 @@ gem 'compass-susy-plugin', '~> 0.8.1'
 gem 'devise', '~> 1.1.3'
 gem 'gravtastic'
 gem 'haml', '~> 3.0.18', :require => 'haml'
-gem 'lemonade', '~> 0.3.4'
 gem 'mysql', '~> 2.8.1'
 gem "paperclip", "~> 2.3"
 gem 'rails', '3.0.3'
