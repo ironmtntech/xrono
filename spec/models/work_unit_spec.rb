@@ -135,7 +135,7 @@ describe WorkUnit do
     subject { WorkUnit.hours}
 
     it "should not allow negative numbers" do
-      work_unit1.update_attribute(:hours => -1)
+      work_unit1.update_attribute(:hours, -1)
       work_unit1.should_not be_valid
     end
   end
