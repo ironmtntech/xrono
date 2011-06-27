@@ -17,7 +17,7 @@ gem 'jquery-rails'
 
 group :development do
   gem 'awesome_print', :require => 'ap'
-  gem 'ruby-debug19'
+#  gem 'ruby-debug19'
 end
 
 group :test do
