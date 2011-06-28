@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
     work_units.scheduled_between(time.beginning_of_week, time.end_of_week)
   end
 
-  def hours_entered 
+  def hours_entered_for_day time
     
   end
   def unpaid_work_units
