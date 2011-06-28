@@ -2,7 +2,7 @@ class WorkUnitsController < ApplicationController
   before_filter :check_for_params, :only => [:create]
   before_filter :load_new_work_unit, :only => [:new, :create]
   before_filter :load_work_unit, :only => [:show, :edit, :update]
-  before_filter :load_project
+#  before_filter :load_project
 
   access_control do
     allow :admin
@@ -26,6 +26,9 @@ class WorkUnitsController < ApplicationController
         else
           render :json => "{\"success\": true}", :layout => false, :status => 200 and return
         end
+      else
+        flash[:notice] = "Work unit created."
+        redirect_to ticket_path(@ticket)
       end
     else
       if request.xhr?
@@ -34,6 +37,9 @@ class WorkUnitsController < ApplicationController
       flash[:error] = t(:work_unit_created_unsuccessfully)
       redirect_to dashboard_path and return
     end
+  end
+
+  def index
   end
 
   # GET /work_units/:id
@@ -57,9 +63,9 @@ class WorkUnitsController < ApplicationController
 
   private
 
-    def load_project
-      @project = @work_unit.project
-    end
+#    def load_project
+#      @project = @work_unit.project
+#    end
 
     def check_for_params
       if params[:work_unit][:client_id].blank?
@@ -81,9 +87,13 @@ class WorkUnitsController < ApplicationController
       _params = (params[:work_unit] || {}).dup
       _params.delete :client_id
       _params.delete :project_id
+      @ticket    = Ticket.find params[:ticket_id]
       @work_unit = WorkUnit.new(_params)
       @work_unit.user = current_user
-      @work_unit.scheduled_at = Time.zone.parse(_params[:scheduled_at])
+      @work_unit.ticket = @ticket
+      if _params[:scheduled_at].present?
+        @work_unit.scheduled_at = Time.zone.parse(_params[:scheduled_at])
+      end
       @work_unit.hours_type = params[:hours_type]
     end
 
