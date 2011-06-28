@@ -24,7 +24,7 @@ Feature: Unentered Time Report
     And a work_unit exists with description: "Test Work Unit", ticket: ticket "Test Ticket", hours: 1, scheduled_at: "2010-10-01 12:00:00", created_at: "2010-10-01 12:00:00", user: user
     When I go to path "/admin/unentered_time_report/2010-10-01"
     Then show me the page
-    Then I should see "1 hours"
+    Then I should see "1.0 hours entered."
 
 
   Scenario: Do not list user with unpaid work unit
