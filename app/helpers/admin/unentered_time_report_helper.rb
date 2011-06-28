@@ -4,5 +4,6 @@ module Admin::UnenteredTimeReportHelper
     @users.each do |u|
       hours += u.hours_entered_for_day(Time.now)
     end
+    hours
   end
 end
