@@ -66,6 +66,12 @@ describe User do
     it 'should return a collection of work units for the user scheduled on a given day' do
       user.work_units_for_day(Time.now).should == [work_unit1]
     end
+
+    it "should sum up all work units' hours  for the user scheduled on a given day" do
+      work_unit1.update_attributes(:hours => 3)
+      work_unit2.update_attributes(:hours => 1, :scheduled_at => Time.now)
+      user.hours_entered_for_day(Time.now).should == 4
+    end
   end
 
   describe '.clients_for_day' do
