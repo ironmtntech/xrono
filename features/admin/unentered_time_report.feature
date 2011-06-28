@@ -15,9 +15,11 @@ Feature: Unentered Time Report
 
   Scenario: List all hours entered by active users for the day
     Given I am an authenticated user with an admin role
-    And a ticket "Test Ticket" exists with name: "Test Project", client: client "Test Client"
-    And a work_unit exists with description: "Test Work Unit", :ticket: ticket "Test Ticket", hours: 3, scheduled_at: "2010-10-01 12:00:00", created_at "2010-10-01 12:00:00", user: user
-    when I go to path "/admin/unentered_test_report/2010-10-01"
+    And a client "Test Client" exists with name: "Test Client"
+    And a project "Test Project" exists with name: "Test Project", client: client "Test Client"
+    And a ticket "Test Ticket" exists with name: "Test Project", project: project "Test Project"
+    And a work_unit exists with description: "Test Work Unit", ticket: ticket "Test Ticket", hours: 1, scheduled_at: "2010-10-01 12:00:00", created_at: "2010-10-01 12:00:00"
+    When I go to path "/admin/unentered_time_report/2010-10-01"
     Then I should see "3 hours entered"
 
   Scenario: Do not list user with unpaid work unit
