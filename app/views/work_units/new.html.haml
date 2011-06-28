@@ -5,5 +5,6 @@
   .yui3-u-1
     .gradient_border_wrap
       .gradient_border_content
+        %h1 #{@work_unit.client} > #{@work_unit.project} > #{@work_unit.ticket}
       = render 'form'
       = link_to t(:back), ticket_path(@work_unit.ticket)

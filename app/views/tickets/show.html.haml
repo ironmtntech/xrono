@@ -10,6 +10,8 @@
             %li= link_to t(:edit), edit_ticket_path
           %li= link_to "#{t(:back_to_project)}: #{@ticket.project}", project_path(@ticket.project)
           %li= link_to "#{t(:back_to_client)}: #{@ticket.client}", client_path(@ticket.project.client)
+          %li=# link_to t(:new_work_unit), new_work_unit_path(:ticket_id => @ticket)
+          %li= link_to t(:new_work_unit), new_ticket_work_unit_path(@ticket)
 .yui3-g
   .yui3-u-1
     .gradient_border_wrap

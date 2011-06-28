@@ -73,3 +73,16 @@ Feature: Manage Work Units
     And a work_unit exists with ticket: ticket "test ticket", description: "New description", hours: "1"
     When I go to the work unit's page
     Then I should see "Access denied" within "#flash_notice"
+
+    @javascript
+  Scenario: Add new work order to a ticket
+    Given I am an authenticated user with an admin role
+    And a ticket "ticket1" exists
+    When I am on the ticket's page
+    And I follow "New Work Unit"
+    And I fill in "hours_type" with "Normal"
+    And I fill in "Hours" with "2"
+    And I fill in "Description" with "test description"
+    And I fill in "Scheduled at" with "2011-01-01"
+    When I press "Create Work unit"
+    Then I should see "Work unit created." within "#flash_notice"

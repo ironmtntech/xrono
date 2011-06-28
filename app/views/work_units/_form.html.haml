@@ -1,4 +1,4 @@
-= form_for(@work_unit) do |f|
+= form_for([@ticket, @work_unit]) do |f|
   - if @work_unit.errors.any?
     #error_explanation
       %h2
@@ -8,7 +8,6 @@
       %ul
       - @work_unit.errors.full_messages.each do |msg|
         %li= msg
-
   .field
     = f.label :description
     %br
@@ -18,10 +17,17 @@
     %br
     = f.text_field :hours
   .field
+    = f.label :hours_type
+    %br
+    = text_field_tag :hours_type
+  .field
     = f.label :scheduled_at
     %br
     = f.text_field :scheduled_at
   .actions
+    = hidden_field_tag "work_unit[ticket_id]", @work_unit.ticket.id
+    = hidden_field_tag "work_unit[project_id]", @work_unit.ticket.project.id
+    = hidden_field_tag "work_unit[client_id]", @work_unit.ticket.project.client.id
     = f.submit
     or
-    = link_to t(:cancel), work_unit_path
+    = link_to t(:cancel), :back
