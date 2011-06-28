@@ -9,7 +9,7 @@
           %div{:id => weekday}
             %h3= "#{weekday}, #{date.to_formatted_s(:long_ordinal)}"
             = date
-            %b= hours_entered_for_day(date) + " hours entered."
+            %b= hours_entered_for_day(date).to_s + " hours entered."
             - if date.past?
               %ul
                 - for user in @users do
