@@ -1,0 +1,2 @@
+module Admin::UnenteredTimeReportHelper
+end
