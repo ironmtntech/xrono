@@ -42,7 +42,11 @@ class User < ActiveRecord::Base
   end
 
   def hours_entered_for_day time
-    
+    hours = 0
+    work_units_for_day(time).each do |w|
+      hours += w.hours
+    end
+    hours
   end
   def unpaid_work_units
     work_units.unpaid
