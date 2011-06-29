@@ -23,8 +23,8 @@ When /^I delete the (\d+)(?:st|nd|rd|th) user$/ do |pos|
 end
 
 Given /^I am an authenticated user "([^"]*)" and password "([^"]*)"$/ do |email, password|
-  visit login_path
-  fill_in(:email, email)
-  fill_in(:password, password)
+  visit new_user_session_path
+  fill_in(:email, :with => email)
+  fill_in(:password, :with => password)
   press "Sign in"
 end
