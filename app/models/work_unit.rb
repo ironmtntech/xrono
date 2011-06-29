@@ -21,8 +21,17 @@ class WorkUnit < ActiveRecord::Base
   scope :normal, where('hours_type = "Normal"')
 
   before_validation :set_effective_hours!
+  validate :internal_client?
   after_validation :validate_client_status
   after_save :send_email!
+
+  def internal_client? 
+    unless client.id == SiteSettings.client_id
+      if hours_type == "CTO" || hours_type == "PTO"
+        errors.add_to_base(hours_type + " type is prohibited for this client")
+      end
+    end
+  end
 
   def validate_client_status
     if client && client.status == "Inactive"
