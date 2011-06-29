@@ -25,3 +25,13 @@ Feature: Self administration
     And I fill in "Password Confirmation" with "newpas"
     And I press "Update"
     Then I should see "Error changing password"
+
+  Scenario: Change work_unit view details preference
+    Given I am an authenticated user "bobby@example.com" and password "changeme"
+    When I go to the home page
+    And I follow "Clark D Kent"
+    Then I should see "-"
+    And I press "Toggle Work Unit Views"
+    Then I should see "+"
+
+    
