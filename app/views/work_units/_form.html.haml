@@ -21,6 +21,10 @@
     = f.label :scheduled_at
     %br
     = f.text_field :scheduled_at
+  .field
+    = f.label :hours_type
+    %br
+    = select_tag("hours_type", option_for_select(['Normal', 'Overtime', 'CTO', 'PTO']))  
   .actions
     = f.submit
     or
