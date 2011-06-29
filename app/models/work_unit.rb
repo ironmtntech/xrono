@@ -19,14 +19,14 @@ class WorkUnit < ActiveRecord::Base
   scope :cto, where('hours_type = "CTO"')
   scope :overtime, where('hours_type = "Overtime"')
   scope :normal, where('hours_type = "Normal"')
-
+  validates :restrict_hours_type
   before_validation :set_effective_hours!
   validate :internal_client?
   after_validation :validate_client_status
   after_save :send_email!
 
-  def internal_client? 
-    unless client.id == SiteSettings.client_id
+  def restrict_hours_type
+    unless client.id == SiteSettings.find_by_id(1).client_id 
       if hours_type == "CTO" || hours_type == "PTO"
         errors.add_to_base(hours_type + " type is prohibited for this client")
       end
