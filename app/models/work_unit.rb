@@ -21,7 +21,6 @@ class WorkUnit < ActiveRecord::Base
   scope :normal, where('hours_type = "Normal"')
   validates :restrict_hours_type
   before_validation :set_effective_hours!
-  validate :internal_client?
   after_validation :validate_client_status
   after_save :send_email!
 
