@@ -210,6 +210,17 @@ describe WorkUnit do
     end
   end
 
+  describe "#validate_client_internal" do
+
+    let(:client) { work_unit2.client }
+    it "should not allow you to file CTO whent work_unit's client doesn't match internal client" do
+      SiteSettings.create!({:client => client})
+      work_unit.hours_type = "CTO"
+      work_unit.validate_internal_client.should raise_error
+    end  
+  end
+
+
   describe '#send_email!' do
     context 'when there are contacts for the parent client who receive email' do
       let(:contact1) { Contact.make(:client => work_unit.client) }
