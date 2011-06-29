@@ -21,3 +21,10 @@ When /^I delete the (\d+)(?:st|nd|rd|th) user$/ do |pos|
     click_button "Destroy"
   end
 end
+
+Given /^I am an authenticated user "([^"]*)" and password "([^"]*)"$/ do |email, password|
+  visit login_path
+  fill_in(:email, email)
+  fill_in(:password, password)
+  press "Sign in"
+end
