@@ -24,7 +24,7 @@
   .field
     = f.label :hours_type
     %br
-    = select_tag("hours_type", options_for_select(['Normal', 'Overtime', 'CTO', 'PTO']))  
+    = f.select :hours_type, ['Normal', 'Overtime', 'CTO', 'PTO']  
   .actions
     = f.submit
     or
