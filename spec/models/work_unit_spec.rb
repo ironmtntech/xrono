@@ -4,6 +4,7 @@ describe WorkUnit do
   let(:work_unit) { WorkUnit.make }
   let(:work_unit1) { WorkUnit.make }
   let(:work_unit2) { WorkUnit.make }
+  let(:site_settings) { SiteSettings.make }
 
   it { should have_many :comments }
   it { should belong_to :ticket }
@@ -214,7 +215,6 @@ describe WorkUnit do
 
     let(:client) { work_unit2.client }
     it "should not allow you to file CTO whent work_unit's client doesn't match internal client" do
-      SiteSettings.create!({:client => client})
       work_unit.update_attribute(:hours_type,"CTO")
       work_unit.hours_type.should_not == "CTO"
     end  
