@@ -211,15 +211,6 @@ describe WorkUnit do
     end
   end
 
-  describe "#validate_client_internal" do
-
-    it "should not allow you to file CTO whent work_unit's client doesn't match internal client" do
-      work_unit.update_attribute(:hours_type,"CTO")
-      work_unit.hours_type.should_not == "CTO"
-    end  
-  end
-
-
   describe '#send_email!' do
     context 'when there are contacts for the parent client who receive email' do
       let(:contact1) { Contact.make(:client => work_unit.client) }
