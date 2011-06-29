@@ -213,7 +213,6 @@ describe WorkUnit do
 
   describe "#validate_client_internal" do
 
-    let(:client) { work_unit2.client }
     it "should not allow you to file CTO whent work_unit's client doesn't match internal client" do
       work_unit.update_attribute(:hours_type,"CTO")
       work_unit.hours_type.should_not == "CTO"
