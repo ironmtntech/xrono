@@ -32,6 +32,7 @@ User.blueprint do
   last_name(:unique => false)      { Name.last_name         }
   middle_initial(:unique => false) { ('A'..'Z').to_a.sample }
   daily_target_hours               { 8                      }
+  expandable                       { true                   }
 end
 
 Client.blueprint do
