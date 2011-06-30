@@ -27,9 +27,9 @@ Feature: Self administration
     Then I should see "Error changing password"
 
   Scenario: Change work_unit view details preference
-    Given I am an authenticated user "dev@xrono.org" and password "123456"
+    Given I am an authenticated user with a developer role
     When I go to the home page
-    And I follow "Edit Kira L Yagami"
+    And I follow "Edit"
     Then I should see "[-] by default"
     And I press "Toggle Work Unit Views"
     Then I should see "[+] by default"
