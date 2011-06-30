@@ -22,10 +22,12 @@ When /^I delete the (\d+)(?:st|nd|rd|th) user$/ do |pos|
   end
 end
 
-Given /^I am an authenticated user "([^"]*)" and password "([^"]*)"$/ do |email, password|
-  User.make(:email => "dev@xrono.org", :first_name => "Kira", :last_name => "Yagami", :middle_initial => "L")
+Given /^I am an authenticated user "([^"]*)" and password "([^"]*)" with role "([^"]*)"$/ do |email, password, role|
+  User.make(:email => "dev@xrono.org", :first_name => "Kira", :last_name => "Yagami", :middle_initial => "L", :role => role)
   visit new_user_session_path
   fill_in("user_email", :with => email)
   fill_in("user_password", :with => password)
   click_button "Sign in"
+  
 end
+
