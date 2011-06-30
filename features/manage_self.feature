@@ -29,7 +29,7 @@ Feature: Self administration
   Scenario: Change work_unit view details preference
     Given I am an authenticated user "dev@xrono.org" and password "123456"
     When I go to the home page
-    And I follow "Kira L Yagami"
+    And I follow "Edit Kira L Yagami"
     Then I should see "[-] by default"
     And I press "Toggle Work Unit Views"
     Then I should see "+"
