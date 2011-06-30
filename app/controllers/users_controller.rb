@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @users = User.unlocked.sort_by_name
   end
 
-  def change
+  def change_default_toggle
     unless cookies[:detail_toggle] == true
       cookies[:detail_toggle] = true
     else
