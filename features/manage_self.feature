@@ -32,6 +32,6 @@ Feature: Self administration
     And I follow "Edit Kira L Yagami"
     Then I should see "[-] by default"
     And I press "Toggle Work Unit Views"
-    Then I should see "+"
+    Then I should see "[+] by default"
 
     
