@@ -24,7 +24,7 @@ end
 
 Given /^I am an authenticated user "([^"]*)" and password "([^"]*)"$/ do |email, password|
   visit new_user_session_path
-  fill_in(:email, :with => email)
-  fill_in(:password, :with => password)
-  press "Sign in"
+  fill_in("user_email", :with => email)
+  fill_in("user_password", :with => password)
+  click_button "Sign in"
 end
