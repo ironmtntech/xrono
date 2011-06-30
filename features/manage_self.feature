@@ -30,7 +30,7 @@ Feature: Self administration
     Given I am an authenticated user "dev@xrono.org" and password "123456"
     When I go to the home page
     And I follow "Kira L Yagami"
-    Then I should see "-"
+    Then I should see "[-] by default"
     And I press "Toggle Work Unit Views"
     Then I should see "+"
 
