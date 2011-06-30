@@ -16,7 +16,7 @@ Feature: Self administration
 
   @wip
   Scenario: Change password failure
-    Given I am an authenticated user "bobby@example.com" and password "changeme"
+
     When I go to the home page
     And I follow "Users"
     And I follow "Clark D Kent"
@@ -27,9 +27,9 @@ Feature: Self administration
     Then I should see "Error changing password"
 
   Scenario: Change work_unit view details preference
-    Given I am an authenticated user "bobby@example.com" and password "changeme"
+    Given I am an authenticated user "dev@xrono.org" and password "123456"
     When I go to the home page
-    And I follow "Clark D Kent"
+    And I follow "Kira L Yagami"
     Then I should see "-"
     And I press "Toggle Work Unit Views"
     Then I should see "+"
