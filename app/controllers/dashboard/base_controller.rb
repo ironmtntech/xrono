@@ -10,7 +10,7 @@ class Dashboard::BaseController < ApplicationController
           :body => t(:enter_time_for_previous_day)}
       end
     end
-    cookie[:detail_toggle] = false if cookies[:detail_toggle].empty?
+    cookies[:detail_toggle] = false if cookies[:detail_toggle].nil?
     @clients = Client.not_inactive.sort_by_name.for_user(current_user)
     @projects = []
     @tickets = []
