@@ -40,7 +40,6 @@ AssetTrackerTutorial::Application.routes.draw do
     member do
       put :change_password
       get :historical_time
-      post :change_default_toggle
     end
   end
 
