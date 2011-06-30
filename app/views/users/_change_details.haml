@@ -1,4 +1,5 @@
 %h3 Change [+/-] Preference
 - unless cookies[:detail_toggle] == true
   %h4 [-] by default
+  = button_to "Change Default Toggle", :action => "change"
   
