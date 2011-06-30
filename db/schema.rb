@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110310021732) do
+ActiveRecord::Schema.define(:version => 20110630194044) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20110310021732) do
     t.string   "guid"
     t.boolean  "full_width",                          :default => false
     t.integer  "daily_target_hours"
+    t.boolean  "expandable"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
