@@ -6,11 +6,11 @@
     .gradient_border_wrap
       .gradient_border_content
         %ul.subnav
-          %li= link_to t(:all_clients), clients_path
+          %li= link_to 'View Contacts', client_contacts_path(@client)
           - if admin?
+            %li= link_to t(:all_clients), clients_path
             %li= link_to 'Edit Client', edit_client_path
             %li= link_to 'New Project', new_project_path(:client => @client)
-          %li= link_to 'View Contacts', client_contacts_path(@client)
 .yui3-g
   .yui3-u-1
     .gradient_border_wrap
