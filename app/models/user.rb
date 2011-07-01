@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
                   :daily_target_hours
 
   validates_presence_of :first_name, :last_name
-  validates :expandable, :presence => true, :inclusion => {:in => [true,false]}
   validates_length_of :middle_initial, :is => 1
 
   has_many :work_units
