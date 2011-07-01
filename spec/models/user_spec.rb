@@ -10,8 +10,6 @@ describe User do
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }
   it { should validate_presence_of :expandable }
-  it { should allow_value(true).for(:expandable)}
-  it { should_not allow_value("blah").for(:expandable)}
   describe '.with_unpaid_work_units' do
     subject { User.with_unpaid_work_units }
 
