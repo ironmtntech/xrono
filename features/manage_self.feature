@@ -30,8 +30,7 @@ Feature: Self administration
     Given I am an authenticated user with a developer role
     When I go to the home page
     And I follow "Edit"
-    Then I should see "[-] by default"
-    And I press "Toggle Work Unit Views"
-    Then I should see "[+] by default"
+    And I press "update"
+    And I should see "+"
 
     
