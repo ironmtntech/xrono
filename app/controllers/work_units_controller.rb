@@ -1,6 +1,5 @@
 class WorkUnitsController < ApplicationController
-  before_filter :check_for_params, :only => [:create]
-  before_filter :load_new_work_unit, :only => [:new, :create]
+  before_filter :load_new_work_unit, :only => [:new]
   before_filter :load_work_unit, :only => [:show, :edit, :update]
 #  before_filter :load_project
 
@@ -16,9 +15,11 @@ class WorkUnitsController < ApplicationController
 
   # POST /work_units
   def create
-    if @work_unit.save
-      suspended = @work_unit.client.status == "Suspended"
-      if request.xhr?
+    if request.xhr?
+      check_for_params
+      load_new_work_unit
+      if @work_unit.save
+        suspended = @work_unit.client.status == "Suspended"
         if suspended
           render :json => "{\"success\": true, \"notice\": \"This client is suspended. Please contact an Administrator.\"}",
                  :layout => false,
@@ -27,15 +28,20 @@ class WorkUnitsController < ApplicationController
           render :json => "{\"success\": true}", :layout => false, :status => 200 and return
         end
       else
-        flash[:notice] = "Work unit created."
-        redirect_to ticket_path(@ticket)
+        render :json => @work_unit.errors.full_messages.to_json, :layout => false, :status => 406 and return
+        flash[:error] = t(:work_unit_created_unsuccessfully)
       end
     else
-      if request.xhr?
-        render :json => @work_unit.errors.full_messages.to_json, :layout => false, :status => 406 and return
+      #non ajax stuff
+      @work_unit = WorkUnit.new(params[:work_unit])
+      @work_unit.user = current_user
+      if @work_unit.save
+        flash[:notice] = "Work Unit created successfully"
+        redirect_to ticket_path(@work_unit.ticket)
+      else
+        flash[:error] = "There was a problem creating the work unit."
+        render :template => 'work_units/new'
       end
-      flash[:error] = t(:work_unit_created_unsuccessfully)
-      redirect_to dashboard_path and return
     end
   end
 
@@ -91,9 +97,10 @@ class WorkUnitsController < ApplicationController
       @work_unit = WorkUnit.new(_params)
       @work_unit.user = current_user
       @work_unit.ticket = @ticket
-      if _params[:scheduled_at].present?
-        @work_unit.scheduled_at = Time.zone.parse(_params[:scheduled_at])
-      end
+      @work_unit.scheduled_at ||= Date.today
+      #if _params[:scheduled_at].present?
+      #  @work_unit.scheduled_at = Time.zone.parse(_params[:scheduled_at])
+      #end
       @work_unit.hours_type = params[:hours_type]
     end
 
