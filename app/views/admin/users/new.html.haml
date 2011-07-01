@@ -5,6 +5,7 @@
   .yui3-u-1
     .gradient_border_wrap
       .gradient_border_content
+        = debug @user
         = form_for @user, :class => "new_user", :url => admin_users_path do |f|
           = f.label :first_name
           = f.text_field :first_name
@@ -24,6 +25,7 @@
           = f.label :password_confirmation
           = f.password_field :password_confirmation
           %br/
+          = f.hidden_field :expandable, :value => false
           = f.submit t(:create), :class => 'add_new_button'
 
           = link_to t(:cancel), admin_users_path, :class => 'cancel_button' 
