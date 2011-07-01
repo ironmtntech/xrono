@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name, :last_name, :middle_initial, :full_width,
-                  :daily_target_hours
+                  :daily_target_hours, :expandable
 
   validates_presence_of :first_name, :last_name
   validates_length_of :middle_initial, :is => 1
