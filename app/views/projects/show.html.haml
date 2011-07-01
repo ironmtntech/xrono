@@ -6,10 +6,9 @@
     .gradient_border_wrap
       .gradient_border_content
         %ul.subnav
-          - if admin? || current_user.has_role?(:developer, @project)
-            %li= link_to t(:edit), edit_project_path
           %li= link_to "#{t(:client)}: #{@project.client}" , @project.client
           - if admin? || current_user.has_role?(:developer, @project)
+            %li= link_to "#{t(:edit)}: #{@project}", edit_project_path
             %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project)
 .yui3-g
   .yui3-u-1
