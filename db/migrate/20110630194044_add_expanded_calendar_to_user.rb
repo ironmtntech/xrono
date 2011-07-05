@@ -1,6 +1,6 @@
 class AddExpandableToUser < ActiveRecord::Migration
   def self.up
-    add_column :users, :expandable, :boolean
+    add_column :users, :expanded_calendar, :boolean
   end
 
   def self.down
