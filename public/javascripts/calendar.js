@@ -8,7 +8,7 @@ $('.expand').click(function() {
 
 function show_by_default(var status)
 {
-  if status == true
+  if (status == true)
   {
     $('.calendar').find('a').siblings('.description').each(function() {
       $(this).show();
