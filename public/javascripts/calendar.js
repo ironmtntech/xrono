@@ -6,4 +6,7 @@ $('.expand').click(function() {
   return false;
 });
 
+$('.calendar').find('a').siblings('.description').each(function() {
+  $(this).show();
+});
 
