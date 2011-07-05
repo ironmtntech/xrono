@@ -28,9 +28,15 @@ Feature: Self administration
 
   Scenario: Change work_unit view details preference
     Given I am an authenticated user with a developer role
+    And a client "test client" exists with name: "test client", initials: "TTC", status: "Suspended"
+    And a project "test project" exists with name: "test project", client: client "test client"
+    And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
+    And a work_unit exists with ticket: ticket "test ticket", description: "New description", hours: "1"
     When I go to the home page
+    Then I should not see "New description" within "span"
     And I follow "Edit"
-    And I press "update"
-    And I should see "+"
+    And the "Expanded Calendar" checkbox should be checked
+    And I press "Update"
+    And I should see "New description" within "span"
 
     
