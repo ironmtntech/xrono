@@ -26,17 +26,25 @@ Feature: Self administration
     And I press "Update"
     Then I should see "Error changing password"
 
+  @javascript  
   Scenario: Change expanded calendar default preference
-    Given I am an authenticated user with a developer role
-    And a client "test client" exists with name: "test client", initials: "TTC", status: "Suspended"
+    Given I am an authenticated user with an admin role
+    And a client "test client" exists with name: "test client", initials: "TTC"
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
-    And a work_unit exists with ticket: ticket "test ticket", description: "New description", hours: "1"
-    When I go to the home page
-    Then I should not see "New description" within "span"
+    And I visit /
+    When I select "test client" from "work_unit_client_id"
+    And I select "test project" from "work_unit_project_id"
+    And I select "test ticket" from "work_unit_ticket_id"
+    And I select "Overtime" from "hours_type"
+    And I fill in "Hours" with "2"
+    And I fill in "work_unit_description" with "New description"
+    And I press "Create Work Unit"
+    Then I should see "New description" within "span"
     And I follow "Edit"
-    And the "Expanded Calendar" checkbox should be checked
+    And I uncheck "Expanded Calendar"
+    Then show me the page
     And I press "Update"
-    And I should see "New description" within "span"
+    And I should not see "New description" within "span"
 
     
