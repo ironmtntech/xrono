@@ -6,7 +6,7 @@ $('.expand').click(function() {
   return false;
 });
 
-function show_by_default(var status)
+function show_by_default(status)
 {
   if (status == true)
   {
@@ -15,5 +15,8 @@ function show_by_default(var status)
     });
   }
 }
-
+if (typeof calendar_expansion_default === 'undefined') { 
+  calendar_expansion_default = false;
+}
+show_by_default(calendar_expansion_default);
 
