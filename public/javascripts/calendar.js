@@ -6,7 +6,14 @@ $('.expand').click(function() {
   return false;
 });
 
-$('.calendar').find('a').siblings('.description').each(function() {
-  $(this).show();
-});
+function show_by_default(var status)
+{
+  if status == true
+  {
+    $('.calendar').find('a').siblings('.description').each(function() {
+      $(this).show();
+    });
+  }
+}
+
 
