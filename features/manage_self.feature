@@ -26,7 +26,7 @@ Feature: Self administration
     And I press "Update"
     Then I should see "Error changing password"
 
-  Scenario: Change work_unit view details preference
+  Scenario: Change expanded calendar default preference
     Given I am an authenticated user with a developer role
     And a client "test client" exists with name: "test client", initials: "TTC", status: "Suspended"
     And a project "test project" exists with name: "test project", client: client "test client"
