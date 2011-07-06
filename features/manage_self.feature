@@ -40,11 +40,9 @@ Feature: Self administration
     And I fill in "Hours" with "2"
     And I fill in "work_unit_description" with "New description"
     And I press "Create Work Unit"
-    Then I should see "New description" within "span"
+    Then I should see description
     And I follow "Edit"
-    And I uncheck "Expanded Calendar"
-    Then show me the page
+    Then the "Expanded Calendar" checkbox should not be checked
+    And I check "Expanded Calendar"
     And I press "Update"
-    And I should not see "New description" within "span"
-
-    
+    Then I should see description.expand    
