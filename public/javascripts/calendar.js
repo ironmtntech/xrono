@@ -2,6 +2,7 @@
 $('.expand').click(function() {
   $(this).parents('.calendar').find('a').siblings('.description').each(function() {
     $(this).toggle('fast');
+    $(this).toggleClass("expand");
   });
   return false;
 });
@@ -12,6 +13,7 @@ function show_by_default(status)
   {
     $('.calendar').find('a').siblings('.description').each(function() {
       $(this).show();
+      $(this).toggleClass("expand");
     });
   }
 }
