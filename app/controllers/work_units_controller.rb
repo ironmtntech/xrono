@@ -36,6 +36,14 @@ class WorkUnitsController < ApplicationController
     end
   end
 
+  def index 
+    if params[:invoiced] != nil
+      @work_units = WorkUnit.find_all_by_invoiced(params[:invoiced])
+    else
+      @work_units = WorkUnit.find_all_by_paid(params[:paid])
+    end
+  end
+
   # GET /work_units/:id
   def show
   end
