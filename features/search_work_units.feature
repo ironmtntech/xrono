@@ -31,4 +31,4 @@ Feature: Search Work Units
   Scenario: Cannot search if I am not an admin
     Given I am an authenticated user with an developer role
     And I visit /work_units
-    Then I should see "Access denied"  
+    Then I should see "You must be an admin to do that"  
