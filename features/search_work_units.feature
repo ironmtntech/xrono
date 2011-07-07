@@ -27,5 +27,8 @@ Feature: Search Work Units
     And I follow "12"
     Then I should see "2010-03-01" within "td"
     And I should see "2010-04-01" within "td"
-
-                     
+    
+  Scenario: Cannot search if I am not an admin
+    Given I am an authenticated user with an developer role
+    And I visit /work_units
+    Then I should see "Access denied"  
