@@ -10,7 +10,7 @@ Feature: Search Work Units
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
     And a work_unit "test work unit" exists with ticket: ticket "test ticket", scheduled_at: "2010-01-01", hours: "1", invoiced: "123"
     And a work unit "test work unit2" exists with ticket: ticket "test ticket", scheduled_at: "2010-01-01", hours: "1", invoiced: "123"
-    And I visit "work_units/1"
+    And I go to the work unit's page
     And I follow "123"
     Then I should see "test work unit"
     And I should see "test work unit2"
