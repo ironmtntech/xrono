@@ -32,7 +32,7 @@ AssetTrackerTutorial::Application.routes.draw do
     resources :comments
   end
 
-  resources :work_units, :except => [:index, :destroy] do
+  resources :work_units, :except => [:destroy] do
     resources :comments
   end
 
