@@ -1,5 +1,5 @@
 Feature: Search Work Units
-  In order to manage work units
+  In order to search work units
   User
   wants a nice search interface
   
