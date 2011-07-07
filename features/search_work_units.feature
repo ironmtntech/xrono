@@ -12,6 +12,7 @@ Feature: Search Work Units
     And a work unit "test work unit2" exists with ticket: ticket "test ticket", scheduled_at: "2010-01-01", hours: "1", invoice: "123"
     And I visit "work_units/1"
     And I follow "123"
-    Then I should see "test work unit" and "test work unit 2"
+    Then I should see "test work unit"
+    And I should see "test work unit2"
                      
                      
