@@ -2,7 +2,7 @@ class WorkUnitsController < ApplicationController
   before_filter :check_for_params, :only => [:create]
   before_filter :load_new_work_unit, :only => [:new, :create]
   before_filter :load_work_unit, :only => [:show, :edit, :update]
-  before_filter :load_project
+  before_filter :load_project, :except => [:index]
 
   access_control do
     allow :admin
