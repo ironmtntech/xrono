@@ -26,7 +26,7 @@
           %p.description= @work_unit.description
           %h3= t(:invoice)
           - if current_user.admin?
-            %p= link_to @work_unit.invoiced, work_units(:invoiced => @work_unit.invoiced)
+            %p= link_to @work_unit.invoiced, work_units_path(:invoiced => @work_unit.invoiced)
           - else         
             %p= @work_unit.invoiced
           %h3= t(:payroll)
