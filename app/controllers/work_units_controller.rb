@@ -3,10 +3,11 @@ class WorkUnitsController < ApplicationController
   before_filter :load_new_work_unit, :only => [:new, :create]
   before_filter :load_work_unit, :only => [:show, :edit, :update]
   before_filter :load_project, :except => [:index]
-
+  before_filter :require_admin, :only => [:index]
   access_control do
     allow :admin
     allow :developer, :of => :project
+    
     allow :client, :of => :project, :to => :show
   end
 
@@ -39,8 +40,10 @@ class WorkUnitsController < ApplicationController
   def index 
     if params[:invoiced] != nil
       @work_units = WorkUnit.find_all_by_invoiced(params[:invoiced])
+      @search = "Invoiced: " + params[:invoiced]
     else
       @work_units = WorkUnit.find_all_by_paid(params[:paid])
+      @search = "Paid: " + params[:paid]
     end
   end
 
