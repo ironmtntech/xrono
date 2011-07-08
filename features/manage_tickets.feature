@@ -17,9 +17,9 @@ Feature: Manage tickets
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket exists with project: project "test project", name: "test ticket"
     When I am on the ticket's page
-    Then I should see a link with text "Back to project: test project" within ".subnav"
-    Then I should see a link with text "Back to client: test client" within ".subnav"
-    Then I should see a link with text "Edit" within ".subnav"
+    Then I should see a link with text "Project: test project" within ".subnav"
+    Then I should see a link with text "Client: test client" within ".subnav"
+    Then I should see a link with text "Edit: test ticket" within ".subnav"
 
   Scenario: Edit a ticket
     Given I am an authenticated user with an admin role

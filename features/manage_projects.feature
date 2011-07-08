@@ -18,7 +18,7 @@ Feature: Manage projects
     And I am assigned to the project
     When I am on the client's page
     And I follow "test project"
-    Then I should see a link with text "Back to client: test client"
+    Then I should see a link with text "Client: test client"
     Then I should see a link with text "Edit"
 
   Scenario: Edit a project
@@ -27,7 +27,7 @@ Feature: Manage projects
     And a project exists with name: "test project", client: client "test client2"
     When I am on the client's page
     And I follow "test project"
-    And I follow "Edit"
+    And I follow "Edit: test project"
     And I fill in "Name" with "project 2"
     And I press "Update"
     Then I should see "project 2"
@@ -39,7 +39,7 @@ Feature: Manage projects
     And I am assigned to the project
     When I am on the client's page
     And I follow "test project"
-    And I follow "Edit"
+    And I follow "Edit: test project"
     And I fill in "Name" with ""
     And I press "Update"
     Then I should see "There was a problem saving the project."

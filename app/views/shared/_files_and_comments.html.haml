@@ -4,6 +4,8 @@
 #files_and_comments
   %h3= "#{t(:files_and_comments)}:"
   = link_to "Hide/Show hidden", "#comments", :id => 'hide_show_comments'
+  %p
+  %hr  
   - items.each do |item|
     - if item.is_a? Comment
       = render :partial => 'comments/comment', :locals => {:comment => item}
@@ -12,4 +14,4 @@
     %hr  
   %p
   = render :partial => "comments/comment_form", :locals => { :commentable_id => @client.id, :commentable_field => "client_id", :commentable_type => "Client", :refurl => client_path(@client), :comment_num => @client.id }
-
+  = link_to t(:add_file_attachment), new_file_attachment_path( :client_id => @client.id )

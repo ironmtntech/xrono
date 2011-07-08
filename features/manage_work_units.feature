@@ -83,6 +83,5 @@ Feature: Manage Work Units
     And I select "Normal" from "work_unit_hours_type"
     And I fill in "Hours" with "2"
     And I fill in "Description" with "test description"
-    And I fill in "scheduled_at at" with "2011-01-01"
     When I press "Create Work unit"
-    Then I should see "Work unit created." within "#flash_notice"
+    Then I should see "Work Unit created successfully" within "#flash_notice"
