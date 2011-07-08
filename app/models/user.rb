@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
     SiteSettings.first.total_yearly_pto_per_user - work_units.pto.scheduled_between(time.beginning_of_year, time).sum(:hours)
   end
 
-  # TODO: refactor this mess, and add tests for it
+  # TODO: refactor this mess
   def expected_hours(date)
     raise "Date must be a date object" unless date.is_a?(Date)
     # no expected hours if the user has never worked
@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
 
   def target_hours_offset(date)
     raise "Date must be a date object" unless date.is_a?(Date)
-    worked_hours = WorkUnit.for_user(self).scheduled_between(date.beginning_of_year, date.end_of_day).sum(:effective_hours)
+    worked_hours = WorkUnit.for_user(self).scheduled_between(date.beginning_of_year, date.end_of_day).sum(:hours)
     worked_hours - expected_hours(date)
   end
 

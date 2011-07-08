@@ -18,9 +18,9 @@ class TicketsController < ApplicationController
   def create
     if @ticket.save
       if request.xhr?
+        flash.now[:notice] = t(:ticket_created_successfully)
         render :json => "{\"success\": true}", :layout => false, :status => 200 and return
       end
-      flash[:notice] = t(:ticket_created_successfully)
       redirect_to ticket_path(@ticket) and return
     else
       if request.xhr?

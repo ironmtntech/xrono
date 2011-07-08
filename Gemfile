@@ -7,13 +7,13 @@ gem 'compass-susy-plugin', '~> 0.8.1'
 gem 'devise', '~> 1.1.3'
 gem 'gravtastic'
 gem 'haml', '~> 3.0.18', :require => 'haml'
-gem 'lemonade', '~> 0.3.4'
 gem 'mysql', '~> 2.8.1'
 gem "paperclip", "~> 2.3"
 gem 'rails', '3.0.3'
 gem 'thin', '~> 1.2.7'
 gem 'uuid', '~> 2.3.1'
 gem 'jquery-rails'
+gem 'rake', '0.8.7'
 
 group :development do
   gem 'awesome_print', :require => 'ap'
