@@ -60,7 +60,7 @@ Feature: Manage Work Units
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
     And a work_unit exists with ticket: ticket "test ticket", description: "New description", hours: "1"
     When I go to the work unit's page
-    And I follow "Edit"
+    And I follow "Edit Work Unit"
     And I fill in "Hours" with "2"
     And I press "Update Work unit"
     Then I should see "Work unit updated" within "#flash_notice"
@@ -80,9 +80,9 @@ Feature: Manage Work Units
     And a ticket "ticket1" exists
     When I am on the ticket's page
     And I follow "New Work Unit"
-    And I fill in "hours_type" with "Normal"
+    And I select "Normal" from "work_unit_hours_type"
     And I fill in "Hours" with "2"
     And I fill in "Description" with "test description"
-    And I fill in "Scheduled at" with "2011-01-01"
+    And I fill in "scheduled_at at" with "2011-01-01"
     When I press "Create Work unit"
     Then I should see "Work unit created." within "#flash_notice"
