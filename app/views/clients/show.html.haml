@@ -6,11 +6,11 @@
     .gradient_border_wrap
       .gradient_border_content
         %ul.subnav
-          %li= link_to t(:all_clients), clients_path
+          %li= link_to 'View Contacts', client_contacts_path(@client)
           - if admin?
+            %li= link_to t(:all_clients), clients_path
             %li= link_to 'Edit Client', edit_client_path
             %li= link_to 'New Project', new_project_path(:client => @client)
-          %li= link_to 'View Contacts', client_contacts_path(@client)
 .yui3-g
   .yui3-u-1
     .gradient_border_wrap
@@ -38,14 +38,7 @@
                   %td= project.uninvoiced_hours
                   %td= project.hours
 .yui3-g
-  .yui3-u-1-2
+  .yui3-u-1
     .gradient_border_wrap
       .gradient_border_content
-        = render :partial => "comments/comments", :locals => {:comments => @client.comments}
-        = render :partial => "comments/comment_form", :locals => { :commentable_id => @client.id, :commentable_field => "client_id", :commentable_type => "Client", :refurl => client_path(@client), :comment_num => @client.id }
-  .yui3-u-1-2
-    .gradient_border_wrap
-      .gradient_border_content
-        #files
-          = render :partial => "file_attachments/file_attachments", :locals => { :file_attachments => @client.file_attachments }
-          = link_to t(:add_file_attachment), new_file_attachment_path( :client_id => @client.id )
+        = render :partial => "shared/files_and_comments", :locals => {:items => @client.files_and_comments.reverse}

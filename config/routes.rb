@@ -30,6 +30,7 @@ AssetTrackerTutorial::Application.routes.draw do
 
   resources :tickets, :except => [:index, :destroy] do
     resources :comments
+    resources :work_units
   end
 
   resources :work_units, :except => [:destroy] do

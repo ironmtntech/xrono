@@ -46,6 +46,13 @@ class Client < ActiveRecord::Base
     projects.any? {|p| p.accepts_roles_by?(user)} || user.admin?
   end
 
+  def files_and_comments
+    ary = Array.new
+    ary << comments
+    ary << file_attachments
+    ary.flatten.sort_by {|x| x.created_at}
+  end
+
   class << self
     def statuses
       {

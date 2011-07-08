@@ -48,6 +48,7 @@ en:
   post_comment: "Post Comment"
   add_comment: "Add Comment"
   comments: "Comments"
+  files_and_comments: "Comments and Files"
   submit: "Submit"
   edit_project: "Edit Project"
   new_project: "New Project"
@@ -188,3 +189,5 @@ en:
   help_colors_pto: "Paid Time Off"
   help_colors_cto: "Company Time Off"
   help_colors_overtime: "Overtime"
+  edit_work_unit: "Edit Work Unit"
+  file: "Attached File"

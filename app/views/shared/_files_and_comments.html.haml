@@ -1,0 +1,15 @@
+- content_for :javascripts do
+  = javascript_include_tag "comments"
+
+#files_and_comments
+  %h3= "#{t(:files_and_comments)}:"
+  = link_to "Hide/Show hidden", "#comments", :id => 'hide_show_comments'
+  - items.each do |item|
+    - if item.is_a? Comment
+      = render :partial => 'comments/comment', :locals => {:comment => item}
+    - elsif item.is_a? FileAttachment
+      = render :partial => 'file_attachments/file_attachment', :locals => {:file_attachment => item}
+    %hr  
+  %p
+  = render :partial => "comments/comment_form", :locals => { :commentable_id => @client.id, :commentable_field => "client_id", :commentable_type => "Client", :refurl => client_path(@client), :comment_num => @client.id }
+
