@@ -1,7 +1,6 @@
 class WorkUnitsController < ApplicationController
   before_filter :load_new_work_unit, :only => [:new]
   before_filter :load_work_unit, :only => [:show, :edit, :update]
-  before_filter :load_project, :except => [:index]
   before_filter :require_admin, :only => [:index]
   access_control do
     allow :admin
@@ -77,9 +76,6 @@ class WorkUnitsController < ApplicationController
 
   private
 
-#    def load_project
-#      @project = @work_unit.project
-#    end
 
     def check_for_params
       if params[:work_unit][:client_id].blank?
