@@ -93,7 +93,10 @@ class WorkUnitsController < ApplicationController
       _params = (params[:work_unit] || {}).dup
       _params.delete :client_id
       _params.delete :project_id
-      @ticket    = Ticket.find params[:ticket_id]
+      # ticket_id is sent as a child of work unit from the dashboard page, but not from the new work unit page.
+      # consequently, we'll find it wherever it may be
+      ticket_id = params[:ticket_id] || _params[:ticket_id]
+      @ticket    = Ticket.find ticket_id
       @work_unit = WorkUnit.new(_params)
       @work_unit.user = current_user
       @work_unit.ticket = @ticket

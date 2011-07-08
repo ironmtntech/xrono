@@ -135,5 +135,25 @@ describe Client do
     end
   end
 
+  describe 'comments' do
+    before do
+      @comment1 = Comment.create! :title => "Test", :comment => "Herro", :user_id => user.id, :created_at => 1.hours.ago
+      @comment2 = Comment.create! :title => "Test2", :comment => "Herro2", :user_id => user.id, :created_at => 1.days.ago
+    end
+    it 'should correctly order comments' do
+      user.comments.should == [@comment1, @comment2]
+    end
+  end
+
+  describe 'file attachments' do
+    before do
+      @file_attachment = FileAttachment.create! :client_id => client.id, :ticket_id => ticket.id, :project_id => project.id, :attachment_file_file_name => "file.file", :created_at => 2.days.ago
+    end
+    it 'should add file attachments' do
+      client.file_attachments.should == [@file_attachment]
+    end
+  end
+
+
 end
 
