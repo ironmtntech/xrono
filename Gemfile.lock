@@ -50,7 +50,7 @@ GEM
     childprocess (0.1.9)
       ffi (~> 1.0.6)
     cocaine (0.1.0)
-    columnize (0.3.3)
+    columnize (0.3.4)
     compass (0.10.6)
       haml (>= 3.0.4)
     compass-susy-plugin (0.8.1)
@@ -114,10 +114,11 @@ GEM
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     nokogiri (1.5.0)
-    paperclip (2.3.12)
+    paperclip (2.3.14)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
+      mime-types
     pickle (0.4.7)
       cucumber (>= 0.8)
       rake
@@ -164,7 +165,7 @@ GEM
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.4)
-    selenium-webdriver (0.2.2)
+    selenium-webdriver (2.0.0)
       childprocess (>= 0.1.9)
       ffi (>= 1.0.7)
       json_pure
