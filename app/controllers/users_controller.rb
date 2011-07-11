@@ -39,9 +39,11 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       flash[:notice] = t(:user_updated_successfully)
       redirect_to @user
-    else
-      flash.now[:error] = t(:user_updated_unsuccessfully)
-      render :action => 'edit'
+# zulu   
+#    else
+#      flash.now[:error] = t(:user_updated_unsuccessfully)
+#      render :action => 'edit'
+#      debugger
     end
   end
 
