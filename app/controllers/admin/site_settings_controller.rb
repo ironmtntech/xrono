@@ -15,9 +15,10 @@ class Admin::SiteSettingsController < ApplicationController
   end
 
   def destroy
-    @site_settings.site_logo.destroy
-    if @site_settings.save
+    @logo = @site_settings.site_logo
+    if @logo.destroy
       flash[:notice] = t(:site_logo_removed_successfully)
+      debugger
       redirect_to edit_admin_site_settings_path
     end
   end

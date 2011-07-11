@@ -12,7 +12,7 @@
           .field_wrap
             = t(:current_site_logo)
             = image_tag @site_settings.site_logo.url
-            = link_to(t(:remove_site_logo), admin_site_settings_path, :method => :delete, :confirm => 'Are you sure?')
+            = button_to(t(:remove_site_logo), admin_site_settings_path, :method => :delete, :confirm => 'Are you sure?')
           .field_wrap
             = f.label :overtime_multiplier
             = f.text_field :overtime_multiplier
