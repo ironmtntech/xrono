@@ -184,7 +184,13 @@ describe WorkUnit do
     it 'should return a collection of work units with hours type "Overtime"' do
       should == [work_unit1]
     end
+
+    it 'should return true if hours type is overtime' do
+      work_unit1.overtime?.should == true
+    end
   end
+
+  
 
   describe '.normal' do
     subject { WorkUnit.normal }
@@ -226,6 +232,15 @@ describe WorkUnit do
       end
     end
   end
+
+#  describe '#not_send_email!' do
+#    context 'when there are NO contacts for the parent client who receive email' do
+#
+#      it 'should not send the email' do
+#        lambda { work_unit.send_email! }.should_not change(ActionMailer::Base.deliveries, :count).by(1)
+#      end
+#    end
+#  end
 
   describe '#email_list' do
     subject { work_unit.email_list }
