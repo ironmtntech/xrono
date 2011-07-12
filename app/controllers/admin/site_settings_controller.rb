@@ -18,7 +18,6 @@ class Admin::SiteSettingsController < ApplicationController
     @logo = @site_settings.site_logo
     if @logo.destroy
       flash[:notice] = t(:site_logo_removed_successfully)
-      debugger
       redirect_to edit_admin_site_settings_path
     end
   end
