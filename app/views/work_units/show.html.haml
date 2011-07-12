@@ -31,7 +31,7 @@
             %p= @work_unit.invoiced
           %h3= t(:payroll)
           - if current_user.admin?
-            %p= link_to @work_unit.paid, work_units_path(:paid => @work_unit.paid)
+            %p= link_to @work_unit.paid, work_units_path(:paid => @work_unit.paid) unless @work_unit.paid.nil?
           - else
             %p= @work_unit.paid
 
