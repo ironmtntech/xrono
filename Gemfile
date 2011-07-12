@@ -21,7 +21,7 @@ group :development do
 end
 
 group :test do
-  gem 'selenium-webdriver', '0.2.2'
+  gem 'selenium-webdriver', '~> 0.2.2'
   gem 'awesome_print', :require => 'ap'
   gem 'capybara', '~> 0.3.9'
   gem 'cucumber', '~> 0.9.2'
