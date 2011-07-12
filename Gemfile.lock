@@ -220,7 +220,7 @@ DEPENDENCIES
   rspec (= 2.0.0)
   rspec-rails (= 2.0.1)
   ruby-debug19
-  selenium-webdriver (= 0.2.2)
+  selenium-webdriver (~> 0.2.2)
   shoulda (~> 2.11.3)
   simplecov (~> 0.4.0)
   spork (~> 0.8.4)
