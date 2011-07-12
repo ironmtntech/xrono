@@ -30,6 +30,17 @@ Feature: Manage tickets
     When I fill in "Name" with "test ticket2"
     And I press "Update"
     Then I should see "test ticket2"
+  
+  Scenario: Edit a ticket unsuccessfully
+    Given I am an authenticated user with an admin role
+    Given a client "test client" exists
+    And a project "test project" exists with name: "test project", client: client "test client"
+    And a ticket exists with project: project "test project", name: "test ticket"
+    When I am on the ticket's edit page
+    When I fill in "Name" with ""
+    When I fill in "Description" with ""
+    And I press "Update"
+    Then I should see "There was a problem creating the ticket"
 
   Scenario: Register new ticket
     Given I am an authenticated user with an admin role

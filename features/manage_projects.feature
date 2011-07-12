@@ -63,3 +63,14 @@ Feature: Manage projects
     Then I should see a link with text "Cancel" within ".actions"
     And I press "Create"
     Then I should see "There was a problem saving the new project."
+
+  Scenario: User cannot see projects without access
+    Given I am an authenticated user with a client role
+    And a client "test client2" exists with name: "test client2", initials: "TC2", status: "Active"
+    And a project exists with name: "test project1", client: client "test client2"
+    And I am assigned to the project
+    And a project exists with name: "test project2", client: client "test client2"
+    When I am on the client's page
+    Then I should see "test project1"
+    Then I should not see "test project2"
+

@@ -65,5 +65,6 @@ AssetTrackerTutorial::Application.routes.draw do
     namespace :v1 do
       resources :clients
     end
+
   end
 end

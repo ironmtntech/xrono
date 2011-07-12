@@ -60,7 +60,6 @@ Feature: User Administration
     Given a user exists with first_name: "Test1", last_name: "Man1", middle_initial: "T", email: "test1@example.com", password: "secret", password_confirmation: "secret"
     Given a user exists with first_name: "Test2", last_name: "Man2", middle_initial: "T", email: "test2@example.com", password: "secret", password_confirmation: "secret"
     And I go to the users page   
-    Then show me the page
     Then I should see "Test1"
     Then I should see "Test2"
 
