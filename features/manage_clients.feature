@@ -94,3 +94,4 @@ Feature: Client Management
     Given I am an authenticated user with an admin role
     When I go to the new client page
     Then I should see a link with text "Cancel" within ".actions"
+
