@@ -92,7 +92,7 @@ Feature: Manage Work Units
     And a client "test client2" exists with name: "test client2", initials: "TTC"
     Given site settings exists with client: client "test client"
     And a project "test project" exists with name: "test project", client: client "test client"
-    And I am assigned to this project
+    And I am assigned to the project
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
     And I visit /
     When I select "test client" from "work_unit_client_id"
