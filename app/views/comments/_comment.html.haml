@@ -1,7 +1,7 @@
 - if comment.active?
   .comment_real_body
     .yui3-g
-      .yui3-u-1-8
+      .yui3-u-1-6
         .comment_details
           = show_gravatar_for(comment.user)
           %p
@@ -20,7 +20,7 @@
   %h3= "#{t(:comment)}:"
   .comment_real_body.hidden_comment{ :style => 'display: none;' }
     .yui3-g
-      .yui3-u-1-8
+      .yui3-u-1-6
         .comment_details
           = show_gravatar_for(comment.user)
           %p

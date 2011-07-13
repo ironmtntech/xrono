@@ -10,7 +10,7 @@
     - if item.is_a? Comment
       = render :partial => 'comments/comment', :locals => {:comment => item}
     - elsif item.is_a? FileAttachment
-      = render :partial => 'file_attachments/file_attachment', :locals => {:file_attachment => item}
+      = render :partial => 'file_attachments/file_attachment_combined', :locals => {:file_attachment => item}
     %hr  
   %p
   = render :partial => "comments/comment_form", :locals => { :commentable_id => @client.id, :commentable_field => "client_id", :commentable_type => "Client", :refurl => client_path(@client), :comment_num => @client.id }
