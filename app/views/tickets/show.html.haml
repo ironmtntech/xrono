@@ -11,7 +11,7 @@
           - if admin? || current_user.has_role?(:developer, @ticket.project)
             %li= link_to "#{t(:edit)}: #{@ticket}", edit_ticket_path
             %li= link_to t(:new_work_unit), new_ticket_work_unit_path(@ticket)
-          = render "shared/work_unit_index"
+    = render "shared/work_unit_index"
 .yui3-g
   .yui3-u-1-2
     .gradient_border_wrap
