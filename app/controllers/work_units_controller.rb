@@ -76,7 +76,13 @@ class WorkUnitsController < ApplicationController
 
   private
 
-
+    def check_internal_client 
+      compare = Client.find_by_id(params[:work_unit][:client])
+      if compare == SiteSetting.first.client_id
+        return true
+      end
+      false
+    end
     def check_for_params
       if params[:work_unit][:client_id].blank?
         render :json => {:success => false, :errors => "You must select a client." }, :layout => false, :status => 406 and return
@@ -90,6 +96,8 @@ class WorkUnitsController < ApplicationController
         render :json => {:success => false, :errors => "You must select an hours type." }, :layout => false, :status => 406 and return
       elsif params[:work_unit][:description].blank?
         render :json => {:success => false, :errors => "You must supply a description for the work unit." }, :layout => false, :status => 406 and return
+      elsif params[:work_unit][:hours_type] == "CTO" && !check_internal_client
+        render :json => {:success => false, :errors => "You must supply an internal client first before selecting" }, :layout => false, :status => 406 and return
       end
     end
 
