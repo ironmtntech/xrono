@@ -88,9 +88,9 @@ Feature: Manage Work Units
   
   Scenario: Attempt to register a work unit with CTO that's not an internal client
     Given I am an authenticated user with a developer role
-    And a client "test client" exists with name: "test client", initials: "TTC", 
-    And a client "test client2" exists with name: "test client2", initials: "TTC", 
-    Given site settings exists with internal_client: client "test client"
+    And a client "test client" exists with name: "test client", initials: "TTC"
+    And a client "test client2" exists with name: "test client2", initials: "TTC"
+    Given site settings exists with client: client "test client"
     And a project "test project" exists with name: "test project", client: client "test client"
     And I am assigned to this project
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
