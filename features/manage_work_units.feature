@@ -103,4 +103,4 @@ Feature: Manage Work Units
     And I fill in "Hours" with "2"
     And I fill in "work_unit_description" with "test description"
     And I press "Create Work Unit"
-    Then I should see "You cannot select CTO or PTO hour type for non-internal client"
+    Then I should see "You must supply an internal client first before selecting CTO as hours type"
