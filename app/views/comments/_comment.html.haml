@@ -1,28 +1,37 @@
 - if comment.active?
-  .yui3-g
-    .yui3-u-1-8
-      .comment_real_body
+  .comment_real_body
+    .yui3-g
+      .yui3-u-1-8
         .comment_details
           = show_gravatar_for(comment.user)
           %p
           = form_for comment, :url => {:controller => 'comments', :action => "update", :id => comment.id} do |c|
             = c.submit "Hide Comment"
-    .yui3-u-1-3
-      = " #{comment.user.first_name} #{comment.user.last_name} commented"
-      %p
-      = " #{distance_of_time_in_words_to_now(comment.created_at)} ago:"
-      %p
-      = "#{t(:posted)}: #{comment.created_at}"
-    .yui3-u-1-3
-      .comment_body
-        %pre= comment.comment
+      .yui3-u-1-3
+        = " #{comment.user.first_name} #{comment.user.last_name} commented"
+        %p
+        = " #{distance_of_time_in_words_to_now(comment.created_at)} ago:"
+        %p
+        = "#{t(:posted)}: #{comment.created_at}"
+      .yui3-u-1-3
+        .comment_body
+          %pre= comment.comment
 - else 
-  .yui3-g
-    .yui3-u-1
-      = " #{comment.user.first_name} #{comment.user.last_name} commented #{distance_of_time_in_words_to_now(comment.created_at)} ago:"
-      .comment_real_body.hidden_comment{ :style => 'display: none;' }
+  %h3= "#{t(:comment)}:"
+  .comment_real_body.hidden_comment{ :style => 'display: none;' }
+    .yui3-g
+      .yui3-u-1-8
         .comment_details
           = show_gravatar_for(comment.user)
-          //= "#{t(:posted)}: #{comment.created_at}"
+          %p
+          = form_for comment, :url => {:controller => 'comments', :action => "update", :id => comment.id} do |c|
+            = c.submit "Hide Comment"
+      .yui3-u-1-3
+        = " #{comment.user.first_name} #{comment.user.last_name} commented"
+        %p
+        = " #{distance_of_time_in_words_to_now(comment.created_at)} ago:"
+        %p
+        = "#{t(:posted)}: #{comment.created_at}"
+      .yui3-u-1-3
         .comment_body
           %pre= comment.comment
