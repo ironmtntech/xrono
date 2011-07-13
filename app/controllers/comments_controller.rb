@@ -34,13 +34,34 @@ class CommentsController < ApplicationController
   end
 
   def update
-    if @comment.update_attributes(:active => false)
-      flash[:notice] = "The comment has been hidden."
-      redirect_to(:back)
-    else
-      flash.now[:error] = "There was a problem hiding the comment."
+
+    if @comment.active == false
+      @comment.update_attributes(:active => true)
+      @hide = 'Hide Comment'
+    elsif @comment.active == true
+      @comment.update_attributes(:active => false)
+      @hide = 'Unhide Comment'
     end
+
+    if @comment.save
+      if @comment.active == false
+        flash[:notice] = "The comment has been hidden."
+      else
+        flash[:notice] = "The comment is no longer hidden."
+      end
+    end
+    redirect_to(:back)
+
   end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    if @comment.destroy
+      flash[:notice] = "The comment was deleted"
+    end
+    redirect_to(:back)
+  end
+
 
   private
 
