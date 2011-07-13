@@ -85,3 +85,21 @@ Feature: Manage Work Units
     And I fill in "Description" with "test description"
     When I press "Create Work unit"
     Then I should see "Work Unit created successfully" within "#flash_notice"
+  
+  Scenario: Attempt to register a work unit with CTO that's not an internal client
+    Given I am an authenticated user with a developer role
+    And a client "test client" exists with name: "test client", initials: "TTC", 
+    And a client "test client2" exists with name: "test client2", initials: "TTC", 
+    Given site settings exists with internal_client: client "test client"
+    And a project "test project" exists with name: "test project", client: client "test client"
+    And I am assigned to this project
+    And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
+    And I visit /
+    When I select "test client" from "work_unit_client_id"
+    And I select "test project" from "work_unit_project_id"
+    And I select "test ticket" from "work_unit_ticket_id"
+    And I select "CTO" from "hours_type"
+    And I fill in "Hours" with "2"
+    And I fill in "work_unit_description" with "test description"
+    And I press "Update Work unit"
+    Then I should see "You cannot select CTO or PTO hour type for non-internal client"
