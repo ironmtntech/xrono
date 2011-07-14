@@ -1,5 +1,6 @@
 class WorkUnitsController < ApplicationController
   before_filter :load_new_work_unit, :only => [:new]
+  before_filter :check_for_params, :only => [:create]
   before_filter :load_work_unit, :only => [:show, :edit, :update]
   before_filter :require_admin, :only => [:index]
   access_control do
@@ -16,8 +17,6 @@ class WorkUnitsController < ApplicationController
   # POST /work_units
   def create
     if request.xhr?
-      check_for_params
-      load_new_work_unit
       if @work_unit.save
         suspended = @work_unit.client.status == "Suspended"
         if suspended
