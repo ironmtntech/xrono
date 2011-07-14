@@ -9,20 +9,20 @@ class WorkUnitsController < ApplicationController
     
     allow :client, :of => :project, :to => :show
   end
-
+  
   # GET /work_units/new
   def new
   end
-
+  
   # POST /work_units
-  def create
+  def create_in_dashboard
     if request.xhr?
       if @work_unit.save
         suspended = @work_unit.client.status == "Suspended"
         if suspended
           render :json => "{\"success\": true, \"notice\": \"This client is suspended. Please contact an Administrator.\"}",
-                 :layout => false,
-                 :status => 200 and return
+          :layout => false,
+          :status => 200 and return
         else
           render :json => "{\"success\": true}", :layout => false, :status => 200 and return
         end
@@ -30,18 +30,20 @@ class WorkUnitsController < ApplicationController
         render :json => @work_unit.errors.full_messages.to_json, :layout => false, :status => 406 and return
         flash[:error] = t(:work_unit_created_unsuccessfully)
       end
-    else
-      #non ajax stuff
-      @work_unit = WorkUnit.new(params[:work_unit])
-      @work_unit.user = current_user
-      if @work_unit.save
-        flash[:notice] = "Work Unit created successfully"
-        redirect_to ticket_path(@work_unit.ticket)
-      else
-        flash[:error] = "There was a problem creating the work unit."
-        render :template => 'work_units/new'
-      end
     end
+  end
+
+  def create_in_ticket
+    @work_unit = WorkUnit.new(params[:work_unit])
+    @work_unit.user = current_user
+    if @work_unit.save
+      flash[:notice] = "Work Unit created successfully"
+      redirect_to ticket_path(@work_unit.ticket)
+    else
+      flash[:error] = "There was a problem creating the work unit."
+      render :template => 'work_units/new'
+    end
+    
   end
 
   def index 
