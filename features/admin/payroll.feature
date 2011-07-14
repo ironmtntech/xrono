@@ -40,7 +40,6 @@ Feature: Payroll report
     When I go to the admin payroll show page for the user
     And I fill in "autofill_all" with "123"
     And I press "Submit"
-    Then show me the page
     Then I should see "All payroll is filled for user Test Z Man"
 
 
