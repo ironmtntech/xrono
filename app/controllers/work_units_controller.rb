@@ -1,6 +1,6 @@
 class WorkUnitsController < ApplicationController
   before_filter :load_new_work_unit, :only => [:new]
-  before_filter :check_for_params, :only => [:create]
+  before_filter :check_for_params, :only => [:create_in_dashboard]
   before_filter :load_work_unit, :only => [:show, :edit, :update]
   before_filter :require_admin, :only => [:index]
   access_control do
