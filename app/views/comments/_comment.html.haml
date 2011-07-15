@@ -8,11 +8,12 @@
           = form_for comment, :url => {:controller => 'comments', :action => "update", :id => comment.id} do |c|
             = c.submit "Hide Comment"
       .yui3-u-1-3
-        = " #{comment.user.first_name} #{comment.user.last_name} commented"
-        %p
-        = " #{distance_of_time_in_words_to_now(comment.created_at)} ago:"
-        %p
-        = "#{t(:posted)}: #{comment.date} at #{comment.time_formatted}"
+        .comment_real_body
+          = " #{comment.user.first_name} #{comment.user.last_name} commented"
+          %p
+          = " #{distance_of_time_in_words_to_now(comment.created_at)} ago:"
+          %p
+          = "#{t(:posted)}: #{comment.date} at #{comment.time_formatted}"
       .yui3-u-1-3
         .comment_body
           %pre= comment.comment
