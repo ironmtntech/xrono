@@ -1,7 +1,7 @@
 #add_work_unit
   %h3.dashboard_title= t(:add_work_unit)
 
-  = form_for WorkUnit.new(params[:work_unit]) do |f|
+  = form_for WorkUnit.new(params[:work_unit], { :action => "create_in_dashboard"}) do |f|
     #work_unit_errors
     .work_unit_field
       %label= "#{t(:scheduled_on)}:"
