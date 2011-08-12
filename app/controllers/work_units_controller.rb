@@ -17,6 +17,7 @@ class WorkUnitsController < ApplicationController
   # POST /work_units
   def create_in_dashboard
     if request.xhr?
+      load_new_work_unit
       if @work_unit.save
         suspended = @work_unit.client.status == "Suspended"
         if suspended
@@ -32,7 +33,6 @@ class WorkUnitsController < ApplicationController
       end
     end
   end
-
   def create_in_ticket
     @work_unit = WorkUnit.new(params[:work_unit])
     @work_unit.user = current_user
