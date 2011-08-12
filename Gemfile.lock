@@ -119,7 +119,7 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
-    pickle (0.4.7)
+    pickle (0.4.8)
       cucumber (>= 0.8)
       rake
     polyglot (0.3.1)
@@ -206,7 +206,7 @@ DEPENDENCIES
   devise (~> 1.1.3)
   escape_utils (~> 0.1.9)
   faker (~> 0.9.5)
-  forgery (~> 0.3.5)
+  forgery (= 0.3.10)
   gravtastic
   haml (~> 3.0.18)
   jquery-rails
@@ -214,7 +214,7 @@ DEPENDENCIES
   machinist (~> 1.0.6)
   mysql (~> 2.8.1)
   paperclip (~> 2.3)
-  pickle (~> 0.4.2)
+  pickle (= 0.4.8)
   rails (= 3.0.3)
   rake (= 0.8.7)
   rspec (= 2.0.0)
@@ -223,7 +223,7 @@ DEPENDENCIES
   selenium-webdriver (~> 0.2.2)
   shoulda (~> 2.11.3)
   simplecov (~> 0.4.0)
-  spork (~> 0.9.0.rc)
+  spork (= 0.9.0.rc9)
   thin (~> 1.2.7)
   uuid (~> 2.3.1)
   yajl-ruby (~> 0.7.8)
