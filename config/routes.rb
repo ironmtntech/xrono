@@ -33,8 +33,11 @@ AssetTrackerTutorial::Application.routes.draw do
   end
 
   resources :work_units, :except => [:destroy, :create] do
-    post :create_in_ticket
-    post :create_in_dashboard
+    collection do 
+      post :create_in_ticket
+      post :create_in_dashboard
+    end
+
     resources :comments
   end
 
