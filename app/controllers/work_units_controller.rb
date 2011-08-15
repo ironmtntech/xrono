@@ -77,8 +77,8 @@ class WorkUnitsController < ApplicationController
   private
 
     def check_internal_client
-      compare = Client.find_by_id(params[:work_unit][:client_id])
-      if compare == SiteSetting.first.client_id
+      compare = params[:work_unit][:client_id].to_i
+      if compare == SiteSettings.first.client_id
         return true
       end
       false
