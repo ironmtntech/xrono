@@ -94,7 +94,7 @@ Feature: Manage Work Units
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
     And I am assigned to the project
     And a client "test client2" exists with name: "test client2", initials: "TTD"
-    And a site settings exists with client: client "test client"
+    And a site settings exists with client: client "test client2"
     And I visit /
     When I select "test client" from "work_unit_client_id"
     And I select "test project" from "work_unit_project_id"
@@ -103,4 +103,5 @@ Feature: Manage Work Units
     And I fill in "Hours" with "2"
     And I fill in "work_unit_description" with "test description"
     And I press "Create Work Unit"
-    Then I should see "You must supply an internal client first before selecting CTO as hours type"
+    Then show me the page
+    Then I should see "You can only select CTO as hours type on internal client."
