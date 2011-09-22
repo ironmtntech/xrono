@@ -20,7 +20,6 @@ group :development do
 end
 
 group :test do
-  gem 'selenium-webdriver', '~> 2.5.0'
   gem 'awesome_print', :require => 'ap'
   gem 'capybara', '~> 1.1.1'
   gem 'cucumber', '~> 1.0.6'
