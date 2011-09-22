@@ -17,7 +17,6 @@ gem 'rake', '0.8.7'
 
 group :development do
   gem 'awesome_print', :require => 'ap'
-  gem 'ruby-debug19'
 end
 
 group :test do
@@ -33,7 +32,6 @@ group :test do
   gem 'launchy', '~> 0.3.7'
   gem 'machinist', '~> 1.0.6'
   gem 'pickle', '= 0.4.8'
-  gem 'ruby-debug19'
   gem 'rspec', '= 2.0.0'
   gem 'rspec-rails', '= 2.0.1'
   gem 'shoulda', '~> 2.11.3'
