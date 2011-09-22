@@ -25,7 +25,7 @@ group :test do
   gem 'capybara', '~> 0.3.9'
   gem 'cucumber', '~> 0.9.2'
   gem 'cucumber-rails', '~> 0.3.2'
-  gem 'database_cleaner', '~> 0.5.2'
+  gem 'database_cleaner', '~> 0.6.7'
   gem 'escape_utils', '~> 0.1.9'
   gem 'faker', '~> 0.9.5'
   gem 'forgery', '= 0.3.10'
