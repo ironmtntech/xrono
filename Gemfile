@@ -20,6 +20,9 @@ group :development do
 end
 
 group :test do
+  unless ENV['travis']
+    gem 'ruby-debug19', :require => 'ruby-debug'
+  end
   gem 'awesome_print', :require => 'ap'
   gem 'capybara', '~> 1.1.1'
   gem 'cucumber', '~> 1.0.6'
