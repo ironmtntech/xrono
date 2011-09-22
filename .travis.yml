@@ -1,3 +1,6 @@
+before_script:
+  - "mysql -e 'create database xrono_text;'"
+  - "cp config/database.yml.mysql config/database.yml"
 script: "bundle exec rake db:create db:migrate spec"
 notifications:
   email:
@@ -8,6 +11,3 @@ rvm:
   - 1.9.3
   - rbx-2.0
   #- jruby
-before_script:
-  - "mysql -e 'create database xrono_text;' >/dev/null"
-  - "cp config/database.yml.mysql config/database.yml"
