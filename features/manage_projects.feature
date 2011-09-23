@@ -50,7 +50,7 @@ Feature: Manage projects
     Given I am on the client's page
     And I follow "New Project"
     When I fill in "Name" with "name 1"
-    Then I should see a link with text "Cancel" within ".actions"
+    Then I should see a link with text "Cancel" within the actions list
     And I press "Create"
     Then I should see "name 1"
 
@@ -60,7 +60,7 @@ Feature: Manage projects
     Given I am on the client's page
     And I follow "New Project"
     When I fill in "Name" with ""
-    Then I should see a link with text "Cancel" within ".actions"
+    Then I should see a link with text "Cancel" within the actions list
     And I press "Create"
     Then I should see "There was a problem saving the new project."
 

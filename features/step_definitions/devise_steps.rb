@@ -1,4 +1,6 @@
+require 'ruby-debug'
 Given /^I am an authenticated user(?: with an? (\w+) role)?$/ do |role|
+  visit destroy_user_session_path
   @current_user = User.make(:email => "current_user@example.com", :password => "password", :password_confirmation => "password")
   @current_user.has_role!(role.to_sym) if role
   visit new_user_session_path

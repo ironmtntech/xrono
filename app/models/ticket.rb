@@ -8,11 +8,28 @@ class Ticket < ActiveRecord::Base
   validates_presence_of :project_id
   validates_presence_of :name
 
-  scope :for_client, lambda{ |client| joins({:project => [:client]}).where("clients.id = ?", client.id) }
-  scope :for_project, lambda { |project| where('project_id = ?', project.id) }
-  scope :for_state, lambda { |state| where('state = ?', state) }
+
+  scope :for_client,     lambda{|client|     joins({:project => [:client]}).where("clients.id = ?", client.id) }
+  scope :for_project,    lambda{|project|    where('project_id = ?', project.id) }
+  scope :for_project_id, lambda{|project_id| where :project_id => project_id }
+
   scope :sort_by_name, order('name ASC')
 
+  named_scope :for_user, lambda{|user|
+    joins("INNER JOIN projects     p ON p.id=tickets.project_id")
+   .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
+   .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
+   .where("ru.user_id = #{user.id}")
+  }
+
+  named_scope :for_user_and_role, lambda{|user, role|
+    joins("INNER JOIN projects     p ON p.id=tickets.project_id")
+   .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
+   .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
+   .where("ru.user_id = #{user.id} AND r.name = '#{role}'")
+  }
+
+  scope :for_state, lambda { |state| where('state = ?', state) }
   state_machine :state, :initial => :fridge do
     state :fridge do
     end
@@ -102,6 +119,13 @@ class Ticket < ActiveRecord::Base
 
   def allows_access?(user)
     project.accepts_roles_by?(user) || user.admin?
+  end
+
+  def files_and_comments
+    ary = Array.new
+    ary << comments
+    ary << file_attachments
+    ary.flatten.sort_by {|x| x.created_at}
   end
 
 end

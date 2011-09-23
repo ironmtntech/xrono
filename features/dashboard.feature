@@ -1,6 +1,7 @@
 Feature: Dashboard
 
   Scenario: Total hours for each day
+    Given I am on the clients page
     Given I am an authenticated user
     And I have a "Normal" work unit scheduled today for "3.0" hours
     And I have an "Overtime" work unit scheduled today for "2.0" hours
