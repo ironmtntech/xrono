@@ -16,17 +16,17 @@ class Dashboard::BaseController < ApplicationController
   end
 
   def client
-    @projects = Project.sort_by_name.find(:all, :conditions => ['client_id = ?', params[:id]])
+    @projects = Project.sort_by_name.for_client_id(params[:id])
     unless admin?
-      @projects = @projects.select {|p| p.allows_access?(current_user)}
+      @projects = @projects.for_user_and_role(current_user, :developer)
     end
     respond_with @projects
   end
 
   def project
-    @tickets = Ticket.sort_by_name.find(:all, :conditions => ['project_id = ?', params[:id]])
+    @tickets = Ticket.sort_by_name.for_project_id(params[:id])
     unless admin?
-      @tickets = @tickets.select {|t| t.allows_access?(current_user) }
+      @tickets = @tickets.for_user_and_role(current_user, :developer)
     end
     respond_with @tickets
   end
