@@ -1,5 +1,5 @@
 #ticket_states{:style => "float:left; border: 1px solid;"}
-  %h3= state
+  %h3= state.to_s.humanize
   #ul
     -@project.tickets.for_state(state).each do |ticket|
       #li
