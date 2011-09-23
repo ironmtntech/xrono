@@ -41,3 +41,11 @@ Feature: File Attachment Management
     And I press "Submit"
     And I press "Mark as invalid"
     Then I should see "Attachment was marked as invalid"
+
+  Scenario: Add file attachment unsuccessfully
+    Given I am an authenticated user with an admin role
+    And a project exists
+    When I go to the project's page
+    And I follow "Add File Attachment"
+    And I press "Submit"
+    And I should see "There was a problem saving the image." within "#flash_error"

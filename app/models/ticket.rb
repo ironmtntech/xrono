@@ -45,4 +45,11 @@ class Ticket < ActiveRecord::Base
     project.accepts_roles_by?(user) || user.admin?
   end
 
+  def files_and_comments
+    ary = Array.new
+    ary << comments
+    ary << file_attachments
+    ary.flatten.sort_by {|x| x.created_at}
+  end
+
 end
