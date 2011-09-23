@@ -2,6 +2,7 @@ AssetTrackerTutorial::Application.routes.draw do
   root :to => "dashboard/base#index"
 
   devise_for :users, :path => '/', :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+  
 
   namespace :admin do
     resources :invoices
@@ -29,6 +30,8 @@ AssetTrackerTutorial::Application.routes.draw do
   end
 
   resources :tickets, :except => [:index, :destroy] do
+    get 'up_state', :controller => :tickets, :action => :up_state
+    get 'down_state', :controller => :tickets, :action => :down_state
     resources :comments
     resources :work_units
   end

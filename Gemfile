@@ -14,6 +14,10 @@ gem 'thin', '~> 1.2.7'
 gem 'uuid', '~> 2.3.1'
 gem 'jquery-rails'
 gem 'rake', '0.8.7'
+gem "state_machine", "~> 1.0.2"
+gem "ruby-debug19", "~> 0.11.6"
+
+
 
 group :development do
   gem 'awesome_print', :require => 'ap'

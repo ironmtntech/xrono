@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_filter :load_new_ticket, :only => [:new, :create]
-  before_filter :load_ticket, :only => [:show, :edit, :update]
+  before_filter :load_ticket, :only => [:show, :edit, :update, :up_state, :down_state]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
   before_filter :load_project
 
@@ -13,7 +13,7 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
   end
-
+  
   # POST /tickets
   def create
     if @ticket.save
@@ -53,6 +53,31 @@ class TicketsController < ApplicationController
     end
   end
 
+  def up_state 
+    case @ticket.state
+    when "fridge"
+      @ticket.move_to_development!
+    when "development"
+      @ticket.move_to_peer_review!
+    when "peer_review"
+      @ticket.move_to_user_acceptance!
+    when "user_acceptance"
+      @ticket.move_to_archived!
+    end
+    redirect_to url_for(@ticket.project)
+  end
+
+  def down_state 
+    case @ticket.state
+    when "peer_review"
+      @ticket.move_to_development!
+    when "user_acceptance"
+      @ticket.move_to_development!
+    end
+    redirect_to url_for(@ticket.project)
+  end
+
+
   private
 
     def load_new_ticket
@@ -61,7 +86,11 @@ class TicketsController < ApplicationController
     end
 
     def load_ticket
-      @ticket = Ticket.find(params[:id])
+      if params[:id]
+        @ticket = Ticket.find(params[:id])
+      elsif params[:ticket_id]
+        @ticket = Ticket.find(params[:ticket_id])
+      end
     end
 
     def load_file_attachments
