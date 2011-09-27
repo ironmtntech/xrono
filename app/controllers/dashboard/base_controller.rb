@@ -24,7 +24,7 @@ class Dashboard::BaseController < ApplicationController
   end
 
   def project
-    @tickets = Ticket.sort_by_name.for_project_id(params[:id])
+    @tickets = Ticket.find(:all, :conditions => {:project_id => params[:id]}, :order => "name")
     unless admin?
       @tickets = @tickets.for_user_and_role(current_user, :developer)
     end
