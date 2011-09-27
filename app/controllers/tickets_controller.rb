@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_filter :load_new_ticket, :only => [:new, :create]
-  before_filter :load_ticket, :only => [:show, :edit, :update, :up_state, :down_state]
+  before_filter :load_ticket, :only => [:show, :edit, :update, :advance_state, :reverse_state]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
   before_filter :load_project
 
@@ -53,7 +53,7 @@ class TicketsController < ApplicationController
     end
   end
 
-  def up_state 
+  def advance_state 
     case @ticket.state
     when "fridge"
       @ticket.move_to_development!
@@ -67,7 +67,7 @@ class TicketsController < ApplicationController
     redirect_to url_for(@ticket.project)
   end
 
-  def down_state 
+  def reverse_state 
     case @ticket.state
     when "peer_review"
       @ticket.move_to_development!
