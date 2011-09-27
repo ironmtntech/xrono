@@ -103,5 +103,8 @@ class Ticket < ActiveRecord::Base
   def allows_access?(user)
     project.accepts_roles_by?(user) || user.admin?
   end
-
+#### Comment out to look at bug in ticket show page
+  def files_and_comments
+    [self.file_attachments, self.comments]
+  end
 end

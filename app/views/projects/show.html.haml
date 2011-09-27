@@ -1,3 +1,5 @@
+=javascript_include_tag "jquery.js"
+=javascript_include_tag "jquery-ui-1.8.16.custom.min.js"
 .yui3-g
   .yui3-u-1
     %h2= "#{@project.client}: #{@project}"
@@ -34,3 +36,87 @@
         #files
           = render :partial => "file_attachments/file_attachments", :locals => { :file_attachments => @project.file_attachments }
           = link_to t(:add_file_attachment), new_file_attachment_path( :project_id => @project.id )
+
+
+:javascript
+  $(document).ready(ready_function());
+
+  function ready_function() {
+    $('li').each(function(){
+      makeItemDraggable($(this));
+    });
+    $('#development_ul').droppable({
+      accept: ".fridge_li, .peer_review_li, .user_acceptance_li",
+      drop: function(event, ui){
+        ui.draggable.remove();
+        var new_element = $("<li></li>").appendTo(this);
+        new_element.addClass("development_li");
+        new_element.html(ui.draggable.html());
+        makeItemDraggable(new_element);
+        var id = ui.draggable.attr("id");
+        new_element.attr("id",id);
+        ui.draggable.hasClass("fridge_li") ? advanceState(id) : reverseState(id); 
+        //location.reload();
+        ready_function();
+      }
+    });
+    $('#peer_review_ul').droppable({
+      accept: ".development_li",
+      drop: function(event, ui){
+        ui.draggable.remove();
+        var new_element = $("<li></li>").appendTo(this);
+        new_element.html(ui.draggable.html());
+        new_element.addClass("peer_review_li");
+        makeItemDraggable(new_element);
+        var id = ui.draggable.attr("id");
+        new_element.attr("id",id);
+        advanceState(id);
+        //location.reload();
+        ready_function();
+      }
+    });
+    $('#user_acceptance_ul').droppable({
+      accept: ".peer_review_li",
+      drop: function(event, ui){
+        ui.draggable.remove();
+        var new_element = $("<li></li>").appendTo(this);
+        new_element.html(ui.draggable.html());
+        new_element.addClass("user_acceptance_li");
+        makeItemDraggable(new_element);
+        var id = ui.draggable.attr("id");
+        new_element.attr("id",id);
+        advanceState(id);
+        //location.reload();
+        ready_function();
+      }
+    });
+    $('#archived_ul').droppable({
+      accept: ".user_acceptance_li",
+      drop: function(event, ui){
+        ui.draggable.remove();
+        var new_element = $("<li></li>").appendTo(this);
+        new_element.html(ui.draggable.html());
+        new_element.addClass("archived_li");
+        makeItemDraggable(new_element);
+        var id = ui.draggable.attr("id");
+        new_element.attr("id",id);
+        advanceState(id);
+        //location.reload();
+        ready_function();
+      }
+    });
+  }
+
+  function reverseState(id) {
+    jQuery.get("/tickets/" + id + "/down_state");
+  }
+
+  function advanceState(id) {
+    jQuery.get("/tickets/" + id + "/up_state");
+  }
+
+  function makeItemDraggable(element) {
+    element.draggable({
+      revert: true
+      });
+  }

@@ -16,14 +16,14 @@ class Project < ActiveRecord::Base
   scope :for_client,    lambda {|client|    where :client_id => client.id }
   scope :for_client_id, lambda {|client_id| where :client_id => client_id }
 
-  named_scope :for_user, lambda{|user|
+  scope :for_user, lambda{|user|
     joins("INNER JOIN roles        r ON r.authorizable_type='#{model_name}' AND r.authorizable_id=projects.id")
    .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
    .joins("INNER JOIN users        u ON ru.user_id = u.id")
    .where("ru.user_id = #{user.id}")
   }
 
-  named_scope :for_user_and_role, lambda{|user, role|
+  scope :for_user_and_role, lambda{|user, role|
     joins("INNER JOIN roles        r ON r.authorizable_type='#{model_name}' AND r.authorizable_id=projects.id")
    .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
    .joins("INNER JOIN users        u ON ru.user_id = u.id")
