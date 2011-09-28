@@ -15,7 +15,7 @@ gem 'uuid', '~> 2.3.1'
 gem 'jquery-rails'
 gem 'rake', '0.8.7'
 gem "state_machine", "~> 1.0.2"
-
+gem "acts_as_audited", "~> 2.0.0"
 
 
 group :development do

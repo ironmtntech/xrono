@@ -54,27 +54,13 @@ class TicketsController < ApplicationController
   end
 
   def advance_state 
-    case @ticket.state
-    when "fridge"
-      @ticket.move_to_development!
-    when "development"
-      @ticket.move_to_peer_review!
-    when "peer_review"
-      @ticket.move_to_user_acceptance!
-    when "user_acceptance"
-      @ticket.move_to_archived!
-    end
-    redirect_to url_for(@ticket.project)
+    @ticket.advance_state!
+    render :nothing => true
   end
 
   def reverse_state 
-    case @ticket.state
-    when "peer_review"
-      @ticket.move_to_development!
-    when "user_acceptance"
-      @ticket.move_to_development!
-    end
-    redirect_to url_for(@ticket.project)
+    @ticket.reverse_state!
+    render :nothing => true
   end
 
 

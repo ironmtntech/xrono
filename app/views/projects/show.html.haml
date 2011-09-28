@@ -44,6 +44,7 @@
       $('li').each(function(){
         makeItemDraggable($(this));
       });
+
       $('#fridge_ul').droppable({
         accept: "",
         drop: function(event, ui){
@@ -57,6 +58,7 @@
       })
       $('#development_ul').droppable({
         accept: ".fridge_li, .peer_review_li, .user_acceptance_li",
+        activeClass: "ui-state-hover",
         drop: function(event, ui){
           var new_element = $("<li></li>").text(ui.draggable.text()).attr("id",ui.draggable.attr("id")).appendTo(this);
           new_element.addClass("development_li")
@@ -73,6 +75,7 @@
       })
       $('#peer_review_ul').droppable({
         accept: ".development_li",
+        activeClass: "ui-state-hover",
         drop: function(event, ui){
           var new_element = $("<li></li>").text(ui.draggable.text()).attr("id",ui.draggable.attr("id")).appendTo(this);
           new_element.addClass("peer_review_li")
@@ -85,6 +88,7 @@
       })
       $('#user_acceptance_ul').droppable({
         accept: ".peer_review_li",
+        activeClass: "ui-state-hover",
         drop: function(event, ui){
           var new_element = $("<li></li>").text(ui.draggable.text()).attr("id",ui.draggable.attr("id")).appendTo(this);
           new_element.addClass("user_acceptance_li")
@@ -97,6 +101,7 @@
       })
       $('#archived_ul').droppable({
         accept: ".user_acceptance_li",
+        activeClass: "ui-state-hover",
         drop: function(event, ui){
           var new_element = $("<li></li>").text(ui.draggable.text()).attr("id",ui.draggable.attr("id")).appendTo(this);
           new_element.addClass("archive_li")
@@ -119,7 +124,8 @@
 
     function makeItemDraggable(element) {
       element.draggable({
-        revert: true
+        revert: true,
+        opacity: 0.7,
       })
     }
     function showDetailView(element) {
