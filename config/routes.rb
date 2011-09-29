@@ -32,6 +32,7 @@ AssetTrackerTutorial::Application.routes.draw do
   resources :tickets, :except => [:index, :destroy] do
     post 'advance_state', :controller => :tickets, :action => :advance_state
     post 'reverse_state', :controller => :tickets, :action => :reverse_state
+    get 'ticket_detail', :controller => :tickets, :action => :ticket_detail
     resources :comments
     resources :work_units
   end

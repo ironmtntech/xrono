@@ -50,7 +50,12 @@
       });
 
       $('.bucket ul li').live('dblclick', function(){
-        $( ".effect" ).show( "highlight", {}, 500 );
+        //$( ".effect" ).show( "highlight", {}, 500 );
+        //$( ".effect" ).show( "highlight", {}, 500 ).append("= escape_javascript( render :partial => \"/tickets/" + this.id + "/work_unit_index\")")
+        $.get('/tickets/'+this.id+'/ticket_detail', function(data) {
+          $(".effect").show('highlight', {}, 500).html(data);
+          $( ".div_effect #header" ).hide();
+          });
         $( ".bucket" ).hide();
       });
   
