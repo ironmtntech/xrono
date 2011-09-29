@@ -49,7 +49,7 @@
         makeItemDraggable($(this));
       });
 
-      $('.bucket ul li').dblclick(function(){
+      $('.bucket ul li').live('dblclick', function(){
         $( ".effect" ).show( "highlight", {}, 500 );
         $( ".bucket" ).hide();
       });
