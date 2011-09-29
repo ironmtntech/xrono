@@ -45,11 +45,11 @@
     $( ".concealed" ).hide();
     function ready_function() {
 
-      $('li').each(function(){
+      $('.bucket ul li').each(function(){
         makeItemDraggable($(this));
       });
 
-      $('li').dblclick(function(){
+      $('.bucket ul li').dblclick(function(){
         $( ".effect" ).show( "highlight", {}, 500 );
         $( ".bucket" ).hide();
       });

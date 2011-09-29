@@ -3,7 +3,7 @@
   %hr
   %ul{:id => "#{state.to_s}_ul"}
     -@project.tickets.for_state(state).each do |ticket|
-      %li{:id => ticket.id, :class => "#{state.to_s}_li round"}
+      %li{:id => "ticket_stub", :class => "#{state.to_s}_li"}
         =link_to ticket, ticket
         %div{:class => "concealed", :style => "float: right; width: auto;"}
           =button_to "->", ticket_advance_state_path(ticket), :method => :post
