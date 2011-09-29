@@ -15,8 +15,11 @@
     .gradient_border_wrap
       .gradient_border_content
         %h3= "#{t(:status)}: #{@project.client.status}"
-        -@project.tickets.first.states.each do |state|
-          =render :partial => "shared/ticketflow", :locals => { :project => @project, :state => state }
+        #div{:id => "effect", :class => "effect"}
+          = render :partial => "shared/work_unit_index"
+        #div{:id => "ticketboard", :class => ".ticketboard"}
+          -@project.tickets.first.states.each do |state|
+            =render :partial => "shared/ticketflow", :locals => { :project => @project, :state => state }
         %div{:style => "clear: both;"}
 .yui3-g
   .yui3-u-1-2
@@ -39,12 +42,23 @@
 - content_for :javascripts do
   :javascript
     $(document).ready(ready_function());
-
+    $( ".concealed" ).hide();
     function ready_function() {
+
       $('li').each(function(){
         makeItemDraggable($(this));
       });
 
+      $('li').dblclick(function(){
+        $( ".effect" ).show( "highlight", {}, 500 );
+        $( ".bucket" ).hide();
+      });
+  
+      $( ".effect" ).click(function(){
+        $( ".effect" ).hide();       
+        $( ".bucket" ).show( "highlight", {}, 250 );
+      });
+        
       $('#fridge_ul').droppable({
         accept: "",
         drop: function(event, ui){

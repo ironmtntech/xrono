@@ -55,12 +55,20 @@ class TicketsController < ApplicationController
 
   def advance_state 
     @ticket.advance_state!
-    render :nothing => true
+    if request.xhr?
+      render :nothing => true
+    else
+      redirect_to url_for(@ticket.project)
+    end
   end
 
   def reverse_state 
     @ticket.reverse_state!
-    render :nothing => true
+    if request.xhr?
+      render :nothing => true
+    else
+      redirect_to url_for(@ticket.project)
+    end
   end
 
 

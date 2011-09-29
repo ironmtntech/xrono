@@ -67,6 +67,8 @@ body {
   @include linear-gradient(color-stops(#ccc, #999));
   padding: 1px 0px;
   margin: 5px;
+
+ 
   .gradient_border_content {
     background:#eee;
     margin: 5px;
@@ -650,5 +652,17 @@ h1 {
   width: 153px;
   border:1px solid;
   list-style-type: none;
-  background-color: #ffffff;
+  background-color: #eeeeee;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  }
+
+.effect {
+  display: none;
+  width: 850px;
+}
+
+
+.concealed {
 }

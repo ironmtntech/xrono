@@ -27,6 +27,8 @@ class ProjectsController < ApplicationController
   # GET /projects/:id
   def show
     @tickets = Ticket.for_project(@project).sort_by_name
+    # FIXME - not showing correct group of work_unitsl
+    @work_units = Project.find(params[:id]).work_units
   end
 
   # GET /projects/:id/edit
