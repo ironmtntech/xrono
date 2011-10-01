@@ -9,5 +9,3 @@
           =button_to "->", ticket_advance_state_path(ticket), :method => :post
         %div{:class => "concealed", :style => "float: left; width: auto;"}        
           -if ticket.peer_review? || ticket.user_acceptance?
-
-
