@@ -35,6 +35,7 @@ $("#work_unit_project_id").change(function(){
 });
 
 // AJAX work unit creation
+
 $("#new_work_unit").submit(function() {
   var me = $(this);
   $("#work_unit_submit").attr('disabled', true);
@@ -62,6 +63,7 @@ $("#new_work_unit").submit(function() {
       // Ask the calendar to update itself
       update_calendar_block();
       $('#scheduled_at').datepicker('setDate', new Date());
+      $('#work_unit_scheduled_at').val(new Date());
       $('#schedule_modal_link').text($('#scheduled_at').val());
       if(notice) {
         $("#work_unit_errors").data('notice', notice);
@@ -215,7 +217,7 @@ function get_week(week){
       $('.week_pagination').html(response.week_pagination);
       // We have to reload the triggers since they are regenerated on each request
       set_week_pagination_triggers();
-      set_trigger_for_work_unit();
+      //set_trigger_for_work_unit();
     }
   });
 }
