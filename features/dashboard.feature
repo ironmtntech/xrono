@@ -15,29 +15,34 @@ Feature: Dashboard
     When I go to the home page
     Then I should see "You have not entered any time for the previous working day." within "#message"
   
-    @javascript
+    @javascript @test
   Scenario: Only show projects assigned to current users on Dashboard
     Given I am an authenticated user with a developer role
-    And a client "test client2" exists with name: "test client2", initials: "TC2", status: "Active"
-    And a project exists with name: "test project1", client: client "test client2"
+    Given a client "test client" exists with name: "test client"
+    And a project "test project" exists with name: "test project", client: client "test client"
+    And a ticket exists with project: project "test project", name: "test ticket"
     And I am assigned to the project
-    And a project exists with name: "test project2", client: client "test client2"
-    When I am on the dashboard page
-    And I select "test client2" from "Client"
-    Then I should see "test project1" within "option"
-    Then I should not see "test project2" within "option"
+    Given I have a "3" hour work unit for yesterday with ticket "test ticket"
+    And a project exists with name: "test project1", client: client "test client"
+    And I am assigned to the project
+    And a project exists with name: "test project2", client: client "test client"
+    And I visit /
+    And I select "test client" from "work_unit_client_id"
+    Then I should see "test project1" within "#work_unit_project_id"
+    Then I should not see "test project2" within "#work_unit_project_id"
 
-    @javascript
+    @javascript @wip
   Scenario: Only show tickets assigned to current users on Dashboard
     Given I am an authenticated user with a developer role
     Given a client "test client" exists with name: "test client"
-    Given a project "test project" exists with name: "test project", client: client "test client"
+    And a project "test project" exists with name: "test project", client: client "test client"
+    And a ticket exists with project: project "test project", name: "test ticket"
     And I am assigned to the project
-    Given a ticket exists with name: "test ticket", project: project "test project"
-    When I am on the dashboard page
+    Given I have a "3" hour work unit for yesterday with ticket "test ticket"
+    And I visit /
     And I select "test client" from "work_unit_client_id"
     And I select "test project" from "work_unit_project_id"
-    Then I should see "test ticket" within "option"
+    Then I should see "test ticket" within "#work_unit_ticket_id"
 
 
 

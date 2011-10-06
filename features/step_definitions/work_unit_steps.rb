@@ -14,3 +14,8 @@ Given /^I have no work units for the previous day$/ do
   @current_user.work_units.where(:scheduled_at => Date.yesterday).destroy_all
 end
 
+Given /^I have a "([^"]*)" hour work unit for yesterday with ticket "([^"]*)"$/ do |hours, ticket|
+  WorkUnit.make(:ticket => find_model!(ticket), :hours_type => "Normal", 
+    :scheduled_at => 1.days.ago, :user => @current_user, :hours => hours)
+end
+

@@ -88,13 +88,10 @@ Feature: Manage Work Units
 
   @javascript
   Scenario: Attempt to register a work unit with CTO that's not an internal client
-    Given I am an authenticated user with an dev role
+    Given I am an authenticated user with an admin role
     And a client "test client" exists with name: "test client", initials: "TTC", status: "Active"
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
-    And I am assigned to the project
-    And a client "test client2" exists with name: "test client2", initials: "TTD"
-    And a site settings exists with client: client "test client2"
     And I visit /
     When I select "test client" from "work_unit_client_id"
     And I select "test project" from "work_unit_project_id"
