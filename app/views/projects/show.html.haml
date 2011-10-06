@@ -17,7 +17,7 @@
         %h3= "#{t(:status)}: #{@project.client.status}"
         #div{:id => "effect", :class => "effect"}
         #div{:id => "ticketboard", :class => ".ticketboard"}
-          -@project.tickets.first.states.each do |state|
+          -Ticket.state_machine.states.keys.each do |state|
             =render :partial => "shared/ticketflow", :locals => { :project => @project, :state => state }
         %div{:style => "clear: both;"}
 .yui3-g
@@ -77,7 +77,7 @@
         drop: function(event, ui){
           var dragged = ui.draggable;
           var id = ui.draggable.id;
-          dragged.hide("puff", {}, 500);
+          dragged.hide("puff", {}, 350);
           dragged.hasClass("fridge_li") ? advance(dragged, this, "development_li") : reverse(dragged, this, "development_li");
         }
       });
@@ -87,7 +87,7 @@
         drop: function(event, ui){
           var dragged = ui.draggable
           advance(dragged, this, "peer_review_li");
-          dragged.hide("puff", {}, 500);
+          dragged.hide("puff", {}, 350);
         }
       });
       $('#user_acceptance_ul').droppable({
@@ -95,7 +95,7 @@
         activeClass: "ui-state-hover",
         drop: function(event, ui){
           var dragged = ui.draggable
-          dragged.hide("puff", {}, 500);
+          dragged.hide("puff", {}, 350);
           advance(dragged, this, "user_acceptance_li");
         }
       });
@@ -104,7 +104,7 @@
         activeClass: "ui-state-hover",
         drop: function(event, ui){
           var dragged = ui.draggable
-          dragged.hide("puff", {}, 500);
+          dragged.hide("puff", {}, 350);
           advance(dragged, this, "archived_li");
         }
       })
