@@ -3,6 +3,20 @@ class Dashboard::BaseController < ApplicationController
   before_filter :get_calendar_details, :only => [:index, :calendar, :update_calendar]
   respond_to :html, :json, :js
 
+  def collaborative_index
+    @clients = Client.not_inactive.sort_by_name
+    @projects = []
+    @tickets = []
+    render :json => @clients
+  end
+
+  def json_index
+    @clients = Client.not_inactive.sort_by_name.for_user(current_user)
+    @projects = []
+    @tickets = []
+    render :json => @clients
+  end
+  
   def index
     if current_user.has_role?(:developer)
       unless current_user.work_units_for_day(Date.current.prev_working_day).any?
@@ -17,9 +31,9 @@ class Dashboard::BaseController < ApplicationController
 
   def client
     @projects = Project.sort_by_name.for_client_id(params[:id])
-    unless admin?
-      @projects = @projects.for_user_and_role(current_user, :developer)
-    end
+    #unless admin?
+      #@projects = @projects.for_user_and_role(current_user, :developer)
+    #end
     respond_with @projects
   end
 

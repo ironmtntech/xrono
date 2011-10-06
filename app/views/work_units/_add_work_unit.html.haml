@@ -14,6 +14,7 @@
       = text_field_tag :scheduled_at, Date.current
 
   .work_unit_field
+    %input{:id => "checkbox", :type => "checkbox", :name => "collaborate", :value => 1}
     %label{:for => "work_unit_client_id"}= "#{t(:client)}:"
     = collection_select("work_unit", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) })
 
