@@ -64,6 +64,8 @@ AssetTrackerTutorial::Application.routes.draw do
 
   get '/dashboard', :controller => "dashboard/base", :action => "index"
   get '/dashboard/collaborative_index', :controller => "dashboard/base", :action => "collaborative_index"
+  get '/dashboard/collaborative_client', :controller => "dashboard/base", :action => "collaborative_client"
+  get '/dashboard/collaborative_project', :controller => "dashboard/base", :action => "collaborative_project"
   get '/dashboard/json_index', :controller => "dashboard/base", :action => "json_index"
   get '/dashboard/calendar', :controller => "dashboard/base", :action => "calendar"
   get '/dashboard/client', :controller => "dashboard/base", :action => "client"

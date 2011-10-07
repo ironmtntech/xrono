@@ -7,11 +7,13 @@ $("#checkbox").change(function(){
   me.children().remove();
   me.append( new Option("Select a client","") )
   $("#work_unit_project_id").children().remove();
-  $("#work_unit_project_id").append( new Option("Select a ticket",""))
+  $("#work_unit_project_id").append( new Option("Select a project",""))
   $("#work_unit_ticket_id").children().remove();
   $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
-  if(!this.checked) {
-    $.get("/dashboard/json_index", { id: this.value }, function(data){
+
+  if(this.checked) {
+    this.value = 1
+    $.get("/dashboard/collaborative_index", { id: this.value }, function(data){
       $.each(data, function(){
         $.each(this, function(k, v){
           me.append( new Option(v.name, v.id) )
@@ -19,7 +21,7 @@ $("#checkbox").change(function(){
       });
     }, "json");
   } else {
-    $.get("/dashboard/collaborative_index", { id: this.value }, function(data){
+    $.get("/dashboard/json_index", { id: this.value }, function(data){
       $.each(data, function(){
         $.each(this, function(k, v){
           me.append( new Option(v.name, v.id) )
@@ -36,14 +38,24 @@ $("#work_unit_client_id").change(function(){
   me.append( new Option("Select a project","") )
   $("#work_unit_ticket_id").children().remove();
   $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
-  if(this.value != "") {
-    $.get("/dashboard/client", { id: this.value }, function(data){
-      $.each(data, function(){
-        $.each(this, function(k, v){
-          me.append( new Option(v.name, v.id) )
+  if(this.value != '') {
+    if(document.getElementById("checkbox").checked) {   
+      $.get("/dashboard/collaborative_client", { id: this.value }, function(data){
+        $.each(data, function(){
+          $.each(this, function(k, v){
+            me.append( new Option(v.name, v.id) )
+          });
         });
-      });
-    }, "json");
+      }, "json");
+    } else {
+      $.get("/dashboard/client", { id: this.value }, function(data){
+        $.each(data, function(){
+          $.each(this, function(k, v){
+            me.append( new Option(v.name, v.id) )
+          });
+        });
+      }, "json");
+    }
   }
 });
 
@@ -52,14 +64,25 @@ $("#work_unit_project_id").change(function(){
   var me = $("#work_unit_ticket_id")
   me.children().remove();
   me.append( new Option("Select a ticket","") )
-  if(this.value != "") {
-    $.get("/dashboard/project", { id: this.value }, function(data){
-      $.each(data, function(){
-        $.each(this, function(k, v){
-          me.append( new Option(v.name, v.id) )
+  if(!this.value.blank) {
+    var checkbox = $("#checkbox");
+    if(document.getElementById("checkbox").checked) {   
+      $.get("/dashboard/collaborative_project", { id: this.value }, function(data){
+        $.each(data, function(){
+          $.each(this, function(k, v){
+            me.append( new Option(v.name, v.id) )
+          });
         });
-      });
-    }, "json");
+      }, "json");
+    } else {
+      $.get("/dashboard/project", { id: this.value }, function(data){
+        $.each(data, function(){
+          $.each(this, function(k, v){
+            me.append( new Option(v.name, v.id) )
+          });
+        });
+      }, "json");
+    }
   }
 });
 
