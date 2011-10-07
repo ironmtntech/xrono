@@ -34,7 +34,6 @@ function ready_function() {
     activeClass: "ui-state-hover",
     drop: function(event, ui){
       var dragged = ui.draggable;
-      var id = ui.draggable.id;
       dragged.hide("puff", {}, 350);
       dragged.hasClass("fridge_li") ? advance(dragged, this, "development_li") : reverse(dragged, this, "development_li");
     }
