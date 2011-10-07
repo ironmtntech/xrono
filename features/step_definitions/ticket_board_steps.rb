@@ -31,8 +31,7 @@ When /^I drag "([^"]*)" user_acceptance ticket to "([^"]*)"$/ do |arg1, arg2|
   ticket.drag_to(archived_bucket)
 end
 
-Then /^the ticket named "([^"]*)" in "([^"]*)" should have html id equal 
-       to ActiveRecord model id$/ do |ticket_name, bucket|
+Then /^the ticket named "([^"]*)" in "([^"]*)" should have html id equal to ActiveRecord model id$/ do |ticket_name, bucket|
   ticket_AR = Ticket.find_by_name ticket_name
   ticket_HTML = page.find_by_id("#{bucket}_ul").find('li')
   ticket_HTML["id"].should == ticket_AR.id.to_s
