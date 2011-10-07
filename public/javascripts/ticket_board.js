@@ -1,4 +1,4 @@
-/$(document).ready(ready_function());
+$(document).ready(ready_function());
 $( ".concealed" ).hide();
 function ready_function() {
 
@@ -11,18 +11,11 @@ function ready_function() {
       url: '/tickets/'+this.id+'/ticket_detail',
       success: function(data) {
         $(".effect").show().html(data);
-        //$.filter(function (index) {
-          //return $(this).attr("id") == ".effect #header";
-        //});
-        $(".effect #header").css("display", "none");
         $(".effect #footer").css("display", "none");
+        $(".effect #header").css("display", "none");
       }
     });
 
-    //$.get('/tickets/'+this.id+'/ticket_detail', function(data) {
-      //$(".effect").show().html(data);
-      //$( ".div_effect #header" ).hide();
-    //});
     $( ".bucket" ).hide();
   });
 
@@ -34,101 +27,84 @@ function ready_function() {
   $('#fridge_ul').droppable({
     accept: "",
     drop: function(event, ui){
-      var new_element = $("<li></li>").text(ui.draggable.text()).attr("id",ui.draggable.attr("id")).appendTo(this);
-      new_element.addClass("fridge_li")
-      makeItemDraggable(new_element);
-      var id = ui.draggable.attr("id")
-      reverseState(id);
-      ui.draggable.remove();
-    }
-  })
+    }});
+
   $('#development_ul').droppable({
     accept: ".fridge_li, .peer_review_li, .user_acceptance_li",
     activeClass: "ui-state-hover",
     drop: function(event, ui){
-      var id = ui.draggable.attr("id")
-      if (ui.draggable.hasClass("fridge_li")) {
-        advanceState(id);
-      } else {
-        reverseState(id);
-      }
-      var new_element = $("<li></li>").text(ui.draggable.text()).attr("id",ui.draggable.attr("id")).appendTo(this);
-      new_element.addClass("development_li")
-      new_element.html(ui.draggable.html());
-      makeItemDraggable(new_element);
-      
-      ui.draggable.remove();
-      }
+      var dragged = ui.draggable;
+      var id = ui.draggable.id;
+      dragged.hide("puff", {}, 350);
+      dragged.hasClass("fridge_li") ? advance(dragged, this, "development_li") : reverse(dragged, this, "development_li");
+    }
   });
   $('#peer_review_ul').droppable({
     accept: ".development_li",
     activeClass: "ui-state-hover",
     drop: function(event, ui){
-      var id = ui.draggable.attr("id")
-      advanceState(id);
-      var new_element = $("<li></li>").text(ui.draggable.text()).attr("id",ui.draggable.attr("id")).appendTo(this);
-      new_element.addClass("peer_review_li")
-      new_element.html(ui.draggable.html());
-      makeItemDraggable(new_element);
-      ui.draggable.remove();
+      var dragged = ui.draggable
+      advance(dragged, this, "peer_review_li");
+      dragged.hide("puff", {}, 350);
     }
   });
   $('#user_acceptance_ul').droppable({
     accept: ".peer_review_li",
     activeClass: "ui-state-hover",
-    drop: function(event, ui){       
-      var id = ui.draggable.attr("id")
-      advanceState(id);
-      var new_element = $("<li></li>").text(ui.draggable.text()).attr("id",ui.draggable.attr("id")).appendTo(this);
-      new_element.addClass("user_acceptance_li")
-      new_element.html(ui.draggable.html());
-      makeItemDraggable(new_element);
-      ui.draggable.remove();
+    drop: function(event, ui){
+      var dragged = ui.draggable
+      dragged.hide("puff", {}, 350);
+      advance(dragged, this, "user_acceptance_li");
     }
   });
   $('#archived_ul').droppable({
     accept: ".user_acceptance_li",
     activeClass: "ui-state-hover",
     drop: function(event, ui){
-      var id = ui.draggable.attr("id")
-      advanceState(id);
-      var new_element = $("<li></li>").text(ui.draggable.text()).attr("id",ui.draggable.attr("id")).appendTo(this);
-      new_element.addClass("archived_li")
-      new_element.html(ui.draggable.html());
-      makeItemDraggable(new_element);
-      ui.draggable.remove();
+      var dragged = ui.draggable
+      dragged.hide("puff", {}, 350);
+      advance(dragged, this, "archived_li");
     }
   })
 }
-
-function reverseState(id) {
+    
+function reverse(dragged, dest_bucket, dest_class) {
   $.ajax({
     type: "POST",
-    url: '/tickets/'+id+'/reverse_state',
+    url: '/tickets/'+dragged.attr("id")+'/reverse_state',
     success: function(data) {
+      var new_element = $("<li></li>").text(dragged.text()).attr("id",dragged.attr("id")).appendTo(dest_bucket);
+      new_element.addClass(dest_class);
+      new_element.html(dragged.html());
+      makeItemDraggable(new_element);
+      dragged.remove();
+    },
+    error: function() {
+      dragged.show("pulsate", {}, 200);
     }
   });
 }
 
-function advanceState(id) {
+function advance(dragged, dest_bucket, dest_class) {
   $.ajax({
     type: "POST",
-    url: '/tickets/'+id+'/advance_state',
+    url: '/tickets/'+dragged.attr("id")+'/advance_state',
     success: function(data) {
+      var new_element = $("<li></li>").text(dragged.text()).attr("id",dragged.attr("id")).appendTo(dest_bucket);
+      new_element.addClass(dest_class);
+      new_element.html(dragged.html());
+      makeItemDraggable(new_element);
+      dragged.remove();
+    },
+    error: function() {
+      dragged.show("pulsate", {}, 200);
     }
   });
-  //$.post("/tickets/" + id + "/advance_state");
 }
 
 function makeItemDraggable(element) {
   element.draggable({
     revert: true,
     opacity: 0.7,
-  })
-}
-function showDetailView(element) {
-  element.animate({
-    width: "800px",
-    height: "600px",
   })
 }
