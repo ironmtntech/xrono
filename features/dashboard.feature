@@ -22,16 +22,16 @@ Feature: Dashboard
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket exists with project: project "test project", name: "test ticket"
     And I am assigned to the project
-    Given I have a "3" hour work unit for yesterday with ticket "test ticket"
     And a project exists with name: "test project1", client: client "test client"
     And I am assigned to the project
     And a project exists with name: "test project2", client: client "test client"
     And I visit /
-    And I select "test client" from "work_unit_client_id"
+    And I follow "close"
+    And I select "test client" from "work_unit[client_id]"
     Then I should see "test project1" within "#work_unit_project_id"
     Then I should not see "test project2" within "#work_unit_project_id"
 
-    @javascript @wip
+    @javascript
   Scenario: Only show tickets assigned to current users on Dashboard
     Given I am an authenticated user with a developer role
     Given a client "test client" exists with name: "test client"
@@ -40,6 +40,7 @@ Feature: Dashboard
     And I am assigned to the project
     Given I have a "3" hour work unit for yesterday with ticket "test ticket"
     And I visit /
+    And I follow "close"
     And I select "test client" from "work_unit_client_id"
     And I select "test project" from "work_unit_project_id"
     Then I should see "test ticket" within "#work_unit_ticket_id"

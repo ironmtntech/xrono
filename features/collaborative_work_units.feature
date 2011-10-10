@@ -9,7 +9,6 @@ Feature: Ticket board
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket exists with project: project "test project", name: "test ticket"
     And I am assigned to the project
-    Given I have a "3" hour work unit for yesterday with ticket "test ticket"
 
     And a client "test client1" exists with name: "test client1", initials: "TC1", status: "Active"
     And a project exists with name: "test project1", client: client "test client1"
@@ -28,7 +27,6 @@ Feature: Ticket board
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket exists with project: project "test project", name: "test ticket"
     And I am assigned to the project
-    Given I have a "3" hour work unit for yesterday with ticket "test ticket"
 
     And a client "test client1" exists with name: "test client1", initials: "TC1", status: "Active"
     And a project exists with name: "test project1", client: client "test client1"
@@ -37,6 +35,7 @@ Feature: Ticket board
     And a client "test client2" exists with name: "test client2", initials: "TC2", status: "Active"
     And a project exists with name: "test project2", client: client "test client2"
     And I visit /
+    And I follow "close"
     And I check "checkbox"
     Then I should see "test client1" within "#work_unit_client_id"
     Then I should see "test client2" within "#work_unit_client_id"
@@ -49,7 +48,6 @@ Feature: Ticket board
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket exists with project: project "test project", name: "test ticket"
     And I am assigned to the project
-    Given I have a "3" hour work unit for yesterday with ticket "test ticket"
 
     And a client "test client1" exists with name: "test client1", initials: "TC1", status: "Active"
     And a project exists with name: "test project1", client: client "test client1"
@@ -58,6 +56,7 @@ Feature: Ticket board
     And a client "test client2" exists with name: "test client2", initials: "TC2", status: "Active"
     And a project exists with name: "test project2", client: client "test client2"
     And I visit /
+    And I follow "close"
     And I check "checkbox"
     And I select "test client2" from "work_unit_client_id"
     Then I should see "test project2" within "#work_unit_project_id"
@@ -70,7 +69,6 @@ Feature: Ticket board
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket exists with project: project "test project", name: "test ticket"
     And I am assigned to the project
-    Given I have a "3" hour work unit for yesterday with ticket "test ticket"
 
     And a client "test client1" exists with name: "test client1", initials: "TC1", status: "Active"
     And a project exists with name: "test project1", client: client "test client1"
@@ -79,6 +77,7 @@ Feature: Ticket board
     And a client "test client2" exists with name: "test client2", initials: "TC2", status: "Active"
     And a project exists with name: "test project2", client: client "test client2"
     And I visit /
+    And I follow "close"
     And I check "checkbox"
     And I select "test client2" from "work_unit_client_id"
     And I uncheck "checkbox"
@@ -90,8 +89,8 @@ Feature: Ticket board
     Given a client "test client" exists with name: "test client"
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket exists with project: project "test project", name: "test ticket"
-    Given I have a "3" hour work unit for yesterday with ticket "test ticket"
     And I visit /
+    And I follow "close"
     And I check "checkbox"
     And I select "test client" from "work_unit_client_id"
     And I select "test project" from "work_unit_project_id"
@@ -100,4 +99,4 @@ Feature: Ticket board
     And I fill in "work_unit_hours" with "2"
     And I fill in "work_unit_description" with "test description"
     When I press "Create Work Unit"
-    Then I should see "Current: 5.0" within "#current_hours"
+    Then I should see "Current: 2.0" within "#current_hours"
