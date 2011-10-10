@@ -10,7 +10,9 @@
         = form_tag(projects_admin_user_path, :method => 'post') do
           %table
             %thead
-              %th= t(:client)
+              %th 
+                =t(:client)
+                =link_to "[+/-]", "#", :class => "show_hide"
               %th= t(:project)
               %th= t(:developer_role)
               %th= t(:client_role)
@@ -24,4 +26,19 @@
                     %td= radio_button_tag("project[#{project.id}]", "developer", @user.has_role?(:developer, project))
                     %td= radio_button_tag("project[#{project.id}]", "client", @user.has_role?(:client, project))
                     %td= radio_button_tag("project[#{project.id}]", "no_access", @user.roles_for(project).empty?)
+              - else 
+                - Project.for_client(client).sort_by_name.each do |project|
+                  %tr{ :class => "#{cycle("odd", "even")} #{client.status.downcase}", :style => "display:none;" }
+                    %td= client
+                    %td= project
+                    %td= radio_button_tag("project[#{project.id}]", "developer", @user.has_role?(:developer, project))
+                    %td= radio_button_tag("project[#{project.id}]", "client", @user.has_role?(:client, project))
+                    %td= radio_button_tag("project[#{project.id}]", "no_access", @user.roles_for(project).empty?)
           = submit_tag("Submit")
+- content_for :javascripts do
+  :javascript
+    var inactives = document.getElementsByClassName('suspended');
+    $( ".show_hide" ).click(function(){
+      $(".suspended").toggle();
+    });
+
