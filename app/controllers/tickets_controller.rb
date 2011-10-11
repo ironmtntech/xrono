@@ -73,6 +73,7 @@ class TicketsController < ApplicationController
 
   def ticket_detail
     @work_units = Ticket.find(params[:ticket_id]).work_units
+    render :layout => false
   end
 
 

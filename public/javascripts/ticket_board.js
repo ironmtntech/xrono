@@ -10,20 +10,13 @@ function ready_function() {
     $.ajax({
       url: '/tickets/'+this.id+'/ticket_detail',
       success: function(data) {
-        $(".effect").show().html(data);
-        $(".effect #footer").css("display", "none");
-        $(".effect #header").css("display", "none");
+        $(".effect").dialog({draggable: true,closeOnEscape: true, 
+            closeText: 'close', width: 850, height: 600, show: 'slide', hide: 'slide'});
+        $(".effect").html(data);
       }
     });
-
-    $( ".bucket" ).hide();
   });
 
-  $( ".effect" ).click(function(){
-    $( ".effect" ).css("display", "none");      
-    $( ".bucket" ).show();
-  });
-    
   $('#fridge_ul').droppable({
     accept: "",
     drop: function(event, ui){
