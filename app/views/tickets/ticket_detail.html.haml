@@ -1,0 +1,18 @@
+%table.work_units
+  %thead
+    %tr
+      %th #
+      %th= t(:work_units)
+      %th= t(:creator)
+      %th= t(:scheduled_at)
+      %th= t(:hours_type)
+      %th= t(:hours)
+  %tbody
+    - @work_units.each do |work_unit|
+      %tr{ :class => cycle("odd", "even") }
+        %td= work_unit.id
+        %td= link_to work_unit.description, work_unit_path(work_unit)
+        %td= User.find_by_id(work_unit.user_id).first_name
+        %td= work_unit.scheduled_at
+        %td= work_unit.hours_type
+        %td= work_unit.hours
