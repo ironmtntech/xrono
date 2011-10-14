@@ -21,7 +21,7 @@ class WorkUnit < ActiveRecord::Base
   scope :normal, where('hours_type = "Normal"')
   before_validation :set_effective_hours!
   after_validation :validate_client_status
-  after_save :send_email!
+  after_create :send_email!
 
   def validate_client_status
     if client && client.status == "Inactive"
