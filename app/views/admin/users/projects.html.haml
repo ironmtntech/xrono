@@ -10,17 +10,24 @@
         = form_tag(projects_admin_user_path, :method => 'post') do
           %table
             %thead
-              %th= t(:client)
+              %th 
+                =t(:client)
+                =link_to_function("[+/-]", nil, :id => "show_hide")
               %th= t(:project)
               %th= t(:developer_role)
               %th= t(:client_role)
               %th= t(:no_roles)
             - Client.sort_by_name.each do |client|
-              - Project.for_client(client).sort_by_name.each do |project|
-                %tr{ :class => "#{cycle("odd", "even")} #{client.status.downcase}" }
-                  %td= client
-                  %td= project
-                  %td= radio_button_tag("project[#{project.id}]", "developer", @user.has_role?(:developer, project))
-                  %td= radio_button_tag("project[#{project.id}]", "client", @user.has_role?(:client, project))
-                  %td= radio_button_tag("project[#{project.id}]", "no_access", @user.roles_for(project).empty?)
+              - if client.status == "Active"
+                =render :partial => "shared/user_roles", :locals => { :user => @user, :client => client }
+            - Client.sort_by_name.each do |client|
+              - if client.status != "Active"
+                =render :partial => "shared/user_roles", :locals => { :user => @user, :client => client }
           = submit_tag("Submit")
+
+- content_for :javascripts do
+  :javascript
+    $( "#show_hide" ).click(function(){
+      $(".suspended").toggle();
+    });
+
