@@ -3,6 +3,19 @@ Feature: Ticket board
   Developer
   wants a checkbox to populate client selector with all clients
 
+  @javascript
+  Scenario: Collaboration checkbox is displayed for developers
+    Given I am an authenticated user with a developer role
+    And I visit /
+    And I follow "close"
+    Then I should see "Show hidden clients and projects"
+
+  Scenario: Collaboration checkbox is not displayed for clients
+    Given I am an authenticated user with a client role
+    And I visit /
+    Then I should not see "Show hidden clients and projects"
+    
+
   Scenario: Only show clients with projects assigned to current users by default
     Given I am an authenticated user with a developer role
     Given a client "test client" exists with name: "test client"
