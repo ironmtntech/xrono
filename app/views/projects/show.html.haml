@@ -1,3 +1,5 @@
+- content_for :javascripts do
+  = javascript_include_tag "ticket_board"
 .yui3-g
   .yui3-u-1
     %h2= "#{@project.client}: #{@project}"
@@ -15,33 +17,24 @@
     .gradient_border_wrap
       .gradient_border_content
         %h3= "#{t(:status)}: #{@project.client.status}"
-        %table.tickets
-          %thead
-            %tr
-              %th= t(:tickets)
-              %th= t(:work_units)
-              %th= t(:uninvoiced_hours)
-              %th= t(:total_hours)
-              - if admin? || current_user.has_role?(:developer, @project)
-                %th= t(:edit)
-          %tfoot
-            %tr
-              %th= t(:all_tickets)
-              %th= @project.work_units.count
-              %th= @project.uninvoiced_hours
-              %th= @project.hours
-              %th &nbsp;
-          %tbody
-            - @tickets.each do |ticket|
-              %tr
-                %td= link_to ticket, ticket
-                %td= ticket.work_units.count
-                %td= ticket.uninvoiced_hours
-                %td= ticket.hours
-                - if admin? || current_user.has_role?(:developer, @project)
-                  %td= link_to t(:edit), edit_ticket_path(ticket)
+        #div{:id => "effect", :class => "effect"}
+        #div{:id => "ticketboard", :class => ".ticketboard"}
+          -Ticket.state_machine.states.keys.each do |state|
+            =render :partial => "shared/ticketflow", :locals => { :project => @project, :state => state }
+        %div{:style => "clear: both;"}
 .yui3-g
-  .yui3-u-1
+  .yui3-u-1-2
     .gradient_border_wrap
       .gradient_border_content
-        = render :partial => "shared/files_and_comments", :locals => {:items => @project.files_and_comments.reverse, :id => 'project'}
+        = render :partial => "comments/comments", :locals => {:comments => @project.comments}
+        = render :partial => "comments/comment_form", :locals => { :commentable_id => @project.id,
+          :commentable_field => "project_id",
+          :commentable_type => "Project",
+          :refurl => project_path(@project),
+          :comment_num => @project.id }
+  .yui3-u-1-2
+    .gradient_border_wrap
+      .gradient_border_content
+        #files
+          = render :partial => "file_attachments/file_attachments", :locals => { :file_attachments => @project.file_attachments }
+          = link_to t(:add_file_attachment), new_file_attachment_path( :project_id => @project.id )
