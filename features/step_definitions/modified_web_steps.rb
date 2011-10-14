@@ -13,3 +13,13 @@ end
 Then /^"([^"]*)" should be seen within "([^"]*)"$/ do |value, field|
   assert page.has_xpath?("//option[contains(string(), '#{value}')]") 
 end
+
+Then /^"([^\"]+)" should not be visible$/ do |text|
+  paths = [
+    "//*[@class='hidden']/*[contains(.,'#{text}')]",
+    "//*[@class='invisible']/*[contains(.,'#{text}')]",
+    "//*[@style='display: none;']/*[contains(.,'#{text}')]"
+  ]
+  xpath = paths.join '|'
+  page.should have_xpath(xpath)
+end
