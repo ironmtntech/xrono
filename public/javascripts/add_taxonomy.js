@@ -61,6 +61,7 @@ $("#new_work_unit").submit(function() {
       me.effect("highlight");
       // Ask the calendar to update itself
       update_calendar_block();
+      $('#work_unit_scheduled_at').val(new Date());
       $('#scheduled_at').datepicker('setDate', new Date());
       $('#schedule_modal_link').text($('#scheduled_at').val());
       if(notice) {
