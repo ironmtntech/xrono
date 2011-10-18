@@ -5,11 +5,13 @@ Feature: Manage Work Units
 
   @javascript
   Scenario: Register new work unit
-    Given I am an authenticated user with an admin role
-    And a client "test client" exists with name: "test client", initials: "TTC"
+    Given I am an authenticated user with an dev role
+    And a client "test client" exists with name: "test client", initials: "TTC", status: "Active"
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
+    And I am assigned to the project
     And I visit /
+    And I follow "close"
     When I select "test client" from "work_unit_client_id"
     And I select "test project" from "work_unit_project_id"
     And I select "test ticket" from "work_unit_ticket_id"
@@ -21,11 +23,13 @@ Feature: Manage Work Units
 
   @javascript
   Scenario: Expand work unit description
-    Given I am an authenticated user with an admin role
-    And a client "test client" exists with name: "test client", initials: "TTC"
+    Given I am an authenticated user with an dev role
+    And a client "test client" exists with name: "test client", initials: "TTC", status: "Active"
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
+    And I am assigned to the project
     And I visit /
+    And I follow "close"
     When I select "test client" from "work_unit_client_id"
     And I select "test project" from "work_unit_project_id"
     And I select "test ticket" from "work_unit_ticket_id"
@@ -39,11 +43,13 @@ Feature: Manage Work Units
 
   @javascript
   Scenario: Attempt to register a work unit on a suspended client
-    Given I am an authenticated user with an admin role
+    Given I am an authenticated user with an dev role
     And a client "test client" exists with name: "test client", initials: "TTC", status: "Suspended"
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
+    And I am assigned to the project
     And I visit /
+    And I follow "close"
     When I select "test client" from "work_unit_client_id"
     And I select "test project" from "work_unit_project_id"
     And I select "test ticket" from "work_unit_ticket_id"
