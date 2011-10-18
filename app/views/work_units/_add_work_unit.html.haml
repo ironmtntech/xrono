@@ -3,6 +3,11 @@
 
 = form_for WorkUnit.new(params[:work_unit]), :url =>  create_in_dashboard_work_units_path() do |f|
   #work_unit_errors
+  -if current_user.has_role?(:developer) 
+    %label{:for => "checkbox"}
+      %input{:id => "checkbox", :type => "checkbox", :name => "checkbox", :value => true, :checked => false}
+      ="Show hidden clients and projects"
+
   .work_unit_field
     %label= "#{t(:scheduled_on)}:"
     = link_to Date.current, "#", :id => "schedule_modal_link"
