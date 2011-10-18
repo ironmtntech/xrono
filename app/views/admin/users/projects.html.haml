@@ -27,7 +27,10 @@
 
 - content_for :javascripts do
   :javascript
-    $( "#show_hide" ).click(function(){
-      $(".suspended").toggle();
-    });
+    $(document).ready(ready_function());
+    function ready_function() {
+      $( "#show_hide" ).click(function(){
+        $(".suspended").toggle();
+      });
+    }
 
