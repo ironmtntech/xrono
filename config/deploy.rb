@@ -18,7 +18,7 @@ set :use_sudo, false
 set :scm, :git
 #set :git_username, "knewter"
 set :repository, "git://github.com/isotope11/xrono.git"
-set :branch, "production"
+set :branch, "master"
 set :git_enable_submodules, 1
 
 # runtime dependencies
