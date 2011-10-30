@@ -3,6 +3,10 @@ class Dashboard::BaseController < ApplicationController
   before_filter :get_calendar_details, :only => [:index, :calendar, :update_calendar]
   respond_to :html, :json, :js
 
+  # GET /projects/show_me_the_tickets
+  def give_me_the_tickets
+    render :partial => "shared/ticketboard", :locals => { :project => Project.find(params[:id]) }
+  end
   def index
     if current_user.has_role?(:developer)
       unless current_user.work_units_for_day(Date.current.prev_working_day).any?

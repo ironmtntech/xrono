@@ -58,6 +58,9 @@ AssetTrackerTutorial::Application.routes.draw do
 
   namespace :dashboard do
     resources :base do
+      collection do
+        post :give_me_the_tickets
+      end
     end
   end
 

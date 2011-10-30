@@ -1,0 +1,8 @@
+= javascript_include_tag "ticket_board"
+- if project
+  %h3= "#{project.client},  #{project}"
+  #div{:id => "effect", :class => "effect"}
+  #div{:id => "ticketboard", :class => ".ticketboard"}
+    -Ticket.state_machine.states.keys.each do |state|
+      =render :partial => "shared/ticketflow", :locals => { :project => project, :state => state }
+  %div{:style => "clear: both;"}

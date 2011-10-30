@@ -2,10 +2,10 @@
   %span= state.to_s.humanize
   %hr
   %ul{:id => "#{state.to_s}_ul"}
-    -@project.tickets.for_state(state).each do |ticket|
+    -project.tickets.for_state(state).each do |ticket|
       %li{:id => ticket.id, :class => "#{state.to_s}_li"}
         =link_to ticket, ticket
-        %p{:id => "ticket_string"}="#{@project.client.initials}-#{ticket.id}"
+        %p{:id => "ticket_string"}="#{project.client.initials}-#{ticket.id}"
         %div{:class => "concealed", :style => "float: right; width: auto;"}
           =button_to "->", ticket_advance_state_path(ticket), :method => :post
         %div{:class => "concealed", :style => "float: left; width: auto;"}        

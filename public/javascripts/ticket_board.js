@@ -2,9 +2,11 @@ $(document).ready(ready_function());
 $( ".concealed" ).hide();
 function ready_function() {
 
-  $('.bucket ul li').each(function(){
-    makeItemDraggable($(this));
-  });
+  if (!document.getElementById("div_restricted_access")) {
+    $('.bucket ul li').each(function(){
+      makeItemDraggable($(this));
+    });
+  }
 
   $('.bucket ul li').live('dblclick', function(){
     $.ajax({

@@ -54,6 +54,7 @@ class TicketsController < ApplicationController
   end
 
   def advance_state 
+    return unless current_user.has_role?(:developer, @ticket.project) || current_user.admin?
     @ticket.advance_state!
     if request.xhr?
       render :nothing => true
@@ -63,6 +64,7 @@ class TicketsController < ApplicationController
   end
 
   def reverse_state 
+    return unless current_user.has_role?(:developer, @ticket.project) || current_user.admin?
     @ticket.reverse_state!
     if request.xhr?
       render :nothing => true
