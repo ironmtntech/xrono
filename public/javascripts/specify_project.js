@@ -17,7 +17,7 @@ $("#specify_client_id").change(function(){
 // when project is changed, populate the tickets
 $("#specify_project_id").change(function(){
   if(this.value != "") {
-    $('#in_dash_ticketboard').load('dashboard/base/give_me_the_tickets', { id: this.value }, function(data){});
+    $('#in_dash_ticketboard').load('dashboard/base/give_me_the_tickets', { id: this.value }, ticket_board_ready_function());
   }
 });
 

@@ -1,6 +1,6 @@
-$(document).ready(ready_function());
+$(document).ready(ticket_board_ready_function());
 $( ".concealed" ).hide();
-function ready_function() {
+function ticket_board_ready_function() {
 
   if (!document.getElementById("div_restricted_access")) {
     $('.bucket ul li').each(function(){

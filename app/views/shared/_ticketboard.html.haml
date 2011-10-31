@@ -1,4 +1,3 @@
-= javascript_include_tag "ticket_board"
 - if project
   %h3= "#{project.client},  #{project}"
   #div{:id => "effect", :class => "effect"}
@@ -6,3 +5,7 @@
     -Ticket.state_machine.states.keys.each do |state|
       =render :partial => "shared/ticketflow", :locals => { :project => project, :state => state }
   %div{:style => "clear: both;"}
+
+- content_for :javascripts do
+  :javascript
+    $(ticket_board_ready_function()); 
