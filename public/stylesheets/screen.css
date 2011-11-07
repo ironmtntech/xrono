@@ -2241,3 +2241,9 @@ body {
 .work_unit.pto, .work_unit.pto a {
   color: #33840c;
 }
+
+/* line 32, ../../app/assets/stylesheets/screen.scss */
+input[type=text] {
+  height: 26px;
+  line-height: 26px;
+}
