@@ -1,21 +1,12 @@
-.yui3-g
-  .yui3-u-1
-    %h2= "#{@ticket.client}: #{@ticket.project} - #{@ticket}"
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %ul.subnav
-          %li= link_to "#{t(:client)}: #{@ticket.client}", client_path(@ticket.project.client)
-          %li= link_to "#{t(:project)}: #{@ticket.project}", project_path(@ticket.project)
-          - if admin? || current_user.has_role?(:developer, @ticket.project)
-            %li= link_to "#{t(:edit)}: #{@ticket}", edit_ticket_path
-            %li= link_to t(:new_work_unit), new_ticket_work_unit_path(@ticket)
-    = render "shared/work_unit_index"
+%h2= "#{@ticket.client}: #{@ticket.project} - #{@ticket}"
 
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        = render :partial => "shared/files_and_comments", :locals => {:items => @ticket.files_and_comments.reverse, :id => 'ticket'}
+%ul.pills
+  %li= link_to "#{t(:client)}: #{@ticket.client}", client_path(@ticket.project.client)
+  %li= link_to "#{t(:project)}: #{@ticket.project}", project_path(@ticket.project)
+  - if admin? || current_user.has_role?(:developer, @ticket.project)
+    %li= link_to "#{t(:edit)}: #{@ticket}", edit_ticket_path
+    %li= link_to t(:new_work_unit), new_ticket_work_unit_path(@ticket)
 
+= render "shared/work_unit_index"
+
+= render :partial => "shared/files_and_comments", :locals => {:items => @ticket.files_and_comments.reverse, :id => 'ticket'}

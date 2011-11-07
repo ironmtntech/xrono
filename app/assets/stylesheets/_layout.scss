@@ -20,32 +20,14 @@
 
 html {
   height:100%;
-  background: #1a3247;
   //-webkit-font-smoothing: antialiased;
-}
-
-
-html {
-  background:#3d5262\0;
 }
 
 body {
   height:100%;
-  background: #1a3247 no-repeat;
-  @include linear-gradient(color-stops(#3f5365, #1a3247));
 }
-
-body {
-  background: url('/assets/main_bg.jpg') repeat-x\0;
-  background-color:#3d5263\0;
-}
-
-
-
-
 
 /*--- Site Styles ---*/
-
 
 .yui3-u-1-2 {
   float:left;

@@ -1,4 +1,4 @@
-%ul
+%ul.nav
   %li= link_to t(:home), root_path
   %li= link_to t(:clients), clients_path
   - if admin?
@@ -6,3 +6,4 @@
     %li= link_to t(:admin), admin_path
   - else
     %li= link_to t(:users), users_path
+  = render :partial => 'shared/user_menu'

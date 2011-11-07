@@ -1,7 +1,30 @@
-//** SCREEN STYLES **//
-@import "compass";
-@import "yui_reset";
-@import "yui_fonts";
-@import "yui_grids";
+/*
+ *= require twitter/bootstrap
+*/
+
 @import "jquery-ui-1.8.5.custom";
-@import "layout";
+
+//** SCREEN STYLES **//
+body{
+  padding-top: 60px;
+}
+
+.calendar{
+  .work_unit {
+    .description {
+      display: none;
+    }
+  }
+}
+
+.work_unit{
+  &.overtime, &.overtime a {
+    color: red;
+  }
+  &.cto, &.cto a {
+    color: #369; 
+  }
+  &.pto, &.pto a {
+    color: #33840c; 
+  }
+}

@@ -14,18 +14,14 @@ $("#checkbox").change(function(){
   if(this.checked) {
     this.value = 1
     $.get("/dashboard/collaborative_index", { id: this.value }, function(data){
-      $.each(data, function(){
-        $.each(this, function(k, v){
-          me.append( new Option(v.name, v.id) )
-        });
+      $.each(data, function(i, client){
+        me.append( new Option(client.name, client.id) )
       });
     }, "json");
   } else {
     $.get("/dashboard/json_index", { id: this.value }, function(data){
-      $.each(data, function(){
-        $.each(this, function(k, v){
-          me.append( new Option(v.name, v.id) )
-        });
+      $.each(data, function(i, client){
+        me.append( new Option(client.name, client.id) )
       });
     }, "json");
   } 
@@ -106,10 +102,8 @@ $("#new_work_unit").submit(function() {
       me.effect("highlight");
       $("#work_unit_client_id").children().remove();
       $.get("/dashboard/json_index", { id: this.value }, function(data){
-        $.each(data, function(){
-          $.each(this, function(k, v){
-           $("#work_unit_client_id").append( new Option(v.name, v.id) )
-          });
+        $.each(data, function(i, client){
+         $("#work_unit_client_id").append( new Option(client.name, client.id) )
         });
       }, "json");
       // Ask the calendar to update itself

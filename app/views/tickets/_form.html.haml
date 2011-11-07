@@ -9,13 +9,17 @@
       - @ticket.errors.full_messages.each do |msg|
         %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
+  %fieldset
+    .clearfix
+      = f.label :name
+      .input
+        = f.text_field :name
+    .clearfix
+      = f.label :description
+      .input
+        = f.text_area :description, :class => 'xxlarge', :rows => 5
+
     = hidden_field_tag :project_id, @ticket.project.id
-  .field
-    = f.label :description
-    = f.text_area :description
-  .actions
-    = f.submit :class => "add_new_button"
-    = link_to t(:cancel), url_for(@ticket.project), :class => "cancel_button"
+    .actions
+      = f.submit :class => "add_new_button btn primary"
+      = link_to t(:cancel), ticket_path(@ticket), :class => "cancel_button btn"

@@ -1,5 +1,4 @@
-!!! Strict
-%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+%html
   %head
     %title= yield(:title) + t(:app_name)
     %meta{"content" => "text/html;charset=UTF-8", "http-equiv" => "content-type"}
@@ -11,25 +10,19 @@
     = csrf_meta_tag
     = yield :head
   %body
-    #header
-      %div{class: wrapper_class}
-        = render partial: "shared/user_menu"
-        %h1
-          %a{:href => "/"}
-            = image_tag @site_settings.site_logo.url
-            %span= t(:company_name)
-      #nav
-        %div{class: wrapper_class} 
+    .topbar
+      .fill
+        .container
+          = link_to t(:company_name), '/', :class => 'brand'
           = render partial: "shared/menu"
-    #content
-      %div{class: wrapper_class}
-        = render partial: "shared/flashes"
-        .yui3-g
-          - if (content_column_right = yield :content_column_right).empty?
-            .yui3-u-1= yield
-          - else
-            .yui3-u-4-5= yield
-            .yui3-u-1-5= yield :content_column_right
+    .container
+      = render partial: "shared/flashes"
+      .row
+        - if (content_column_right = yield :content_column_right).empty?
+          .span16= yield
+        - else
+          .span12= yield
+          .span4= yield :content_column_right
     .clear
     #footer
       %div{class: wrapper_class}

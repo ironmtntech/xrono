@@ -1,48 +1,57 @@
-#add_work_unit
-  %h3.dashboard_title= t(:add_work_unit)
-
 = form_for WorkUnit.new(params[:work_unit]), :url =>  create_in_dashboard_work_units_path() do |f|
-  #work_unit_errors
-  -if current_user.has_role?(:developer) 
-    %label{:for => "checkbox"}
-      %input{:id => "checkbox", :type => "checkbox", :name => "checkbox", :value => true, :checked => false}
-      ="Show hidden clients and projects"
+  %fieldset
+    %legend= t(:add_work_unit)
 
-  .work_unit_field
-    %label= "#{t(:scheduled_on)}:"
-    = link_to Date.current, "#", :id => "schedule_modal_link"
+    #work_unit_errors
 
-  #schedule_modal
-    %p= t(:enter_work_units_on_completion_day)
-    .work_unit_field
-      %label= t(:scheduled_at)
-      = text_field_tag :scheduled_at, Date.current
+    - if current_user.has_role?(:developer) 
+      .clearfix
+        %label{:for => "checkbox"} Show hidden clients and projects
+        .input
+          %input{:id => "checkbox", :type => "checkbox", :name => "checkbox", :value => true, :checked => false}
 
-  .work_unit_field
-    %label{:for => "work_unit_client_id"}= "#{t(:client)}:"
-    = collection_select("work_unit", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) })
+    .clearfix
+      %label= "#{t(:scheduled_on)}:"
+      .input
+        = link_to Date.current, "#", :id => "schedule_modal_link"
 
-  .work_unit_field
-    %label{:for => "work_unit_project_id"}= "#{t(:project)}:"
-    = collection_select("work_unit", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) })
+    #schedule_modal
+      %p= t(:enter_work_units_on_completion_day)
+      .clearfix
+        %label= t(:scheduled_at)
+        .input
+          = text_field_tag :scheduled_at, Date.current
 
-  .work_unit_field
-    %label{:for => "work_unit_ticket_id"}= "#{t(:ticket)}:"
-    = collection_select("work_unit", "ticket_id", @tickets, "id", "name", { :prompt => t(:select_a_ticket) })
+    .clearfix
+      %label{:for => "work_unit_client_id"}= "#{t(:client)}:"
+      .input
+        = collection_select("work_unit", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) })
 
-  .work_unit_field
-    %label{:for => "work_unit_hours_type"}= "#{t(:type)}:"
-    = select_tag("hours_type", options_for_select(['Normal', 'Overtime', 'CTO', 'PTO']))
+    .clearfix
+      %label{:for => "work_unit_project_id"}= "#{t(:project)}:"
+      .input
+        = collection_select("work_unit", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) })
 
-  .work_unit_field
-    %label{:for => "work_unit_hours"}= "#{t(:hours).capitalize}:"
-    = f.text_field :hours, { :size => 10 }
+    .clearfix
+      %label{:for => "work_unit_ticket_id"}= "#{t(:ticket)}:"
+      .input
+        = collection_select("work_unit", "ticket_id", @tickets, "id", "name", { :prompt => t(:select_a_ticket) })
 
-  .work_unit_field
-    %label{:for => "work_unit_description"}= "#{t(:description)}:"
-    = f.text_area :description, { :rows => 10, :style => "resize: none;"}
+    .clearfix
+      %label{:for => "work_unit_hours_type"}= "#{t(:type)}:"
+      .input
+        = select_tag("hours_type", options_for_select(['Normal', 'Overtime', 'CTO', 'PTO']))
 
-  .work_unit_field
-    = f.hidden_field :scheduled_at, :value => Date.current
+    .clearfix
+      %label{:for => "work_unit_hours"}= "#{t(:hours).capitalize}:"
+      .input
+        = f.text_field :hours, { :size => 10 }
 
-    = f.submit t(:create_work_unit), :class => 'add_new_button'
+    .clearfix
+      %label{:for => "work_unit_description"}= "#{t(:description)}:"
+      .input
+        = f.text_area :description, { :rows => 5 }
+
+    .actions
+      = f.hidden_field :scheduled_at, :value => Date.current
+      = f.submit t(:create_work_unit), :class => 'add_new_button btn primary'

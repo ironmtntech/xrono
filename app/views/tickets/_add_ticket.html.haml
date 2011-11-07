@@ -1,23 +1,27 @@
 #add_ticket
-  %h3.dashboard_title= t(:add_ticket)
-
   = form_for Ticket.new(params[:ticket]) do |f|
-    #ticket-errors
-    .ticket_field
-      %label{:for => "ticket_client_id"}= "#{t(:client)}:"
-      = collection_select("ticket", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) })
+    %fieldset
+      %legend= t(:add_ticket)
+      #ticket-errors
+      .clearfix
+        %label{:for => "ticket_client_id"}= "#{t(:client)}:"
+        .input
+          = collection_select("ticket", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) })
 
-    .ticket_field
-      %label{:for => "ticket_project_id"}= "#{t(:project)}:"
-      = collection_select("ticket", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) })
+      .clearfix
+        %label{:for => "ticket_project_id"}= "#{t(:project)}:"
+        .input
+          = collection_select("ticket", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) })
 
-    .ticket_field
-      %label{:for => "ticket_name"}= "#{t(:name)}:"
-      = f.text_field :name, { :size => 10 }
+      .clearfix
+        %label{:for => "ticket_name"}= "#{t(:name)}:"
+        .input
+          = f.text_field :name, { :size => 10 }
 
-    .ticket_field
-      %label{:for => "ticket_description"}= "#{t(:description)}:"
-      = f.text_area :description, { :rows => 10, :style => "resize: none;"}
+      .clearfix
+        %label{:for => "ticket_description"}= "#{t(:description)}:"
+        .input
+          = f.text_area :description, { :rows => 5 }
 
-    .ticket_field
-      = f.submit t(:create_ticket), :class => 'add_new_button'
+      .actions
+        = f.submit t(:create_ticket), :class => 'add_new_button btn primary'

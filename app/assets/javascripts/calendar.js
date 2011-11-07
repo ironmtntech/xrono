@@ -20,5 +20,5 @@ function show_by_default(status)
 if (typeof calendar_expansion_default === 'undefined') { 
   calendar_expansion_default = false;
 }
-show_by_default(calendar_expansion_default);
 
+show_by_default(calendar_expansion_default);
