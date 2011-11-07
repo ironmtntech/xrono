@@ -2,9 +2,11 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :lockable
+
   include Gravtastic
   gravtastic
   is_gravtastic!
+
   acts_as_authorization_subject :association_name => :roles
 
   # Setup accessible (or protected) attributes for your model
@@ -19,9 +21,9 @@ class User < ActiveRecord::Base
   has_many :comments
 
   # Scopes
-  scope :with_unpaid_work_units, joins(:work_units).where(' work_units.paid IS NULL OR work_units.paid = "" ').group('users.id')
+  scope :with_unpaid_work_units, joins(:work_units).where('work_units.paid IS NULL OR work_units.paid = ""').group('users.id')
   scope :unlocked, where('locked_at IS NULL')
-  scope :locked, where('locked_at IS NOT NULL')
+  scope :locked,   where('locked_at IS NOT NULL')
   scope :sort_by_name, order('first_name ASC')
 
   # Return the initials of the User
@@ -113,5 +115,4 @@ class User < ActiveRecord::Base
     # Dividing by 0 is bad, mkay?
     total_hours == 0 ? 0 : ((100 * client_hours)/total_hours).round
   end
-
 end

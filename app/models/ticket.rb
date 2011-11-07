@@ -9,10 +9,9 @@ class Ticket < ActiveRecord::Base
   validates_presence_of :name
 
   scope :for_client,     lambda{|client|     joins({:project => [:client]}).where("clients.id = ?", client.id) }
-  scope :for_project,    lambda{|project|    where('project_id = ?', project.id) }
+  scope :for_project,    lambda{|project|    where(:project_id => project.id) }
   scope :for_project_id, lambda{|project_id| where :project_id => project_id }
-
-  scope :sort_by_name, order('name ASC')
+  scope :sort_by_name,   order('name ASC')
 
   scope :for_user, lambda{|user|
     joins("INNER JOIN projects     p ON p.id=tickets.project_id")
@@ -62,5 +61,4 @@ class Ticket < ActiveRecord::Base
     ary << file_attachments
     ary.flatten.sort_by {|x| x.created_at}
   end
-
 end

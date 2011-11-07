@@ -1,3 +1,9 @@
+# Simplecov Setup
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter '/vendor/'
+end
+
 require 'spork'
 
 Spork.prefork do
@@ -14,7 +20,6 @@ Spork.prefork do
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-
 
   RSpec.configure do |config|
     # == Mock Framework
@@ -37,18 +42,8 @@ Spork.prefork do
     # instead of true.
     config.use_transactional_fixtures = true
   end
-  
 end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-
 end
-
-
-# Simplecov Setup
-require 'simplecov'
-SimpleCov.start 'rails' do
-  add_filter '/vendor/'
-end
-

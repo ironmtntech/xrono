@@ -19,6 +19,7 @@ class WorkUnit < ActiveRecord::Base
   scope :cto, where(:hours_type => 'CTO')
   scope :overtime, where(:hours_type => 'Overtime')
   scope :normal, where(:hours_type => 'Normal')
+
   before_validation :set_effective_hours!
   after_validation :validate_client_status
   after_create :send_email!

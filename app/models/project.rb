@@ -56,5 +56,4 @@ class Project < ActiveRecord::Base
     ary << file_attachments
     ary.flatten.sort_by {|x| x.created_at}
   end
-
 end
