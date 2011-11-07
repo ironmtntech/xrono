@@ -12,13 +12,13 @@ class WorkUnit < ActiveRecord::Base
   scope :not_invoiced, lambda{ where('invoiced IS NULL OR invoiced = ""') }
   scope :for_client, lambda{|client| joins({:ticket => {:project => [:client]}}).where("clients.id = ?", client.id) }
   scope :for_project, lambda{|project| joins({:ticket => [:project]}).where("projects.id = ?", project.id)}
-  scope :for_ticket, lambda {|ticket| where('ticket_id = ?', ticket.id) }
-  scope :for_user, lambda{|user| where('user_id = ?', user.id)}
+  scope :for_ticket, lambda {|ticket| where(:ticket_id => ticket.id) }
+  scope :for_user, lambda{|user| where(:user_id => user.id)}
   scope :sort_by_scheduled_at, order('scheduled_at DESC')
-  scope :pto, where('hours_type = "PTO"')
-  scope :cto, where('hours_type = "CTO"')
-  scope :overtime, where('hours_type = "Overtime"')
-  scope :normal, where('hours_type = "Normal"')
+  scope :pto, where(:hours_type => 'PTO')
+  scope :cto, where(:hours_type => 'CTO')
+  scope :overtime, where(:hours_type => 'Overtime')
+  scope :normal, where(:hours_type => 'Normal')
   before_validation :set_effective_hours!
   after_validation :validate_client_status
   after_create :send_email!
