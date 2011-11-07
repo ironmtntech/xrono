@@ -41,18 +41,14 @@ $("#work_unit_client_id").change(function(){
   if(this.value != '') {
     if(document.getElementById("checkbox").checked) {   
       $.get("/dashboard/collaborative_client", { id: this.value }, function(data){
-        $.each(data, function(){
-          $.each(this, function(k, v){
-            me.append( new Option(v.name, v.id) )
-          });
+        $.each(data, function(i, project){
+          me.append( new Option(project.name, project.id) )
         });
       }, "json");
     } else {
       $.get("/dashboard/client", { id: this.value }, function(data){
-        $.each(data, function(){
-          $.each(this, function(k, v){
-            me.append( new Option(v.name, v.id) )
-          });
+        $.each(data, function(i, project){
+          me.append( new Option(project.name, project.id) )
         });
       }, "json");
     }
@@ -68,18 +64,14 @@ $("#work_unit_project_id").change(function(){
     var checkbox = $("#checkbox");
     if(document.getElementById("checkbox").checked) {   
       $.get("/dashboard/collaborative_project", { id: this.value }, function(data){
-        $.each(data, function(){
-          $.each(this, function(k, v){
-            me.append( new Option(v.name, v.id) )
-          });
+        $.each(data, function(i, ticket){
+          me.append( new Option(ticket.name, ticket.id) )
         });
       }, "json");
     } else {
       $.get("/dashboard/project", { id: this.value }, function(data){
-        $.each(data, function(){
-          $.each(this, function(k, v){
-            me.append( new Option(v.name, v.id) )
-          });
+        $.each(data, function(i, ticket){
+          me.append( new Option(ticket.name, ticket.id) )
         });
       }, "json");
     }
@@ -177,10 +169,8 @@ $("#ticket_client_id").change(function(){
   $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
   if(this.value != "") {
     $.get("/dashboard/client", { id: this.value }, function(data){
-      $.each(data, function(){
-        $.each(this, function(k, v){
-          me.append( new Option(v.name, v.id) )
-        });
+      $.each(this, function(k, v){
+        me.append( new Option(v.name, v.id) )
       });
     }, "json");
   }
@@ -193,10 +183,8 @@ $("#ticket_project_id").change(function(){
   me.append( new Option("Select a ticket","") )
   if(this.value != "") {
     $.get("/dashboard/project", { id: this.value }, function(data){
-      $.each(data, function(){
-        $.each(this, function(k, v){
-          me.append( new Option(v.name, v.id) )
-        });
+      $.each(this, function(k, v){
+        me.append( new Option(v.name, v.id) )
       });
     }, "json");
   }

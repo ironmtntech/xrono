@@ -6,8 +6,6 @@
 
 // Imports --------------------------------------------------------------
 
-@import "defaults";
-
 /* Print Defaults -------------------------------------------------------------- */
 
 nav {
@@ -20,7 +18,6 @@ nav {
   text-shadow: none !important; }
 
 body {
-  @include serif-family;
   font-size: 12pt;
   background: white;
   color: black; }

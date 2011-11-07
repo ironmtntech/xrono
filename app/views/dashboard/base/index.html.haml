@@ -1,9 +1,3 @@
-- content_for :javascripts do
-  = javascript_include_tag "dashboard"
-  = javascript_include_tag "schedule_modal"
-  = javascript_include_tag "add_taxonomy"
-  = javascript_include_tag "calendar"
-
 - if @message
   #message{:title => @message[:title], :style => "display: none;"}
     %p= @message[:body]

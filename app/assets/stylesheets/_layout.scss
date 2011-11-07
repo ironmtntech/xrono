@@ -36,7 +36,7 @@ body {
 }
 
 body {
-  background: url('../../images/main_bg.jpg') repeat-x\0;
+  background: url('/assets/main_bg.jpg') repeat-x\0;
   background-color:#3d5263\0;
 }
 
@@ -194,11 +194,11 @@ h3 {
 }
 
 #header {
-  background: url('../../images/top_bg.jpg') repeat-x\0;  
+  background: url('/assets/top_bg.jpg') repeat-x\0;  
 }
 
 #nav {
-  background: url('../../images/nav_bg.jpg') repeat-x\0;
+  background: url('/assets/nav_bg.jpg') repeat-x\0;
   ul {
     li {
       a {

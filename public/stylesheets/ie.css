@@ -1,0 +1,53 @@
+/* line 1, ../../app/assets/stylesheets/ie.scss */
+* + html {
+  background: #3d5263;
+}
+
+/* line 5, ../../app/assets/stylesheets/ie.scss */
+* + html body {
+  background: url("../../images/main_bg.jpg") repeat-x;
+  background-color: #3d5263;
+}
+
+/* line 10, ../../app/assets/stylesheets/ie.scss */
+* + html .gradient_border_wrap {
+  background: #999;
+}
+
+/* line 14, ../../app/assets/stylesheets/ie.scss */
+* + html .gradient_border_content {
+  background: #efefef;
+}
+
+/* line 18, ../../app/assets/stylesheets/ie.scss */
+* + html #header {
+  background: url("../../images/top_bg.jpg") repeat-x;
+}
+/* line 20, ../../app/assets/stylesheets/ie.scss */
+* + html #header #nav {
+  background: url("../../images/nav_bg.jpg") repeat-x;
+}
+/* line 24, ../../app/assets/stylesheets/ie.scss */
+* + html #header #nav ul li a {
+  height: 35px;
+}
+/* line 26, ../../app/assets/stylesheets/ie.scss */
+* + html #header #nav ul li a:hover {
+  background: #fff;
+  border: none;
+}
+
+/* line 36, ../../app/assets/stylesheets/ie.scss */
+* + html #nav {
+  background: url("../../images/nav_bg.jpg") repeat-x;
+}
+/* line 41, ../../app/assets/stylesheets/ie.scss */
+* + html #nav ul li a:hover {
+  background: #fff;
+  border: none;
+}
+
+/* line 50, ../../app/assets/stylesheets/ie.scss */
+* + html #client table th, .gradient_border_content table th, .calendar th, .users th, .clients th {
+  background: #34495c;
+}

@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   gravtastic
   is_gravtastic!
 
-  acts_as_authorization_subject :association_name => :roles
+  acts_as_authorization_subject :association_name => :roles, :join_table_name => :roles_users
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,

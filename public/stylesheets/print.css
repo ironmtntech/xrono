@@ -1,0 +1,57 @@
+/* Print Defaults -------------------------------------------------------------- */
+/* line 11, ../../app/assets/stylesheets/print.scss */
+nav {
+  display: none;
+}
+
+/* line 14, ../../app/assets/stylesheets/print.scss */
+* {
+  background: transparent !important;
+  color: #444444 !important;
+  float: none !important;
+  text-shadow: none !important;
+}
+
+/* line 20, ../../app/assets/stylesheets/print.scss */
+body {
+  font-size: 12pt;
+  background: white;
+  color: black;
+}
+
+/* line 26, ../../app/assets/stylesheets/print.scss */
+a:link, a:visited {
+  color: #444444 !important;
+  text-decoration: underline;
+}
+/* line 29, ../../app/assets/stylesheets/print.scss */
+a:after {
+  content: " (" attr(href) ") ";
+  font-size: smaller;
+}
+
+/* line 33, ../../app/assets/stylesheets/print.scss */
+abbr:after {
+  content: " (" attr(title) ")";
+  font-size: smaller;
+}
+
+/* line 37, ../../app/assets/stylesheets/print.scss */
+pre, blockquote, img {
+  page-break-inside: avoid;
+}
+
+@page {
+  margin: 0.5cm;
+}
+
+/* line 43, ../../app/assets/stylesheets/print.scss */
+p, h2, h3 {
+  orphans: 3;
+  widows: 3;
+}
+
+/* line 47, ../../app/assets/stylesheets/print.scss */
+h2, h3 {
+  page-break-after: avoid;
+}
