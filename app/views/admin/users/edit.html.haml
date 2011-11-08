@@ -1,37 +1,40 @@
-.yui3-g
-  .yui3-u-1
-    %h2= t(:edit_user)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        = form_for @user, :class => "new_user", :url => admin_user_path(@user) do |f|
-          .field_wrap
-            = f.label :first_name
-            = f.text_field :first_name
-          .field_wrap
-            = f.label :last_name
-            = f.text_field :last_name
-          .field_wrap
-            = f.label :middle_initial
-            = f.text_field :middle_initial
-          .field_wrap
-            = f.label :email
-            = f.text_field :email
-          .field_wrap 
-            = f.label :daily_target_hours, t(:daily_target_hours) 
-            = f.text_field(:daily_target_hours)
-          .field_wrap
-            = f.label :password
-            = f.password_field :password
-          .field_wrap
-            = f.label :password_confirmation
-            = f.password_field :password_confirmation
-          .field_wrap
-            = f.label :locked
-            = f.check_box :locked
-          .field_wrap
-            = f.submit 'Update', :class => 'add_new_button'
-            = link_to 'Cancel', admin_users_path, :class => 'cancel_button'
+%h2= t(:edit_user)
 
-        .clear
+= form_for @user, :class => "new_user", :url => admin_user_path(@user) do |f|
+  .clearfix
+    = f.label :first_name
+    .input
+      = f.text_field :first_name
+  .clearfix
+    = f.label :last_name
+    .input
+      = f.text_field :last_name
+  .clearfix
+    = f.label :middle_initial
+    .input
+      = f.text_field :middle_initial
+  .clearfix
+    = f.label :email
+    .input
+      = f.text_field :email
+  .clearfix 
+    = f.label :daily_target_hours, t(:daily_target_hours) 
+    .input
+      = f.text_field(:daily_target_hours)
+  .clearfix
+    = f.label :password
+    .input
+      = f.password_field :password
+  .clearfix
+    = f.label :password_confirmation
+    .input
+      = f.password_field :password_confirmation
+  .clearfix
+    = f.label :locked
+    .input
+      = f.check_box :locked
+  .actions
+    = f.submit 'Update', :class => 'add_new_button btn primary'
+    = link_to 'Cancel', admin_users_path, :class => 'cancel_button btn'
+
+.clear

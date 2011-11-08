@@ -20,6 +20,7 @@
               %ul.unstyled
                 - user.work_units_for_day(date).each do |work_unit|
                   %li{:class => "work_unit " << work_unit.hours_type.downcase }
+                    - render_label_for(work_unit.hours_type)
                     = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description }
                     %span.description= '- ' + work_unit.description
 

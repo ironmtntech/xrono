@@ -13,7 +13,7 @@
     .topbar
       .fill
         .container
-          = link_to t(:company_name), '/', :class => 'brand'
+          = link_to image_tag(@site_settings.site_logo.url), '/', :class => 'brand'
           = render partial: "shared/menu"
     .container
       = render partial: "shared/flashes"
@@ -24,11 +24,11 @@
           .span12= yield
           .span4= yield :content_column_right
     .clear
-    #footer
-      %div{class: wrapper_class}
+    %footer.footer
+      .container
         %p
           &copy; 
           = t(:company_name)
-          2010
+          2011
     = render partial: "shared/help"
     = render partial: "shared/javascripts"

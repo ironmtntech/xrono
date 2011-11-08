@@ -1,18 +1,13 @@
 - content_for :javascripts do
   = javascript_include_tag "calendar"
 
-.yui3-g
-  .yui3-u-1
-    %h2 Weekly Time Report
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        - if @users.any?
-          = render :partial => 'week_pagination', :locals => { :start_date => @start_date }
-          - @users.each do |user|
-            %h3= user
-            = render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => user }
-          = render :partial => 'week_pagination', :locals => { :start_date => @start_date }
-        - else
-          %h3= t(:there_are_no_users_to_show)
+%h2 Weekly Time Report
+
+- if @users.any?
+  = render :partial => 'week_pagination', :locals => { :start_date => @start_date }
+  - @users.each do |user|
+    %h3= user
+    = render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => user }
+  = render :partial => 'week_pagination', :locals => { :start_date => @start_date }
+- else
+  %h3= t(:there_are_no_users_to_show)

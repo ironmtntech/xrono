@@ -2236,15 +2236,15 @@ body {
 
 /* line 27, ../../app/assets/stylesheets/screen.scss */
 .work_unit.overtime, .work_unit.overtime a {
-  color: red;
+  color: #C43C35;
 }
 /* line 30, ../../app/assets/stylesheets/screen.scss */
 .work_unit.cto, .work_unit.cto a {
-  color: #369;
+  color: #F89406;
 }
 /* line 33, ../../app/assets/stylesheets/screen.scss */
 .work_unit.pto, .work_unit.pto a {
-  color: #33840c;
+  color: #46A546;
 }
 
 /* line 38, ../../app/assets/stylesheets/screen.scss */
@@ -2277,4 +2277,24 @@ ul.nav li.selected a {
 /* line 63, ../../app/assets/stylesheets/screen.scss */
 .topbar .fill {
   padding: 6px 0;
+}
+
+/* line 68, ../../app/assets/stylesheets/screen.scss */
+tfoot {
+  border-top: 2px solid #222;
+}
+
+/* line 72, ../../app/assets/stylesheets/screen.scss */
+footer.footer {
+  border-top: 1px solid #e5e5e5;
+  background-color: #eeeeee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
+  padding: 30px 0;
+  text-shadow: 0 1px 0 #ffffff;
+}
+
+/* line 81, ../../app/assets/stylesheets/screen.scss */
+.topbar .brand {
+  padding-top: 0;
+  padding-bottom: 0;
 }
