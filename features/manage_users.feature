@@ -14,7 +14,7 @@ Feature: User Administration
     Given I am an authenticated user
     When I go to the admin users page
     Then I should be on the home page
-    And I should see "You must be an admin to do that." within "#flash_error"
+    And I should see "You must be an admin to do that." within ".alert-message"
 
   Scenario: View a user
     Given I am an authenticated user with an admin role

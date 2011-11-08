@@ -64,6 +64,6 @@ Feature: Manage tickets
     And I fill in "ticket_name" with "New ticket"
     And I fill in "ticket_description" with "New description"
     When I press "ticket_submit"
-    Then I should see "Ticket created successfully" within "#flash_notice"
+    Then I should see "Ticket created successfully" within ".alert-message"
     When I go to the project's page
     Then I should see "New ticket" within "table"

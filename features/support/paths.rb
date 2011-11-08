@@ -14,6 +14,9 @@ module NavigationHelpers
     when /^the contacts page$/
       client_contacts_path
 
+    when /^the new client page$/
+      new_client_path
+
     when /^the login page$/
       '/login'
 

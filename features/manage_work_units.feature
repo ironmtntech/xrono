@@ -69,7 +69,7 @@ Feature: Manage Work Units
     And I follow "Edit Work Unit"
     And I fill in "Hours" with "2"
     And I press "Update Work unit"
-    Then I should see "Work unit updated" within "#flash_notice"
+    Then I should see "Work unit updated" within ".alert-message"
 
   Scenario: Attempt to edit a work unit you do not have access to
     Given I am an authenticated user
@@ -78,7 +78,7 @@ Feature: Manage Work Units
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
     And a work_unit exists with ticket: ticket "test ticket", description: "New description", hours: "1"
     When I go to the work unit's page
-    Then I should see "Access denied" within "#flash_notice"
+    Then I should see "Access denied" within ".alert-message"
 
   @javascript
   Scenario: Add new work order to a ticket
@@ -90,7 +90,7 @@ Feature: Manage Work Units
     And I fill in "Hours" with "2"
     And I fill in "Description" with "test description"
     When I press "Create Work unit"
-    Then I should see "Work Unit created successfully" within "#flash_notice"
+    Then I should see "Work Unit created successfully" within ".alert-message"
 
   @javascript
   Scenario: Attempt to register a work unit with CTO that's not an internal client

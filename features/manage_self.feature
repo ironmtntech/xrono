@@ -34,6 +34,7 @@ Feature: Self administration
     And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
     And I visit /
     When I select "test client" from "work_unit_client_id"
+    Then I debug
     And I select "test project" from "work_unit_project_id"
     And I select "test ticket" from "work_unit_ticket_id"
     And I select "Overtime" from "hours_type"

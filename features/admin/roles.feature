@@ -6,7 +6,7 @@ Feature: Roles
     And a user exists
     When I am on the admin user's projects page
     And I press "Submit"
-    Then I should see "Roles have been updated successfully" within "#flash_notice"
+    Then I should see "Roles have been updated successfully" within ".alert-message"
 
   @javascript
   Scenario: Admin clicks "[+/-]" to hide suspended clients 

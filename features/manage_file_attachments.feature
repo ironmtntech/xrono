@@ -10,7 +10,7 @@ Feature: File Attachment Management
     And I attach a file
     And I press "Submit"
     Then I should be on the client's page
-    And I should see "File Attachment created successfully" within "#flash_notice"
+    And I should see "File Attachment created successfully" within ".alert-message"
 
   Scenario: Add file attachments to project
     Given I am an authenticated user with an admin role
@@ -20,7 +20,7 @@ Feature: File Attachment Management
     And I attach a file
     And I press "Submit"
     Then I should be on the project's page
-    And I should see "File Attachment created successfully" within "#flash_notice"
+    And I should see "File Attachment created successfully" within ".alert-message"
 
   Scenario: Add file attachments to ticket
     Given I am an authenticated user with an admin role
@@ -30,7 +30,7 @@ Feature: File Attachment Management
     And I attach a file
     And I press "Submit"
     Then I should be on the ticket's page
-    And I should see "File Attachment created successfully" within "#flash_notice"
+    And I should see "File Attachment created successfully" within ".alert-message"
 
   Scenario: Hide File Attachment
     Given I am an authenticated user with an admin role
@@ -48,4 +48,4 @@ Feature: File Attachment Management
     When I go to the project's page
     And I follow "Add File Attachment"
     And I press "Submit"
-    And I should see "There was a problem saving the image." within "#flash_error"
+    And I should see "There was a problem saving the image." within ".alert-message"
