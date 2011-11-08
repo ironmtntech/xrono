@@ -25,22 +25,22 @@
     .clearfix
       %label{:for => "work_unit_client_id"}= "#{t(:client)}:"
       .input
-        = collection_select("work_unit", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) })
+        = collection_select("work_unit", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) }, :class => 'chzn-select')
 
     .clearfix
       %label{:for => "work_unit_project_id"}= "#{t(:project)}:"
       .input
-        = collection_select("work_unit", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) })
+        = collection_select("work_unit", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) }, :class => 'chzn-select')
 
     .clearfix
       %label{:for => "work_unit_ticket_id"}= "#{t(:ticket)}:"
       .input
-        = collection_select("work_unit", "ticket_id", @tickets, "id", "name", { :prompt => t(:select_a_ticket) })
+        = collection_select("work_unit", "ticket_id", @tickets, "id", "name", { :prompt => t(:select_a_ticket) }, :class => 'chzn-select')
 
     .clearfix
       %label{:for => "work_unit_hours_type"}= "#{t(:type)}:"
       .input
-        = select_tag("hours_type", options_for_select(['Normal', 'Overtime', 'CTO', 'PTO']))
+        = select_tag("hours_type", options_for_select(['Normal', 'Overtime', 'CTO', 'PTO']), :class => 'chzn-select')
 
     .clearfix
       %label{:for => "work_unit_hours"}= "#{t(:hours).capitalize}:"

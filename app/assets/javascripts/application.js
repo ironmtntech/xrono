@@ -9,6 +9,7 @@
 //= require dashboard
 //= require file_attachments
 //= require schedule_modal
+//= require chosen.jquery.js
 
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
@@ -19,4 +20,5 @@ $(function() {
     $("#help").dialog('open')
     return false;
   });
+  $(".chzn-select").chosen();
 });

@@ -17,12 +17,14 @@ $("#checkbox").change(function(){
       $.each(data, function(i, client){
         me.append( new Option(client.name, client.id) )
       });
+      me.trigger("liszt:updated");
     }, "json");
   } else {
     $.get("/dashboard/json_index", { id: this.value }, function(data){
       $.each(data, function(i, client){
         me.append( new Option(client.name, client.id) )
       });
+      me.trigger("liszt:updated");
     }, "json");
   } 
 });
@@ -40,12 +42,14 @@ $("#work_unit_client_id").change(function(){
         $.each(data, function(i, project){
           me.append( new Option(project.name, project.id) )
         });
+        me.trigger("liszt:updated");
       }, "json");
     } else {
       $.get("/dashboard/client", { id: this.value }, function(data){
         $.each(data, function(i, project){
           me.append( new Option(project.name, project.id) )
         });
+        me.trigger("liszt:updated");
       }, "json");
     }
   }
@@ -63,12 +67,14 @@ $("#work_unit_project_id").change(function(){
         $.each(data, function(i, ticket){
           me.append( new Option(ticket.name, ticket.id) )
         });
+        me.trigger("liszt:updated");
       }, "json");
     } else {
       $.get("/dashboard/project", { id: this.value }, function(data){
         $.each(data, function(i, ticket){
           me.append( new Option(ticket.name, ticket.id) )
         });
+        me.trigger("liszt:updated");
       }, "json");
     }
   }
@@ -106,6 +112,7 @@ $("#new_work_unit").submit(function() {
          $("#work_unit_client_id").append( new Option(client.name, client.id) )
         });
       }, "json");
+      $("#work_unit_client_id").trigger("liszt:updated");
       // Ask the calendar to update itself
       update_calendar_block();
       $('#scheduled_at').datepicker('setDate', new Date());
@@ -163,9 +170,10 @@ $("#ticket_client_id").change(function(){
   $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
   if(this.value != "") {
     $.get("/dashboard/client", { id: this.value }, function(data){
-      $.each(this, function(k, v){
+      $.each(data, function(k, v){
         me.append( new Option(v.name, v.id) )
       });
+      me.trigger("liszt:updated");
     }, "json");
   }
 });
@@ -177,9 +185,10 @@ $("#ticket_project_id").change(function(){
   me.append( new Option("Select a ticket","") )
   if(this.value != "") {
     $.get("/dashboard/project", { id: this.value }, function(data){
-      $.each(this, function(k, v){
+      $.each(data, function(k, v){
         me.append( new Option(v.name, v.id) )
       });
+      me.trigger("liszt:updated");
     }, "json");
   }
 });

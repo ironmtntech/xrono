@@ -6,13 +6,11 @@
       .clearfix
         %label{:for => "ticket_client_id"}= "#{t(:client)}:"
         .input
-          = collection_select("ticket", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) })
-
+          = collection_select("ticket", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) }, :class => 'chzn-select')
       .clearfix
         %label{:for => "ticket_project_id"}= "#{t(:project)}:"
         .input
-          = collection_select("ticket", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) })
-
+          = collection_select("ticket", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) }, :class => 'chzn-select')
       .clearfix
         %label{:for => "ticket_name"}= "#{t(:name)}:"
         .input

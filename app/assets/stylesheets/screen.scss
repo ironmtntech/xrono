@@ -1,5 +1,6 @@
 /*
  *= require twitter/bootstrap
+ *= require chosen
 */
 
 @import "jquery-ui-1.8.5.custom";
@@ -29,7 +30,7 @@ body{
   }
 }
 
-input[type=text]{
+input[type=text], input[type=password]{
   height: 26px;
   line-height: 26px;
 }
