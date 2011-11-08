@@ -6,11 +6,11 @@
     .gradient_border_wrap
       .gradient_border_content
         %ul.subnav
+          %li #{link_to "#{t(:client)}: #{@work_unit.client}", client_path(@work_unit.client)}
+          %li #{link_to "#{t(:project)}: #{@work_unit.project}", project_path(@work_unit.project)}
+          %li= link_to "#{t(:ticket)}: #{@work_unit.ticket}", ticket_path(@work_unit.ticket) 
           - if (@work_unit.user == current_user) || admin?
-            %li= link_to t(:edit), edit_work_unit_path
-          %li= link_to "#{t(:back_to_ticket)}: #{@work_unit.ticket}", ticket_path(@work_unit.ticket)
-          %li= link_to "#{t(:back_to_project)}: #{@work_unit.project}", project_path(@work_unit.project)
-          %li= link_to "#{t(:back_to_client)}: #{@work_unit.client}", client_path(@work_unit.client)
+            %li= link_to "#{t(:edit_work_unit)}", edit_work_unit_path
 .yui3-g
   .yui3-u-1
     .gradient_border_wrap
@@ -24,4 +24,14 @@
           %p= @work_unit.hours_type
           %h3= t(:description)
           %p.description= @work_unit.description
+          %h3= t(:invoice)
+          - if current_user.admin?
+            %p= link_to @work_unit.invoiced, work_units_path(:invoiced => @work_unit.invoiced) unless @work_unit.invoiced.nil?
+          - else         
+            %p= @work_unit.invoiced
+          %h3= t(:payroll)
+          - if current_user.admin?
+            %p= link_to @work_unit.paid, work_units_path(:paid => @work_unit.paid) unless @work_unit.paid.nil?
+          - else
+            %p= @work_unit.paid
 

@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   private
 
   def redirect_unless_monday(path_prefix, date)
-    @start_date = date ? Date.parse(date) : Date.today
+    @start_date = date ? Date.parse(date) : Date.current
     unless @start_date.monday?
       redirect_to(path_prefix + @start_date.beginning_of_week.strftime("%F"))
     end
@@ -44,5 +44,4 @@ class ApplicationController < ActionController::Base
   def initialize_site_settings
     @site_settings = SiteSettings.first ? SiteSettings.first : SiteSettings.create(:total_yearly_pto_per_user => 40, :overtime_multiplier => 1.5)
   end
-
 end

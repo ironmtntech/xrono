@@ -4,10 +4,11 @@
 .yui3-g
   .yui3-u-1
     .gradient_border_wrap
-      .gradient_border_content
+      .gradient_border_content  
         - @week_dates.each do |weekday, date|
           %div{:id => weekday}
-            %h3= "#{weekday}, #{date.to_formatted_s(:long_ordinal)}"
+            %h3= "#{weekday}, #{date.to_formatted_s(:long_ordinal)}" 
+            %b= hours_entered_for_day(date).to_s + " hours entered."
             - if date.past?
               %ul
                 - for user in @users do

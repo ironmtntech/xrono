@@ -1,0 +1,30 @@
+-if file_attachment.not_valid?
+  %h3= "#{t(:file)}:"
+  .comment_real_body.hidden_comment{ :style => 'display: none;' }
+    .yui3-g
+      .yui3-u-1-6
+        = button_to "Mark as invalid", { :controller => 'file_attachments', :action => 'mark_as_invalid', :id => file_attachment.id }, :confirm => "Mark attachment as invalid?"
+      .yui3-u-1-3  
+        = "#{t(:file_created_on)}:"
+        %p
+        = " #{file_attachment.created_at.strftime("%m/%d/%y at %I:%M %p")}"
+      .yui3-u-1-3
+        - if file_attachment.not_valid?
+          %li.invalid_file_attachment= link_to file_attachment.attachment_file_file_name, file_attachment_path(file_attachment.id)
+        - else
+          %p= link_to file_attachment.attachment_file_file_name, file_attachment_path(file_attachment.id)
+- else
+  %h3= "#{t(:file)}:"
+  .comment_real_body
+    .yui3-g
+      .yui3-u-1-6
+        = button_to "Mark as invalid", { :controller => 'file_attachments', :action => 'mark_as_invalid', :id => file_attachment.id }, :confirm => "Mark attachment as invalid?"
+      .yui3-u-1-3  
+        = "#{t(:file_created_on)}:"
+        %p
+        = " #{file_attachment.created_at.strftime("%m/%d/%y at %I:%M %p")}"
+      .yui3-u-1-3
+        - if file_attachment.not_valid?
+          %li.invalid_file_attachment= link_to file_attachment.attachment_file_file_name, file_attachment_path(file_attachment.id)
+        - else
+          %p= link_to file_attachment.attachment_file_file_name, file_attachment_path(file_attachment.id)

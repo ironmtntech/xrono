@@ -27,12 +27,10 @@ Feature: User Administration
     Given I am an authenticated user with an admin role
     Given a user exists with first_name: "Test", last_name: "Man", middle_initial: "T", email: "test@example.com", password: "secret", password_confirmation: "secret"
     When I go to the admin user's edit page
-    Then I should see "First name"
-    And I should see "Last name"
-    And I should see "Middle initial"
-    And I should see "Email"
-    And I should see "Password"
-    And I should see "Locked"
+    And I fill in "Password" with "123456"
+    And I fill in "Password confirmation" with "123456789"
+    And I press "Update"
+    Then I should see "Didn't update." 
 
   Scenario: Register new user
     Given I am an authenticated user with an admin role
@@ -56,3 +54,13 @@ Feature: User Administration
     Given a user exists with first_name: "Test", last_name: "Man", middle_initial: "T", email: "test@example.com", password: "secret", password_confirmation: "secret"
     When I go to the user's edit page
     Then I should see "Access denied."
+
+  Scenario: Visit user index page (non-admin)  
+    Given I am an authenticated user with a client role
+    Given a user exists with first_name: "Test1", last_name: "Man1", middle_initial: "T", email: "test1@example.com", password: "secret", password_confirmation: "secret"
+    Given a user exists with first_name: "Test2", last_name: "Man2", middle_initial: "T", email: "test2@example.com", password: "secret", password_confirmation: "secret"
+    And I go to the users page   
+    Then I should see "Test1"
+    Then I should see "Test2"
+
+

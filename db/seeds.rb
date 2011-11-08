@@ -105,4 +105,7 @@ unless RAILS_ENV == "production"
   # Finally, an inactive client
   Client.make status: 'Inactive'
 
+  # Create a site settings instance, set it to the first Client
+  SiteSettings.make client: Client.first
+
 end

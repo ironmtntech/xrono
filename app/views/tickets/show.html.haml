@@ -6,36 +6,16 @@
     .gradient_border_wrap
       .gradient_border_content
         %ul.subnav
+          %li= link_to "#{t(:client)}: #{@ticket.client}", client_path(@ticket.project.client)
+          %li= link_to "#{t(:project)}: #{@ticket.project}", project_path(@ticket.project)
           - if admin? || current_user.has_role?(:developer, @ticket.project)
-            %li= link_to t(:edit), edit_ticket_path
-          %li= link_to "#{t(:back_to_project)}: #{@ticket.project}", project_path(@ticket.project)
-          %li= link_to "#{t(:back_to_client)}: #{@ticket.client}", client_path(@ticket.project.client)
+            %li= link_to "#{t(:edit)}: #{@ticket}", edit_ticket_path
+            %li= link_to t(:new_work_unit), new_ticket_work_unit_path(@ticket)
+    = render "shared/work_unit_index"
+
 .yui3-g
   .yui3-u-1
     .gradient_border_wrap
       .gradient_border_content
-        %table.work_units
-          %thead
-            %tr
-              %th #
-              %th= t(:work_units)
-              %th= t(:hours)
-          %tbody
-            - @work_units.each do |work_unit|
-              %tr{ :class => cycle("odd", "even") }
-                %td= work_unit.id
-                %td= link_to work_unit.description, work_unit_path(work_unit)
-                %td= work_unit.hours
-.yui3-g
-  .yui3-u-1-2
-    .gradient_border_wrap
-      .gradient_border_content
-        = render :partial => "comments/comments", :locals => {:comments => @ticket.comments}
-        = render :partial => "comments/comment_form", :locals => { :commentable_id => @ticket.id, :commentable_field => "ticket_id", :commentable_type => "Ticket", :refurl => ticket_path(@ticket), :comment_num => @ticket.id }
-  .yui3-u-1-2
-    .gradient_border_wrap
-      .gradient_border_content
-        #files
-          = render :partial => "file_attachments/file_attachments", :locals => { :file_attachments => @ticket.file_attachments }
-          = link_to t(:add_file_attachment), new_file_attachment_path(:ticket_id => @ticket.id)
+        = render :partial => "shared/files_and_comments", :locals => {:items => @ticket.files_and_comments.reverse, :id => 'ticket'}
 

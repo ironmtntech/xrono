@@ -21,3 +21,4 @@ When /^I delete the (\d+)(?:st|nd|rd|th) user$/ do |pos|
     click_button "Destroy"
   end
 end
+

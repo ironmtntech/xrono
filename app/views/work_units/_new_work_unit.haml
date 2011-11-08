@@ -1,0 +1,5 @@
+- content_for :javascripts do
+  = javascript_include_tag "schedule_modal"
+
+= form_for @work_unit, :url => create_in_ticket_work_units_path() do |f|
+  = render :partial => "shared_form", :locals => {:f => f}

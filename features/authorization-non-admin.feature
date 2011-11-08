@@ -21,3 +21,18 @@ Feature: Non-admin Authorization
     Then I should be on the home page
     And I should see "You must be an admin to do that." within "#flash_error"
 
+  Scenario: Change user password (non-admin)
+    Given I am an authenticated user with a client role
+    And I follow "Edit"
+    And I fill in "Password" with "password" 
+    And I fill in "Password Confirmation" with "password"
+    And I press "Change Password"
+    Then I should see "Successfully updated password" within "#flash_notice"
+    
+  Scenario: Change user password unsuccessfully (non-admin)
+    Given I am an authenticated user with a client role
+    And I follow "Edit"
+    And I fill in "Password" with "password" 
+    And I fill in "Password Confirmation" with "incorrect_password"
+    And I press "Change Password"
+    Then I should see "Error changing password" within "#flash_error"

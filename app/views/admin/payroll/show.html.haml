@@ -20,19 +20,16 @@
                   %th= t(:description)
                   %th= t(:work_date)
                   %th.hours= t(:hours).capitalize
-                  %th.overtime= t(:overtime_abbrev)
+                  %th= t(:type)
                   %th.payroll_check= t(:check_number)
               %tbody
                 - @work_units.each do |wu|
                   - if wu.client == client
-                    %tr{ :class => cycle("odd", "even") }
+                    %tr{ :class => row_class(:hours_type => wu.hours_type, :scheduled_at => wu.scheduled_at) }
                       %td= wu.description
-                      %td{:class => wu.scheduled_at.future? ? "future" : "" }
-                        = wu.scheduled_at.strftime("%Y/%m/%d")
+                      %td= wu.scheduled_at.strftime("%Y/%m/%d")
                       %td= wu.effective_hours
-                      %td
-                        - if wu.overtime?
-                          = t(:affirmative)
+                      %td= wu.hours_type
                       %td= text_field_tag "work_unit[#{wu.id}]", nil, :class => "global autofill_client_#{client.id}"
               %tfoot
                 %tr

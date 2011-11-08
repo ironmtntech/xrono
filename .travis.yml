@@ -1,0 +1,12 @@
+before_script:
+  - "mysql -e 'create database xrono_text;'"
+  - "cp config/database.yml.mysql config/database.yml"
+script: "bundle exec rake db:create db:migrate spec"
+notifications:
+  email:
+    - josh@isotope11.com
+rvm:
+  #- 1.8.7 # We don't support 1.8.7 for xrono, there are 1.9 style hashes everywhere
+  - 1.9.2
+  #- 1.9.3 # There's a bug in 1.9.3 when compiling gherkin seemingly, so ignoring it
+  #- jruby

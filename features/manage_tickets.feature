@@ -17,9 +17,9 @@ Feature: Manage tickets
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket exists with project: project "test project", name: "test ticket"
     When I am on the ticket's page
-    Then I should see a link with text "Back to project: test project" within ".subnav"
-    Then I should see a link with text "Back to client: test client" within ".subnav"
-    Then I should see a link with text "Edit" within ".subnav"
+    Then I should see a link with text "Project: test project" within the subnav
+    Then I should see a link with text "Client: test client" within the subnav
+    Then I should see a link with text "Edit: test ticket" within the subnav
 
   Scenario: Edit a ticket
     Given I am an authenticated user with an admin role
@@ -30,6 +30,17 @@ Feature: Manage tickets
     When I fill in "Name" with "test ticket2"
     And I press "Update"
     Then I should see "test ticket2"
+  
+  Scenario: Edit a ticket unsuccessfully
+    Given I am an authenticated user with an admin role
+    Given a client "test client" exists
+    And a project "test project" exists with name: "test project", client: client "test client"
+    And a ticket exists with project: project "test project", name: "test ticket"
+    When I am on the ticket's edit page
+    When I fill in "Name" with ""
+    When I fill in "Description" with ""
+    And I press "Update"
+    Then I should see "There was a problem creating the ticket"
 
   Scenario: Register new ticket
     Given I am an authenticated user with an admin role

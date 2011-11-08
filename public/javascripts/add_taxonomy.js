@@ -1,31 +1,35 @@
-// ---------- Schedule Modal
-
-// Setup the dialog
-$("#schedule_modal").dialog({ 
-  modal: true,
-  autoOpen: false,
-  width: 500,
-  height: 500
-});
-
-// open the dialog
-$('#schedule_modal_link').click(function() {
-  $("#schedule_modal").dialog('open');
-  return false;
-});
-
-// setup datepicker inside the dialog
-$("#scheduled_at").datepicker( {
-  onSelect: function(dateText, inst) {
-    $("#work_unit_scheduled_at").val(dateText);
-    $("#schedule_modal").dialog('close');
-    $('#schedule_modal_link').text($('#work_unit_scheduled_at').val());
-  },
-  dateFormat: 'yy-mm-dd'
-});
-
-
 // ---------- Work Unit Creation
+
+// When a developer needs to add work units
+// to a project he/she has not been assigned
+$("#checkbox").change(function(){
+  var me = $("#work_unit_client_id");
+  me.children().remove();
+  me.append( new Option("Select a client","") )
+  $("#work_unit_project_id").children().remove();
+  $("#work_unit_project_id").append( new Option("Select a project",""))
+  $("#work_unit_ticket_id").children().remove();
+  $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
+
+  if(this.checked) {
+    this.value = 1
+    $.get("/dashboard/collaborative_index", { id: this.value }, function(data){
+      $.each(data, function(){
+        $.each(this, function(k, v){
+          me.append( new Option(v.name, v.id) )
+        });
+      });
+    }, "json");
+  } else {
+    $.get("/dashboard/json_index", { id: this.value }, function(data){
+      $.each(data, function(){
+        $.each(this, function(k, v){
+          me.append( new Option(v.name, v.id) )
+        });
+      });
+    }, "json");
+  } 
+});
 
 // when client is changed, populate the projects
 $("#work_unit_client_id").change(function(){
@@ -34,14 +38,24 @@ $("#work_unit_client_id").change(function(){
   me.append( new Option("Select a project","") )
   $("#work_unit_ticket_id").children().remove();
   $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
-  if(this.value != "") {
-    $.get("/dashboard/client", { id: this.value }, function(data){
-      $.each(data, function(){
-        $.each(this, function(k, v){
-          me.append( new Option(v.name, v.id) )
+  if(this.value != '') {
+    if(document.getElementById("checkbox").checked) {   
+      $.get("/dashboard/collaborative_client", { id: this.value }, function(data){
+        $.each(data, function(){
+          $.each(this, function(k, v){
+            me.append( new Option(v.name, v.id) )
+          });
         });
-      });
-    }, "json");
+      }, "json");
+    } else {
+      $.get("/dashboard/client", { id: this.value }, function(data){
+        $.each(data, function(){
+          $.each(this, function(k, v){
+            me.append( new Option(v.name, v.id) )
+          });
+        });
+      }, "json");
+    }
   }
 });
 
@@ -50,18 +64,30 @@ $("#work_unit_project_id").change(function(){
   var me = $("#work_unit_ticket_id")
   me.children().remove();
   me.append( new Option("Select a ticket","") )
-  if(this.value != "") {
-    $.get("/dashboard/project", { id: this.value }, function(data){
-      $.each(data, function(){
-        $.each(this, function(k, v){
-          me.append( new Option(v.name, v.id) )
+  if(!this.value.blank) {
+    var checkbox = $("#checkbox");
+    if(document.getElementById("checkbox").checked) {   
+      $.get("/dashboard/collaborative_project", { id: this.value }, function(data){
+        $.each(data, function(){
+          $.each(this, function(k, v){
+            me.append( new Option(v.name, v.id) )
+          });
         });
-      });
-    }, "json");
+      }, "json");
+    } else {
+      $.get("/dashboard/project", { id: this.value }, function(data){
+        $.each(data, function(){
+          $.each(this, function(k, v){
+            me.append( new Option(v.name, v.id) )
+          });
+        });
+      }, "json");
+    }
   }
 });
 
 // AJAX work unit creation
+
 $("#new_work_unit").submit(function() {
   var me = $(this);
   $("#work_unit_submit").attr('disabled', true);
@@ -86,9 +112,18 @@ $("#new_work_unit").submit(function() {
       var notice = result.notice
       me.trigger("reset");
       me.effect("highlight");
+      $("#work_unit_client_id").children().remove();
+      $.get("/dashboard/json_index", { id: this.value }, function(data){
+        $.each(data, function(){
+          $.each(this, function(k, v){
+           $("#work_unit_client_id").append( new Option(v.name, v.id) )
+          });
+        });
+      }, "json");
       // Ask the calendar to update itself
       update_calendar_block();
       $('#scheduled_at').datepicker('setDate', new Date());
+      $('#work_unit_scheduled_at').val(new Date());
       $('#schedule_modal_link').text($('#scheduled_at').val());
       if(notice) {
         $("#work_unit_errors").data('notice', notice);
@@ -242,7 +277,6 @@ function get_week(week){
       $('.week_pagination').html(response.week_pagination);
       // We have to reload the triggers since they are regenerated on each request
       set_week_pagination_triggers();
-      set_trigger_for_work_unit();
     }
   });
 }

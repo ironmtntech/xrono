@@ -4,6 +4,7 @@ describe WorkUnit do
   let(:work_unit) { WorkUnit.make }
   let(:work_unit1) { WorkUnit.make }
   let(:work_unit2) { WorkUnit.make }
+  let(:site_settings) { SiteSettings.make }
 
   it { should have_many :comments }
   it { should belong_to :ticket }
@@ -18,11 +19,11 @@ describe WorkUnit do
 
 
   describe '#scheduled_between' do
-    subject { WorkUnit.scheduled_between(Date.yesterday.beginning_of_day, Date.current.end_of_day) }
+    subject { WorkUnit.scheduled_between(1.days.ago.beginning_of_day, Time.now.end_of_day)  }
 
     before do
-      work_unit1.update_attribute(:scheduled_at, Date.yesterday)
-      work_unit2.update_attribute(:scheduled_at, Date.current)
+      work_unit1.update_attribute(:scheduled_at, 1.days.ago)
+      work_unit2.update_attribute(:scheduled_at, Time.now)
     end
 
     it 'should return a collection of work units scheduled between the two given dates' do
@@ -30,7 +31,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#unpaid' do
+  describe '.unpaid' do
     subject { WorkUnit.unpaid }
 
     before do
@@ -43,7 +44,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#not_invoiced' do
+  describe '.not_invoiced' do
     subject { WorkUnit.not_invoiced }
 
     before do
@@ -56,7 +57,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#for_client' do
+  describe '.for_client' do
     subject { WorkUnit.for_client client }
 
     let(:ticket) { Ticket.make }
@@ -72,7 +73,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#for_project' do
+  describe '.for_project' do
     subject { WorkUnit.for_project project }
 
     let(:ticket) { Ticket.make }
@@ -88,7 +89,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#for_ticket' do
+  describe '.for_ticket' do
     subject { WorkUnit.for_ticket ticket }
 
     let(:ticket) { Ticket.make }
@@ -103,7 +104,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#for_user' do
+  describe '.for_user' do
     subject { WorkUnit.for_user user }
 
     let(:user) { User.make }
@@ -118,7 +119,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#sort_by_scheduled_at' do
+  describe '.sort_by_scheduled_at' do
     subject { WorkUnit.sort_by_scheduled_at }
 
     before do
@@ -131,7 +132,22 @@ describe WorkUnit do
     end
   end
 
-  describe '#pto' do
+  describe ".hours" do
+    subject { WorkUnit.hours}
+
+    it "should not allow negative numbers" do
+      work_unit1.update_attribute(:hours, -1)
+      work_unit1.should_not be_valid
+    end
+
+    it "should not accept characters" do
+      work_unit1.update_attribute(:hours, "asdf#")
+      work_unit1.should_not be_valid
+    end
+  end
+
+
+  describe '.pto' do
     subject { WorkUnit.pto }
 
     before do
@@ -144,7 +160,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#cto' do
+  describe '.cto' do
     subject { WorkUnit.cto }
 
     before do
@@ -157,7 +173,7 @@ describe WorkUnit do
     end
   end
 
-  describe '#overtime' do
+  describe '.overtime' do
     subject { WorkUnit.overtime }
 
     before do
@@ -168,9 +184,15 @@ describe WorkUnit do
     it 'should return a collection of work units with hours type "Overtime"' do
       should == [work_unit1]
     end
+
+    it 'should return true if hours type is overtime' do
+      work_unit1.overtime?.should == true
+    end
   end
 
-  describe '#normal' do
+  
+
+  describe '.normal' do
     subject { WorkUnit.normal }
 
     before do
@@ -183,7 +205,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.validate_client_status' do
+  describe '#validate_client_status' do
     subject { work_unit.validate_client_status }
 
     let(:client) { work_unit.client }
@@ -195,7 +217,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.send_email!' do
+  describe '#send_email!' do
     context 'when there are contacts for the parent client who receive email' do
       let(:contact1) { Contact.make(:client => work_unit.client) }
       let(:contact2) { Contact.make(:client => work_unit.client) }
@@ -211,7 +233,16 @@ describe WorkUnit do
     end
   end
 
-  describe '.email_list' do
+#  describe '#not_send_email!' do
+#    context 'when there are NO contacts for the parent client who receive email' do
+#
+#      it 'should not send the email' do
+#        lambda { work_unit.send_email! }.should_not change(ActionMailer::Base.deliveries, :count).by(1)
+#      end
+#    end
+#  end
+
+  describe '#email_list' do
     subject { work_unit.email_list }
 
     context 'when there are contacts for the parent client who receive email' do
@@ -229,7 +260,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.client' do
+  describe '#client' do
     subject { work_unit.client }
 
     it 'should return the parent client' do
@@ -237,7 +268,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.project' do
+  describe '#project' do
     subject { work_unit.project }
 
     it 'should return the parent project' do
@@ -245,7 +276,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.unpaid?' do
+  describe '#unpaid?' do
     subject { work_unit.unpaid? }
 
     context 'when the work unit is unpaid' do
@@ -259,7 +290,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.paid?' do
+  describe '#paid?' do
     subject { work_unit.paid? }
 
     context 'when the work unit is unpaid' do
@@ -273,7 +304,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.invoiced?' do
+  describe '#invoiced?' do
     subject { work_unit.invoiced? }
 
     context 'when the work unit is invoiced' do
@@ -287,7 +318,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.not_invoiced?' do
+  describe '#not_invoiced?' do
     subject { work_unit.not_invoiced? }
 
     context 'when the work unit is invoiced' do
@@ -301,7 +332,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.to_s' do
+  describe '#to_s' do
     subject { work_unit.to_s }
 
     before { work_unit.update_attribute(:description, 'New description') }
@@ -311,7 +342,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.allows_access?' do
+  describe '#allows_access?' do
     subject { work_unit.allows_access? user }
 
     let(:user) { User.make }
@@ -332,7 +363,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.overtime_multiplier' do
+  describe '#overtime_multiplier' do
     subject { work_unit.overtime_multiplier }
 
     let(:project) { work_unit.project }
@@ -388,7 +419,7 @@ describe WorkUnit do
     end
   end
 
-  describe '.set_effective_hours!' do
+  describe '#set_effective_hours!' do
     context 'when saving an overtime work unit' do
       before do
         work_unit.project.update_attribute(:overtime_multiplier, 1.5)
@@ -411,4 +442,5 @@ describe WorkUnit do
       end
     end
   end
+
 end

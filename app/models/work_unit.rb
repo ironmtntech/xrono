@@ -5,6 +5,7 @@ class WorkUnit < ActiveRecord::Base
   belongs_to :ticket
   belongs_to :user
   validates_presence_of :ticket_id, :user_id, :description, :hours, :scheduled_at, :effective_hours, :hours_type
+  validates_numericality_of :hours, :greater_than => -1
 
   scope :scheduled_between, lambda{|start_time, end_time| where('scheduled_at BETWEEN ? AND ?', start_time, end_time) }
   scope :unpaid, lambda{ where('paid IS NULL or paid = ""') }
@@ -18,10 +19,9 @@ class WorkUnit < ActiveRecord::Base
   scope :cto, where('hours_type = "CTO"')
   scope :overtime, where('hours_type = "Overtime"')
   scope :normal, where('hours_type = "Normal"')
-
   before_validation :set_effective_hours!
   after_validation :validate_client_status
-  after_save :send_email!
+  after_create :send_email!
 
   def validate_client_status
     if client && client.status == "Inactive"

@@ -1,7 +1,6 @@
 - content_for :javascripts do
   = javascript_include_tag "comments"
 
-#comments
-  %h3= "#{t(:comments)}:"
-  = link_to "Hide/Show hidden", "#comments", :id => 'hide_show_comments'
-  = render :partial => "comments/comment", :collection => comments
+%h3= "#{t(:comments)}:"
+= link_to "Hide/Show hidden", "#comments", :id => 'hide_show_comments'
+= render :partial => "comments/comment", :collection => comments

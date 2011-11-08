@@ -17,9 +17,8 @@ module NavigationHelpers
     when /^the login page$/
       '/login'
 
-    when /path "(.+)"/  
-      $1  
-
+    when /path "(.+)"/
+      $1
 
     # the following are examples using path_to_pickle
     when /^the admin #{capture_model}(?:'s)? page$/
@@ -62,6 +61,7 @@ module NavigationHelpers
     when /^#{capture_model}(?:'s)? (.+?) page$/                     # eg. the forum's posts page
       path_to_pickle $1, :extra => $2                               #  or the forum's edit page
 
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
@@ -70,10 +70,10 @@ module NavigationHelpers
 
     else
       begin
-        page_name =~ /the (.*) page/
+        page_name =~ /^the (.*) page$/
         path_components = $1.split(/\s+/)
         self.send(path_components.push('path').join('_').to_sym)
-      rescue Object => e
+      rescue NoMethodError, ArgumentError
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
           "Now, go and add a mapping in #{__FILE__}"
       end

@@ -6,6 +6,7 @@ class Client < ActiveRecord::Base
   has_many :comments, :as => :commentable
   has_many :file_attachments
   has_many :contacts
+  has_one :site_settings
 
   validates_presence_of :name, :status
   validates_uniqueness_of :name, :allow_nil => false
@@ -43,6 +44,13 @@ class Client < ActiveRecord::Base
 
   def allows_access?(user)
     projects.any? {|p| p.accepts_roles_by?(user)} || user.admin?
+  end
+
+  def files_and_comments
+    ary = Array.new
+    ary << comments
+    ary << file_attachments
+    ary.flatten.sort_by {|x| x.created_at}
   end
 
   class << self
