@@ -208,6 +208,8 @@ GEM
       json_pure
       rubyzip
     shoulda (2.11.3)
+    simple-navigation (3.5.0)
+      activesupport (>= 2.3.2)
     simplecov (0.4.2)
       simplecov-html (~> 0.4.4)
     simplecov-html (0.4.5)
@@ -279,6 +281,7 @@ DEPENDENCIES
   ruby-debug19
   sass-rails (~> 3.1.4)
   shoulda (~> 2.11.3)
+  simple-navigation
   simplecov (~> 0.4.0)
   spork (= 0.9.0.rc9)
   sqlite3

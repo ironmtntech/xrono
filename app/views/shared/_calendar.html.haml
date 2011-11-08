@@ -10,12 +10,12 @@
     %tfoot
       %tr.calendar_foot
         - (0..6).map{|x| start_date + x.days }.each do |date|
-          %td= "#{t(:total)}: #{user.work_units_for_day(date).sum(:effective_hours)}"
-        %td= "#{t(:week)}: #{user.work_units_for_week(start_date).sum(:effective_hours)}"
+          %td.span2= "#{t(:total)}: #{user.work_units_for_day(date).sum(:effective_hours)}"
+        %td.span2= "#{t(:week)}: #{user.work_units_for_week(start_date).sum(:effective_hours)}"
     %tbody
       %tr
         - (start_date..(start_date + 6.days)).each do |date|
-          %td
+          %td.span2
             - unless user.work_units_for_day(date).empty?
               %ul.unstyled
                 - user.work_units_for_day(date).each do |work_unit|
@@ -23,7 +23,7 @@
                     = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description }
                     %span.description= '- ' + work_unit.description
 
-        %td
+        %td.span2
           %ul.unstyled
             - if start_date == Date.current.beginning_of_week
               %li#current_hours= "#{t(:current)}: #{user.unpaid_work_units.sum(:effective_hours)}"

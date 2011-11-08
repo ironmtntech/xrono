@@ -2220,31 +2220,61 @@ button.ui-button::-moz-focus-inner {
   height: 100%;
 }
 
-/* line 9, ../../app/assets/stylesheets/screen.scss */
+/* line 11, ../../app/assets/stylesheets/screen.scss */
 body {
   padding-top: 60px;
 }
 
-/* line 15, ../../app/assets/stylesheets/screen.scss */
+/* line 16, ../../app/assets/stylesheets/screen.scss */
+.calendar td {
+  overflow: hidden;
+}
+/* line 20, ../../app/assets/stylesheets/screen.scss */
 .calendar .work_unit .description {
   display: none;
 }
 
-/* line 22, ../../app/assets/stylesheets/screen.scss */
+/* line 27, ../../app/assets/stylesheets/screen.scss */
 .work_unit.overtime, .work_unit.overtime a {
   color: red;
 }
-/* line 25, ../../app/assets/stylesheets/screen.scss */
+/* line 30, ../../app/assets/stylesheets/screen.scss */
 .work_unit.cto, .work_unit.cto a {
   color: #369;
 }
-/* line 28, ../../app/assets/stylesheets/screen.scss */
+/* line 33, ../../app/assets/stylesheets/screen.scss */
 .work_unit.pto, .work_unit.pto a {
   color: #33840c;
 }
 
-/* line 33, ../../app/assets/stylesheets/screen.scss */
+/* line 38, ../../app/assets/stylesheets/screen.scss */
 input[type=text], input[type=password] {
   height: 26px;
   line-height: 26px;
+}
+
+/* line 45, ../../app/assets/stylesheets/screen.scss */
+ul.nav li a {
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -o-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -khtml-border-radius: 8px;
+  border-radius: 8px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+/* line 47, ../../app/assets/stylesheets/screen.scss */
+ul.nav li a:hover {
+  background-color: #1f1f1f;
+}
+/* line 55, ../../app/assets/stylesheets/screen.scss */
+ul.nav li.selected a {
+  background-color: #111;
+  color: white;
+}
+
+/* line 63, ../../app/assets/stylesheets/screen.scss */
+.topbar .fill {
+  padding: 6px 0;
 }

@@ -4,6 +4,8 @@
 */
 
 @import "jquery-ui-1.8.5.custom";
+@import "compass";
+@import "compass/css3/border-radius";
 
 //** SCREEN STYLES **//
 body{
@@ -11,6 +13,9 @@ body{
 }
 
 .calendar{
+  td{
+    overflow: hidden;
+  }
   .work_unit {
     .description {
       display: none;
@@ -33,4 +38,29 @@ body{
 input[type=text], input[type=password]{
   height: 26px;
   line-height: 26px;
+}
+
+ul.nav{
+  li{
+    a{
+      @include border-radius(8px);
+      &:hover{
+        background-color: #1f1f1f;
+      }
+      margin-left: 2px;
+      margin-right: 2px;
+    }
+  }
+  li.selected{
+    a{
+      background-color: #111;
+      color: white;
+    }
+  }
+}
+
+.topbar{
+  .fill{
+    padding: 6px 0;
+  }
 }

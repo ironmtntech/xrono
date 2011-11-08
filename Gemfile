@@ -14,6 +14,8 @@ gem 'jquery-rails'
 gem 'rake', '0.9.2'
 gem 'sqlite3'
 
+gem 'simple-navigation'
+
 gem 'twitter-bootstrap-rails'
 
 # Gems used only for assets and not required
