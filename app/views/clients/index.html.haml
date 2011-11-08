@@ -1,29 +1,24 @@
-.yui3-g
-  .yui3-u-1
-    %h2= t(:all_clients)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %table.clients
-          %thead
-            %tr
-              %th= t(:name)
-              %th= t(:initials)
-              %th= t(:projects)
-              %th= t(:tickets)
-              %th= t(:status)
-              - if admin?
-                %th= t(:edit)
-          %tbody
-            - @clients.each do |client|
-              %tr{ :class => "#{cycle("odd", "even")} #{client.status.downcase}" }
-                %td= link_to client, client
-                %td= client.initials
-                %td= client.projects.count
-                %td= client.tickets.count
-                %td= client.status
-                -if admin?
-                  %td= link_to t(:edit), edit_client_path(client)
-        = link_to t(:new_client), new_client_path, :class => "add_new_button" if admin?
+%h2= t(:all_clients)
 
+%table.clients.zebra-striped
+  %thead
+    %tr
+      %th= t(:name)
+      %th= t(:initials)
+      %th= t(:projects)
+      %th= t(:tickets)
+      %th= t(:status)
+      - if admin?
+        %th= t(:edit)
+  %tbody
+    - @clients.each do |client|
+      %tr{ :class => "#{cycle("odd", "even")} #{client.status.downcase}" }
+        %td= link_to client, client
+        %td= client.initials
+        %td= client.projects.count
+        %td= client.tickets.count
+        %td= client.status
+        -if admin?
+          %td= link_to t(:edit), edit_client_path(client), :class => 'btn'
+
+= link_to t(:new_client), new_client_path, :class => "add_new_button btn primary" if admin?
