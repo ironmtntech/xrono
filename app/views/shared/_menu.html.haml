@@ -6,4 +6,5 @@
     %li= link_to t(:admin), admin_path
   - else
     %li= link_to t(:users), users_path
+%ul.nav.secondary-nav
   = render :partial => 'shared/user_menu'
