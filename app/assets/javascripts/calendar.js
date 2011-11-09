@@ -17,6 +17,8 @@ function show_by_default(status)
     });
   }
 }
+
+console.log(calendar_expansion_default);
 if (typeof calendar_expansion_default === 'undefined') { 
   calendar_expansion_default = false;
 }
