@@ -2298,3 +2298,25 @@ footer.footer {
   padding-top: 0;
   padding-bottom: 0;
 }
+
+/* line 87, ../../app/assets/stylesheets/screen.scss */
+.week_pagination {
+  background-color: #f9f9f9;
+  border-width: 1px 0;
+  border-color: #ddd;
+  border-style: solid;
+  margin-bottom: 1em;
+}
+/* line 94, ../../app/assets/stylesheets/screen.scss */
+.week_pagination .date_pagination .span2 {
+  text-align: center;
+}
+/* line 97, ../../app/assets/stylesheets/screen.scss */
+.week_pagination .date_pagination .span7.last {
+  text-align: right;
+}
+/* line 100, ../../app/assets/stylesheets/screen.scss */
+.week_pagination .date_pagination a {
+  display: inline-block;
+  padding: 1em;
+}

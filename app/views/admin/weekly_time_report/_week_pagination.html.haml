@@ -1,6 +1,6 @@
 .date_pagination
-  = link_to "&larr; Previous Week".html_safe,
+  = link_to t(:previous_week).html_safe,
       admin_weekly_time_report_path((start_date - 1.week).beginning_of_week)
   - if start_date < Date.current
-    = link_to "Next Week &rarr;".html_safe,
+    = link_to t(:next_week).html_safe,
       admin_weekly_time_report_path(start_date.next_week)

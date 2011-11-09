@@ -83,3 +83,23 @@ footer.footer{
     padding-bottom: 0;
   }
 }
+
+.week_pagination{
+  background-color: #f9f9f9;
+  border-width: 1px 0;
+  border-color: #ddd;
+  border-style: solid;
+  margin-bottom: 1em;
+  .date_pagination{
+    .span2{
+      text-align: center;
+    }
+    .span7.last{
+      text-align: right;
+    }
+    a{
+      display: inline-block;
+      padding: 1em;
+    }
+  }
+}

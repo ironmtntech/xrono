@@ -3,7 +3,8 @@
     %p= @message[:body]
 
 = render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user }
-%p.week_pagination
+
+.week_pagination
   = render :partial => 'dashboard/base/week_pagination', :locals => { :start_date => @start_date }
 
 .row
