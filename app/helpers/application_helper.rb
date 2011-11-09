@@ -3,9 +3,9 @@ module ApplicationHelper
 
   def wrapper_class
     if current_user
-      "wrapper #{current_user.full_width ? 'full_width' : nil}"
+      "container#{current_user.full_width ? '-fluid' : nil}"
     else
-      "wrapper"
+      "container"
     end
   end
 
