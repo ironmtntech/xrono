@@ -14,10 +14,14 @@ body{
 
 .calendar{
   table{
-    margin-bottom: 0;
-  }
-  td{
-    overflow: hidden;
+    td{
+      overflow: hidden;
+    }
+    tfoot{
+      td{
+        border-bottom: 1px solid #eee;
+      }
+    }
   }
   .work_unit {
     .description {
@@ -120,4 +124,8 @@ footer.footer{
       top: -9px;
     }
   }
+}
+
+.twipsy{
+  font-size: 13px;
 }
