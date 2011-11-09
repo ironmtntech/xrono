@@ -23,5 +23,3 @@ $("#scheduled_at").datepicker( {
   },
   dateFormat: 'yy-mm-dd'
 });
-
-

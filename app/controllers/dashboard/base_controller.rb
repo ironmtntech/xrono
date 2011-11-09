@@ -41,7 +41,7 @@ class Dashboard::BaseController < ApplicationController
   # Regular scoped methods                                                     #
   ##############################################################################
   def index
-    if current_user.has_role?(:developer)
+    if current_user.has_role?(:developer) && !admin?
       unless current_user.work_units_for_day(Date.current.prev_working_day).any?
         @message = {:title => t(:management),
           :body => t(:enter_time_for_previous_day)}
@@ -67,8 +67,9 @@ class Dashboard::BaseController < ApplicationController
     #end
     respond_with @tickets
   end
+
   def index
-    if current_user.has_role?(:developer)
+    if current_user.has_role?(:developer) && !admin?
       unless current_user.work_units_for_day(Date.current.prev_working_day).any?
         @message = {:title => t(:management),
           :body => t(:enter_time_for_previous_day)}

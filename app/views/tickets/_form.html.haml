@@ -22,4 +22,7 @@
     = hidden_field_tag :project_id, @ticket.project.id
     .actions
       = f.submit :class => "add_new_button btn primary"
-      = link_to t(:cancel), ticket_path(@ticket), :class => "cancel_button btn"
+      - if @ticket.new_record?
+        = link_to t(:cancel), project_path(@project), :class => "cancel_button btn"
+      - else
+        = link_to t(:cancel), ticket_path(@ticket), :class => "cancel_button btn"

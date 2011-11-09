@@ -4,11 +4,10 @@
 
     #work_unit_errors
 
-    - if current_user.has_role?(:developer) 
-      .clearfix
-        %label{:for => "checkbox"} Show hidden clients and projects
-        .input
-          %input{:id => "checkbox", :type => "checkbox", :name => "checkbox", :value => true, :checked => false}
+    .clearfix
+      %label{:for => "checkbox"} Show hidden clients and projects
+      .input
+        %input{:id => "checkbox", :type => "checkbox", :name => "checkbox", :value => true, :checked => false}
 
     .clearfix
       %label= "#{t(:scheduled_on)}:"
