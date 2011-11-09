@@ -13,6 +13,9 @@ body{
 }
 
 .calendar{
+  table{
+    margin-bottom: 0;
+  }
   td{
     overflow: hidden;
   }
@@ -89,7 +92,6 @@ footer.footer{
   border-width: 1px 0;
   border-color: #ddd;
   border-style: solid;
-  margin-bottom: 1em;
   .date_pagination{
     .span2{
       text-align: center;
