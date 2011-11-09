@@ -37,8 +37,8 @@
 
 - if request.xhr?
   :javascript
-    $('a[rel=twipsy]').twipsy();
+    $('a[rel=twipsy]').twipsy({ placement: 'below'} );
 - else
   - content_for :javascripts do
     :javascript
-      $('a[rel=twipsy]').twipsy();
+      $('a[rel=twipsy]').twipsy({ placement: 'below'} );

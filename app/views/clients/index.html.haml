@@ -1,4 +1,5 @@
 %h2= t(:all_clients)
+= link_to t(:new_client), new_client_path, :class => "add_new_button btn primary" if admin?
 
 %table.clients.zebra-striped
   %thead
@@ -20,5 +21,3 @@
         %td= client.status
         -if admin?
           %td= link_to t(:edit), edit_client_path(client), :class => 'btn'
-
-= link_to t(:new_client), new_client_path, :class => "add_new_button btn primary" if admin?
