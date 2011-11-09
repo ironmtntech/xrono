@@ -2,10 +2,10 @@
   #message{:title => @message[:title], :style => "display: none;"}
     %p= @message[:body]
 
-= render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user }
-
 .week_pagination
   = render :partial => 'dashboard/base/week_pagination', :locals => { :start_date => @start_date }
+
+= render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user }
 
 .row
   .span8
