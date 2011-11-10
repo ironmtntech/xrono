@@ -53,7 +53,7 @@ ul.nav{
     a{
       @include border-radius(8px);
       &:hover{
-        background-color: #1f1f1f;
+        background-color: #75959d;
       }
       margin-left: 2px;
       margin-right: 2px;
@@ -61,15 +61,20 @@ ul.nav{
   }
   li.selected{
     a{
-      background-color: #111;
+      background-color: #5d7a82;
       color: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
     }
   }
 }
 
 .topbar{
+  a{
+    color: #ddd;
+  }
   .fill{
     padding: 6px 0;
+    @include linear-gradient(color-stops(#75959d, #698891 30%, #5d7a82 100%));
   }
 }
 
