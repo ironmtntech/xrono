@@ -9,9 +9,11 @@
 
 .row
   .span8
-    = render :partial => 'tickets/add_ticket'
+    .module
+      = render :partial => 'tickets/add_ticket'
   .span8
-    = render :partial => 'work_units/add_work_unit'
+    .module
+      = render :partial => 'work_units/add_work_unit'
 
 - content_for :javascripts do
   = javascript_include_tag 'add_taxonomy'

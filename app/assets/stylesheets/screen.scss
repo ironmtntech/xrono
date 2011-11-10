@@ -129,3 +129,21 @@ footer.footer{
 .twipsy{
   font-size: 13px;
 }
+
+.module{
+  background-color: #f9f9f9;
+  @include border-radius(8px);
+  padding: 8px;
+  form{
+    margin-bottom: 0;
+    fieldset{
+      margin-bottom: 0;
+      .actions{
+        margin-bottom: -8px;
+        margin-right: -8px;
+        margin-left: -8px;
+        @include border-radius(0 0 8px 8px);
+      }
+    }
+  }
+}

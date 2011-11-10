@@ -1,34 +1,36 @@
 .row
   .span8
-    = form_for @user do |u|
-      %fieldset
-        %legend= t(:edit_user)
-        .clearfix
-          = u.label :first_name, t(:first_name)
-          .input
-            = u.text_field(:first_name)
-        .clearfix
-          = u.label :middle_initial, t(:middle_initial)
-          .input
-            = u.text_field(:middle_initial)
-        .clearfix
-          = u.label :last_name, t(:last_name)
-          .input
-            = u.text_field(:last_name)
-        .clearfix
-          = u.label :email, t(:email_address)
-          .input
-            = u.text_field(:email)
-        .clearfix
-          = u.label :expanded_calendar, t(:expanded_calendar)
-          .input
-            = u.check_box(:expanded_calendar)
-        .clearfix
-          = u.label :daily_target_hours, t(:daily_target_hours) 
-          .input
-            = u.text_field(:daily_target_hours)
-        .actions
-          = u.submit t(:update), :class => 'btn primary'
+    .module
+      = form_for @user do |u|
+        %fieldset
+          %legend= t(:edit_user)
+          .clearfix
+            = u.label :first_name, t(:first_name)
+            .input
+              = u.text_field(:first_name)
+          .clearfix
+            = u.label :middle_initial, t(:middle_initial)
+            .input
+              = u.text_field(:middle_initial)
+          .clearfix
+            = u.label :last_name, t(:last_name)
+            .input
+              = u.text_field(:last_name)
+          .clearfix
+            = u.label :email, t(:email_address)
+            .input
+              = u.text_field(:email)
+          .clearfix
+            = u.label :expanded_calendar, t(:expanded_calendar)
+            .input
+              = u.check_box(:expanded_calendar)
+          .clearfix
+            = u.label :daily_target_hours, t(:daily_target_hours) 
+            .input
+              = u.text_field(:daily_target_hours)
+          .actions
+            = u.submit t(:update), :class => 'btn primary'
 
   .span8
-    = render :partial => "change_password_form", :locals => {:user => @user}
+    .module
+      = render :partial => "change_password_form", :locals => {:user => @user}

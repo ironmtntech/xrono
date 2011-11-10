@@ -23,10 +23,13 @@
     = f.label :phone_number
     .input
       = f.text_field :phone_number
-  .clearfix
-    = f.label :receives_email
-    .input
-      = f.check_box(:receives_email)
+    .clearfix
+      .input
+        %ul.inputs-list
+          %li
+            %label
+              = f.check_box :receives_email
+              %span Receives Email
   .actions
     = f.submit :class => "add_new_button btn primary"
     = link_to "Cancel", client_path(@client), :class => "cancel_button btn"
