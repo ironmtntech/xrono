@@ -38,8 +38,3 @@ Feature: Dashboard
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket exists with project: project "test project", name: "test ticket"
     And I am assigned to the project
-    And I visit /
-    And I follow "close"
-    And I select "test client" from "work_unit_client_id"
-    And I select "test project" from "work_unit_project_id"
-    Then I should see "test ticket" within "#work_unit_ticket_id"

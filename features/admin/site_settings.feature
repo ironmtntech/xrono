@@ -8,7 +8,6 @@ Feature: Site Settings
     And I fill in "admin_site_settings_total_yearly_pto_per_user" with "41.00"
     And I press "Update"
     Then I should see "Site Settings updated successfully" within ".alert-message"
-    And show me the page
     And the "admin_site_settings_overtime_multiplier" field should hold "2.00"
     And the "admin_site_settings_total_yearly_pto_per_user" field should hold "41.00"
 

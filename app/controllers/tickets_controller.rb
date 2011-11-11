@@ -13,7 +13,7 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
   end
-
+  
   # POST /tickets
   def create
     if @ticket.save
@@ -101,5 +101,4 @@ class TicketsController < ApplicationController
     def load_project
       @project = @ticket.project
     end
-
 end

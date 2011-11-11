@@ -15,7 +15,6 @@ Feature: Ticket board
     And I visit /
     Then I should not see "Show hidden clients and projects"
     
-
   Scenario: Only show clients with projects assigned to current users by default
     Given I am an authenticated user with a developer role
     Given a client "test client" exists with name: "test client"
@@ -53,7 +52,6 @@ Feature: Ticket board
     Then I should see "test client1" within "#work_unit_client_id"
     Then I should see "test client2" within "#work_unit_client_id"
 
-    
     @javascript
   Scenario: When box is checked one can also see projects not assigned to oneself
     Given I am an authenticated user with a developer role
@@ -73,7 +71,6 @@ Feature: Ticket board
     And I check "checkbox"
     And I select "test client2" from "work_unit_client_id"
     Then I should see "test project2" within "#work_unit_project_id"
-
 
     @javascript
   Scenario: Checking & unchecking box re-hides clients without assigned projects

@@ -123,5 +123,4 @@ describe Ticket do
     end
   end
 
-
 end

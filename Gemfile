@@ -13,6 +13,8 @@ gem 'uuid', '~> 2.3.1'
 gem 'jquery-rails'
 gem 'rake', '0.9.2'
 gem 'sqlite3'
+gem "state_machine", "~> 1.0.2"
+gem "acts_as_audited", "~> 2.0.0"
 
 gem 'simple-navigation'
 
@@ -26,7 +28,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '0.12.alpha.0'
 end 
-gem "state_machine", "~> 1.0.2"
 
 group :development do
   gem 'awesome_print', :require => 'ap'

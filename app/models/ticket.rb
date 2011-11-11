@@ -1,6 +1,7 @@
 class Ticket < ActiveRecord::Base
   include GuidReferenced
   acts_as_commentable
+  acts_as_audited :only => [:state]
   belongs_to :project
   has_many :work_units
   has_many :file_attachments
@@ -12,7 +13,7 @@ class Ticket < ActiveRecord::Base
   scope :for_project,    lambda{|project|    where(:project_id => project.id) }
   scope :for_project_id, lambda{|project_id| where :project_id => project_id }
   scope :sort_by_name,   order('name ASC')
-  scope :for_state, lambda { |state| where('state = ?', state) }
+  scope :for_state, lambda { |state| where(:state => state) }
 
   scope :for_user, lambda{|user|
     joins("INNER JOIN projects     p ON p.id=tickets.project_id")
@@ -85,11 +86,6 @@ class Ticket < ActiveRecord::Base
     end
   end
 
-  
-  def initialize(args = nil)
-    super args
-  end
-
   def states
     Ticket.state_machine.states.keys if Ticket.state_machine
   end
@@ -108,6 +104,10 @@ class Ticket < ActiveRecord::Base
     self.project.users.map(&:email)
   end
   ######################################################################
+
+  def self.for_user(user)
+    select {|t| t.allows_access?(user) }
+  end
 
   def client
     project.client
@@ -136,11 +136,8 @@ class Ticket < ActiveRecord::Base
   def allows_access?(user)
     project.accepts_roles_by?(user) || user.admin?
   end
-
+#### Comment out to look at bug in ticket show page
   def files_and_comments
-    ary = Array.new
-    ary << comments
-    ary << file_attachments
-    ary.flatten.sort_by {|x| x.created_at}
+    [self.file_attachments, self.comments]
   end
 end

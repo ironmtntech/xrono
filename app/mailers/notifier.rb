@@ -22,5 +22,4 @@ class Notifier < ActionMailer::Base
       detail.html { render :text => "<h1> #{@ticket.name} is now in #{@ticket.state} </h1>" }
     end
   end 
-
 end
