@@ -35,7 +35,7 @@ class ClientsController < ApplicationController
     if admin?
       @clients = Client.order("name").all
     else
-      @clients = Client.for_user(current_user).order("name")
+      @clients = Client.order("name").for_user(current_user)
     end
   end
 
