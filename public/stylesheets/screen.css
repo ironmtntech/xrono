@@ -9,7 +9,7 @@ Syntax error: File to import not found or unreadable: jquery-ui-1.8.16.custom.
         on line 6 of /home/jadams/rails/xrono/app/assets/stylesheets/screen.scss
 
 1: /*
-2:  *= require twitter/bootstrap
+2:  *= require bootstrap
 3:  *= require chosen
 4: */
 5: 
@@ -72,10 +72,10 @@ Backtrace:
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/activesupport-3.1.1/lib/active_support/callbacks.rb:392:in `_run_call_callbacks'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/activesupport-3.1.1/lib/active_support/callbacks.rb:81:in `run_callbacks'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/reloader.rb:68:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/sendfile.rb:101:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/cucumber-rails-1.0.6/lib/cucumber/rails/action_controller.rb:10:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/railties-3.1.1/lib/rails/rack/logger.rb:13:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/methodoverride.rb:24:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/runtime.rb:17:in `call'
@@ -83,26 +83,14 @@ Backtrace:
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/lock.rb:15:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/static.rb:53:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/railties-3.1.1/lib/rails/engine.rb:456:in `call'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/urlmap.rb:52:in `block in call'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/urlmap.rb:46:in `each'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/urlmap.rb:46:in `call'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/capybara-1.1.1/lib/capybara/server.rb:17:in `call'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/thin-1.2.11/lib/thin/connection.rb:84:in `block in pre_process'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/thin-1.2.11/lib/thin/connection.rb:82:in `catch'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/thin-1.2.11/lib/thin/connection.rb:82:in `pre_process'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/thin-1.2.11/lib/thin/connection.rb:57:in `process'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/thin-1.2.11/lib/thin/connection.rb:42:in `receive_data'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/eventmachine-0.12.10/lib/eventmachine.rb:256:in `run_machine'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/eventmachine-0.12.10/lib/eventmachine.rb:256:in `run'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/thin-1.2.11/lib/thin/backends/base.rb:61:in `start'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/thin-1.2.11/lib/thin/server.rb:159:in `start'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/handler/thin.rb:13:in `run'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/capybara-1.1.1/lib/capybara.rb:177:in `run_default_server'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/capybara-1.1.1/lib/capybara.rb:236:in `block (2 levels) in <top (required)>'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/capybara-1.1.1/lib/capybara/server.rb:65:in `call'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/capybara-1.1.1/lib/capybara/server.rb:65:in `block in boot'
+/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/railties-3.1.1/lib/rails/rack/content_length.rb:16:in `call'
+/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/railties-3.1.1/lib/rails/rack/log_tailer.rb:14:in `call'
+/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/handler/webrick.rb:59:in `service'
+/home/jadams/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/home/jadams/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/home/jadams/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
 */
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: File to import not found or unreadable: jquery-ui-1.8.16.custom.\A               Load paths:\A                 Compass::SpriteImporter\A                 /home/jadams/rails/xrono/public/stylesheets/sass\A                 /home/jadams/rails/xrono/app/assets/stylesheets\A                 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/blueprint/stylesheets\A                 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/compass/stylesheets\A         on line 6 of /home/jadams/rails/xrono/app/assets/stylesheets/screen.scss\A \A 1: /*\A 2:  *= require twitter/bootstrap\A 3:  *= require chosen\A 4: */\A 5: \A 6: @import \"jquery-ui-1.8.16.custom\";\A 7: @import \"compass\";\A 8: @import \"compass/css3/border-radius\";\A 9: \A 10: //** SCREEN STYLES **//\A 11: body{"; }
+  content: "Syntax error: File to import not found or unreadable: jquery-ui-1.8.16.custom.\A               Load paths:\A                 Compass::SpriteImporter\A                 /home/jadams/rails/xrono/public/stylesheets/sass\A                 /home/jadams/rails/xrono/app/assets/stylesheets\A                 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/blueprint/stylesheets\A                 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/compass/stylesheets\A         on line 6 of /home/jadams/rails/xrono/app/assets/stylesheets/screen.scss\A \A 1: /*\A 2:  *= require bootstrap\A 3:  *= require chosen\A 4: */\A 5: \A 6: @import \"jquery-ui-1.8.16.custom\";\A 7: @import \"compass\";\A 8: @import \"compass/css3/border-radius\";\A 9: \A 10: //** SCREEN STYLES **//\A 11: body{"; }
