@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_filter :load_new_ticket, :only => [:new, :create]
-  before_filter :load_ticket, :only => [:show, :edit, :update]
+  before_filter :load_ticket, :only => [:show, :edit, :update, :advance_state, :reverse_state, :ticket_detail]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
   before_filter :load_project
 
@@ -53,6 +53,31 @@ class TicketsController < ApplicationController
     end
   end
 
+  def advance_state 
+    return unless current_user.has_role?(:developer, @ticket.project) || current_user.admin?
+    @ticket.advance_state!
+    if request.xhr?
+      render :nothing => true
+    else
+      redirect_to url_for(@ticket.project)
+    end
+  end
+
+  def reverse_state 
+    return unless current_user.has_role?(:developer, @ticket.project) || current_user.admin?
+    @ticket.reverse_state!
+    if request.xhr?
+      render :nothing => true
+    else
+      redirect_to url_for(@ticket.project)
+    end
+  end
+
+  def ticket_detail
+    @work_units = Ticket.find(params[:ticket_id]).work_units
+    render :layout => false
+  end
+
   private
 
     def load_new_ticket
@@ -61,7 +86,11 @@ class TicketsController < ApplicationController
     end
 
     def load_ticket
-      @ticket = Ticket.find(params[:id])
+      if params[:id]
+        @ticket = Ticket.find(params[:id])
+      elsif params[:ticket_id]
+        @ticket = Ticket.find(params[:ticket_id])
+      end
     end
 
     def load_file_attachments

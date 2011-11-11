@@ -68,32 +68,9 @@ class Dashboard::BaseController < ApplicationController
     respond_with @tickets
   end
 
-  def index
-    if current_user.has_role?(:developer) && !admin?
-      unless current_user.work_units_for_day(Date.current.prev_working_day).any?
-        @message = {:title => t(:management),
-          :body => t(:enter_time_for_previous_day)}
-      end
-    end
-    @clients = Client.not_inactive.sort_by_name.for_user(current_user)
-    @projects = []
-    @tickets = []
-  end
-
-  def client
-    @projects = Project.sort_by_name.for_client_id(params[:id])
-    unless admin?
-      @projects = @projects.for_user_and_role(current_user, :developer)
-    end
-    respond_with @projects
-  end
-
-  def project
-    @tickets = Ticket.sort_by_name.for_project_id(params[:id])
-    unless admin?
-      @tickets = @tickets.for_user_and_role(current_user, :developer)
-    end
-    respond_with @tickets
+  # GET /projects/show_me_the_tickets
+  def give_me_the_tickets
+    render :partial => "shared/ticketboard", :locals => { :project => Project.find(params[:id]) }
   end
 
   def calendar

@@ -26,6 +26,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '0.12.alpha.0'
 end 
+gem "state_machine", "~> 1.0.2"
 
 group :development do
   gem 'awesome_print', :require => 'ap'

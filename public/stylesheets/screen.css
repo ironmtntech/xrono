@@ -59,7 +59,7 @@ Backtrace:
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/warden-1.0.6/lib/warden/manager.rb:34:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/etag.rb:23:in `call'
-/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/conditionalget.rb:25:in `call'
+/home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/conditionalget.rb:35:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/head.rb:14:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/flash.rb:243:in `call'

@@ -1,0 +1,28 @@
+.yui3-g
+  .yui3-u-1
+    %h2= t(:new_ticket)
+.yui3-g
+  .yui3-u-1
+    .gradient_border_wrap
+      .gradient_border_content
+        = form_for Ticket.new, :remote => true, :html => {:id => "modal-create-form" }, :as => :ticket, :url => modal_create_tickets_path do |f|
+          - if @ticket.errors.any?
+            #error_explanation
+              %h2
+                = pluralize(@ticket.errors.count, "error")
+                = "#{t(:prohibited_this_ticket_from_being_saved)}:"
+
+              %ul
+              - @ticket.errors.full_messages.each do |msg|
+                %li= msg
+
+          .field
+            = f.label :name
+            = f.text_field :name
+            = hidden_field_tag :project_id, @ticket.project.id
+          .field
+            = f.label :description
+            = f.text_area :description
+          .actions
+            = f.submit :class => "add_new_button"
+            = link_to t(:cancel), url_for(@ticket.project), :class => "cancel_button"

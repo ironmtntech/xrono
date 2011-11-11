@@ -17,3 +17,9 @@
 
 - content_for :javascripts do
   = javascript_include_tag 'add_taxonomy'
+  = javascript_include_tag "ticket_board"
+  = javascript_include_tag "specify_project"
+
+- if @message
+  #message{:title => @message[:title], :style => "display: none;"}
+    %p= @message[:body]
