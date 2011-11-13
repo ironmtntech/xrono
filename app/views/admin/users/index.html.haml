@@ -6,6 +6,8 @@
 
 %h2= t(:all_users)
 
+= render :partial => 'admin/nav'
+
 = link_to t(:new_user), new_admin_user_path, :class => "add_new_button btn primary"
 
 #accordion
@@ -15,6 +17,7 @@
       %table.users.zebra-striped
         %thead
           %tr
+            %th
             %th= t(:name)
             %th= t(:email)
             %th= t(:current)
@@ -28,6 +31,7 @@
               %td.user_img
                 = link_to "#{show_gravatar_for(user)}".html_safe,
                   user_path(user)
+              %td
                 = link_to "<span>#{user}</span>".html_safe, 
                   user_path(user) 
               %td= user.email
@@ -46,6 +50,7 @@
       %table.users.zebra-striped
         %thead
           %tr
+            %th
             %th= t(:name)
             %th= t(:email)
             %th= t(:current)
@@ -59,6 +64,7 @@
               %td.user_img
                 = link_to "#{show_gravatar_for(user)}".html_safe,
                   user_path(user)
+              %td
                 = link_to "<span>#{user}</span>".html_safe, 
                   user_path(user) 
               %td= user.email

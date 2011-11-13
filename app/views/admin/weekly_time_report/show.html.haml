@@ -3,6 +3,8 @@
 
 %h2 Weekly Time Report
 
+= render :partial => 'admin/nav'
+
 - if @users.any?
   = render :partial => 'week_pagination', :locals => { :start_date => @start_date }
   - @users.each do |user|

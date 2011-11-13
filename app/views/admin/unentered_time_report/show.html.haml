@@ -1,5 +1,9 @@
 %h2= t(:users_with_no_time_entered)
 
+= render :partial => 'admin/nav'
+
+= render :partial => 'week_navigation'
+
 - @week_dates.each do |weekday, date|
   %div{:id => weekday}
     %h3= "#{weekday}, #{date.to_formatted_s(:long_ordinal)}" 
@@ -9,6 +13,3 @@
         - for user in @users do
           - unless user.work_units_for_day(date).any?
             %li= link_to user, user_path(user)
-
-%h4= link_to t(:previous), admin_unentered_time_report_path(@week_dates["Monday"] - 1.week)
-%h4= link_to t(:next), admin_unentered_time_report_path(@week_dates["Monday"] + 1.week)

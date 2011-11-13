@@ -1,5 +1,7 @@
 %h2= t(:site_settings)
 
+= render :partial => 'admin/nav'
+
 = t(:current_site_logo)
 = image_tag @site_settings.site_logo.url
 = button_to(t(:remove_site_logo), admin_site_settings_path, :method => :delete, :confirm => 'Are you sure?', :class => 'btn')

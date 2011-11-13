@@ -1,16 +1,13 @@
 - content_for :javascripts do
   = javascript_include_tag "calendar"
 
-%h2= @user
+= render :partial => 'user_head', :locals => { :user => @user }
 
 %ul.pills
   %li= link_to t(:historical_time_report), historical_time_user_path
   - if @user == current_user
     %li= link_to "Edit User", edit_user_path(@user)
 
-%p.gravatar
-  = show_gravatar_for(@user)
-%h3= @user.email
 %h3
   - if @user.locked_at?
     = t(:user_is_locked)

@@ -1,6 +1,6 @@
-%h2
-  = @user
-  =t(:roles)
+%h1= t(:roles)
+
+= render :partial => '/users/user_head', :locals => { :user => @user }
 
 .module
   = form_tag(projects_admin_user_path, :method => 'post') do
