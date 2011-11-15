@@ -57,6 +57,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :site_settings, t(:site_settings), edit_admin_site_settings_path
 
     primary.dom_class = 'pills'
+    #primary.selected_class = 'active'
 
     # you can also specify a css id or class to attach to this particular level
     # works for all levels of the menu

@@ -3,9 +3,9 @@ Then /^the "([^"]*)" field(?: under (.*))? should hold "([^"]*)"$/ do |field, pa
     field = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
     if field_value.respond_to? :should
-      field_value.should =~ /#{value.to_f}/
+      field_value.should =~ /#{value}/
     else
-      assert_match(/#{value.to_f}/, field_value)
+      assert_match(/#{value}/, field_value)
     end
   end
 end

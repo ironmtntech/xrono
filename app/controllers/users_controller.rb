@@ -23,6 +23,7 @@ class UsersController < ApplicationController
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.save
+      sign_in(@user, :bypass => true)
       flash[:notice] = t(:password_updated_successfully)
       redirect_to :action => :show
     else

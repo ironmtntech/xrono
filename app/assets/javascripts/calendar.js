@@ -1,5 +1,5 @@
 //hide/show work unit description
-$('.expand').click(function() {
+$('tr.calendar_top .expand').click(function() {
   $(this).parents('.calendar').find('a').siblings('.description').each(function() {
     $(this).toggle('fast');
     $(this).toggleClass("expand");
@@ -13,7 +13,7 @@ function show_by_default(status)
   {
     $('.calendar').find('a').siblings('.description').each(function() {
       $(this).show();
-      $(this).toggleClass("expand");
+      $(this).addClass("expand");
     });
   }
 }
