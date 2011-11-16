@@ -50,9 +50,9 @@ Feature: Client Management
     Given I am an authenticated user with an admin role
     And a client "test client2" exists with name: "test client2", initials: "TC2", status: "Active"
     When I am on the client's edit page
-    Then the "client_name" field within "body" should contain "test client2"
-    And the "client_initials" field within "body" should contain "TC2"
-    And the "client_status" field within "body" should contain "Active"
+    Then the "client_name" field under "body" should contain "test client2"
+    And the "client_initials" field under "body" should contain "TC2"
+    And the "client_status" field under "body" should contain "Active"
     And I select "Inactive" from "Status"
     And I press "Update Client"
     And I should see "test client2"
@@ -62,9 +62,9 @@ Feature: Client Management
     Given I am an authenticated user with an admin role
     And a client "test client2" exists with name: "test client2", initials: "TC2", status: "Active"
     When I am on the client's edit page
-    Then the "client_name" field within "body" should contain "test client2"
-    And the "client_initials" field within "body" should contain "TC2"
-    And the "client_status" field within "body" should contain "Active"
+    Then the "client_name" field under "body" should contain "test client2"
+    And the "client_initials" field under "body" should contain "TC2"
+    And the "client_status" field under "body" should contain "Active"
     And I select "Inactive" from "Status"
     And I fill in "Name" with ""
     And I press "Update Client"
@@ -94,3 +94,4 @@ Feature: Client Management
     Given I am an authenticated user with an admin role
     When I go to the new client page
     Then I should see a link with text "Cancel" within ".actions"
+

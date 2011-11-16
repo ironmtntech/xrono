@@ -23,6 +23,7 @@ class UsersController < ApplicationController
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.save
+      sign_in(@user, :bypass => true)
       flash[:notice] = t(:password_updated_successfully)
       redirect_to :action => :show
     else
@@ -39,9 +40,11 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       flash[:notice] = t(:user_updated_successfully)
       redirect_to @user
-    else
-      flash.now[:error] = t(:user_updated_unsuccessfully)
-      render :action => 'edit'
+# zulu   
+#    else
+#      flash.now[:error] = t(:user_updated_unsuccessfully)
+#      render :action => 'edit'
+#      debugger
     end
   end
 

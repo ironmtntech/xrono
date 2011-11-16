@@ -1,32 +1,32 @@
-.yui3-g
-  .yui3-u-1
-    %h2= t(:new_user)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        = form_for @user, :class => "new_user", :url => admin_users_path do |f|
-          = f.label :first_name
+.module
+  = form_for @user, :class => "new_user", :url => admin_users_path do |f|
+    %fieldset
+      %legend= t(:new_user)
+      .clearfix
+        = f.label :first_name
+        .input
           = f.text_field :first_name
-          %br/
-          = f.label :last_name
+      .clearfix
+        = f.label :last_name
+        .input
           = f.text_field :last_name
-          %br/
-          = f.label :middle_initial
+      .clearfix
+        = f.label :middle_initial
+        .input
           = f.text_field :middle_initial
-          %br/
-          = f.label :email
+      .clearfix
+        = f.label :email
+        .input
           = f.text_field :email
-          %br/
-          = f.label :password
+      .clearfix
+        = f.label :password
+        .input
           = f.password_field :password
-          %br/
-          = f.label :password_confirmation
+      .clearfix
+        = f.label :password_confirmation
+        .input
           = f.password_field :password_confirmation
-          %br/
-          = f.submit t(:create), :class => 'add_new_button'
+      .actions
+        = f.submit t(:create), :class => 'add_new_button btn primary'
 
-          = link_to t(:cancel), admin_users_path, :class => 'cancel_button' 
-
-          .clear
-
+        = link_to t(:cancel), admin_users_path, :class => 'cancel_button btn'

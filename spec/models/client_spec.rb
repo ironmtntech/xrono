@@ -21,14 +21,14 @@ describe Client do
   it { should validate_presence_of :status }
   it { should validate_uniqueness_of :name }
 
-  describe '.to_s' do
+  describe '#to_s' do
     subject { client.to_s }
     it 'returns the client name' do
       should == 'New Client'
     end
   end
 
-  describe '.allows_access?' do
+  describe '#allows_access?' do
     subject { client.allows_access?(user) }
 
     context 'when the user has access to one or more of its projects' do
@@ -42,7 +42,7 @@ describe Client do
     end
   end
 
-  describe '.uninvoiced_hours' do
+  describe '#uninvoiced_hours' do
     subject { client.uninvoiced_hours }
 
     context 'when there are invoiced and uninvoiced work units' do
@@ -58,7 +58,7 @@ describe Client do
     end
   end
 
-  describe '.hours' do
+  describe '#hours' do
     subject { client.hours }
 
     context 'when there are normal work units with hours' do
@@ -73,7 +73,7 @@ describe Client do
     end
   end
 
-  describe '.tickets' do
+  describe '#tickets' do
     subject { client.tickets }
 
     context 'when the client has tickets' do
@@ -134,6 +134,18 @@ describe Client do
       end.should change(Client, :count).by(1)
     end
   end
+
+  describe 'file_and_comments' do
+    before do
+      @file_attachment = FileAttachment.create! :client_id => client.id, :ticket_id => ticket.id, :project_id => project.id, :attachment_file_file_name => "file.file", :created_at => 2.days.ago
+      @comment = Comment.create! :title => "Test", :comment => "Herro", :commentable_id => client.id, :created_at => 1.hours.ago, :commentable_type => "Client"
+    end
+
+    it 'should add file attachments and comments in the correct order' do
+      client.files_and_comments.should == [@file_attachment, @comment]
+    end
+  end
+
 
 end
 

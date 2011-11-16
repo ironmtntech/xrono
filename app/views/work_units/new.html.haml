@@ -1,9 +1,3 @@
-.yui3-g
-  .yui3-u-1
-    %h2= t(:new_work_unit)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-      = render 'form'
-      = link_to t(:back), ticket_path(@work_unit.ticket)
+.module
+  %h2= t(:new_work_unit)
+  = render 'new_work_unit'

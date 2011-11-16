@@ -1,0 +1,19 @@
+production:
+  adapter: mysql2
+  database: xrono_production
+  username: root
+  password: 
+
+development:
+  adapter: mysql2
+  database: xrono_development
+  username: root
+  password: 
+
+test: &test
+  adapter: mysql2
+  database: xrono_test
+  username: root
+
+cucumber:
+  <<: *test

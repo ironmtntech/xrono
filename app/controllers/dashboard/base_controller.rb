@@ -3,33 +3,74 @@ class Dashboard::BaseController < ApplicationController
   before_filter :get_calendar_details, :only => [:index, :calendar, :update_calendar]
   respond_to :html, :json, :js
 
+  ##############################################################################
+  # Methods called by checkbox to display full list of clients/projects/tickets#
+  # for developers who want to bill on a project they are not assigned to.     #
+  ##############################################################################
+  
+  # Show ALL clients                                                           #
+  def collaborative_index
+    @clients = Client.not_inactive.sort_by_name
+    @projects = []
+    @tickets = []
+    render :json => @clients
+  end
+
+  # Show ALL projects                                                          #
+  def collaborative_client
+    @projects = Project.find(:all, :conditions => {:client_id => params[:id]}, :order => "name")
+    render :json => @projects
+  end
+  
+  # Show ALL tickets                                                           #
+  def collaborative_project
+    @tickets = Ticket.find(:all, :conditions => {:project_id => params[:id]}, :order => "name")
+    render :json => @tickets
+  end
+
+  # Undoes effects of checkbox, rendering only the clients for which developer #
+  # has projects assigned.                                                     #
+  def json_index
+    @clients = Client.not_inactive.sort_by_name.for_user(current_user)
+    @projects = []
+    @tickets = []
+    render :json => @clients
+  end
+  
+  ##############################################################################
+  # Regular scoped methods                                                     #
+  ##############################################################################
   def index
-    if current_user.has_role?(:developer)
+    if current_user.has_role?(:developer) && !admin?
       unless current_user.work_units_for_day(Date.current.prev_working_day).any?
         @message = {:title => t(:management),
           :body => t(:enter_time_for_previous_day)}
       end
     end
-
     @clients = Client.not_inactive.sort_by_name.for_user(current_user)
     @projects = []
     @tickets = []
   end
 
   def client
-    @projects = Project.sort_by_name.find(:all, :conditions => ['client_id = ?', params[:id]])
+    @projects = Project.sort_by_name.for_client_id(params[:id])
     unless admin?
-      @projects = @projects.select {|p| p.allows_access?(current_user)}
+      @projects = @projects.for_user_and_role(current_user, :developer)
     end
     respond_with @projects
   end
 
   def project
-    @tickets = Ticket.sort_by_name.find(:all, :conditions => ['project_id = ?', params[:id]])
-    unless admin?
-      @tickets = @tickets.select {|t| t.allows_access?(current_user) }
-    end
+    @tickets = Ticket.find(:all, :conditions => {:project_id => params[:id]}, :order => "name")
+    #unless admin?
+     # @tickets = @tickets.for_user_and_role(current_user, :developer)
+    #end
     respond_with @tickets
+  end
+
+  # GET /projects/show_me_the_tickets
+  def give_me_the_tickets
+    render :partial => "shared/ticketboard", :locals => { :project => Project.find(params[:id]) }
   end
 
   def calendar

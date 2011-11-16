@@ -1,18 +1,2 @@
-- if flash[:error]
-  .yui3-g
-    .yui3-u-1
-      .gradient_border_wrap
-        .gradient_border_content
-          %p#flash_error= flash[:error]
-- if flash[:notice]
-  .yui3-g
-    .yui3-u-1
-      .gradient_border_wrap
-        .gradient_border_content
-          %p#flash_notice= flash[:notice]
-- if flash[:alert]
-  .yui3-g
-    .yui3-u-1
-      .gradient_border_wrap
-        .gradient_border_content
-          %p#flash_notice= flash[:alert]
+- flash.each do |key, message|
+  %div{ :class => "alert-message #{key}" }= message

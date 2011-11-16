@@ -1,21 +1,36 @@
-
-.yui3-g
-  .yui3-u-1
-    %h2= t(:edit_user)
-.yui3-g
-  .yui3-u-1-2
-    .gradient_border_wrap
-      .gradient_border_content
-        = form_for @user do |u|
-          %p
-            = u.label :full_width, t(:full_width)
-            = u.check_box(:full_width)
-          %p
+.row
+  .span8
+    .module
+      = form_for @user do |u|
+        %fieldset
+          %legend= t(:edit_user)
+          .clearfix
+            = u.label :first_name, t(:first_name)
+            .input
+              = u.text_field(:first_name)
+          .clearfix
+            = u.label :middle_initial, t(:middle_initial)
+            .input
+              = u.text_field(:middle_initial)
+          .clearfix
+            = u.label :last_name, t(:last_name)
+            .input
+              = u.text_field(:last_name)
+          .clearfix
+            = u.label :email, t(:email_address)
+            .input
+              = u.text_field(:email)
+          .clearfix
+            = u.label :expanded_calendar, t(:expanded_calendar)
+            .input
+              = u.check_box(:expanded_calendar)
+          .clearfix
             = u.label :daily_target_hours, t(:daily_target_hours) 
-            = u.text_field(:daily_target_hours)
-          %p
-            = u.submit t(:update)
-  .yui3-u-1-2
-    .gradient_border_wrap
-      .gradient_border_content
-        = render :partial => "change_password_form", :locals => {:user => @user}
+            .input
+              = u.text_field(:daily_target_hours)
+          .actions
+            = u.submit t(:update), :class => 'btn primary'
+
+  .span8
+    .module
+      = render :partial => "change_password_form", :locals => {:user => @user}

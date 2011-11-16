@@ -8,6 +8,7 @@ class Admin::PayrollController < ApplicationController
   def show
     @user = User.find(params[:id])
     @work_units = @user.work_units.where('paid = "" OR paid IS NULL')
+    redirect_to admin_payroll_index_path, :notice => "All payroll is filled for user " + @user.to_s unless @work_units.size > 0
     @clients = @work_units.collect { |wu| wu.client }.uniq
   end
 

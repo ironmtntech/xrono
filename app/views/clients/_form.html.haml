@@ -8,19 +8,26 @@
       - @client.errors.full_messages.each do |msg|
         %li= msg
 
-  .work_unit_field
-    = f.label :name
-    = f.text_field :name
-  .work_unit_field
-    = f.label :initials
-    = f.text_field :initials
-  .work_unit_field
-    = f.label :status
-    = f.select :status, client_status_select(@client.status)
-  .work_unit_field
-    = f.label :overtime_multiplier
-    = f.text_field :overtime_multiplier
-  .actions
-    = f.submit :class => "add_new_button"
-    = link_to t(:cancel), clients_path, :class => "cancel_button"
-  .clear
+  %fieldset
+    .clearfix
+      = f.label :name
+      .input
+        = f.text_field :name
+    .clearfix
+      = f.label :initials
+      .input
+        = f.text_field :initials
+    .clearfix
+      = f.label :status
+      .input
+        = f.select :status, client_status_select(@client.status)
+    .clearfix
+      = f.label :overtime_multiplier
+      .input
+        = f.text_field :overtime_multiplier
+    .actions
+      = f.submit :class => "add_new_button btn primary"
+      - if @client.new_record?
+        = link_to t(:cancel), clients_path, :class => "cancel_button btn"
+      - else
+        = link_to t(:cancel), client_path(@client), :class => "cancel_button btn"

@@ -1,44 +1,60 @@
 source 'http://rubygems.org'
 
 gem 'acl9', '~> 0.12.0'
-gem 'capistrano', '~> 2.5.19'
-gem 'compass', '~> 0.10.4'
-gem 'compass-susy-plugin', '~> 0.8.1'
-gem 'devise', '~> 1.1.3'
+gem 'capistrano', '~> 2.8.0'
+gem 'devise', '~> 1.4.9'
 gem 'gravtastic'
-gem 'haml', '~> 3.0.18', :require => 'haml'
-gem 'lemonade', '~> 0.3.4'
-gem 'mysql', '~> 2.8.1'
+gem 'haml', '~> 3.1.3'
+gem 'mysql2', '~> 0.3.0'
 gem "paperclip", "~> 2.3"
-gem 'rails', '3.0.3'
+gem 'rails', '~> 3.1.0'
 gem 'thin', '~> 1.2.7'
 gem 'uuid', '~> 2.3.1'
 gem 'jquery-rails'
-gem 'faker', '~> 0.3.1'
-gem 'machinist', '~> 1.0.6'
+gem 'rake', '0.9.2'
+gem 'sqlite3'
+gem "state_machine", "~> 1.0.2"
+gem "acts_as_audited", "~> 2.0.0"
+
+gem 'simple-navigation'
+gem 'sass-rails',   '~> 3.1.4'
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'coffee-rails', '~> 3.1.1'
+  gem 'uglifier', '>= 1.0.3'
+  gem 'compass', '0.12.alpha.0'
+  gem 'twitter-bootstrap-rails'
+end 
+
+group :production do
+  gem 'therubyracer'
+end
 
 group :development do
   gem 'awesome_print', :require => 'ap'
-  gem 'ruby-debug19'
 end
 
 group :test do
+  unless ENV['travis']
+    gem 'ruby-debug19', :require => 'ruby-debug'
+  end
   gem 'awesome_print', :require => 'ap'
-  gem 'capybara', '~> 0.3.9'
-  gem 'cucumber', '~> 0.9.2'
-  gem 'cucumber-rails', '~> 0.3.2'
-  gem 'database_cleaner', '~> 0.5.2'
+  gem 'capybara', '~> 1.1.1'
+  gem 'cucumber', '~> 1.0.6'
+  gem 'cucumber-rails', '~> 1.0.5'
+  gem 'database_cleaner', '~> 0.6.7'
   gem 'escape_utils', '~> 0.1.9'
-  gem 'faker', '~> 0.3.1'
-  gem 'forgery', '~> 0.3.5'
+  gem 'faker', '~> 0.9.5'
+  gem 'forgery', '= 0.3.10'
   gem 'launchy', '~> 0.3.7'
   gem 'machinist', '~> 1.0.6'
-  gem 'pickle', '~> 0.4.2'
-  gem 'ruby-debug19'
-  gem 'rspec', '= 2.0.0'
-  gem 'rspec-rails', '= 2.0.1'
+  gem 'pickle', '= 0.4.8'
+  gem 'rspec', '~> 2.6.0'
+  gem 'rspec-rails', '= 2.6.1'
   gem 'shoulda', '~> 2.11.3'
   gem 'simplecov', '~> 0.4.0'
-  gem 'spork', '~> 0.8.4'
+  gem 'spork', '0.9.0.rc9'
   gem 'yajl-ruby', '~> 0.7.8'
 end

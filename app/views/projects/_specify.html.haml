@@ -1,0 +1,11 @@
+.yui3-u-1
+  #specify_project
+    #project-errors
+    .yui3-u-1-2
+      .ticket_field
+        %label{:for => "client_id"}= "#{t(:client)}:"
+        = collection_select("specify", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) })
+    .yui3-u-1-2
+      .ticket_field
+        %label{:for => "project_id"}= "#{t(:project)}:"
+        = collection_select("specify", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) })

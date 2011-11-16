@@ -16,7 +16,7 @@ Feature: Project Assignment
     And a client "Acme" exists
     And a project exists with name: "Testproject", client: client "Acme"
     When I go to the project's page
-    Then I should see "Access denied." within "#flash_notice"
+    Then I should see "Access denied." within ".alert-message"
 
   Scenario: User tries to access a project they are assigned to
     Given I am an authenticated user
@@ -31,7 +31,7 @@ Feature: Project Assignment
     And a client "Acme" exists
     And a project exists with name: "Testproject", client: client "Acme"
     When I go to the client's page
-    Then I should see "Access denied." within "#flash_notice"
+    Then I should see "Access denied." within ".alert-message"
 
   Scenario: User tries to access a ticket of a project they are not assigned to
     Given I am an authenticated user
@@ -39,7 +39,7 @@ Feature: Project Assignment
     And a project "Testproject" exists with name: "Testproject", client: client "Acme"
     And a ticket exists with project: project "Testproject", name: "test ticket"
     When I go to the ticket's page
-    Then I should see "Access denied." within "#flash_notice"
+    Then I should see "Access denied." within ".alert-message"
 
   Scenario: User tries to access a work unit of a project they are not assigned to
     Given I am an authenticated user
@@ -48,7 +48,7 @@ Feature: Project Assignment
     And a ticket "test ticket" exists with project: project "Testproject", name: "test ticket"
     And a work_unit exists with ticket: ticket "test ticket", hours: "1", scheduled_at: "2010-10-01"
     When I go to the work_unit's page
-    Then I should see "Access denied." within "#flash_notice"
+    Then I should see "Access denied." within ".alert-message"
 
   Scenario: User tries to select a client they don't have access to on the dashboard
     Given I am an authenticated user

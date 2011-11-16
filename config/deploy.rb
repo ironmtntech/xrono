@@ -1,5 +1,5 @@
 # Bundler bootstrap
-# require 'bundler/capistrano'
+ require 'bundler/capistrano'
 
 # main details
 set :application, "demo.xrono.org"
@@ -22,7 +22,7 @@ set :branch, "demo"
 set :git_enable_submodules, 1
 
 # runtime dependencies
-depend :remote, :gem, "bundler", ">=1.0.0.rc.2"
+depend :remote, :gem, "bundler", "1.0.21"
 
 # tasks
 namespace :deploy do
@@ -48,4 +48,8 @@ namespace :deploy do
 end
 
 after 'deploy:update_code', 'deploy:symlink_shared'
+    run "ln -nfs #{shared_path}/config/initializers/gmail.rb #{release_path}/config/initializers/gmail.rb"
+  end
+end
 
+before 'deploy:assets:precompile', 'deploy:symlink_shared'

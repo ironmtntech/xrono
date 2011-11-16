@@ -25,6 +25,6 @@
                   %td= t(:affirmative)
                 - else
                   %td= t(:negative)
-                %td= link_to t(:edit), edit_client_contact_path(contact.client, contact)
-        = link_to t(:new_contact), new_client_contact_path, :class => "add_new_button"
+                %td= link_to t(:edit), edit_client_contact_path(contact.client, contact), :class => 'btn'
+        = link_to t(:new_contact), new_client_contact_path, :class => "add_new_button btn primary"
 

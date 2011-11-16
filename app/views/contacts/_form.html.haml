@@ -6,22 +6,30 @@
     %ul
     - @contact.errors.full_messages.each do |msg|
       %li= msg
-.field
-  = f.label :first_name
-  = f.text_field :first_name
-.field
-  = f.label :last_name
-  = f.text_field :last_name
-.field
-  = f.label :email_address
-  = f.text_field :email_address
-.field
-  = f.label :phone_number
-  = f.text_field :phone_number
-.field
-  = f.label :receives_email
-  = f.check_box(:receives_email)
-.actions
-  = f.submit :class => "add_new_button"
-  = link_to "Cancel", clients_path, :class => "cancel_button"
-.clear
+%fieldset
+  .clearfix
+    = f.label :first_name
+    .input
+      = f.text_field :first_name
+  .clearfix
+    = f.label :last_name
+    .input
+      = f.text_field :last_name
+  .clearfix
+    = f.label :email_address
+    .input
+      = f.text_field :email_address
+  .clearfix
+    = f.label :phone_number
+    .input
+      = f.text_field :phone_number
+    .clearfix
+      .input
+        %ul.inputs-list
+          %li
+            %label
+              = f.check_box :receives_email
+              %span Receives Email
+  .actions
+    = f.submit :class => "add_new_button btn primary"
+    = link_to "Cancel", client_path(@client), :class => "cancel_button btn"

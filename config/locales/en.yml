@@ -6,8 +6,8 @@ en:
   company_name: "Isotope11"
   totals: "Totals"
   current: "Current"
-  previous_week: "Previous Week"
-  next_week: "Next Week"
+  previous_week: "&larr; Previous Week"
+  next_week: "Next Week &rarr;"
   today: "Today"
   add_ticket: "Add Ticket"
   client: "Client"
@@ -48,6 +48,8 @@ en:
   post_comment: "Post Comment"
   add_comment: "Add Comment"
   comments: "Comments"
+  comment: "Comment"
+  files_and_comments: "Comments and Files"
   submit: "Submit"
   edit_project: "Edit Project"
   new_project: "New Project"
@@ -174,6 +176,7 @@ en:
   could_not_mark_attachment_as_invalid: "Couldn't mark attachment as invalid."
   edit_user: "Edit User"
   full_width: "Full Width"
+  expanded_calendar: "Expanded Calendar"
   daily_target_hours: "Daily Target Hours"
   target_hours_offset: "Offset"
   internal_client: "Internal Client"
@@ -187,3 +190,8 @@ en:
   help_colors_pto: "Paid Time Off"
   help_colors_cto: "Company Time Off"
   help_colors_overtime: "Overtime"
+  edit_work_unit: "Edit Work Unit"
+  file: "Attached File"
+  site_logo_removed_successfully: 'Site logo removed successfully'
+  file_created_on: 'File created on'
+  delete: 'Delete'

@@ -32,11 +32,19 @@ class ClientsController < ApplicationController
 
   public
   def index
-    @clients = Client.for_user(current_user).sort_by {|x| x.name}
+    if admin?
+      @clients = Client.order("name").all
+    else
+      @clients = Client.order("name").for_user(current_user)
+    end
   end
 
   def show
-    @projects = Project.sort_by_name.for_client(@client).for_user(current_user)
+    if admin?
+      @projects = Project.sort_by_name.for_client(@client)
+    else
+      @projects = Project.sort_by_name.for_client(@client).for_user(current_user)
+    end
   end
 
   def new

@@ -29,10 +29,19 @@ AssetTrackerTutorial::Application.routes.draw do
   end
 
   resources :tickets, :except => [:index, :destroy] do
+    post 'advance_state', :controller => :tickets, :action => :advance_state
+    post 'reverse_state', :controller => :tickets, :action => :reverse_state
+    get 'ticket_detail', :controller => :tickets, :action => :ticket_detail
     resources :comments
+    resources :work_units
   end
 
-  resources :work_units, :except => [:index, :destroy] do
+  resources :work_units, :except => [:destroy, :create] do
+    collection do 
+      post :create_in_ticket
+      post :create_in_dashboard
+    end
+
     resources :comments
   end
 
@@ -49,10 +58,21 @@ AssetTrackerTutorial::Application.routes.draw do
 
   namespace :dashboard do
     resources :base do
+      collection do
+        post :give_me_the_tickets
+      end
     end
   end
 
+  get '/dashboard/collaborative_index', :controller => "dashboard/base", :action => "collaborative_index"
+  get '/dashboard/collaborative_client', :controller => "dashboard/base", :action => "collaborative_client"
+  get '/dashboard/collaborative_project', :controller => "dashboard/base", :action => "collaborative_project"
+  get '/dashboard/json_index', :controller => "dashboard/base", :action => "json_index"
   get '/dashboard', :controller => "dashboard/base", :action => "index"
+  get '/dashboard/collaborative_index', :controller => "dashboard/base", :action => "collaborative_index"
+  get '/dashboard/collaborative_client', :controller => "dashboard/base", :action => "collaborative_client"
+  get '/dashboard/collaborative_project', :controller => "dashboard/base", :action => "collaborative_project"
+  get '/dashboard/json_index', :controller => "dashboard/base", :action => "json_index"
   get '/dashboard/calendar', :controller => "dashboard/base", :action => "calendar"
   get '/dashboard/client', :controller => "dashboard/base", :action => "client"
   get '/dashboard/project', :controller => "dashboard/base", :action => "project"
@@ -64,5 +84,6 @@ AssetTrackerTutorial::Application.routes.draw do
     namespace :v1 do
       resources :clients
     end
+
   end
 end
