@@ -1,6 +1,5 @@
 # Bundler bootstrap
 require 'bundler/capistrano'
-load 'deploy/assets'
 
 # main details
 set :application, "xrono.isotope11.com"

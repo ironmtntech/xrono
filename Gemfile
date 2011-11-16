@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'acl9', '~> 0.12.0'
-gem 'capistrano', '~> 2.5.19'
+gem 'capistrano', '~> 2.8.0'
 gem 'devise', '~> 1.4.9'
 gem 'gravtastic'
 gem 'haml', '~> 3.1.3'
