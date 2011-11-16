@@ -1,5 +1,6 @@
 # Bundler bootstrap
-# require 'bundler/capistrano'
+require 'bundler/capistrano'
+load 'deploy/assets'
 
 # main details
 set :application, "xrono.isotope11.com"
@@ -22,7 +23,7 @@ set :branch, "master"
 set :git_enable_submodules, 1
 
 # runtime dependencies
-depend :remote, :gem, "bundler", ">=1.0.0.rc.2"
+depend :remote, :gem, "bundler", "1.0.21"
 
 # tasks
 namespace :deploy do
