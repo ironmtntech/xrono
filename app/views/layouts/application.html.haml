@@ -10,25 +10,29 @@
     = csrf_meta_tag
     = yield :head
   %body
-    .topbar
-      .fill
+    #root
+      #root_content
+        .topbar
+          .fill
+            .container
+              = link_to image_tag(@site_settings.site_logo.url), '/', :class => 'brand'
+              = render partial: "shared/menu"
         .container
-          = link_to image_tag(@site_settings.site_logo.url), '/', :class => 'brand'
-          = render partial: "shared/menu"
-    .container
-      = render partial: "shared/flashes"
-      .row
-        - if (content_column_right = yield :content_column_right).empty?
-          .span16= yield
-        - else
-          .span12= yield
-          .span4= yield :content_column_right
-    .clear
-    %footer.footer
-      .container
-        %p
-          &copy; 
-          = t(:company_name)
-          2011
+          = render partial: "shared/flashes"
+          .row
+            - if (content_column_right = yield :content_column_right).empty?
+              .span16= yield
+            - else
+              .span12= yield
+              .span4= yield :content_column_right
+        .clear
+      #root_footer
+    %footer.footer#footer
+      .content
+        .container
+          %p
+            &copy; 
+            = t(:company_name)
+            2011
     = render partial: "shared/help"
     = render partial: "shared/javascripts"

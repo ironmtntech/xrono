@@ -6,9 +6,12 @@
 @import "jquery-ui-1.8.16.custom";
 @import "compass";
 @import "compass/css3/border-radius";
+@import "compass/layout";
+
+@include sticky-footer(54px);
 
 //** SCREEN STYLES **//
-body{
+#root_content{
   padding-top: 60px;
 }
 
@@ -84,11 +87,16 @@ tfoot{
 }
 
 footer.footer{
-  border-top: 1px solid #e5e5e5;
-  background-color: #eeeeee;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
-  padding: 30px 0;
-  text-shadow: 0 1px 0 #ffffff;
+  padding-top: 0;
+  margin-top: 0;
+  border-top: 0;
+  @include box-shadow;
+  .content{
+    padding: 10px 0;
+    border-top: 1px solid #ccc;
+    background-color: #eeeeee;
+    text-shadow: 0 1px 0 #ffffff;
+  }
 }
 
 .topbar{

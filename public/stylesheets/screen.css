@@ -16,9 +16,9 @@ Syntax error: File to import not found or unreadable: jquery-ui-1.8.16.custom.
 6: @import "jquery-ui-1.8.16.custom";
 7: @import "compass";
 8: @import "compass/css3/border-radius";
-9: 
-10: //** SCREEN STYLES **//
-11: body{
+9: @import "compass/layout";
+10: 
+11: @include sticky-footer(54px);
 
 Backtrace:
 /home/jadams/rails/xrono/app/assets/stylesheets/screen.scss:6
@@ -93,4 +93,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: File to import not found or unreadable: jquery-ui-1.8.16.custom.\A               Load paths:\A                 Compass::SpriteImporter\A                 /home/jadams/rails/xrono/public/stylesheets/sass\A                 /home/jadams/rails/xrono/app/assets/stylesheets\A                 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/blueprint/stylesheets\A                 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/compass/stylesheets\A         on line 6 of /home/jadams/rails/xrono/app/assets/stylesheets/screen.scss\A \A 1: /*\A 2:  *= require bootstrap\A 3:  *= require chosen\A 4: */\A 5: \A 6: @import \"jquery-ui-1.8.16.custom\";\A 7: @import \"compass\";\A 8: @import \"compass/css3/border-radius\";\A 9: \A 10: //** SCREEN STYLES **//\A 11: body{"; }
+  content: "Syntax error: File to import not found or unreadable: jquery-ui-1.8.16.custom.\A               Load paths:\A                 Compass::SpriteImporter\A                 /home/jadams/rails/xrono/public/stylesheets/sass\A                 /home/jadams/rails/xrono/app/assets/stylesheets\A                 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/blueprint/stylesheets\A                 /home/jadams/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/compass/stylesheets\A         on line 6 of /home/jadams/rails/xrono/app/assets/stylesheets/screen.scss\A \A 1: /*\A 2:  *= require bootstrap\A 3:  *= require chosen\A 4: */\A 5: \A 6: @import \"jquery-ui-1.8.16.custom\";\A 7: @import \"compass\";\A 8: @import \"compass/css3/border-radius\";\A 9: @import \"compass/layout\";\A 10: \A 11: @include sticky-footer(54px);"; }
