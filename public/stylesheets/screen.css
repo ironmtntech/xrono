@@ -1,8 +1,8 @@
 /*
  *= require bootstrap
  *= require chosen
+ *= require _jquery-ui-1.8.16.custom
 */
-@import url(jquery-ui-1.8.16.custom.css);
 /* line 11, ../../app/assets/stylesheets/screen.scss */
 body {
   padding-top: 60px;
