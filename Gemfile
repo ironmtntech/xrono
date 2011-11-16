@@ -18,12 +18,13 @@ gem "acts_as_audited", "~> 2.0.0"
 
 gem 'simple-navigation'
 gem 'sass-rails',   '~> 3.1.4'
+gem 'less-rails',   '2.0.2'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'coffee-rails', '~> 3.1.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '~> 1.0.3'
   gem 'compass', '0.12.alpha.0'
   gem 'twitter-bootstrap-rails'
 end 
