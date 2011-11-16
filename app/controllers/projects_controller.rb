@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_filter :load_new_project, :only => [:new, :create]
-  before_filter :load_project, :only => [:show, :edit, :update]
+  before_filter :load_project, :only => [:show, :edit, :update, :dashboard]
+  before_filter :load_tickets, :only => [:show, :dashboard]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
 
   access_control do
@@ -26,9 +27,12 @@ class ProjectsController < ApplicationController
 
   # GET /projects/:id
   def show
-    @tickets = Ticket.for_project(@project).sort_by_name
     # FIXME - not showing correct group of work_unitsl
     @work_units = Project.find(params[:id]).work_units
+  end
+
+  # GET /projects/:id/dashboard
+  def project
   end
 
   # GET /projects/:id/edit
@@ -55,6 +59,10 @@ class ProjectsController < ApplicationController
 
     def load_project
       @project = Project.find(params[:id])
+    end
+
+    def load_tickets
+      @tickets = Ticket.for_project(@project).sort_by_name
     end
 
     def load_file_attachments

@@ -14,3 +14,4 @@ public/system
 db/seeds.rb
 .DS_Store
 tags
+node_modules

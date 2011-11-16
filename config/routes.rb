@@ -25,10 +25,13 @@ AssetTrackerTutorial::Application.routes.draw do
   end
 
   resources :projects, :except => [:index, :destroy] do
+    member do
+      get :dashboard
+    end
     resources :comments
   end
 
-  resources :tickets, :except => [:index, :destroy] do
+  resources :tickets, :except => [:destroy] do
     post 'advance_state', :controller => :tickets, :action => :advance_state
     post 'reverse_state', :controller => :tickets, :action => :reverse_state
     get 'ticket_detail', :controller => :tickets, :action => :ticket_detail

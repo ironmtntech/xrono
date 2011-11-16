@@ -1,13 +1,21 @@
 class TicketsController < ApplicationController
+  respond_to :html, :json
+
   before_filter :load_new_ticket, :only => [:new, :create]
   before_filter :load_ticket, :only => [:show, :edit, :update, :advance_state, :reverse_state, :ticket_detail]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
   before_filter :load_project
+  before_filter :load_tickets, :only => [:index]
 
   access_control do
     allow :admin
     allow :developer, :of => :project
     allow :client, :of => :project, :to => :show
+  end
+
+  # GET /tickets
+  def index
+    respond_with @tickets
   end
 
   # GET /tickets/new
@@ -80,6 +88,10 @@ class TicketsController < ApplicationController
 
   private
 
+    def load_tickets
+      @tickets = @project.tickets
+    end
+
     def load_new_ticket
       @ticket = Ticket.new(params[:ticket])
       @ticket.project = Project.find(params[:project_id]) if params[:project_id]
@@ -99,6 +111,10 @@ class TicketsController < ApplicationController
 
     # Acl9's access control block looks for @project in order to use "allow <role> :of => :project"
     def load_project
-      @project = @ticket.project
+      if @ticket
+        @project = @ticket.project
+      elsif params[:project_id]
+        @project = Project.find(params[:project_id])
+      end
     end
 end

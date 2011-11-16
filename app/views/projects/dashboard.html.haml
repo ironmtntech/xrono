@@ -1,0 +1,11 @@
+#tickets
+  .lanes
+    .fridge
+    .development
+    .peer_review
+    .user_acceptance
+    .archived
+
+- content_for :javascripts do
+  :coffeescript
+    App.Tickets = new Tickets({el: $("#tickets"), project_id: #{@project.id}})
