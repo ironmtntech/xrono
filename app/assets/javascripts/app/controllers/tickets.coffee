@@ -1,5 +1,21 @@
 $ = jQuery
 
+class TicketsListItem extends Spine.Controller
+  tag: 'li'
+
+  elements:
+    '.advance': 'advance',
+    '.reverse': 'reverse'
+
+  constructor: ->
+    super
+    @render()
+
+  render: =>
+    console.log(@item)
+    console.log($.tmpl('app/views/tickets/list_item', @item))
+    @html $.tmpl('app/views/tickets/list_item', @item)
+
 class TicketsList extends Spine.Controller
   elements:
     '.fridge': 'fridge',
@@ -13,11 +29,16 @@ class TicketsList extends Spine.Controller
     Ticket.bind('refresh change', @render)
     
   render: =>
-    @fridge.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'fridge'))
-    @development.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'development'))
-    @peer_review.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'peer_review'))
-    @user_acceptance.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'user_acceptance'))
-    @archived.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'archived'))
+    fridge_tickets = Ticket.findAllByAttribute('state', 'fridge')
+    fridge_tickets.map (ticket) =>
+      @fridge.append('foo')
+      @fridge.append(new TicketsListItem(item: ticket))
+      @fridge.append('bar')
+    #@fridge.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'fridge'))
+    #@development.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'development'))
+    #@peer_review.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'peer_review'))
+    #@user_acceptance.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'user_acceptance'))
+    #@archived.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'archived'))
     
   show: (e) ->
     item = $(e.target).item()
