@@ -4,9 +4,6 @@
     %meta{"content" => "text/html;charset=UTF-8", "http-equiv" => "content-type"}
     %link{:rel => "shortcut icon", :href => "/favicon.ico"}
     = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
-    = stylesheet_link_tag 'print.css', :media => 'print'
-    /[if lt IE 8]
-      = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
     = csrf_meta_tag
     = yield :head
   %body
