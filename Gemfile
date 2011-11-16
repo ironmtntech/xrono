@@ -28,6 +28,10 @@ group :assets do
   gem 'twitter-bootstrap-rails'
 end 
 
+group :production do
+  gem 'therubyracer'
+end
+
 group :development do
   gem 'awesome_print', :require => 'ap'
 end

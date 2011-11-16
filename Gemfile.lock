@@ -290,6 +290,7 @@ DEPENDENCIES
   spork (= 0.9.0.rc9)
   sqlite3
   state_machine (~> 1.0.2)
+  therubyracer
   thin (~> 1.2.7)
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)
