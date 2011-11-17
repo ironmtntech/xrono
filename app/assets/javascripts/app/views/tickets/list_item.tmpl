@@ -1,5 +1,6 @@
 <li id='${id}' class='${state}_li'>
   ${name}
-  <a class='advance'>Advance</a>
-  <a class='reverse'>Reverse</a>
+  {{each list_transition_events}}
+    <a href='#' class='event ${$value}'>${$value}</a>
+  {{/each}}
 </li>

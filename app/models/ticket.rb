@@ -44,6 +44,10 @@ class Ticket < ActiveRecord::Base
       def advance_state!
         move_to_peer_review!
       end
+
+      def reverse_state!
+        move_to_fridge!
+      end
     end
 
     state :peer_review do
@@ -69,6 +73,10 @@ class Ticket < ActiveRecord::Base
     state :archived do
     end
 
+    event :move_to_fridge do
+      transition [:development] => :fridge
+    end
+
     event :move_to_development do
       transition [:fridge, :peer_review, :user_acceptance] => :development
     end
@@ -88,6 +96,11 @@ class Ticket < ActiveRecord::Base
 
   def states
     Ticket.state_machine.states.keys if Ticket.state_machine
+  end
+
+  # Returns an array of available state transitions as keys
+  def list_transition_events
+    state_transitions.map(&:event)
   end
 
   ################### ADDING EMAIL FUNCTIONALITY #######################
@@ -139,5 +152,12 @@ class Ticket < ActiveRecord::Base
 #### Comment out to look at bug in ticket show page
   def files_and_comments
     [self.file_attachments, self.comments]
+  end
+
+  def as_json(options = {})
+    options ||= {}
+    options[:methods] ||= []
+    options[:methods] << :list_transition_events
+    super(options)
   end
 end

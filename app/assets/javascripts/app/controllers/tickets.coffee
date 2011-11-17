@@ -3,18 +3,33 @@ $ = jQuery
 class TicketsListItem extends Spine.Controller
   tag: 'li'
 
+  constructor: ->
+    super
+
+  render: ->
+    @log(this)
+    @html $.tmpl('app/views/tickets/list_item', @item)
+    @item.list_transition_events.map (e) =>
+      @$('a.event.' + e).on('click', () =>
+        @item.transition_event = e
+        @item.save()
+      )
+    @log('why')
+    # At present, this won't work without that log statement.
+    # I do not understand :(
+  
+class TicketsListLane extends Spine.Controller
   elements:
-    '.advance': 'advance',
-    '.reverse': 'reverse'
+    'ul': 'ul'
 
   constructor: ->
     super
     @render()
 
   render: =>
-    console.log(@item)
-    console.log($.tmpl('app/views/tickets/list_item', @item))
-    @html $.tmpl('app/views/tickets/list_item', @item)
+    @replace $.tmpl('app/views/tickets/list_lane')
+    @items.map (item) =>
+      @ul.append(new TicketsListItem( { item: item } ).render().el)
 
 class TicketsList extends Spine.Controller
   elements:
@@ -26,19 +41,13 @@ class TicketsList extends Spine.Controller
   
   constructor: ->
     super
+    @states = ['fridge', 'development', 'peer_review', 'user_acceptance', 'archived']
     Ticket.bind('refresh change', @render)
     
   render: =>
-    fridge_tickets = Ticket.findAllByAttribute('state', 'fridge')
-    fridge_tickets.map (ticket) =>
-      @fridge.append('foo')
-      @fridge.append(new TicketsListItem(item: ticket))
-      @fridge.append('bar')
-    #@fridge.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'fridge'))
-    #@development.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'development'))
-    #@peer_review.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'peer_review'))
-    #@user_acceptance.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'user_acceptance'))
-    #@archived.html $.tmpl('app/views/tickets/list', Ticket.findAllByAttribute('state', 'archived'))
+    @html ''
+    @states.map (state) =>
+      @append(new TicketsListLane(items: Ticket.findAllByAttribute('state', state), state: state))
     
   show: (e) ->
     item = $(e.target).item()

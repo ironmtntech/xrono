@@ -43,7 +43,14 @@ class TicketsController < ApplicationController
 
   # GET /tickets/:id
   def show
-    @work_units = WorkUnit.for_ticket(@ticket).sort_by_scheduled_at
+    respond_to do |format|
+      format.js do
+        respond_with @ticket, :methods => [:list_transition_events]
+      end
+      format.html do
+        @work_units = WorkUnit.for_ticket(@ticket).sort_by_scheduled_at
+      end
+    end
   end
 
   # GET /tickets/:id/edit
@@ -54,6 +61,9 @@ class TicketsController < ApplicationController
   def update
     if @ticket.update_attributes(params[:ticket])
       flash[:notice] = t(:ticket_updated_successfully)
+      if te = params[:transition_event]
+        @ticket.fire_events(te.to_sym)
+      end
       redirect_to ticket_path(@ticket)
     else
       flash.now[:error] = t(:ticket_updated_unsuccessfully)
@@ -64,10 +74,13 @@ class TicketsController < ApplicationController
   def advance_state 
     return unless current_user.has_role?(:developer, @ticket.project) || current_user.admin?
     @ticket.advance_state!
-    if request.xhr?
-      render :nothing => true
-    else
-      redirect_to url_for(@ticket.project)
+    respond_to do |format|
+      format.js do
+        render :nothing => true
+      end
+      format.html do
+        redirect_to url_for(@ticket.project)
+      end
     end
   end
 

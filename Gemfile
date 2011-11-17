@@ -13,7 +13,7 @@ gem "paperclip", "~> 2.3"
 gem 'thin', '~> 1.2.7'
 gem 'uuid', '~> 2.3.1'
 
-gem "state_machine", "~> 1.0.2"
+gem "state_machine", "~> 1.1.0"
 gem "acts_as_audited", "~> 2.0.0"
 
 gem 'simple-navigation'
