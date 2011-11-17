@@ -2,15 +2,15 @@
 require 'bundler/capistrano'
 
 # main details
-set :application, "xrono.isotope11.com"
-role :web, "xrono.isotope11.com"
-role :app, "xrono.isotope11.com"
-role :db, "xrono.isotope11.com", :primary => true
+set :application, "demo.xrono.org"
+role :web, "demo.xrono.org"
+role :app, "demo.xrono.org"
+role :db, "demo.xrono.org", :primary => true
 
 # server details
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
-set :deploy_to, "/home/deployer/xrono"
+set :deploy_to, "/home/deployer/xrono_demo"
 set :user, "deployer"
 set :use_sudo, false
 
@@ -18,7 +18,7 @@ set :use_sudo, false
 set :scm, :git
 #set :git_username, "knewter"
 set :repository, "git://github.com/isotope11/xrono.git"
-set :branch, "master"
+set :branch, "feature/spine-projects"
 set :git_enable_submodules, 1
 
 # runtime dependencies
