@@ -125,15 +125,22 @@ $("#new_work_unit").submit(function() {
       me.trigger("reset");
       me.effect("highlight");
       $("#work_unit_client_id").children().remove();
+      $("#work_unit_client_id").append( new Option("Select a client","") );
+      $("#work_unit_project_id").children().remove();
+      $("#work_unit_project_id").append( new Option("Select a project","") );
+      $("#work_unit_ticket_id").children().remove();
+      $("#work_unit_ticket_id").append( new Option("Select a ticket","") );
       $.get("/dashboard/json_index", { id: this.value }, function(data){
         $.each(data, function(i, client){
          $("#work_unit_client_id").append( new Option(client.name, client.id) )
         });
-      }, "json");
         <% unless Rails.env.test? || Rails.env.cucumber? %>
           <% # only use chosen in dev r prod - it breaks cukes %>
           $("#work_unit_client_id").trigger("liszt:updated");
+          $("#work_unit_project_id").trigger("liszt:updated");
+          $("#work_unit_ticket_id").trigger("liszt:updated");
         <% end %>
+      }, "json");
       // Ask the calendar to update itself
       update_calendar_block();
       $('#scheduled_at').datepicker('setDate', new Date());

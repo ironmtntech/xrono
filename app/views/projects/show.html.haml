@@ -33,17 +33,6 @@
         - if admin? || current_user.has_role?(:developer, @project)
           %td= link_to t(:edit), edit_ticket_path(ticket), :class => 'btn'
 
-
-%h3= "#{t(:status)}: #{@project.client.status}"
-#effect.effect
-.ticketboard#ticketboard
-  .row
-    - Ticket.state_machine.states.keys.each do |state|
-      .span3
-        = render :partial => "shared/ticketflow", :locals => { :project => @project, :state => state }
-.span1
-.clearfix
-
 .row
   = render :partial => "comments/comments", :locals => {:comments => @project.comments}
   = render :partial => "comments/comment_form", :locals => { :commentable_id => @project.id,

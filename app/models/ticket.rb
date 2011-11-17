@@ -34,62 +34,33 @@ class Ticket < ActiveRecord::Base
       ticket.send_email!
     end
 
-    state :fridge do
-      def advance_state!
-        move_to_development!
-      end
-    end
+    state :fridge
+    state :development
+    state :peer_review
+    state :user_acceptance
+    state :archived
 
-    state :development do
-      def advance_state!
-        move_to_peer_review!
-      end
-
-      def reverse_state!
-        move_to_fridge!
-      end
-    end
-
-    state :peer_review do
-      def advance_state!
-        move_to_user_acceptance!
-      end
-
-      def reverse_state!
-        move_to_development!
-      end
-    end
-
-    state :user_acceptance do
-      def advance_state!
-        move_to_archived!
-      end
-      
-      def reverse_state!
-        move_to_development!
-      end
-    end
-
-    state :archived do
-    end
-
-    event :move_to_fridge do
+    event :stop do
       transition [:development] => :fridge
     end
 
-    event :move_to_development do
-      transition [:fridge, :peer_review, :user_acceptance] => :development
+    event :start do
+      transition [:fridge] => :development
     end
 
-    event :move_to_peer_review do
+    event :back_to_development do
+      transition [:peer_review, :user_acceptance] => :development
+    end
+
+    event :finish do
       transition :development => :peer_review
     end
 
-    event :move_to_user_acceptance do
+    event :approve_review do
       transition :peer_review => :user_acceptance
     end
 
-    event :move_to_archived do
+    event :accept do
       transition :user_acceptance => :archived
     end
   end

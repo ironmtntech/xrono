@@ -27,7 +27,7 @@ class TicketsListLane extends Spine.Controller
     @render()
 
   render: =>
-    @replace $.tmpl('app/views/tickets/list_lane')
+    @replace $.tmpl('app/views/tickets/list_lane', { state: @state })
     @items.map (item) =>
       @ul.append(new TicketsListItem( { item: item } ).render().el)
 
