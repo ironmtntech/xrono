@@ -17,6 +17,14 @@ Xrono is a mature, open source, time tracking solution for your business. Develo
 * rake spec
 * rake cucumber
 
+## To run the spine.js bit
+
+* install redis-server, node, npm, and juggernaut
+* Make sure redis-server is running
+* in the project directory, `juggernaut`
+* go to /projects/:id/dashboard
+* Play
+
 ## Support
 For support, please do one of the following:
 
