@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'acl9', '~> 0.12.0'
-gem 'capistrano', '~> 2.5.19'
+gem 'capistrano', '~> 2.8.0'
 gem 'devise', '~> 1.4.9'
 gem 'gravtastic'
 gem 'haml', '~> 3.1.3'
@@ -17,17 +17,20 @@ gem "state_machine", "~> 1.0.2"
 gem "acts_as_audited", "~> 2.0.0"
 
 gem 'simple-navigation'
-
-gem 'twitter-bootstrap-rails'
+gem 'sass-rails',   '~> 3.1.4'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '0.12.alpha.0'
+  gem 'twitter-bootstrap-rails'
 end 
+
+group :production do
+  gem 'therubyracer'
+end
 
 group :development do
   gem 'awesome_print', :require => 'ap'

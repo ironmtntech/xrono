@@ -1,5 +1,5 @@
 # Bundler bootstrap
-# require 'bundler/capistrano'
+require 'bundler/capistrano'
 
 # main details
 set :application, "xrono.isotope11.com"
@@ -22,7 +22,7 @@ set :branch, "master"
 set :git_enable_submodules, 1
 
 # runtime dependencies
-depend :remote, :gem, "bundler", ">=1.0.0.rc.2"
+depend :remote, :gem, "bundler", "1.0.21"
 
 # tasks
 namespace :deploy do
@@ -48,5 +48,4 @@ namespace :deploy do
   end
 end
 
-after 'deploy:update_code', 'deploy:symlink_shared'
-
+before 'deploy:assets:precompile', 'deploy:symlink_shared'
