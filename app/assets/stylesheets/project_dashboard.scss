@@ -1,3 +1,8 @@
+$item_background: #f0f0f0;
+$item_background_darker: darken($item_background, 5%);
+$event_background: #698891;
+$event_background_darker: darken($event_background, 5%);
+
 .lanes .header{
   background-color: #333;
   color: white;
@@ -8,18 +13,21 @@
 .lanes li{
   display: block;
   min-height: 40px;
-  background-color: #f0f0f0;
+  background-color: $item_background;
   padding: 4px;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid $item_background_darker;
   border-top: 1px solid #ccc;
+  &:hover{
+  background-color: $item_background_darker;
+  }
 }
 .lanes li .events a{
-  @include border-radius(8px);
-  background-color: #75959d;
+  @include border-radius(4px);
+  background-color: $event_background;
   color: white;
-  padding: 2px;
+  padding: 2px 4px;;
   text-decoration: none;
   &:hover{
-    background-color: #698891;
+    background-color: $event_background_darker;
   }
 }
