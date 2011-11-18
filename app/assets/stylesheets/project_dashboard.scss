@@ -1,0 +1,25 @@
+.lanes .header{
+  background-color: #333;
+  color: white;
+  font-weight: bold;
+  @include border-top-radius(8px);
+  padding: 4px;
+}
+.lanes li{
+  display: block;
+  min-height: 40px;
+  background-color: #f0f0f0;
+  padding: 4px;
+  border-bottom: 1px solid #f5f5f5;
+  border-top: 1px solid #ccc;
+}
+.lanes li .events a{
+  @include border-radius(8px);
+  background-color: #75959d;
+  color: white;
+  padding: 2px;
+  text-decoration: none;
+  &:hover{
+    background-color: #698891;
+  }
+}

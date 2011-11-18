@@ -7,13 +7,15 @@ class TicketsListItem extends Spine.Controller
     super
 
   render: ->
-    @log(this)
-    @html $.tmpl('app/views/tickets/list_item', @item)
+    @replace $.tmpl('app/views/tickets/list_item', @item)
     @item.list_transition_events.map (e) =>
       @$('a.event.' + e).on('click', () =>
         @item.transition_event = e
         @item.save()
       )
+    @el.disableTextSelection();
+    @el.on 'dblclick', () =>
+      alert 'this should open the details modal'
     @log('why')
     # At present, this won't work without that log statement.
     # I do not understand :(
