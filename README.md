@@ -30,3 +30,4 @@ For support, please do one of the following:
 We love contributions! please fork the project, make your changes in a branch, test them properly (rspec for model/lib/helpers) and cucumber for integration testing, then send us a pull request, or mention it in our google group.
 
 If you find a bug, please post it in the GitHub Issue Tracker
+
