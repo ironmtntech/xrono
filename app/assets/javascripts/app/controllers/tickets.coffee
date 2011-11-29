@@ -19,7 +19,7 @@ class TicketsListItem extends Spine.Controller
     @log('why')
     # At present, this won't work without that log statement.
     # I do not understand :(
-  
+
 class TicketsListLane extends Spine.Controller
   elements:
     'ul': 'ul'
@@ -40,17 +40,17 @@ class TicketsList extends Spine.Controller
     '.peer_review': 'peer_review',
     '.user_acceptance': 'user_acceptance',
     '.archived': 'archived'
-  
+
   constructor: ->
     super
     @states = ['fridge', 'development', 'peer_review', 'user_acceptance', 'archived']
     Ticket.bind('refresh change', @render)
-    
+
   render: =>
     @html ''
     @states.map (state) =>
       @append(new TicketsListLane(items: Ticket.findAllByAttribute('state', state), state: state))
-    
+
   show: (e) ->
     item = $(e.target).item()
     @navigate '/projects', @project_id, 'tickets', item.id
@@ -62,19 +62,19 @@ class Tickets extends Spine.Controller
   constructor: ->
     super
     @list = new TicketsList(el: @lanes, project_id: @project_id)
-    
+
     new Spine.Manager(@list)
-    
+
     @routes
       '/projects/:project_id/tickets': (params) ->
         @list.active(params)
 
     @navigate '/projects', @project_id, 'tickets'
-        
+
     # Only setup routes once tickets have loaded
     Ticket.bind 'refresh', ->
       Spine.Route.setup()
 
     Ticket.fetch({ project_id: @project_id })
-  
+
 window.Tickets = Tickets
