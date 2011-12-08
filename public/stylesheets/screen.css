@@ -1,97 +1,182 @@
 /*
-Syntax error: File to import not found or unreadable: jquery-ui-1.8.16.custom.
-              Load paths:
-                Compass::SpriteImporter
-                /home/david/work/isotope11/xrono/public/stylesheets/sass
-                /home/david/work/isotope11/xrono/app/assets/stylesheets
-                /home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/blueprint/stylesheets
-                /home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/compass/stylesheets
-        on line 6 of /home/david/work/isotope11/xrono/app/assets/stylesheets/screen.scss
-
-1: /*
-2:  *= require bootstrap
-3:  *= require chosen
-4: */
-5: 
-6: @import "jquery-ui-1.8.16.custom";
-7: @import "compass";
-8: @import "compass/css3/border-radius";
-9: 
-10: //** SCREEN STYLES **//
-11: body{
-
-Backtrace:
-/home/david/work/isotope11/xrono/app/assets/stylesheets/screen.scss:6
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/import_node.rb:64:in `rescue in import'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/import_node.rb:42:in `import'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/import_node.rb:25:in `imported_file'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:147:in `rescue in visit_import'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:152:in `visit_import'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:18:in `visit'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:53:in `map'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:27:in `block in visit_children'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:39:in `with_environment'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:26:in `visit_children'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:37:in `block in visit'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:47:in `visit_root'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:18:in `visit'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:7:in `visit'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/tree/root_node.rb:20:in `render'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/engine.rb:300:in `_render'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/engine.rb:248:in `block in render'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/util.rb:297:in `silence_sass_warnings'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/engine.rb:248:in `render'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/plugin/compiler.rb:319:in `update_stylesheet'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/plugin/compiler.rb:181:in `block (2 levels) in update_stylesheets'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/plugin/compiler.rb:175:in `each'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/plugin/compiler.rb:175:in `block in update_stylesheets'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/plugin/compiler.rb:173:in `each'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/plugin/compiler.rb:173:in `update_stylesheets'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/plugin.rb:81:in `update_stylesheets'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/plugin.rb:54:in `check_for_updates'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/sass-3.1.10/lib/sass/plugin/rack.rb:51:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/warden-1.0.6/lib/warden/manager.rb:35:in `block in call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/warden-1.0.6/lib/warden/manager.rb:34:in `catch'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/warden-1.0.6/lib/warden/manager.rb:34:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/etag.rb:23:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/conditionalget.rb:25:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/head.rb:14:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/flash.rb:243:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/session/abstract/id.rb:195:in `context'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/session/abstract/id.rb:190:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/cookies.rb:331:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/activerecord-3.1.1/lib/active_record/query_cache.rb:62:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/activerecord-3.1.1/lib/active_record/connection_adapters/abstract/connection_pool.rb:477:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/activesupport-3.1.1/lib/active_support/callbacks.rb:392:in `_run_call_callbacks'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/activesupport-3.1.1/lib/active_support/callbacks.rb:81:in `run_callbacks'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/callbacks.rb:28:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/reloader.rb:68:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/sendfile.rb:101:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/railties-3.1.1/lib/rails/rack/logger.rb:13:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/methodoverride.rb:24:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/runtime.rb:17:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/activesupport-3.1.1/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/lock.rb:15:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/actionpack-3.1.1/lib/action_dispatch/middleware/static.rb:53:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/railties-3.1.1/lib/rails/engine.rb:456:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/railties-3.1.1/lib/rails/rack/content_length.rb:16:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/railties-3.1.1/lib/rails/rack/log_tailer.rb:14:in `call'
-/home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/rack-1.3.5/lib/rack/handler/webrick.rb:59:in `service'
-/home/david/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
-/home/david/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
-/home/david/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+ *= require bootstrap
+ *= require chosen
+ *= require _jquery-ui-1.8.16.custom
 */
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Syntax error: File to import not found or unreadable: jquery-ui-1.8.16.custom.\A               Load paths:\A                 Compass::SpriteImporter\A                 /home/david/work/isotope11/xrono/public/stylesheets/sass\A                 /home/david/work/isotope11/xrono/app/assets/stylesheets\A                 /home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/blueprint/stylesheets\A                 /home/david/.rvm/gems/ruby-1.9.2-p290@xrono/gems/compass-0.12.alpha.0/frameworks/compass/stylesheets\A         on line 6 of /home/david/work/isotope11/xrono/app/assets/stylesheets/screen.scss\A \A 1: /*\A 2:  *= require bootstrap\A 3:  *= require chosen\A 4: */\A 5: \A 6: @import \"jquery-ui-1.8.16.custom\";\A 7: @import \"compass\";\A 8: @import \"compass/css3/border-radius\";\A 9: \A 10: //** SCREEN STYLES **//\A 11: body{"; }
+/* line 11, ../../app/assets/stylesheets/screen.scss */
+body {
+  padding-top: 60px;
+}
+
+/* line 17, ../../app/assets/stylesheets/screen.scss */
+.calendar table td {
+  overflow: hidden;
+}
+/* line 21, ../../app/assets/stylesheets/screen.scss */
+.calendar table tfoot td {
+  border-bottom: 1px solid #eee;
+}
+/* line 27, ../../app/assets/stylesheets/screen.scss */
+.calendar .work_unit .description {
+  display: none;
+  font-size: .8em;
+}
+
+/* line 35, ../../app/assets/stylesheets/screen.scss */
+.work_unit.overtime, .work_unit.overtime a {
+  color: #C43C35;
+}
+/* line 38, ../../app/assets/stylesheets/screen.scss */
+.work_unit.cto, .work_unit.cto a {
+  color: #F89406;
+}
+/* line 41, ../../app/assets/stylesheets/screen.scss */
+.work_unit.pto, .work_unit.pto a {
+  color: #46A546;
+}
+
+/* line 46, ../../app/assets/stylesheets/screen.scss */
+input[type=text], input[type=password] {
+  height: 26px;
+  line-height: 26px;
+}
+
+/* line 53, ../../app/assets/stylesheets/screen.scss */
+ul.nav li a {
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -o-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -khtml-border-radius: 8px;
+  border-radius: 8px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+/* line 55, ../../app/assets/stylesheets/screen.scss */
+ul.nav li a:hover {
+  background-color: #75959d;
+}
+/* line 63, ../../app/assets/stylesheets/screen.scss */
+ul.nav li.selected a {
+  background-color: #5d7a82;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
+}
+
+/* line 72, ../../app/assets/stylesheets/screen.scss */
+.topbar a {
+  color: #ddd;
+}
+/* line 75, ../../app/assets/stylesheets/screen.scss */
+.topbar .fill {
+  padding: 6px 0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #75959d), color-stop(30%, #698891), color-stop(100%, #5d7a82));
+  background-image: -webkit-linear-gradient(top, #75959d, #698891 30%, #5d7a82 100%);
+  background-image: -moz-linear-gradient(top, #75959d, #698891 30%, #5d7a82 100%);
+  background-image: -o-linear-gradient(top, #75959d, #698891 30%, #5d7a82 100%);
+  background-image: -ms-linear-gradient(top, #75959d, #698891 30%, #5d7a82 100%);
+  background-image: linear-gradient(top, #75959d, #698891 30%, #5d7a82 100%);
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -o-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+}
+
+/* line 82, ../../app/assets/stylesheets/screen.scss */
+tfoot {
+  border-top: 2px solid #bbb;
+}
+
+/* line 86, ../../app/assets/stylesheets/screen.scss */
+footer.footer {
+  border-top: 1px solid #e5e5e5;
+  background-color: #eeeeee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
+  padding: 30px 0;
+  text-shadow: 0 1px 0 #ffffff;
+}
+
+/* line 95, ../../app/assets/stylesheets/screen.scss */
+.topbar .brand {
+  padding: 0;
+}
+
+/* line 100, ../../app/assets/stylesheets/screen.scss */
+.week_pagination {
+  background-color: #f9f9f9;
+  border-width: 1px 0;
+  border-color: #ddd;
+  border-style: solid;
+}
+/* line 106, ../../app/assets/stylesheets/screen.scss */
+.week_pagination .date_pagination .span2 {
+  text-align: center;
+}
+/* line 109, ../../app/assets/stylesheets/screen.scss */
+.week_pagination .date_pagination .span7.last {
+  text-align: right;
+}
+/* line 112, ../../app/assets/stylesheets/screen.scss */
+.week_pagination .date_pagination a {
+  display: inline-block;
+  padding: 1em;
+}
+
+/* line 121, ../../app/assets/stylesheets/screen.scss */
+.nav.secondary-nav li#edit_user a {
+  padding-top: 4px;
+  padding-bottom: 0;
+}
+/* line 125, ../../app/assets/stylesheets/screen.scss */
+.nav.secondary-nav li#edit_user img {
+  margin-right: 10px;
+}
+/* line 128, ../../app/assets/stylesheets/screen.scss */
+.nav.secondary-nav li#edit_user span {
+  position: relative;
+  top: -10px;
+}
+
+/* line 135, ../../app/assets/stylesheets/screen.scss */
+.twipsy {
+  font-size: 13px;
+}
+
+/* line 139, ../../app/assets/stylesheets/screen.scss */
+.module {
+  background-color: #f9f9f9;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -o-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -khtml-border-radius: 8px;
+  border-radius: 8px;
+  padding: 8px;
+}
+/* line 143, ../../app/assets/stylesheets/screen.scss */
+.module form {
+  margin-bottom: 0;
+}
+/* line 145, ../../app/assets/stylesheets/screen.scss */
+.module form fieldset {
+  margin-bottom: 0;
+}
+/* line 147, ../../app/assets/stylesheets/screen.scss */
+.module form fieldset .actions {
+  margin-bottom: -8px;
+  margin-right: -8px;
+  margin-left: -8px;
+  -moz-border-radius: 0 0 8px 8px;
+  -webkit-border-radius: 0 0 8px 8px;
+  -o-border-radius: 0 0 8px 8px;
+  -ms-border-radius: 0 0 8px 8px;
+  -khtml-border-radius: 0 0 8px 8px;
+  border-radius: 0 0 8px 8px;
+}
+
+/* line 157, ../../app/assets/stylesheets/screen.scss */
+#schedule_modal_link {
+  position: relative;
+  top: 8px;
+}
 
