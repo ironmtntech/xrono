@@ -1,0 +1,12 @@
+12/15/2011
+
+  - Email notifications to clients as background jobs using Resque::Mailer
+  - Styling changes to the admin/invoices page
+  - A centralized reporting page for admins.
+  - Ticket numbers on the project's index.
+  - Reporting on Tickets based on estimated time to complete a ticket versus total effective hours on the ticket.
+  - Showing the add ticket partial to admins.
+
+EARLIER
+
+  - No release notes were really kept prior to this date.  Oops :)
