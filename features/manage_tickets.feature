@@ -50,6 +50,7 @@ Feature: Manage tickets
     And I am on the project's page
     And I follow "New Ticket"
     When I fill in "Name" with "name 1"
+    And I fill in "Estimated hours" with "3"
     And I press "Create"
     Then I should see "name 1"
 

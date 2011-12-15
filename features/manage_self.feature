@@ -38,7 +38,7 @@ Feature: Self administration
     And I select "test project" from "work_unit_project_id"
     And I select "test ticket" from "work_unit_ticket_id"
     And I select "Overtime" from "hours_type"
-    And I fill in "Hours" with "2"
+    And I fill in "work_unit_hours" with "2"
     And I fill in "work_unit_description" with "New description"
     And I press "Create Work Unit"
     Then I should see description

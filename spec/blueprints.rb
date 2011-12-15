@@ -46,9 +46,10 @@ Project.blueprint do
 end
 
 Ticket.blueprint do
-  project     { Project.make                        }
-  name        { Lorem.words(2).join(' ').capitalize }
-  description { Lorem.sentence                      }
+  project         { Project.make                        }
+  name            { Lorem.words(2).join(' ').capitalize }
+  description     { Lorem.sentence                      }
+  estimated_hours { 2.0                                 }
 end
 
 WorkUnit.blueprint do

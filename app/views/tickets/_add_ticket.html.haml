@@ -15,7 +15,10 @@
         %label{:for => "ticket_name"}= "#{t(:name)}:"
         .input
           = f.text_field :name, { :size => 10 }
-
+      .clearfix
+        %label{:for => "ticket_estimated_hours"}= "#{t(:estimated_hours)}:"
+        .input
+          = f.text_field :estimated_hours, { :size => 10 }
       .clearfix
         %label{:for => "ticket_description"}= "#{t(:description)}:"
         .input

@@ -36,6 +36,9 @@ class TicketsController < ApplicationController
   # GET /tickets/:id
   def show
     @work_units = WorkUnit.for_ticket(@ticket).sort_by_scheduled_at
+    unless @ticket.estimated_hours
+      flash[:notice] = "NOTE: The estimated amount of time to complete this ticket has not been entered."
+    end
   end
 
   # GET /tickets/:id/edit
