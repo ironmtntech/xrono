@@ -131,7 +131,15 @@ class Ticket < ActiveRecord::Base
   end
 
   def percentage_complete
-    (((self.hours / self.estimated_hours)).to_f.round(2) * 100).round(2) rescue "N/A"
+    (((self.hours / self.estimated_hours)).to_f * 100.00).round(2) rescue "N/A"
+  end
+
+  def remaining_hours
+    if self.estimated_hours and self.estimated_hours > self.hours
+      self.estimated_hours - self.hours
+    else
+      0
+    end
   end
 
   def long_name
