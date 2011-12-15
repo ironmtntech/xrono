@@ -10,7 +10,7 @@
 %p.ticket_metrics
   - if @ticket.estimated_hours && @ticket.percentage_complete
     = image_tag Gchart.pie(:title => "Estimated Hours vs Total Hours -- #{@ticket.percentage_complete}% complete",
-      :size => '400x200', :bar_color => "364447,76959c", :data => [100, @ticket.percentage_complete], :labels => ["Estimated Hours", "Hours Worked"])
+      :size => '400x200', :bar_color => "364447,76959c", :data => [100 - @ticket.percentage_complete, @ticket.percentage_complete], :labels => ["Estimated Hours", "Hours Worked"])
     %br/
     %b Estimated Hours:
     = @ticket.estimated_hours
