@@ -8,6 +8,7 @@ class Ticket < ActiveRecord::Base
 
   validates_presence_of :project_id
   validates_presence_of :name
+  validates_presence_of :estimated_hours
 
   scope :for_client,     lambda{|client|     joins({:project => [:client]}).where("clients.id = ?", client.id) }
   scope :for_project,    lambda{|project|    where(:project_id => project.id) }
@@ -127,6 +128,10 @@ class Ticket < ActiveRecord::Base
 
   def uninvoiced_hours
     work_units.not_invoiced.sum(:effective_hours)
+  end
+
+  def percentage_complete
+    (((self.hours / self.estimated_hours)).to_f.round(2) * 100).round(2) rescue "N/A"
   end
 
   def long_name

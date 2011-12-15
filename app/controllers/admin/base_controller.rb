@@ -4,4 +4,7 @@ class Admin::BaseController < ApplicationController
   def index
   end
 
+  def reports
+  end
+
 end

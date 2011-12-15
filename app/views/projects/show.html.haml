@@ -10,6 +10,7 @@
 %table.tickets.zebra-striped
   %thead
     %tr
+      %th  #
       %th= t(:tickets)
       %th= t(:work_units)
       %th= t(:uninvoiced_hours)
@@ -26,6 +27,7 @@
   %tbody
     - @tickets.each do |ticket|
       %tr
+        %td= ticket.id
         %td= link_to ticket, ticket
         %td= ticket.work_units.count
         %td= ticket.uninvoiced_hours

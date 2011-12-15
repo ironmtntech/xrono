@@ -16,7 +16,7 @@ Feature: Manage Work Units
     And I select "test project" from "work_unit_project_id"
     And I select "test ticket" from "work_unit_ticket_id"
     And I select "Overtime" from "hours_type"
-    And I fill in "Hours" with "2"
+    And I fill in "work_unit_hours" with "2"
     And I fill in "work_unit_description" with "test description"
     And I press "Create Work Unit"
     Then I should see "TTC: 3.0" within ".overtime"
@@ -34,7 +34,7 @@ Feature: Manage Work Units
     And I select "test project" from "work_unit_project_id"
     And I select "test ticket" from "work_unit_ticket_id"
     And I select "Overtime" from "hours_type"
-    And I fill in "Hours" with "2"
+    And I fill in "work_unit_hours" with "2"
     And I fill in "work_unit_description" with "test description"
     And I press "Create Work Unit"
     Then I should see "TTC: 3.0" within ".overtime"
@@ -54,7 +54,7 @@ Feature: Manage Work Units
     And I select "test project" from "work_unit_project_id"
     And I select "test ticket" from "work_unit_ticket_id"
     And I select "Overtime" from "hours_type"
-    And I fill in "Hours" with "2"
+    And I fill in "work_unit_hours" with "2"
     And I fill in "work_unit_description" with "test description"
     And I press "Create Work Unit"
     Then I should see "This client is suspended. Please contact an Administrator."
@@ -67,7 +67,7 @@ Feature: Manage Work Units
     And a work_unit exists with ticket: ticket "test ticket", description: "New description", hours: "1"
     When I go to the work unit's page
     And I follow "Edit Work Unit"
-    And I fill in "Hours" with "2"
+    And I fill in "work_unit_hours" with "2"
     And I press "Update Work unit"
     Then I should see "Work unit updated" within ".alert-message"
 
@@ -87,7 +87,7 @@ Feature: Manage Work Units
     When I am on the ticket's page
     And I follow "New Work Unit"
     And I select "Normal" from "work_unit_hours_type"
-    And I fill in "Hours" with "2"
+    And I fill in "work_unit_hours" with "2"
     And I fill in "Description" with "test description"
     When I press "Create Work unit"
     Then I should see "Work Unit created successfully" within ".alert-message"
@@ -105,7 +105,7 @@ Feature: Manage Work Units
     And I select "test project" from "work_unit_project_id"
     And I select "test ticket" from "work_unit_ticket_id"
     And I select "CTO" from "hours_type"
-    And I fill in "Hours" with "2"
+    And I fill in "work_unit_hours" with "2"
     And I fill in "work_unit_description" with "test description"
     And I press "Create Work Unit"
     Then show me the page

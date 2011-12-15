@@ -18,6 +18,7 @@ AssetTrackerTutorial::Application.routes.draw do
     resource :site_settings
   end
   get '/admin', :controller => "admin/base", :action => "index"
+  get '/admin/reports', :controller => "admin/base", :action => "reports"
 
   resources :clients do
     resources :comments

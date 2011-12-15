@@ -48,6 +48,14 @@ input[type=text], input[type=password]{
   line-height: auto;
 }
 
+body div.container div.row div.span16 div input#global_invoiced {
+  float:right;
+}
+
+body div.container div.row div.span16 div form table.invoice tfoot tr td textarea {
+  width:100%;
+}
+
 ul.nav{
   li{
     a{
@@ -157,4 +165,8 @@ footer.footer{
 #schedule_modal_link{
   position: relative;
   top: 8px;
+}
+
+body div.container div.row div.span16 p.ticket_metrics {
+  text-align:center;
 }
