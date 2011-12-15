@@ -36,6 +36,13 @@ class TicketsController < ApplicationController
   # GET /tickets/:id
   def show
     @work_units = WorkUnit.for_ticket(@ticket).sort_by_scheduled_at
+    unless @ticket.estimated_hours
+      flash.now[:notice] = "NOTE: The estimated amount of time to complete this ticket has not been entered."
+    end
+
+    if @ticket.percentage_complete.to_i > 100
+      flash.now[:notice] = "WARNING: Ticket has exceeded the estimated amount of time to be completed."
+    end
   end
 
   # GET /tickets/:id/edit

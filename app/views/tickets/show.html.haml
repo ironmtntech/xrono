@@ -7,6 +7,11 @@
     %li= link_to "#{t(:edit)}: #{@ticket}", edit_ticket_path
     %li= link_to t(:new_work_unit), new_ticket_work_unit_path(@ticket)
 
+%p.ticket_metrics
+  - if @ticket.estimated_hours && @ticket.percentage_complete
+    = image_tag Gchart.pie(:title => "Estimated Hours vs Total Hours -- #{@ticket.percentage_complete}% complete",
+      :size => '400x200', :bar_color => "364447,76959c", :data => [@ticket.hours, @ticket.estimated_hours], :labels => ["Total Effective Hours", "Estimated Hours"])
+
 = render "shared/work_unit_index"
 
 = render :partial => "shared/files_and_comments", :locals => {:items => @ticket.files_and_comments.reverse, :id => 'ticket'}

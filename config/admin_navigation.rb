@@ -51,8 +51,9 @@ SimpleNavigation::Configuration.run do |navigation|
     #
     primary.item :invoice, t(:invoice), admin_invoices_path
     primary.item :payroll, t(:payroll), admin_payroll_index_path
-    primary.item :unentered_time_report, t(:unentered_time_report), admin_unentered_time_report_index_path, :highlights_on => /unentered_time_report/
-    primary.item :weekly_time_report, t(:weekly_time_report), admin_weekly_time_report_index_path, :highlights_on => /weekly_time_report/
+    #primary.item :unentered_time_report, t(:unentered_time_report), admin_unentered_time_report_index_path, :highlights_on => /unentered_time_report/
+    #primary.item :weekly_time_report, t(:weekly_time_report), admin_weekly_time_report_index_path, :highlights_on => /weekly_time_report/
+    primary.item :reports, t(:reports), admin_reports_path
     primary.item :users, t(:users), admin_users_path
     primary.item :site_settings, t(:site_settings), edit_admin_site_settings_path
 
