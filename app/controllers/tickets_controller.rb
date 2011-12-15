@@ -40,7 +40,7 @@ class TicketsController < ApplicationController
       flash[:notice] = "NOTE: The estimated amount of time to complete this ticket has not been entered."
     end
 
-    if @ticket.percentage_complete > 100
+    if @ticket.percentage_complete.to_i > 100
       flash[:notice] = "WARNING: Ticket has exceeded the estimated amount of time to be completed."
     end
   end
