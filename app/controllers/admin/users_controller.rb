@@ -1,4 +1,3 @@
-require 'ruby-debug'
 class Admin::UsersController < Admin::BaseController
   before_filter :load_user_account, :only => [:update, :edit, :destroy, :projects]
   before_filter :load_new_user_account, :only => [:new, :create]
