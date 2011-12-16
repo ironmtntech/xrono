@@ -12,6 +12,7 @@ class Ticket < ActiveRecord::Base
 
   scope :for_client,     lambda{|client|     joins({:project => [:client]}).where("clients.id = ?", client.id) }
   scope :for_project,    lambda{|project|    where(:project_id => project.id) }
+  scope :for_projects,   lambda{|projects|   where(:project_id => projects.map(&:id)) }
   scope :for_project_id, lambda{|project_id| where :project_id => project_id }
   scope :sort_by_name,   order('name ASC')
   scope :for_state, lambda { |state| where(:state => state) }

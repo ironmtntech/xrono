@@ -1,6 +1,7 @@
 class Dashboard::BaseController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
   before_filter :get_calendar_details, :only => [:index, :calendar, :update_calendar]
+  before_filter :redirect_clients
   respond_to :html, :json, :js
 
   ##############################################################################
@@ -63,7 +64,7 @@ class Dashboard::BaseController < ApplicationController
   def project
     @tickets = Ticket.find(:all, :conditions => {:project_id => params[:id]}, :order => "name")
     #unless admin?
-     # @tickets = @tickets.for_user_and_role(current_user, :developer)
+    #  @tickets = @tickets.for_user_and_role(current_user, :developer)
     #end
     respond_with @tickets
   end

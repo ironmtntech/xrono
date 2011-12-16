@@ -3,6 +3,10 @@ Given /^I am an authenticated user(?: with an? (\w+) role)?$/ do |role|
   visit destroy_user_session_path
   @current_user = User.make(:email => "current_user@example.com", :password => "password", :password_confirmation => "password")
   @current_user.has_role!(role.to_sym) if role
+  if role == 'client'
+    p = Project.make
+    @current_user.has_role!(:client, p)
+  end
   visit new_user_session_path
   And %{I fill in "user_email" with "current_user@example.com"}
   And %{I fill in "user_password" with "password"}

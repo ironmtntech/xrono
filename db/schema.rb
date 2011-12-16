@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111212193345) do
+ActiveRecord::Schema.define(:version => 20111216152557) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(:version => 20111212193345) do
     t.boolean  "full_width",                          :default => false
     t.integer  "daily_target_hours"
     t.boolean  "expanded_calendar"
+    t.boolean  "client",                              :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

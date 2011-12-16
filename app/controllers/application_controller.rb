@@ -38,10 +38,23 @@ class ApplicationController < ActionController::Base
 
   def access_denied
     flash[:notice] = 'Access denied.'
-    redirect_to root_path
+    if current_user && current_user.client
+      redirect_to clients_path
+    else
+      redirect_to root_path
+    end
   end
 
   def initialize_site_settings
     @site_settings = SiteSettings.first ? SiteSettings.first : SiteSettings.create(:total_yearly_pto_per_user => 40, :overtime_multiplier => 1.5)
+  end
+
+  def redirect_clients
+    if current_user && current_user.client
+      debugger
+      true
+      client = Client.for_user(current_user).first
+      redirect_to client_path(client)
+    end
   end
 end
