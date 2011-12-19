@@ -39,7 +39,8 @@ class ApplicationController < ActionController::Base
   def access_denied
     flash[:notice] = 'Access denied.'
     if current_user && current_user.client
-      redirect_to clients_path
+      client = Client.for_user(current_user).first
+      redirect_to client_path(client)
     else
       redirect_to root_path
     end
@@ -51,8 +52,6 @@ class ApplicationController < ActionController::Base
 
   def redirect_clients
     if current_user && current_user.client
-      debugger
-      true
       client = Client.for_user(current_user).first
       redirect_to client_path(client)
     end

@@ -3,6 +3,11 @@ class ContactsController < ApplicationController
   before_filter :load_contact, :only => [:show, :edit, :update, :destroy]
   before_filter :require_admin, :only => [:destroy]
 
+  access_control do
+    allow :client, :to => [:new, :create, :edit, :update, :destroy, :show, :index], :if => :client_is_current_client?
+  end
+
+
   protected
   def load_client
     @client = Client.find(params[:client_id])
@@ -60,6 +65,11 @@ class ContactsController < ApplicationController
       flash.now[:error] = "There was a problem deleting the contact."
       render :action => 'show'
     end
+  end
+
+  private
+  def client_is_current_client?
+    Client.for_user(current_user).include?(@client)
   end
 
 end
