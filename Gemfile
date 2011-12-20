@@ -19,6 +19,7 @@ gem 'resque', '~> 1.19.0'
 gem 'resque_mailer', '~> 2.0.2'
 gem 'resque-scheduler', '~> 1.9.9'
 gem 'googlecharts', '~> 1.6.8'
+gem 'github_concern', '~> 0.0'
 
 
 gem 'simple-navigation'

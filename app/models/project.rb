@@ -3,6 +3,8 @@ class Project < ActiveRecord::Base
   acts_as_commentable
   acts_as_authorization_object
 
+  github_concern :repo => :git_repo
+
   belongs_to :client
   has_many :tickets
   has_many :comments, :as => :commentable
