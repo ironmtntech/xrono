@@ -53,7 +53,7 @@ class ClientsController < ApplicationController
   def create
     if @client.save
       flash[:notice] = t(:client_created_successfully)
-      redirect_to @client
+      redirect_to client_path(@client)
     else
       flash.now[:error] = t(:client_created_unsuccessfully)
       render :action => 'new'
@@ -63,7 +63,7 @@ class ClientsController < ApplicationController
   def update
     if @client.update_attributes(params[:client])
       flash[:notice] = t(:client_updated_successfully)
-      redirect_to @client
+      redirect_to client_path(@client)
     else
       flash.now[:error] = t(:client_updated_unsuccessfully)
       render :action => 'edit'
