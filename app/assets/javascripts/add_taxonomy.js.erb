@@ -240,6 +240,7 @@ $("#new_ticket").submit(function() {
     dataType: "json",
     data: {"ticket[project_id]": me.find("#ticket_project_id").val(),
       "ticket[name]": me.find("#ticket_name").val(),
+      "ticket[estimated_hours]": me.find("#ticket_estimated_hours").val(),
       "ticket[description]": me.find("#ticket_description").val() },
     success: function(result)
     {
