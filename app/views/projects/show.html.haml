@@ -38,13 +38,6 @@
 
 - unless current_user.client
   %h3= "#{t(:status)}: #{@project.client.status}"
-  #effect.effect
-  .ticketboard#ticketboard
-    .row
-      - Ticket.state_machine.states.keys.each do |state|
-        .span3
-          = render :partial => "shared/ticketflow", :locals => { :project => @project, :state => state }
-  .span1
   .clearfix
 
   .row
