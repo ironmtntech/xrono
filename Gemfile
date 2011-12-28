@@ -36,6 +36,7 @@ end
 
 group :production do
   gem 'therubyracer'
+  gem 'machinist', '~> 1.0.6'
 end
 
 group :development do
@@ -55,7 +56,6 @@ group :test do
   gem 'faker', '~> 0.9.5'
   gem 'forgery', '= 0.3.10'
   gem 'launchy', '~> 0.3.7'
-  gem 'machinist', '~> 1.0.6'
   gem 'pickle', '= 0.4.8'
   gem 'rspec', '~> 2.6.0'
   gem 'rspec-rails', '= 2.6.1'
