@@ -37,6 +37,7 @@ end
 group :production do
   gem 'therubyracer'
   gem 'machinist', '~> 1.0.6'
+  gem 'faker', '~> 0.9.5'
 end
 
 group :development do
@@ -53,7 +54,6 @@ group :test do
   gem 'cucumber-rails', '~> 1.0.5'
   gem 'database_cleaner', '~> 0.6.7'
   gem 'escape_utils', '~> 0.1.9'
-  gem 'faker', '~> 0.9.5'
   gem 'forgery', '= 0.3.10'
   gem 'launchy', '~> 0.3.7'
   gem 'pickle', '= 0.4.8'
