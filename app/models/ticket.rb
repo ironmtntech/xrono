@@ -8,18 +8,20 @@ class Ticket < ActiveRecord::Base
 
   validates_presence_of :project_id
   validates_presence_of :name
+  validates_presence_of :estimated_hours
 
   scope :for_client,     lambda{|client|     joins({:project => [:client]}).where("clients.id = ?", client.id) }
   scope :for_project,    lambda{|project|    where(:project_id => project.id) }
+  scope :for_projects,   lambda{|projects|   where(:project_id => projects.map(&:id)) }
   scope :for_project_id, lambda{|project_id| where :project_id => project_id }
   scope :sort_by_name,   order('name ASC')
   scope :for_state, lambda { |state| where(:state => state) }
 
-  scope :for_user, lambda{|user|
+  scope :for_user_scope, lambda{|user|
     joins("INNER JOIN projects     p ON p.id=tickets.project_id")
    .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
    .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
-   .where("ru.user_id = #{user.id}")
+   .where("ru.user_id = ?", user.id)
   }
 
   scope :for_user_and_role, lambda{|user, role|
@@ -127,6 +129,18 @@ class Ticket < ActiveRecord::Base
 
   def uninvoiced_hours
     work_units.not_invoiced.sum(:effective_hours)
+  end
+
+  def percentage_complete
+    (((self.hours / self.estimated_hours)).to_f * 100.00).round(2) rescue "N/A"
+  end
+
+  def remaining_hours
+    if self.estimated_hours and self.estimated_hours > self.hours
+      self.estimated_hours - self.hours
+    else
+      0
+    end
   end
 
   def long_name

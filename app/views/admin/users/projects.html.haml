@@ -16,7 +16,7 @@
       - Client.sort_by_name.each do |client|
         - if client.status == "Active"
           = render :partial => "shared/user_roles", :locals => { :user => @user, :client => client }
-    = submit_tag("Submit")
+    = submit_tag("Submit", :class => 'btn primary')
 
 - content_for :javascripts do
   :javascript

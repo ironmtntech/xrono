@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'resque'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -27,7 +28,7 @@ module AssetTrackerTutorial
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
+    config.time_zone = 'Central Time (US & Canada)'
 
     config.generators do |g|
       g.template_engine :haml

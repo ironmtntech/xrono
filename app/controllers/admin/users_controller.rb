@@ -11,6 +11,9 @@ class Admin::UsersController < Admin::BaseController
 
   def create
     @user.update_attributes(params[:user])
+    if params[:user]["client"] == "1"
+      @user.client = true
+    end
     if @user.save
       flash[:notice] = t(:user_created_successfully)
       redirect_to admin_users_path
@@ -28,6 +31,12 @@ class Admin::UsersController < Admin::BaseController
       @user.lock_access!
     elsif params[:user]["locked"] == "0" && @user.locked_at?
       @user.unlock_access!
+    end
+
+    if params[:user]["client"] == "1" && !@user.client
+      @user.update_attribute(:client, true)
+    elsif params[:user]["client"] == "0" && @user.client
+      @user.update_attribute(:client, false)
     end
 
     if params[:user]["password"] == "" && params[:user]["password_confirmation"] == ""

@@ -9,6 +9,7 @@ describe Ticket do
 
   it { should validate_presence_of :project_id }
   it { should validate_presence_of :name }
+  it { should validate_presence_of :estimated_hours }
 
   describe '#to_s' do
     subject { @ticket.to_s }

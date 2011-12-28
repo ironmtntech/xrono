@@ -14,7 +14,7 @@
   %tbody
     - @clients.each do |client|
       %tr{ :class => "#{cycle("odd", "even")} #{client.status.downcase}" }
-        %td= link_to client, client
+        %td= link_to client, "/client/#{client.id}"
         %td= client.initials
         %td= client.projects.count
         %td= client.tickets.count

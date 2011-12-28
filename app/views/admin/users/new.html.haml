@@ -26,6 +26,14 @@
         = f.label :password_confirmation
         .input
           = f.password_field :password_confirmation
+      .clearfix
+        .input
+          %ul.inputs-list
+            %li
+              %label
+                = f.check_box :client
+                %span Client Login
+
       .actions
         = f.submit t(:create), :class => 'add_new_button btn primary'
 

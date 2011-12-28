@@ -22,3 +22,7 @@ When /^I delete the (\d+)(?:st|nd|rd|th) user$/ do |pos|
   end
 end
 
+Then /^there should be a user with a client login in the database$/ do
+  email = "client_login@user.com"
+  User.find(:all, :conditions => ["email = ? AND client = ?", email, true]).any?.should == true
+end

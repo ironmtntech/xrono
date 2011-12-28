@@ -12,7 +12,7 @@
     .module
       = render :partial => 'tickets/add_ticket'
   .span8
-    - if current_user.has_role?(:developer)
+    - if current_user.has_role?(:developer) or current_user.has_role?(:admin)
       .module
         = render :partial => 'work_units/add_work_unit'
 

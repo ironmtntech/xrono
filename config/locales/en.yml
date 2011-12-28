@@ -10,6 +10,7 @@ en:
   next_week: "Next Week &rarr;"
   today: "Today"
   add_ticket: "Add Ticket"
+  estimated_hours: "Estimated Hours"
   client: "Client"
   project: "Project"
   ticket: "Ticket"

@@ -37,6 +37,9 @@
             %label
               = f.check_box :locked
               %span Locked
+            %label
+              = f.check_box :client
+              %span Client Login
     .actions
       = f.submit 'Update', :class => 'add_new_button btn primary'
       = link_to 'Cancel', admin_users_path, :class => 'cancel_button btn'

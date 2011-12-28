@@ -44,6 +44,19 @@ Feature: User Administration
     And I press "Create"
     Then I should see "Name 1 M Man"
 
+  Scenario: Register new user with a client login
+    Given I am an authenticated user with an admin role
+    Given I am on the admin user's new page
+    When I fill in "First name" with "client"
+    And I fill in "Last name" with "login"
+    And I fill in "Middle initial" with "u"
+    And I fill in "Email" with "client_login@user.com"
+    And I fill in "Password" with "secretpass"
+    And I fill in "Password confirmation" with "secretpass"
+    When I check "user_client"
+    And I press "Create"
+    Then there should be a user with a client login in the database
+
   Scenario: Register new user - the form
     Given I am an authenticated user with an admin role
     When I am on the admin user's new page
@@ -60,7 +73,6 @@ Feature: User Administration
     Given a user exists with first_name: "Test1", last_name: "Man1", middle_initial: "T", email: "test1@example.com", password: "secret", password_confirmation: "secret"
     Given a user exists with first_name: "Test2", last_name: "Man2", middle_initial: "T", email: "test2@example.com", password: "secret", password_confirmation: "secret"
     And I go to the users page   
-    Then I should see "Test1"
-    Then I should see "Test2"
+    Then I should see "Access denied."
 
 
