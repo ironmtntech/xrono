@@ -160,8 +160,8 @@ describe User do
 
     before do
       site_settings.update_attributes(:total_yearly_pto_per_user => 40)
-      work_unit1.update_attributes(:hours => 2, :hours_type => 'PTO', :scheduled_at => '2011-01-01')
-      work_unit2.update_attributes(:hours => 3, :hours_type => 'PTO', :scheduled_at => '2011-12-30')
+      work_unit1.update_attributes(:hours => 2, :hours_type => 'PTO', :scheduled_at => Date.today)
+      work_unit2.update_attributes(:hours => 3, :hours_type => 'PTO', :scheduled_at => 1.days.ago.to_date)
       work_unit3.update_attributes(:hours => 5, :hours_type => 'PTO', :scheduled_at => '2010-12-31')
     end
 
