@@ -92,8 +92,11 @@ AssetTrackerTutorial::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :clients
+      resources :tokens, :only => [:create, :destroy]
+      resources :clients, :only => [:index]
+      resources :projects, :only => [:index]
+      resources :tickets, :only => [:index]
+      resources :work_units, :only => [:create]
     end
-
   end
 end

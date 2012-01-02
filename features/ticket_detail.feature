@@ -3,7 +3,7 @@ Feature: Ticket board
   Visitor
   Wants a modal with all the right info
 
-  @javascript
+  @javascript @wip
   Scenario: User double clicks ticket to see detailed view 
     Given I am an authenticated user with an admin role
     Given a client "test client" exists with name: "test client"
