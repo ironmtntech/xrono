@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111227140859) do
+ActiveRecord::Schema.define(:version => 20120102185406) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(:version => 20111227140859) do
     t.string   "guid"
     t.string   "state"
     t.decimal  "estimated_hours", :precision => 10, :scale => 2
+    t.boolean  "completed",                                      :default => false
   end
 
   create_table "users", :force => true do |t|

@@ -15,6 +15,8 @@ class Ticket < ActiveRecord::Base
   scope :for_project_id, lambda{|project_id| where :project_id => project_id }
   scope :sort_by_name,   order('name ASC')
   scope :for_state, lambda { |state| where(:state => state) }
+  scope :incomplete, :conditions => ["completed = ?", false]
+  scope :complete, :conditions => ["completed = ?", true]
 
   scope :for_user_scope, lambda{|user|
     joins("INNER JOIN projects     p ON p.id=tickets.project_id")

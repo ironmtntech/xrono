@@ -36,12 +36,14 @@ AssetTrackerTutorial::Application.routes.draw do
 
   resources :projects, :except => [:index, :destroy] do
     resources :comments
+    get "show_complete", :controller => :projects, :action => "show_complete"
   end
 
   resources :tickets, :except => [:index, :destroy] do
     post 'advance_state', :controller => :tickets, :action => :advance_state
     post 'reverse_state', :controller => :tickets, :action => :reverse_state
     get 'ticket_detail', :controller => :tickets, :action => :ticket_detail
+    put 'toggle_complete', :controller => :tickets, :action => :toggle_complete
     resources :comments
     resources :work_units
   end

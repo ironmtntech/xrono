@@ -25,7 +25,7 @@ class Dashboard::BaseController < ApplicationController
   
   # Show ALL tickets                                                           #
   def collaborative_project
-    @tickets = Ticket.find(:all, :conditions => {:project_id => params[:id]}, :order => "name")
+    @tickets = Ticket.incomplete.where("project_id = ?", params[:id])
     render :json => @tickets
   end
 
@@ -62,7 +62,7 @@ class Dashboard::BaseController < ApplicationController
   end
 
   def project
-    @tickets = Ticket.find(:all, :conditions => {:project_id => params[:id]}, :order => "name")
+    @tickets = Ticket.incomplete.where("project_id = ?", params[:id])
     #unless admin?
     #  @tickets = @tickets.for_user_and_role(current_user, :developer)
     #end

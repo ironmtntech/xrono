@@ -26,9 +26,15 @@ class ProjectsController < ApplicationController
 
   # GET /projects/:id
   def show
-    @tickets = Ticket.for_project(@project).sort_by_name
+    @tickets = Ticket.for_project(@project).where("completed = ?", false).sort_by_name
     # FIXME - not showing correct group of work_unitsl
     @work_units = Project.find(params[:id]).work_units
+  end
+
+  def show_complete
+    @project = Project.find params[:project_id]
+    @tickets = Ticket.for_project(@project).where("completed = ?", true).sort_by_name
+    @work_units = @project.work_units
   end
 
   # GET /projects/:id/edit

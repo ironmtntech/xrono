@@ -1,9 +1,9 @@
 %h2= "#{@project.client}: #{@project}"
 
 %ul.pills
-  %li= link_to "#{t(:client)}: #{@project.client}" , client_path(@client)
+  %li= link_to "#{t(:client)}: #{@project.client}" , client_path(@project.client)
   - if admin? || current_user.has_role?(:developer, @project)
-    %li= link_to "#{t(:edit)}: #{@project}", edit_project_path
+    %li= link_to "#{t(:edit)}: #{@project}", edit_project_path(@project)
     %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project)
 
 %h3= "#{t(:status)}: #{@project.client.status}"
