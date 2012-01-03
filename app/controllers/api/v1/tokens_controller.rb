@@ -19,6 +19,8 @@ class Api::V1::TokensController < Api::V1::BaseController
         :offset         => @user.target_hours_offset(last_effective_date(start_date)),
         :admin          => @user.admin?
       }
+      Rails.logger.warn("Sending JSON")
+      Rails.logger.warn(json_hash.to_json)
       render :json => json_hash and return
     else
       render :json => {:success => false} and return
