@@ -5,10 +5,6 @@
   %li= link_to "#{t(:project)}: #{@ticket.project}", project_path(@ticket.project)
   - if admin? || current_user.has_role?(:developer, @ticket.project)
     %li= link_to "#{t(:edit)}: #{@ticket}", edit_ticket_path
-    - if @ticket.completed
-      %li= link_to "Mark as Incomplete", ticket_toggle_complete_path(@ticket), :method => :put
-    - else
-      %li= link_to "Mark as Complete", ticket_toggle_complete_path(@ticket), :method => :put
     %li= link_to t(:new_work_unit), new_ticket_work_unit_path(@ticket)
 
 %p.ticket_description

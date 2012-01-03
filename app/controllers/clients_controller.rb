@@ -33,9 +33,25 @@ class ClientsController < ApplicationController
   public
   def index
     if admin?
-      @clients = Client.order("name").all
+      @clients = Client.active.sort_by_name
     else
-      @clients = Client.order("name").for_user(current_user)
+      @clients = Client.active.for_user(current_user)
+    end
+  end
+
+  def inactive_clients
+    if admin?
+      @clients = Client.inactive.sort_by_name
+    else
+      @clients = Client.inactive.for_user(current_user).sort_by_name
+    end
+  end
+
+  def suspended_clients
+    if admin?
+      @clients = Client.suspended.sort_by_name
+    else
+      @clients = Client.suspended.for_user(current_user).sort_by_name
     end
   end
 
