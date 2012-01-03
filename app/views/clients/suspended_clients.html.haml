@@ -1,11 +1,11 @@
-%h2= t(:all_clients)
+%h2= "All Suspended Clients"
 = link_to t(:new_client), new_client_path, :class => "add_new_button btn primary" if admin?
 %br/
 %br/
 
 %ul.tabs
-  %li.active= link_to "Active", clients_path
+  %li= link_to "Active", clients_path
   %li= link_to "Inactive", inactive_clients_path
-  %li= link_to "Suspended", suspended_clients_path
+  %li.active= link_to "Suspended", suspended_clients_path
 
 = render :partial => "clients_table"

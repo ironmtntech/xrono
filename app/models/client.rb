@@ -12,7 +12,9 @@ class Client < ActiveRecord::Base
   validates_uniqueness_of :name, :allow_nil => false
 
   scope :sort_by_name, order('name ASC')
-  scope :not_inactive, where('status = "10" OR status = "20"')
+  scope :active, where('status = "10"')
+  scope :inactive, where('status != "10" AND status != "20"')
+  scope :suspended, where('status = 20')
 
   def tickets
     Ticket.for_client(self)

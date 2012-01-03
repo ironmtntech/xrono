@@ -29,6 +29,8 @@ AssetTrackerTutorial::Application.routes.draw do
   end
 
   match '/client/:id' => 'clients#show'
+  get :inactive_clients, :controller => :clients, :action => :inactive_clients
+  get :suspended_clients, :controller => :clients, :action => :suspended_clients
   resources :clients do
     resources :comments
     resources :contacts

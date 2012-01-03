@@ -51,7 +51,15 @@ class TicketsController < ApplicationController
 
   # PUT /tickets/:id
   def update
-    if @ticket.update_attributes(params[:ticket])
+
+    if params[:ticket]["complete"] == "1"
+      @ticket.update_attribute(:completed, true)
+    else
+      @ticket.update_attribute(:completed, false)
+    end
+
+    @ticket.update_attributes(params[:ticket])
+    if @ticket.save
       flash[:notice] = t(:ticket_updated_successfully)
       redirect_to ticket_path(@ticket)
     else
