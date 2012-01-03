@@ -15,7 +15,7 @@ class Api::V1::TokensController < Api::V1::BaseController
         :token          => @user.authentication_token,
         :success        => true,
         :current_hours  => @user.unpaid_work_units.sum(:effective_hours),
-        :pto_hours      => @user.pto_hours_left(Time.zone.now.end_of_week),
+        :pto_hours      => @user.pto_hours_left(Date.today.now.end_of_week),
         :offset         => @user.target_hours_offset(last_effective_date(start_date)),
         :admin          => @user.admin?
       }
