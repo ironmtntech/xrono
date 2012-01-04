@@ -6,6 +6,7 @@ AssetTrackerTutorial::Application.routes.draw do
   namespace :admin do
     resources :invoices
     resources :payroll
+    get :locked_users, :controller => :users, :action => :locked_users
     resources :users do
       member do
         get :projects
@@ -34,6 +35,7 @@ AssetTrackerTutorial::Application.routes.draw do
   resources :clients do
     resources :comments
     resources :contacts
+    get :show_complete, :controller => :clients, :action => :show_complete
   end
 
   resources :projects, :except => [:index, :destroy] do

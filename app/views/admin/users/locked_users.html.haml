@@ -7,9 +7,9 @@
 %br/
 
 %ul.tabs
-  %li.active= link_to "Unlocked", admin_users_path
-  %li= link_to "Locked", admin_locked_users_path
+  %li= link_to "Unlocked", admin_users_path
+  %li.active= link_to "Locked", admin_locked_users_path
 
 
-= render :partial => "unlocked_users"
+= render :partial => "locked_users"
 
