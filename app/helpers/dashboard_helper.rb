@@ -15,6 +15,9 @@ module DashboardHelper
     if (internal_hours.sum < 1 && external_hours.sum < 1)
       return
     else
+
+      internal_hours.map!{|hours| hours == 0 ? nil : hours}
+      external_hours.map!{|hours| hours == 0 ? nil : hours}
       image_tag Gchart.line( :title => title,
                              :size => width,
                              :data => [internal_hours,external_hours],
