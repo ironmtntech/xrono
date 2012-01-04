@@ -11,6 +11,14 @@ class ClientsController < ApplicationController
       allow :client
     end
 
+    action :inactive_clients do
+      allow :developer
+    end
+
+    action :suspended_clients do
+      allow :developer
+    end
+
     action :show do
       allow :developer, :if => :user_is_authorized
       allow :client, :if => :user_is_authorized
@@ -33,25 +41,25 @@ class ClientsController < ApplicationController
   public
   def index
     if admin?
-      @clients = Client.active.sort_by_name
+      @clients = Client.order("name").active
     else
-      @clients = Client.active.for_user(current_user)
+      @clients = Client.order("name").active.for_user(current_user)
     end
   end
 
   def inactive_clients
     if admin?
-      @clients = Client.inactive.sort_by_name
+      @clients = Client.order("name").inactive
     else
-      @clients = Client.inactive.for_user(current_user).sort_by_name
+      @clients = Client.order("name").inactive.for_user(current_user)
     end
   end
 
   def suspended_clients
     if admin?
-      @clients = Client.suspended.sort_by_name
+      @clients = Client.order("name").suspended
     else
-      @clients = Client.suspended.for_user(current_user).sort_by_name
+      @clients = Client.order("name").suspended.for_user(current_user)
     end
   end
 

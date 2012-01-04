@@ -11,7 +11,7 @@ class Dashboard::BaseController < ApplicationController
   
   # Show ALL clients                                                           #
   def collaborative_index
-    @clients = Client.active.sort_by_name
+    @clients = Client.order("name").active
     @projects = []
     @tickets = []
     render :json => @clients
@@ -25,14 +25,14 @@ class Dashboard::BaseController < ApplicationController
   
   # Show ALL tickets                                                           #
   def collaborative_project
-    @tickets = Ticket.incomplete.where("project_id = ?", params[:id])
+    @tickets = Ticket.order("name").incomplete.where("project_id = ?", params[:id])
     render :json => @tickets
   end
 
   # Undoes effects of checkbox, rendering only the clients for which developer #
   # has projects assigned.                                                     #
   def json_index
-    @clients = Client.active.sort_by_name.for_user(current_user)
+    @clients = Client.order("name").active.for_user(current_user)
     @projects = []
     @tickets = []
     render :json => @clients
@@ -48,7 +48,7 @@ class Dashboard::BaseController < ApplicationController
           :body => t(:enter_time_for_previous_day)}
       end
     end
-    @clients = Client.active.sort_by_name.for_user(current_user)
+    @clients = Client.order("name").active.for_user(current_user)
     @projects = []
     @tickets = []
   end
@@ -62,7 +62,7 @@ class Dashboard::BaseController < ApplicationController
   end
 
   def project
-    @tickets = Ticket.incomplete.where("project_id = ?", params[:id])
+    @tickets = Ticket.order("name").incomplete.where("project_id = ?", params[:id])
     #unless admin?
     #  @tickets = @tickets.for_user_and_role(current_user, :developer)
     #end
