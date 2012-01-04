@@ -12,7 +12,7 @@ module DashboardHelper
       internal_hours << user.work_units.scheduled_between(i_date.beginning_of_day,i_date.end_of_day).for_client(@site_settings.client).sum(:hours)
       external_hours << user.work_units.scheduled_between(i_date.beginning_of_day,i_date.end_of_day).except_client(@site_settings.client).sum(:hours)
     end
-    if (internal_hours.sum < 1 || external_hours.sum < 1)
+    if (internal_hours.sum < 1 && external_hours.sum < 1)
       return
     else
       internal_hours.map!{|hours| hours == 0 ? nil : hours}
