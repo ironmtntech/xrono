@@ -1,3 +1,0 @@
-[submodule "gchart"]
-  path = vendor/gems/gchart
-  url  = https://github.com/abhay/gchart.git
