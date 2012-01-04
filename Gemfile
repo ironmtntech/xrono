@@ -20,7 +20,6 @@ gem 'resque_mailer', '~> 2.0.2'
 gem 'resque-scheduler', '~> 1.9.9'
 gem 'googlecharts', '~> 1.6.8'
 
-
 gem 'simple-navigation'
 gem 'sass-rails',   '~> 3.1.4'
 

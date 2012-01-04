@@ -15,6 +15,7 @@ class WorkUnit < ActiveRecord::Base
   scope :for_project, lambda{|project| joins({:ticket => [:project]}).where("projects.id = ?", project.id)}
   scope :for_ticket, lambda {|ticket| where(:ticket_id => ticket.id) }
   scope :for_user, lambda{|user| where(:user_id => user.id)}
+  scope :for_users, lambda{|users| where("user_id IN (?)", users.map{|user| user.id} ) }
   scope :sort_by_scheduled_at, order('scheduled_at DESC')
   scope :pto, where(:hours_type => 'PTO')
   scope :cto, where(:hours_type => 'CTO')
