@@ -11,6 +11,8 @@
   .span8
     .module
       = render :partial => 'tickets/add_ticket'
+    .module
+      = external_hours_chart(current_user)
   .span8
     - if current_user.has_role?(:developer) or current_user.has_role?(:admin)
       .module
