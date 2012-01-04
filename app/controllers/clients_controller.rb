@@ -1,4 +1,3 @@
-require 'ruby-debug'
 class ClientsController < ApplicationController
   before_filter :load_new_client, :only => [:new, :create]
   before_filter :load_client, :only => [:edit, :show, :show_completed, :update]
