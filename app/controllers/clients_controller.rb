@@ -1,6 +1,7 @@
+require 'ruby-debug'
 class ClientsController < ApplicationController
   before_filter :load_new_client, :only => [:new, :create]
-  before_filter :load_client, :only => [:edit, :show, :update]
+  before_filter :load_client, :only => [:edit, :show, :show_completed, :update]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
 
   access_control do
@@ -17,6 +18,11 @@ class ClientsController < ApplicationController
 
     action :suspended_clients do
       allow :developer
+    end
+
+    action :show_complete do
+      allow :developer
+      allow :client
     end
 
     action :show do
@@ -65,9 +71,22 @@ class ClientsController < ApplicationController
 
   def show
     if admin?
-      @projects = Project.sort_by_name.for_client(@client)
+      @incompleted_projects = Project.order("name").incomplete.for_client(@client)
     else
-      @projects = Project.sort_by_name.for_client(@client).for_user(current_user)
+      @incompleted_projects = Project.order("name").incomplete.for_client(@client).for_user(current_user)
+    end
+  end
+
+  def show_complete
+    @client = Client.find params[:client_id]
+    if admin?
+      @completed_projects = Project.order("name").complete.for_client(@client)
+    else
+      if @client.allows_access? current_user
+        @completed_projects = Project.order("name").complete.for_client(@client).for_user(current_user)
+      else
+        access_denied
+      end
     end
   end
 

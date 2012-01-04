@@ -34,6 +34,7 @@ AssetTrackerTutorial::Application.routes.draw do
   resources :clients do
     resources :comments
     resources :contacts
+    get :show_complete, :controller => :clients, :action => :show_complete
   end
 
   resources :projects, :except => [:index, :destroy] do

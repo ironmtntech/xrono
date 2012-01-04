@@ -43,7 +43,14 @@ class ProjectsController < ApplicationController
 
   # PUT /projects/:id
   def update
-    if @project.update_attributes(params[:project])
+    if params[:project]["completed"] == "1"
+      @project.update_attribute(:completed, true)
+    else
+      @project.update_attribute(:completed, false)
+    end
+
+    @project.update_attributes(params[:project])
+    if @project.save
       flash[:notice] = t(:project_updated_successfully)
       redirect_to [@project]
     else

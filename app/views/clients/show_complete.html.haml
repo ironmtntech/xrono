@@ -7,7 +7,7 @@
     %li= link_to 'Edit Client', edit_client_path
     %li= link_to 'New Project', new_project_path(:client => @client) 
 
-= render :partial => "incompleted_projects"
+= render :partial => "completed_projects"
 
 - unless current_user.client
   = render :partial => "shared/files_and_comments", :locals => {:items => @client.files_and_comments.reverse, :id => 'client'}

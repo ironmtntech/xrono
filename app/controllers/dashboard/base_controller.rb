@@ -19,7 +19,7 @@ class Dashboard::BaseController < ApplicationController
 
   # Show ALL projects                                                          #
   def collaborative_client
-    @projects = Project.find(:all, :conditions => {:client_id => params[:id]}, :order => "name")
+    @projects = Project.order("name").incomplete.where("client_id = ?", params[:id])
     render :json => @projects
   end
   
@@ -54,7 +54,7 @@ class Dashboard::BaseController < ApplicationController
   end
 
   def client
-    @projects = Project.sort_by_name.for_client_id(params[:id])
+    @projects = Project.order("name").incomplete.for_client_id(params[:id])
     unless admin?
       @projects = @projects.for_user_and_role(current_user, :developer)
     end
