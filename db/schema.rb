@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20120104132121) do
     t.datetime "updated_at"
     t.string   "guid"
     t.decimal  "overtime_multiplier", :precision => 10, :scale => 2
+    t.string   "git_repo"
     t.boolean  "completed",                                          :default => false
   end
 
