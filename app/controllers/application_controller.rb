@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include RefurlHelper
   before_filter :initialize_site_settings
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except [:payload]
   protect_from_forgery
   layout 'application'
   helper_method :redirect_to_ref_url, :admin?

@@ -11,7 +11,7 @@ class Dashboard::BaseController < ApplicationController
 
   # Show ALL clients                                                           #
   def collaborative_index
-    @clients = Client.not_inactive.sort_by_name
+    @clients = Client.order("name").active
     @projects = []
     @tickets = []
     render :json => @clients
@@ -19,20 +19,20 @@ class Dashboard::BaseController < ApplicationController
 
   # Show ALL projects                                                          #
   def collaborative_client
-    @projects = Project.find(:all, :conditions => {:client_id => params[:id]}, :order => "name")
+    @projects = Project.order("name").incomplete.where("client_id = ?", params[:id])
     render :json => @projects
   end
 
   # Show ALL tickets                                                           #
   def collaborative_project
-    @tickets = Ticket.find(:all, :conditions => {:project_id => params[:id]}, :order => "name")
+    @tickets = Ticket.order("name").incomplete.where("project_id = ?", params[:id])
     render :json => @tickets
   end
 
   # Undoes effects of checkbox, rendering only the clients for which developer #
   # has projects assigned.                                                     #
   def json_index
-    @clients = Client.not_inactive.sort_by_name.for_user(current_user)
+    @clients = Client.order("name").active.for_user(current_user)
     @projects = []
     @tickets = []
     render :json => @clients
@@ -49,13 +49,13 @@ class Dashboard::BaseController < ApplicationController
           :body => t(:enter_time_for_previous_day)}
       end
     end
-    @clients = Client.not_inactive.sort_by_name.for_user(current_user)
+    @clients = Client.order("name").active.for_user(current_user)
     @projects = []
     @tickets = []
   end
 
   def client
-    @projects = Project.sort_by_name.for_client_id(params[:id])
+    @projects = Project.order("name").incomplete.for_client_id(params[:id])
     unless admin?
       @projects = @projects.for_user_and_role(current_user, :developer)
     end
@@ -63,7 +63,7 @@ class Dashboard::BaseController < ApplicationController
   end
 
   def project
-    @tickets = Ticket.find(:all, :conditions => {:project_id => params[:id]}, :order => "name")
+    @tickets = Ticket.order("name").incomplete.where("project_id = ?", params[:id])
     #unless admin?
     #  @tickets = @tickets.for_user_and_role(current_user, :developer)
     #end

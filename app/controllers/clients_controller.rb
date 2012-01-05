@@ -1,12 +1,25 @@
 class ClientsController < ApplicationController
   before_filter :load_new_client, :only => [:new, :create]
-  before_filter :load_client, :only => [:edit, :show, :update]
+  before_filter :load_client, :only => [:edit, :show, :show_completed, :update]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
 
   access_control do
     allow :admin
 
     action :index do
+      allow :developer
+      allow :client
+    end
+
+    action :inactive_clients do
+      allow :developer
+    end
+
+    action :suspended_clients do
+      allow :developer
+    end
+
+    action :show_complete do
       allow :developer
       allow :client
     end
@@ -33,17 +46,46 @@ class ClientsController < ApplicationController
   public
   def index
     if admin?
-      @clients = Client.order("name").all
+      @clients = Client.order("name").active
     else
-      @clients = Client.order("name").for_user(current_user)
+      @clients = Client.order("name").active.for_user(current_user)
+    end
+  end
+
+  def inactive_clients
+    if admin?
+      @clients = Client.order("name").inactive
+    else
+      @clients = Client.order("name").inactive.for_user(current_user)
+    end
+  end
+
+  def suspended_clients
+    if admin?
+      @clients = Client.order("name").suspended
+    else
+      @clients = Client.order("name").suspended.for_user(current_user)
     end
   end
 
   def show
     if admin?
-      @projects = Project.sort_by_name.for_client(@client)
+      @incompleted_projects = Project.order("name").incomplete.for_client(@client)
     else
-      @projects = Project.sort_by_name.for_client(@client).for_user(current_user)
+      @incompleted_projects = Project.order("name").incomplete.for_client(@client).for_user(current_user)
+    end
+  end
+
+  def show_complete
+    @client = Client.find params[:client_id]
+    if admin?
+      @completed_projects = Project.order("name").complete.for_client(@client)
+    else
+      if @client.allows_access? current_user
+        @completed_projects = Project.order("name").complete.for_client(@client).for_user(current_user)
+      else
+        access_denied
+      end
     end
   end
 
