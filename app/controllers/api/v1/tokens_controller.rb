@@ -21,6 +21,8 @@ class Api::V1::TokensController < Api::V1::BaseController
         :client             => @user.client?,
         :hours_graph_url    => external_hours_chart_url(@user)
       }
+
+      json_hash[:client_id] = CLient.for_user(@user).first.try(:id) if @user.client
       Rails.logger.warn("Sending JSON")
       Rails.logger.warn(json_hash.to_json)
       render :json => json_hash and return
