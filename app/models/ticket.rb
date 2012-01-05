@@ -6,7 +6,7 @@ class Ticket < ActiveRecord::Base
   has_many :work_units
   has_many :file_attachments
 
-  github_concern :class_method => :for_repo_and_branch
+  #github_concern :class_method => :for_repo_and_branch
 
   validates_presence_of :project_id
   validates_presence_of :name
