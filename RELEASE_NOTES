@@ -1,5 +1,6 @@
 01/04/2012
 
+  - Added github integration
   - Bar graphs for work units
   - Fixed a bug in work unit creation
     > Now when you try to submit a work unit without a ticket you get a dialog
