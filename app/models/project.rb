@@ -79,7 +79,7 @@ class Project < ActiveRecord::Base
   def github_concern_callback git_push
     uuid = UUID.generate
     redis = Redis.new
-    options = {_type: 'git_push', repo: git_repo, branch: git_push.payload["ref"].gsub("refs/heads/")}
+    options = {_type: 'git_push', repo: git_repo, branch: git_push.payload["ref"].gsub("refs/heads/", "")}
     if git_push.user
       user = git_push.user
       options["_session"] = user.id.to_s
