@@ -37,7 +37,6 @@ class ApplicationController < ActionController::Base
       external_hours << ext
       max_hours = [max_hours, int, ext].max
     end
-    return if (internal_hours.sum < 1 && external_hours.sum < 1)
     GChart.bar(:title => title,
                          :orientation => :vertical,
                          :axis => [["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], [0, max_hours]],
