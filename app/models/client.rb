@@ -20,7 +20,7 @@ class Client < ActiveRecord::Base
    .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
    .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
    .where("ru.user_id = ?", user.id)
-   .group("p.id")
+   .group("clients.id")
   }
 
   def tickets
