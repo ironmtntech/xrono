@@ -69,14 +69,14 @@ class Project < ActiveRecord::Base
   def github_concern_callback git_push
     uuid = UUID.generate
     redis = Redis.new
-
+    options = {_type: 'git_push'}
     if git_push.user
       user = git_push.user
       options["_session"] = user.id.to_s
       log_fnord_user(user) unless options.delete(:skip_user_logging)
     end
 
-    event = {_type: 'git_push'}.to_json
+    event = options.to_json
 
     redis.set("fnordmetric-event-#{uuid}", event)
     redis.expire("fnordmetric-event-#{uuid}", 60)

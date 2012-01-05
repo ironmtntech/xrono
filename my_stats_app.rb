@@ -36,9 +36,9 @@ widget 'Overview', {
 }
 
 widget 'Overview', {
-  :title => "Git Push per Minute",
+  :title => "Git Pushes per Hour",
   :type => :timeline,
-  :gauges => :git_push_per_hour
+  :gauges => :git_push_per_hour,
   :include_current => true,
   :autoupdate => 5
 }
