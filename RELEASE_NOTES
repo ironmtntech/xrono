@@ -1,5 +1,6 @@
 01/04/2012
 
+  - Added realtime metrics
   - Added github integration
   - Bar graphs for work units
   - Fixed a bug in work unit creation
