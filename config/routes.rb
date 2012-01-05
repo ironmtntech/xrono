@@ -6,6 +6,7 @@ AssetTrackerTutorial::Application.routes.draw do
   namespace :admin do
     resources :invoices
     resources :payroll
+    get :locked_users, :controller => :users, :action => :locked_users
     resources :users do
       member do
         get :projects
@@ -20,19 +21,33 @@ AssetTrackerTutorial::Application.routes.draw do
   get '/admin', :controller => "admin/base", :action => "index"
   get '/admin/reports', :controller => "admin/base", :action => "reports"
 
+  match '/client_login' => "client_login/base#index"
+  namespace :client_login do
+    resources :clients do
+      resources :contacts
+    end
+    resources :projects, :tickets, :work_units
+  end
+
+  match '/client/:id' => 'clients#show'
+  get :inactive_clients, :controller => :clients, :action => :inactive_clients
+  get :suspended_clients, :controller => :clients, :action => :suspended_clients
   resources :clients do
     resources :comments
     resources :contacts
+    get :show_complete, :controller => :clients, :action => :show_complete
   end
 
   resources :projects, :except => [:index, :destroy] do
     resources :comments
+    get "show_complete", :controller => :projects, :action => "show_complete"
   end
 
   resources :tickets, :except => [:index, :destroy] do
     post 'advance_state', :controller => :tickets, :action => :advance_state
     post 'reverse_state', :controller => :tickets, :action => :reverse_state
     get 'ticket_detail', :controller => :tickets, :action => :ticket_detail
+    put 'toggle_complete', :controller => :tickets, :action => :toggle_complete
     resources :comments
     resources :work_units
   end
@@ -83,8 +98,11 @@ AssetTrackerTutorial::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :clients
+      resources :tokens, :only => [:create, :destroy]
+      resources :clients, :only => [:index]
+      resources :projects, :only => [:index]
+      resources :tickets, :only => [:index]
+      resources :work_units, :only => [:create]
     end
-
   end
 end

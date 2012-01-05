@@ -7,28 +7,7 @@
     %li= link_to 'Edit Client', edit_client_path
     %li= link_to 'New Project', new_project_path(:client => @client) 
 
-#client
-  %h3= "#{t(:status)}: #{@client.status}"
-  %table#client_details.zebra-striped
-    %thead
-      %tr
-        %th= t(:projects)
-        %th= t(:tickets)
-        %th= t(:uninvoiced_hours)
-        %th= t(:total_hours)
-    %tfoot
-      %tr
-        %th= t(:all_projects)
-        %th= @client.tickets.count
-        %th= @client.uninvoiced_hours
-        %th= @client.hours
-    %tbody
-      - @projects.each do |project|
-        %tr{ :class => cycle("odd", "even") }
-          %td= link_to project, project
-          %td= project.tickets.count
-          %td= project.uninvoiced_hours
-          %td= project.hours
+= render :partial => "incompleted_projects"
 
 - unless current_user.client
   = render :partial => "shared/files_and_comments", :locals => {:items => @client.files_and_comments.reverse, :id => 'client'}

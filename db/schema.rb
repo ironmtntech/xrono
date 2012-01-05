@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111220193622) do
+ActiveRecord::Schema.define(:version => 20120104132121) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20111220193622) do
     t.string   "guid"
     t.decimal  "overtime_multiplier", :precision => 10, :scale => 2
     t.string   "git_repo"
+    t.boolean  "completed",                                          :default => false
   end
 
   create_table "roles", :force => true do |t|
@@ -158,6 +159,7 @@ ActiveRecord::Schema.define(:version => 20111220193622) do
     t.string   "git_branch_name"
     t.decimal  "estimated_hours", :precision => 10, :scale => 2
     t.string   "git_branch"
+    t.boolean  "completed",                                      :default => false
   end
 
   create_table "users", :force => true do |t|
@@ -182,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20111220193622) do
     t.integer  "daily_target_hours"
     t.boolean  "expanded_calendar"
     t.boolean  "client",                              :default => false
+    t.string   "authentication_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

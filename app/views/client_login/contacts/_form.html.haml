@@ -1,0 +1,34 @@
+- if @contact.errors.any?
+  #error_explanation
+    %h2
+      = pluralize(@contact.errors.count, "error")
+      prohibited this contact from being saved:
+    %ul
+    - @contact.errors.full_messages.each do |msg|
+      %li= msg
+%fieldset
+  .clearfix
+    = f.label :first_name
+    .input
+      = f.text_field :first_name
+  .clearfix
+    = f.label :last_name
+    .input
+      = f.text_field :last_name
+  .clearfix
+    = f.label :email_address
+    .input
+      = f.text_field :email_address
+  .clearfix
+    = f.label :phone_number
+    .input
+      = f.text_field :phone_number
+    .clearfix
+      .input
+        %ul.inputs-list
+          %li
+            %label
+              = f.check_box :receives_email
+              %span Receives Email
+  .actions
+    = f.submit :class => "add_new_button btn primary"

@@ -3,7 +3,11 @@ class Admin::UsersController < Admin::BaseController
   before_filter :load_new_user_account, :only => [:new, :create]
 
   def index
-    @users = {unlocked: User.unlocked.sort_by_name, locked: User.locked.sort_by_name}
+    @users = User.unlocked.sort_by_name
+  end
+
+  def locked_users
+    @users = User.locked.sort_by_name
   end
 
   def new

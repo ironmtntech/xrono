@@ -1,0 +1,26 @@
+#client
+  %h3= "#{t(:status)}: #{@client.status}"
+  %ul.tabs
+    %li= link_to "Incomplete", client_path(@client)
+    %li.active= link_to "Complete", client_show_complete_path(@client)
+  %table#client_details.zebra-striped
+    %thead
+      %tr
+        %th= t(:projects)
+        %th= t(:tickets)
+        %th= t(:uninvoiced_hours)
+        %th= t(:total_hours)
+    %tfoot
+      %tr
+        %th= t(:all_projects)
+        %th= @client.tickets.count
+        %th= @client.uninvoiced_hours
+        %th= @client.hours
+    %tbody
+      - @completed_projects.each do |project|
+        %tr{ :class => cycle("odd", "even") }
+          %td= link_to project, project
+          %td= project.tickets.count
+          %td= project.uninvoiced_hours
+          %td= project.hours
+

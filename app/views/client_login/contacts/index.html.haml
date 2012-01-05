@@ -1,0 +1,30 @@
+.yui3-g
+  .yui3-u-1
+    %h2= "#{@client} #{t(:contacts)}:"
+.yui3-g
+  .yui3-u-1
+    .gradient_border_wrap
+      .gradient_border_content
+        %table.clients
+          %thead
+            %tr
+              %th= t(:first_name)
+              %th= t(:last_name)
+              %th= t(:email_address)
+              %th= t(:phone_number)
+              %th= t(:receives_email)
+              %th= t(:edit)
+          %tbody
+            - @contacts.each do |contact|
+              %tr
+                %td= link_to contact.first_name, client_login_client_contact_path(contact.client, contact)
+                %td= contact.last_name
+                %td= contact.email_address
+                %td= contact.phone_number
+                -if contact.receives_email == true
+                  %td= t(:affirmative)
+                - else
+                  %td= t(:negative)
+                %td= link_to t(:edit), edit_client_login_client_contact_path(contact.client, contact), :class => 'btn'
+
+        = link_to t(:new_contact), new_client_login_client_contact_path, :class => "add_new_button btn primary"

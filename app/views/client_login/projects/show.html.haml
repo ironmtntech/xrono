@@ -1,0 +1,31 @@
+%h2= "#{@project.client}: #{@project}"
+
+%ul.pills
+  %li= link_to "#{t(:client)}: #{@project.client}" , client_login_client_path(@project.client)
+
+%h3= "#{t(:status)}: #{@project.client.status}"
+%table.tickets.zebra-striped
+  %thead
+    %tr
+      %th  #
+      %th= t(:tickets)
+      %th= t(:work_units)
+      %th= t(:uninvoiced_hours)
+      %th= t(:total_hours)
+      - if admin? || current_user.has_role?(:developer, @project)
+        %th= t(:edit)
+  %tfoot
+    %tr
+      %th= t(:all_tickets)
+      %th= @project.work_units.count
+      %th= @project.uninvoiced_hours
+      %th= @project.hours
+      %th &nbsp;
+  %tbody
+    - @tickets.each do |ticket|
+      %tr
+        %td= ticket.id
+        %td= link_to ticket.name, client_login_ticket_path(ticket)
+        %td= ticket.work_units.count
+        %td= ticket.uninvoiced_hours
+        %td= ticket.hours
