@@ -3,9 +3,14 @@ require "fnordmetric"
 FnordMetric.namespace :myapp do
 
 # numeric (delta) gauge, 1-hour tick
-gauge :git_push_per_hour,
-  :tick => 1.hour.to_i,
-  :title => "Git push per hour"
+gauge :git_push_daily,
+  :tick => 1.day.to_i,
+  :title => "Git push per day"
+
+gauge :git_push_per_repo_daily,
+  :tick => 1.day.to_i,
+  :three_dimensional => true,
+  :title => "Git Pushes Per Repo Daily"
 
 gauge :dashboard_views_per_minute,
   :tick => 1.minute.to_i,
@@ -24,6 +29,7 @@ end
 
 event(:git_push) do
   incr :git_push_per_hour
+  incr_field :git_push_per_repo_daily, data[:repo]
 end
 
 # draw a timeline showing the gauges value, auto-refresh every 2s
@@ -41,6 +47,13 @@ widget 'Overview', {
   :gauges => :git_push_per_hour,
   :include_current => true,
   :autoupdate => 5
+}
+
+widget 'Overview', {
+  :title => "Most active repositories",
+  :type => :toplist,
+  :autoupdate => 20,
+  :gauges => [ :git_push_per_repo_daily ]
 }
 
 end
