@@ -66,6 +66,16 @@ class Project < ActiveRecord::Base
     log_fnord_event(_type: '_set_picture', url: user.gravatar_url, skip_user_logging: true)
   end
 
+  def log_fnord_event options
+    uuid = UUID.generate
+    redis = Redis.new
+    event = options.to_json
+
+    redis.set("fnordmetric-event-#{uuid}", event)
+    redis.expire("fnordmetric-event-#{uuid}", 60)
+    redis.lpush("fnordmetric-queue", uuid)
+  end
+
   def github_concern_callback git_push
     uuid = UUID.generate
     redis = Redis.new
