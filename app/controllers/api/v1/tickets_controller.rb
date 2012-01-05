@@ -14,7 +14,7 @@ class Api::V1::TicketsController < Api::V1::BaseController
     json_hash = {
         :name           => @ticket.name,
     }
-    if @ticket.percentage_complete
+    if @ticket.estimated_hours && @ticket.percentage_complete
       @pie_chart_url = Gchart.pie(:title => "Remaining Estimated Hours vs Hours Worked -- #{@ticket.percentage_complete}% complete",
         :size => '450x230', :bar_color => "76959c,364447", :data => [100 - @ticket.percentage_complete, @ticket.percentage_complete], :labels => ["Remaining Estimated", "Hours Worked"])
       json_hash[:pie_chart_url] = @pie_chart_url
