@@ -18,6 +18,7 @@ class Api::V1::TokensController < Api::V1::BaseController
         :pto_hours          => @user.pto_hours_left(Date.today.end_of_week),
         :offset             => @user.target_hours_offset(Date.today),
         :admin              => @user.admin?,
+        :client             => @user.client?,
         :hours_graph_url    => external_hours_chart_url(@user)
       }
       Rails.logger.warn("Sending JSON")
