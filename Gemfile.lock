@@ -91,7 +91,7 @@ GEM
       hiredis (~> 0.3.0)
     erubis (2.7.0)
     escape_utils (0.1.9)
-    eventmachine (0.12.10)
+    eventmachine (0.12.8)
     execjs (1.2.9)
       multi_json (~> 1.0)
     faker (0.9.5)
