@@ -8,7 +8,7 @@ class Dashboard::BaseController < ApplicationController
   # Methods called by checkbox to display full list of clients/projects/tickets#
   # for developers who want to bill on a project they are not assigned to.     #
   ##############################################################################
-  
+
   # Show ALL clients                                                           #
   def collaborative_index
     @clients = Client.not_inactive.sort_by_name
@@ -22,7 +22,7 @@ class Dashboard::BaseController < ApplicationController
     @projects = Project.find(:all, :conditions => {:client_id => params[:id]}, :order => "name")
     render :json => @projects
   end
-  
+
   # Show ALL tickets                                                           #
   def collaborative_project
     @tickets = Ticket.find(:all, :conditions => {:project_id => params[:id]}, :order => "name")
@@ -37,11 +37,12 @@ class Dashboard::BaseController < ApplicationController
     @tickets = []
     render :json => @clients
   end
-  
+
   ##############################################################################
   # Regular scoped methods                                                     #
   ##############################################################################
   def index
+    log_fnord_event(_type: 'dashboard_view')
     if current_user.has_role?(:developer) && !admin?
       unless current_user.work_units_for_day(Date.current.prev_working_day).any?
         @message = {:title => t(:management),
