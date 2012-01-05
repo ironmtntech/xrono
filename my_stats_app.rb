@@ -3,9 +3,9 @@ require "fnordmetric"
 FnordMetric.namespace :myapp do
 
 # numeric (delta) gauge, 1-hour tick
-gauge :git_push_daily,
-  :tick => 1.day.to_i,
-  :title => "Git push per day"
+gauge :git_push_per_hour,
+  :tick => 1.hour.to_i,
+  :title => "Git Push Per Hour"
 
 gauge :git_push_per_repo_daily,
   :tick => 1.day.to_i,
