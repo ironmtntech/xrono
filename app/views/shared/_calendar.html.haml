@@ -35,7 +35,7 @@
             - if @site_settings.client && user.work_units_for_week(start_date).present?
               %li#external_percentage= "#{t(:external_percentage)}: #{external_work_percentage(user, start_date.beginning_of_week, start_date.end_of_week)}%"
         %td.span2
-          = external_hours_chart(user, :date => start_date, :width => "260x100", :title => "Hours Worked")
+          = image_tag external_hours_chart_url(user, :date => start_date, :width => "260x100", :title => "Hours Worked")
 - if request.xhr?
   :javascript
     $('a[rel=twipsy]').twipsy({ placement: 'below'} );
