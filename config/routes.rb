@@ -105,5 +105,4 @@ AssetTrackerTutorial::Application.routes.draw do
       resources :work_units, :only => [:create]
     end
   end
-  post "/github_integration_test", :to => "github_test#payload"
 end
