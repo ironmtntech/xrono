@@ -3,6 +3,10 @@ require "fnordmetric"
 FnordMetric.namespace :myapp do
 
 # numeric (delta) gauge, 1-hour tick
+gauge :git_push_per_hour,
+  :tick => 1.hour.to_i,
+  :title => "Git push per hour"
+
 gauge :dashboard_views_per_minute,
   :tick => 1.minute.to_i,
   :title => "Dashboard Views per minute"
@@ -18,6 +22,10 @@ event(:dashboard_view) do
   incr :dashboard_views_per_second
 end
 
+event(:git_push) do
+  incr :git_push_per_hour
+end
+
 # draw a timeline showing the gauges value, auto-refresh every 2s
 widget 'Overview', {
   :title => "Dashboard Views per minute",
@@ -28,11 +36,11 @@ widget 'Overview', {
 }
 
 widget 'Overview', {
-  :title => "Dashboard Views per second",
+  :title => "Git Push per Minute",
   :type => :timeline,
-  :gauges => :dashboard_views_per_second,
+  :gauges => :git_push_per_hour
   :include_current => true,
-  :autoupdate => 2
+  :autoupdate => 5
 }
 
 end

@@ -60,4 +60,26 @@ class Project < ActiveRecord::Base
     ary << file_attachments
     ary.flatten.sort_by {|x| x.created_at}
   end
+
+  def log_fnord_user(user)
+    log_fnord_event(_type: '_set_name', name: user.email, skip_user_logging: true)
+    log_fnord_event(_type: '_set_picture', url: user.gravatar_url, skip_user_logging: true)
+  end
+
+  def github_concern_callback git_push
+    uuid = UUID.generate
+    redis = Redis.new
+
+    if git_push.user
+      user = git_push.user
+      options["_session"] = user.id.to_s
+      log_fnord_user(user) unless options.delete(:skip_user_logging)
+    end
+
+    event = {_type: 'git_push'}.to_json
+
+    redis.set("fnordmetric-event-#{uuid}", event)
+    redis.expire("fnordmetric-event-#{uuid}", 60)
+    redis.lpush("fnordmetric-queue", uuid)
+  end
 end
