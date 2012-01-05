@@ -10,7 +10,12 @@ gauge :git_push_per_hour,
 gauge :git_push_per_repo_daily,
   :tick => 1.day.to_i,
   :three_dimensional => true,
-  :title => "Git Pushes Per Repo Daily"
+  :title => "git pushes per repo daily"
+
+gauge :git_push_per_branch_daily,
+  :tick => 1.day.to_i,
+  :three_dimensional => true,
+  :title => "git pushes per branch daily"
 
 gauge :dashboard_views_per_minute,
   :tick => 1.minute.to_i,
@@ -30,6 +35,7 @@ end
 event(:git_push) do
   incr :git_push_per_hour
   incr_field :git_push_per_repo_daily, data[:repo]
+  incr_field :git_push_per_branch_daily, data[:branch]
 end
 
 # draw a timeline showing the gauges value, auto-refresh every 2s
@@ -54,6 +60,13 @@ widget 'Overview', {
   :type => :toplist,
   :autoupdate => 20,
   :gauges => [ :git_push_per_repo_daily ]
+}
+
+widget 'Overview', {
+  :title => "Most active branches",
+  :type => :toplist,
+  :autoupdate => 20,
+  :gauges => [ :git_push_per_branch_daily ]
 }
 
 end
