@@ -23,6 +23,9 @@ module NavigationHelpers
     when /path "(.+)"/
       $1
 
+    when /the last work units edit page/
+      edit_work_unit_path(WorkUnit.last)
+
     # the following are examples using path_to_pickle
     when /^the admin #{capture_model}(?:'s)? page$/
       path_to_pickle 'admin', $1

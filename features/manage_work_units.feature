@@ -64,6 +64,17 @@ Feature: Manage Work Units
     And I press "Update Work unit"
     Then I should see "Work unit updated" within ".alert-message"
 
+  Scenario: Edit a work unit from yesterday
+    Given I am an authenticated user with an admin role
+    And a client "test client" exists with name: "test client", initials: "TTC", status: "Suspended"
+    And a project "test project" exists with name: "test project", client: client "test client"
+    And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
+    And I have a "2" hour work unit for yesterday with ticket "test ticket"
+    When I go to the last work units edit page
+    And I press "Update Work unit"
+    Then I should see "Work unit updated" within ".alert-message"
+    And that work unit should still have a scheduled at date of yesterday
+
   Scenario: Attempt to edit a work unit you do not have access to
     Given I am an authenticated user
     And a client "test client" exists with name: "test client", initials: "TTC", status: "Suspended"
