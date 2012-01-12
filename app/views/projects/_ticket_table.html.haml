@@ -17,7 +17,7 @@
       %th= @project.hours
       %th &nbsp;
   %tbody
-    - @tickets.each do |ticket|
+    - tickets.each do |ticket|
       %tr
         %td= ticket.id
         %td= link_to ticket, ticket
