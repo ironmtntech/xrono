@@ -20,7 +20,7 @@
     - @tickets.each do |ticket|
       %tr
         %td= ticket.id
-        %td= link_to ticket, ticket
+        %td= link_to ticket, client_login_ticket_path(ticket)
         %td= ticket.work_units.count
         %td= ticket.uninvoiced_hours
         %td= ticket.hours
