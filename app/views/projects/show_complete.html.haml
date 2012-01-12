@@ -12,7 +12,7 @@
   %li= link_to "Incomplete", project_path(@project)
   %li.active= link_to "Complete", project_show_complete_path(@project), :method => :get
 
-= render :partial => "complete_tickets"
+= render :partial => "ticket_table", :locals => {:tickets => @complete_tickets}
 
 - unless current_user.client
   %h3= "#{t(:status)}: #{@project.client.status}"
