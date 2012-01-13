@@ -140,7 +140,8 @@ class Ticket < ActiveRecord::Base
   end
 
   def percentage_complete
-    (((self.hours / self.estimated_hours)).to_f * 100.00).round(2) rescue 0
+    percent = (((self.hours / self.estimated_hours)).to_f * 100.00).round(2) rescue 0
+    [percent, 100].min
   end
 
   def remaining_hours
