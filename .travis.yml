@@ -1,5 +1,4 @@
 before_script:
-  - "mysql -e 'create database xrono_test;'"
   - "cp config/database.yml.mysql config/database.yml"
 script: "bundle exec rake db:create db:migrate spec"
 notifications:
