@@ -1,3 +1,13 @@
+12/25/2011
+
+  - New client login feature:
+    > Users can now be given special login behavior via a "Client Login" checkbox
+    > Users with "Client Logins" will be isolated to the client_login namespace
+    > Users with "Client Logins" have an awesome experience to manage (add/update) their contacts and view their work units
+    > Users with "Client Logins" will also be able to see reporting on a per-ticket basis that shows a fancy pie chart.
+      The pie chart displays a percentage of completion based on estimated time to complete a ticket and the ammount of
+      that estimated time that remains. 
+
 12/15/2011
 
   - Email notifications to clients as background jobs using Resque::Mailer

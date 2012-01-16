@@ -50,14 +50,7 @@ Feature: Manage Work Units
     And I am assigned to the project
     And I visit /
     And I follow "close"
-    When I select "test client" from "work_unit_client_id"
-    And I select "test project" from "work_unit_project_id"
-    And I select "test ticket" from "work_unit_ticket_id"
-    And I select "Overtime" from "hours_type"
-    And I fill in "work_unit_hours" with "2"
-    And I fill in "work_unit_description" with "test description"
-    And I press "Create Work Unit"
-    Then I should see "This client is suspended. Please contact an Administrator."
+    Then the "work_unit_client_id" field should not contain "test client"
 
   Scenario: Edit a work unit
     Given I am an authenticated user with an admin role

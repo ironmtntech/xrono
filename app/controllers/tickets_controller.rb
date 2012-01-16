@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_filter :load_new_ticket, :only => [:new, :create]
-  before_filter :load_ticket, :only => [:show, :edit, :update, :advance_state, :reverse_state, :ticket_detail]
+  before_filter :load_ticket, :only => [:show, :edit, :update, :advance_state, :reverse_state, :ticket_detail, :toggle_complete]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
   before_filter :load_project
 
@@ -51,7 +51,15 @@ class TicketsController < ApplicationController
 
   # PUT /tickets/:id
   def update
-    if @ticket.update_attributes(params[:ticket])
+
+    if params[:ticket]["complete"] == "1"
+      @ticket.update_attribute(:completed, true)
+    else
+      @ticket.update_attribute(:completed, false)
+    end
+
+    @ticket.update_attributes(params[:ticket])
+    if @ticket.save
       flash[:notice] = t(:ticket_updated_successfully)
       redirect_to ticket_path(@ticket)
     else
@@ -83,6 +91,19 @@ class TicketsController < ApplicationController
   def ticket_detail
     @work_units = Ticket.find(params[:ticket_id]).work_units
     render :layout => false
+  end
+
+  def toggle_complete
+    if @ticket.completed
+      @ticket.update_attribute(:completed, false)
+      status = "incomplete"
+    elsif !@ticket.completed
+      @ticket.update_attribute(:completed, true)
+      status = "complete"
+    else
+      status = "failed to update"
+    end
+    redirect_to @ticket, :notice => "Ticket #{status}."
   end
 
   private

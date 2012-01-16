@@ -1,0 +1,34 @@
+%h2= "#{@project.client}: #{@project}"
+
+%ul.pills
+  %li= link_to "#{t(:client)}: #{@project.client}" , client_path(@project.client)
+  - if admin? || current_user.has_role?(:developer, @project)
+    %li= link_to "#{t(:edit)}: #{@project}", edit_project_path(@project)
+    %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project)
+
+%h3= "#{t(:status)}: #{@project.client.status}"
+
+%ul.tabs
+  %li= link_to "Incomplete", project_path(@project)
+  %li.active= link_to "Complete", project_show_complete_path(@project), :method => :get
+
+= render :partial => "complete_tickets"
+
+- unless current_user.client
+  %h3= "#{t(:status)}: #{@project.client.status}"
+  .clearfix
+
+  .row
+    = render :partial => "comments/comments", :locals => {:comments => @project.comments}
+    = render :partial => "comments/comment_form", :locals => { :commentable_id => @project.id,
+      :commentable_field => "project_id",
+      :commentable_type => "Project",
+      :refurl => project_path(@project),
+      :comment_num => @project.id }
+  .row
+    #files
+      = render :partial => "file_attachments/file_attachments", :locals => { :file_attachments => @project.file_attachments }
+      = link_to t(:add_file_attachment), new_file_attachment_path( :project_id => @project.id )
+
+  - content_for :javascripts do
+    = javascript_include_tag "ticket_board"

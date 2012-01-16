@@ -22,6 +22,10 @@
       = f.label :description
       .input
         = f.text_area :description, :class => 'xxlarge', :rows => 5
+    .clearfix
+      = f.label :completed
+      .input
+        = f.check_box :completed
 
     = hidden_field_tag :project_id, @ticket.project.id
     .actions

@@ -18,6 +18,10 @@
       = f.label :overtime_multiplier
       .input
         = f.text_field :overtime_multiplier
+    .clearfix
+      = f.label :completed
+      .input
+        = f.check_box :completed
     = hidden_field_tag :client, @project.client.id
     .actions
       = f.submit :class => "add_new_button btn primary"

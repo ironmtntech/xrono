@@ -26,31 +26,31 @@ class ProjectsController < ApplicationController
 
   # GET /projects/:id
   def show
-<<<<<<< Updated upstream
-    @tickets = Ticket.for_project(@project).sort_by_name
-=======
     @incomplete_tickets = Ticket.order("id").incomplete.where("project_id = ?", @project.id).sort_by_name
->>>>>>> Stashed changes
     # FIXME - not showing correct group of work_unitsl
     @work_units = Project.find(params[:id]).work_units
   end
 
-<<<<<<< Updated upstream
-=======
   def show_complete
     @project = Project.find params[:project_id]
     @complete_tickets = Ticket.order("id").for_project(@project).where("completed = ?", true).sort_by_name
     @work_units = @project.work_units
   end
 
->>>>>>> Stashed changes
   # GET /projects/:id/edit
   def edit
   end
 
   # PUT /projects/:id
   def update
-    if @project.update_attributes(params[:project])
+    if params[:project]["completed"] == "1"
+      @project.update_attribute(:completed, true)
+    else
+      @project.update_attribute(:completed, false)
+    end
+
+    @project.update_attributes(params[:project])
+    if @project.save
       flash[:notice] = t(:project_updated_successfully)
       redirect_to [@project]
     else
