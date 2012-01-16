@@ -88,6 +88,28 @@ ActiveRecord::Schema.define(:version => 20120104132121) do
     t.boolean  "not_valid"
   end
 
+  create_table "git_commits", :force => true do |t|
+    t.text     "payload"
+    t.integer  "git_push_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "git_pushes", :force => true do |t|
+    t.text     "payload"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  create_table "github_concernable_git_pushes", :force => true do |t|
+    t.string   "github_concernable_type"
+    t.integer  "github_concernable_id"
+    t.integer  "git_push_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.integer  "client_id"
@@ -95,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20120104132121) do
     t.datetime "updated_at"
     t.string   "guid"
     t.decimal  "overtime_multiplier", :precision => 10, :scale => 2
+    t.string   "git_repo"
     t.boolean  "completed",                                          :default => false
   end
 
@@ -133,12 +156,14 @@ ActiveRecord::Schema.define(:version => 20120104132121) do
     t.string   "guid"
     t.string   "state"
     t.decimal  "estimated_hours", :precision => 10, :scale => 2
+    t.string   "git_branch"
     t.boolean  "completed",                                      :default => false
   end
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "",    :null => false
     t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
+    t.string   "password_salt",                       :default => "",    :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"

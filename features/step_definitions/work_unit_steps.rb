@@ -16,6 +16,9 @@ end
 
 Given /^I have a "([^"]*)" hour work unit for yesterday with ticket "([^"]*)"$/ do |hours, ticket|
   WorkUnit.make(:ticket => find_model!(ticket), :hours_type => "Normal", 
-    :scheduled_at => 1.days.ago, :user => @current_user, :hours => hours)
+    :scheduled_at => 1.days.ago.beginning_of_day, :user => @current_user, :hours => hours)
 end
 
+Then /^that work unit should still have a scheduled at date of yesterday$/ do
+  WorkUnit.last.scheduled_at.should == 1.day.ago.beginning_of_day
+end

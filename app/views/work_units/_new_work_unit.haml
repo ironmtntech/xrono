@@ -1,6 +1,3 @@
-- content_for :javascripts do
-  = javascript_include_tag "schedule_modal"
-
 = form_for @work_unit, :url => create_in_ticket_work_units_path() do |f|
   %fieldset
     %legend #{@work_unit.client} > #{@work_unit.project} > #{@work_unit.ticket}

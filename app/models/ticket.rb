@@ -6,6 +6,8 @@ class Ticket < ActiveRecord::Base
   has_many :work_units
   has_many :file_attachments
 
+  #github_concern :class_method => :for_repo_and_branch
+
   validates_presence_of :project_id
   validates_presence_of :name
 
@@ -30,6 +32,11 @@ class Ticket < ActiveRecord::Base
    .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
    .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
    .where("ru.user_id = #{user.id} AND r.name = '#{role}'")
+  }
+
+  scope :for_repo_and_branch, lambda{|repo,branch|
+    joins("INNER JOIN projects     p ON p.id=tickets.project_id")
+   .where("p.git_repo = '#{repo}' and tickets.git_branch = '#{branch}'")
   }
 
   state_machine :state, :initial => :fridge do
@@ -133,7 +140,8 @@ class Ticket < ActiveRecord::Base
   end
 
   def percentage_complete
-    (((self.hours / self.estimated_hours)).to_f * 100.00).round(2) rescue "N/A"
+    percent = (((self.hours / self.estimated_hours)).to_f * 100.00).round(2) rescue 0
+    [percent, 100].min
   end
 
   def remaining_hours

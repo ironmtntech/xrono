@@ -39,6 +39,6 @@
         = f.text_area :description, :class => 'xxlarge', :rows => 5
 
     .actions
-      = f.hidden_field :scheduled_at, value: Date.current
+      = f.hidden_field :scheduled_at, value: @work_unit.scheduled_at
       = f.hidden_field :ticket_id, value: @work_unit.ticket.id
       = f.submit :class => 'btn primary'

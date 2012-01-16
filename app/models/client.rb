@@ -15,6 +15,13 @@ class Client < ActiveRecord::Base
   scope :active, where('status = "10"')
   scope :inactive, where('status != "10" AND status != "20"')
   scope :suspended, where('status = 20')
+  scope :for_user, lambda{|user|
+    joins("INNER JOIN projects     p ON p.client_id=clients.id")
+   .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
+   .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
+   .where("ru.user_id = ?", user.id)
+   .group("clients.id")
+  }
 
   def tickets
     Ticket.for_client(self)
@@ -68,8 +75,10 @@ class Client < ActiveRecord::Base
       projects_or_tickets_or_work_units.collect{ |resource| resource.client }.uniq
     end
 
+=begin
     def for_user(user)
       select {|c| c.allows_access?(user) }
     end
+=end
   end
 end
