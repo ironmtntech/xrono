@@ -81,6 +81,7 @@ en:
   back_to_client: "Back to client"
   invoice: "Invoice"
   payroll: "Payroll"
+  reports: "Reports"
   unentered_time_report: "Unentered Time Report"
   weekly_time_report: "Weekly Time Report"
   invoice_report: "Invoice Report"
