@@ -6,6 +6,9 @@
     %li= link_to "#{t(:edit)}: #{@project}", edit_project_path
     %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project)
 
+- if project_completion_metric(@project) > 0
+  = render :partial => 'pie_chart_metrics'
+
 %h3= "#{t(:status)}: #{@project.client.status}"
 
 %ul.tabs

@@ -21,6 +21,7 @@ class WorkUnit < ActiveRecord::Base
   scope :cto, where(:hours_type => 'CTO')
   scope :overtime, where(:hours_type => 'Overtime')
   scope :normal, where(:hours_type => 'Normal')
+  scope :on_estimated_ticket, lambda{ joins(:ticket).where("tickets.estimated_hours IS NOT NULL AND tickets.estimated_hours > 0") }
 
   before_validation :set_effective_hours!
   after_validation :validate_client_status
