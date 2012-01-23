@@ -1,3 +1,6 @@
 #This is a hack so that github integration works.
 #Take that lazy loading!
-[Project,Ticket]
+begin
+  [Project,Ticket]
+rescue
+end
