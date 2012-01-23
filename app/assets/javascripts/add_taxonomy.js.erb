@@ -72,6 +72,7 @@ $("#work_unit_project_id").change(function(){
   var me = $("#work_unit_ticket_id")
   me.children().remove();
   me.append( new Option("Select a ticket","") )
+  me.append( new Option("New Ticket", "-1") )
   if(!this.value.blank) {
     var checkbox = $("#checkbox");
     if(document.getElementById("checkbox").checked) {   
@@ -98,19 +99,22 @@ $("#work_unit_project_id").change(function(){
   }
 });
 
+// When ticket is changed, test to see if is changed to "New Ticket"
+$('#work_unit_ticket_id').change(function() {
+  if (this.value == "-1") {
+    $('#on_demand_ticket').show();
+  } else {
+    $('#on_demand_ticket').hide();
+  }
+});
+
+
 // AJAX work unit creation
 
 $("#new_work_unit").submit(function() {
   var me = $(this);
   $("#work_unit_submit").attr('disabled', true);
-  $.ajax(
-  {
-    async: true,
-    global: false,
-    url: me.attr("action"),
-    type: "POST",
-    dataType: "json",
-    data: {"work_unit[description]": me.find("#work_unit_description").val(),
+    data = {"work_unit[description]": me.find("#work_unit_description").val(),
       "work_unit[scheduled_at]": me.find("#work_unit_scheduled_at").val(),
       "work_unit[client_id]": me.find("#work_unit_client_id").val(),
       "work_unit[project_id]": me.find("#work_unit_project_id").val(),
@@ -118,12 +122,26 @@ $("#new_work_unit").submit(function() {
       "work_unit[hours]": me.find("#work_unit_hours").val(),
       "work_unit[overtime]": me.find("#work_unit_overtime").val(),
       "hours_type": me.find("#hours_type").val()
-       },
+       }
+    if ($("#on_demand_ticket").is(":visible")) {
+      data["ticket[name]"] = me.find("#on_demand_ticket_name").val()
+      data["ticket[description]"] = me.find("#on_demand_ticket_description").val()
+      data["ticket[estimated_hours]"] = me.find("#on_demand_ticket_estimated_hours").val()
+    }
+  $.ajax(
+  {
+    async: true,
+    global: false,
+    url: me.attr("action"),
+    type: "POST",
+    dataType: "json",
+    data: data,
     success: function(result)
     {
       var notice = result.notice
       me.trigger("reset");
       me.effect("highlight");
+      $("#on_demand_ticket").hide();
       $("#work_unit_client_id").children().remove();
       $("#work_unit_client_id").append( new Option("Select a client","") );
       $("#work_unit_project_id").children().remove();

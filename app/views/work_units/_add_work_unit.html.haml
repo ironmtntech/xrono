@@ -39,8 +39,26 @@
       .input
         = collection_select("work_unit", "ticket_id", @tickets, "id", "name", { :prompt => t(:select_a_ticket) }, :class => 'chzn-select')
 
+    #on_demand_ticket
+      %hr
+      %legend On Demand Ticket
+      %br
+      .clearfix
+        %label{:for => "on_demand_ticket_name"} Name:
+        .input
+          = text_field_tag "ticket[name]", nil, :id => "on_demand_ticket_name"
+      .clearfix
+        %label{:for => "on_demand_ticket_estimated_hours"} Estimated Hours:
+        .input
+          = text_field_tag "ticket[estimated_hours]", "0", :id => "on_demand_ticket_estimated_hours"
+      .clearfix
+        %label{:for => "on_demand_ticket_description"} Description
+        .input
+          = text_area_tag "ticket[description]",nil,  {:id => "on_demand_ticket_description", :rows => 5 }
+      %hr
+
     .clearfix
-      %label{:for => "work_unit_hours_type"}= "#{t(:type)}:"
+      %label{:for => "hours_type"}= "#{t(:type)}:"
       .input
         = select_tag("hours_type", options_for_select(['Normal', 'Overtime', 'CTO', 'PTO']), :class => 'chzn-select')
 
@@ -57,3 +75,8 @@
     .actions
       = f.hidden_field :scheduled_at, :value => Date.current
       = f.submit t(:create_work_unit), :class => 'add_new_button btn primary'
+- content_for :javascripts do
+  :javascript
+    $(document).ready(function() {
+      $('#on_demand_ticket').hide();
+    });
