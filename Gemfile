@@ -25,7 +25,7 @@ gem 'css3-progress-bar-rails'
 gem 'simple-navigation'
 gem 'sass-rails',   '~> 3.1.4'
 
-gem 'fnordmetric'
+gem 'fnordmetric', '~> 0.6.6'
 
 # Gems used only for assets and not required
 # in production environments by default.
