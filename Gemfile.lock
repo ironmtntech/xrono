@@ -122,6 +122,9 @@ GEM
       rails (~> 3.1.0)
     googlecharts (1.6.8)
     gravtastic (3.2.6)
+    grit (2.4.1)
+      diff-lcs (~> 1.1)
+      mime-types (~> 1.15)
     haml (3.1.4)
     highline (1.6.8)
     hike (1.2.1)
@@ -325,6 +328,7 @@ DEPENDENCIES
   github_concern (~> 0.0)
   googlecharts (~> 1.6.8)
   gravtastic
+  grit (~> 2.4.0)
   haml (~> 3.1.3)
   jquery-rails
   launchy (~> 0.3.7)
