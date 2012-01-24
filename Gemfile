@@ -62,7 +62,7 @@ group :test do
   gem 'rspec', '~> 2.6.0'
   gem 'rspec-rails', '= 2.6.1'
   gem 'shoulda', '~> 2.11.3'
-  gem 'simplecov', '~> 0.4.0'
+  gem 'simplecov', '~> 0.5.0'
   gem 'spork', '0.9.0.rc9'
   gem 'yajl-ruby', '~> 0.7.8'
 end
