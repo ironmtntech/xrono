@@ -120,6 +120,8 @@ ActiveRecord::Schema.define(:version => 20120124184915) do
     t.string   "git_repo_name"
     t.boolean  "completed",                                          :default => false
     t.string   "git_repo_url"
+    t.text     "release_notes"
+    t.text     "xrono_notes"
   end
 
   create_table "roles", :force => true do |t|
