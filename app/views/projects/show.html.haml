@@ -4,8 +4,8 @@
 
   -if current_user.admin?
     %ul
-      %li= "Rate A: #{@project.rate_a}"
-      %li= "Rate B: #{@project.rate_b}"
+      %li= "Rate A: #{number_to_currency(@project.rate_a)}"
+      %li= "Rate B: #{number_to_currency(@project.rate_b)}"
 
   %ul.pills
     %li= link_to "#{t(:client)}: #{@project.client}" , client_path(@project.client)
