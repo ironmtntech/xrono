@@ -15,9 +15,13 @@
       .input
         = f.text_field :name
     .clearfix
-      = f.label :git_repo
+      = f.label :git_repo_name
       .input
-        = f.text_field :git_repo
+        = f.text_field :git_repo_name
+    .clearfix
+      = f.label :git_repo_url
+      .input
+        = f.text_field :git_repo_url
     .clearfix
       = f.label :overtime_multiplier
       .input
