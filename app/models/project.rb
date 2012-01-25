@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
   acts_as_commentable
   acts_as_authorization_object
 
-  github_concern :repo => :git_repo
+  github_concern :repo => :git_repo_name
 
   belongs_to :client
   has_many :tickets
@@ -19,6 +19,7 @@ class Project < ActiveRecord::Base
   scope :for_client_id, lambda {|client_id| where :client_id => client_id }
   scope :incomplete, where("completed = ?", false)
   scope :complete, where("completed = ?", true)
+  scope :with_git_repos, where("git_repo_url IS NOT NULL")
 
   scope :for_user, lambda{|user|
     joins("INNER JOIN roles        r ON r.authorizable_type='#{model_name}' AND r.authorizable_id=projects.id")

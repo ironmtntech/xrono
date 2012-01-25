@@ -1,28 +1,45 @@
-%h2= "#{@project.client}: #{@project}"
+#page_header
+  %h2
+    = "#{@project.client}: #{@project}"
 
-%ul.pills
-  %li= link_to "#{t(:client)}: #{@project.client}" , client_path(@project.client)
-  - if admin? || current_user.has_role?(:developer, @project)
-    %li= link_to "#{t(:edit)}: #{@project}", edit_project_path
-    %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project)
+  %ul.pills
+    %li= link_to "#{t(:client)}: #{@project.client}" , client_path(@project.client)
+    - if admin? || current_user.has_role?(:developer, @project)
+      %li= link_to "#{t(:edit)}: #{@project}", edit_project_path
+      %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project)
 
-- if project_completion_metric(@project) > 0
-  = render :partial => 'pie_chart_metrics'
+%ul.tabs{"data-tabs" => "tabs"}
+  -if !@project.xrono_notes.nil?
+    %li.active= link_to "Project Notes", "#project_notes"
+  -if !@project.release_notes.nil?
+    %li{:class => "#{@project.xrono_notes.nil? ? "active" : ""}"}= link_to "Release Notes", "#release_notes"
+  %li{:class => "#{@project.xrono_notes.nil? && @project.release_notes.nil? ? "active" : ""}"}= link_to "Incomplete Tickets", "#incomplete_tickets"
+  %li= link_to "Complete Tickets", "#complete_tickets"
 
-%h3= "#{t(:status)}: #{@project.client.status}"
-
-%ul.tabs
-  %li.active= link_to "Incomplete", project_path(@project)
-  %li= link_to "Complete", project_show_complete_path(@project)
-
-= render :partial => "ticket_table", :locals => {:tickets => @incomplete_tickets}
+.tab-content
+  -if !@project.xrono_notes.nil?
+    #project_notes.tab-pane.active
+      :markdown
+        #{@project.xrono_notes}
+  -if !@project.release_notes.nil?
+    #release_notes.tab-pane{:class => "#{@project.xrono_notes.nil? ? "active" : ""}"}
+      :markdown
+        #{@project.release_notes}
+  #incomplete_tickets.tab-pane{:class => "#{@project.xrono_notes.nil? && @project.release_notes.nil? ? "active" : ""}"}
+    - if project_completion_metric(@project) > 0
+      = render :partial => 'pie_chart_metrics'
+    = render :partial => "ticket_table", :locals => {:tickets => @incomplete_tickets}
+  #complete_tickets.tab-pane
+    - if project_completion_metric(@project) > 0
+      = render :partial => 'pie_chart_metrics'
+    = render :partial => "ticket_table", :locals => {:tickets => @complete_tickets}
 
 - unless current_user.client
-  %h3= "#{t(:status)}: #{@project.client.status}"
+  %hr
   .clearfix
 
   .row
-    = render :partial => "comments/comments", :locals => {:comments => @project.comments}
+    = render :partial => "comments/comments", :locals => {:comments => @project.comments} if @project.comments.any?
     = render :partial => "comments/comment_form", :locals => { :commentable_id => @project.id,
       :commentable_field => "project_id",
       :commentable_type => "Project",
@@ -30,15 +47,13 @@
       :comment_num => @project.id }
   .row
     #files
-      = render :partial => "file_attachments/file_attachments", :locals => { :file_attachments => @project.file_attachments }
+      = render :partial => "file_attachments/file_attachments", :locals => { :file_attachments => @project.file_attachments } if @project.file_attachments.any?
       = link_to t(:add_file_attachment), new_file_attachment_path( :project_id => @project.id )
 
   - content_for :javascripts do
     = javascript_include_tag "ticket_board"
+    = javascript_include_tag "bootstrap-tabs"
     :javascript
       $(function() {
-        $('#.tabs').bind('change', function(e) {
-          window.activeTab = e.target;
-        });
+        $('.tabs').tabs();
       });
-      
