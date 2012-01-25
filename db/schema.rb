@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120104132121) do
+ActiveRecord::Schema.define(:version => 20120125145833) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20120104132121) do
   end
 
   create_table "comments", :force => true do |t|
-    t.string   "title",               :limit => 50, :default => ""
+    t.string   "title",            :limit => 50, :default => ""
     t.text     "comment"
     t.integer  "commentable_id"
     t.string   "commentable_type"
@@ -53,7 +53,6 @@ ActiveRecord::Schema.define(:version => 20120104132121) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "active"
-    t.text     "github_payload_hash"
   end
 
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
@@ -118,8 +117,11 @@ ActiveRecord::Schema.define(:version => 20120104132121) do
     t.datetime "updated_at"
     t.string   "guid"
     t.decimal  "overtime_multiplier", :precision => 10, :scale => 2
-    t.string   "git_repo"
+    t.string   "git_repo_name"
     t.boolean  "completed",                                          :default => false
+    t.string   "git_repo_url"
+    t.string   "rate_a"
+    t.string   "rate_b"
   end
 
   create_table "roles", :force => true do |t|
@@ -156,7 +158,6 @@ ActiveRecord::Schema.define(:version => 20120104132121) do
     t.datetime "updated_at"
     t.string   "guid"
     t.string   "state"
-    t.string   "git_branch_name"
     t.decimal  "estimated_hours", :precision => 10, :scale => 2
     t.string   "git_branch"
     t.boolean  "completed",                                      :default => false
