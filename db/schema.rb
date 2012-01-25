@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20120124184915) do
+ActiveRecord::Schema.define(:version => 20120125145833) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -121,10 +120,10 @@ ActiveRecord::Schema.define(:version => 20120124184915) do
     t.string   "git_repo_name"
     t.boolean  "completed",                                          :default => false
     t.string   "git_repo_url"
-    t.string   "rate_a"
-    t.string   "rate_b"
     t.text     "release_notes"
     t.text     "xrono_notes"
+    t.string   "rate_a"
+    t.string   "rate_b"
   end
 
   create_table "roles", :force => true do |t|
