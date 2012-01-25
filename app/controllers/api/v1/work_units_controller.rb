@@ -6,7 +6,7 @@ class Api::V1::WorkUnitsController < Api::V1::BaseController
       render :json => {:success => true} and return
     else
       Rails.logger.warn @work_unit.errors.full_messages.to_sentence
-      render :json => {:succes => false, :errors => @work_unit.errors.full_messages.to_sentence} and return
+      render :json => {:success => false, :errors => @work_unit.errors.full_messages.to_sentence} and return
     end
   end
 end
