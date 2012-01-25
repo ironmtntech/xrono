@@ -1,2 +1,10 @@
 - flash.each do |key, message|
-  %div{ :class => "alert-message #{key}" }= message
+  %div{ :class => "alert-message fade in #{key}", "data-alert" => "data-alert" }
+    %p= message
+- content_for :javascripts do
+  :javascript
+    $(document).ready(function() {
+      $('.notice').delay(3000).slideUp(300)
+      $('.error').delay(3000).slideUp(300)
+      $('.warning').delay(3000).slideUp(300)
+    });
