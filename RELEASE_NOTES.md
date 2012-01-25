@@ -1,4 +1,8 @@
-01/23/2013
+01/24/2012
+
+  - Added release note and xrono note functionality to projects
+
+01/23/2012
 
   - Added ability to create tickets while creating a new work unit
 
