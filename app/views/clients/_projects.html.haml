@@ -13,8 +13,8 @@
         %th= @client.uninvoiced_hours
         %th= @client.hours
     %tbody
-      - if @completed_projects.any?
-        - @completed_projects.each do |project|
+      - if projects.any?
+        - projects.each do |project|
           %tr{ :class => cycle("odd", "even") }
             %td= link_to project, project
             %td= project.tickets.count

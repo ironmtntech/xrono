@@ -16,9 +16,9 @@
 
 .tab-content
   #incompleted_projects.tab-pane.active
-    = render :partial => "incompleted_projects"
+    = render :partial => "projects", :locals => {:projects => @incompleted_projects}
   #completed_projects.tab-pane
-    = render :partial => "completed_projects"
+    = render :partial => "projects", :locals => {:projects => @completed_projects}
   #data_vault.tab-pane
     = render :partial => "shared/data_vaults", :locals => {:data_vaults => @client.data_vaults}
   #comments.tab-pane
