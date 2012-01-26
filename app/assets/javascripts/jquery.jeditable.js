@@ -424,7 +424,7 @@
                             });
                         /* otherwise use button with given string as text */
                         } else {
-                            var submit = $('<button type="submit" />');
+                            var submit = $('<button class="btn" type="submit" />');
                             submit.html(settings.submit);                            
                         }
                         $(this).append(submit);
