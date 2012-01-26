@@ -51,6 +51,6 @@ module AssetTrackerTutorial
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.assets.precompile += ['screen.css', 'add_taxonomy.js', 'specify_project.js', 'ticket_board.js', 'bootstrap-tabs.js', 'jquery.jeditable']
+    config.assets.precompile += ['screen.css', 'add_taxonomy.js', 'specify_project.js', 'ticket_board.js', 'bootstrap-tabs.js', 'jquery.jeditable.js']
   end
 end
