@@ -1,0 +1,16 @@
+-if data_vault
+  .autogrow
+    :markdown
+      #{data_vault.data}
+
+-content_for :javascripts do 
+  = javascript_include_tag "jquery.jeditable"
+  :javascript
+    $('.autogrow').editable('/data_vaults/#{data_vault.id}', {
+      type:    "textarea",
+      tooltip: "Double Click to edit",
+      loadurl: "#{data_vault_path(data_vault)}",
+      submit: "Save",
+      rows: 25,
+      event: "dblclick"
+    });

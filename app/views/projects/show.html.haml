@@ -41,7 +41,7 @@
       = render :partial => 'pie_chart_metrics'
     = render :partial => "ticket_table", :locals => {:tickets => @complete_tickets}
   #data_vault.tab-pane
-    = render :partial => "shared/data_vaults", :locals => {:data_vaults => @project.data_vaults}
+    = render :partial => "shared/data_vault", :locals => {:data_vault => @project.data_vault}
   #comments.tab-pane
     - unless current_user.client
       %hr

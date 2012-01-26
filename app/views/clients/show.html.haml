@@ -20,7 +20,7 @@
   #completed_projects.tab-pane
     = render :partial => "projects", :locals => {:projects => @completed_projects}
   #data_vault.tab-pane
-    = render :partial => "shared/data_vaults", :locals => {:data_vaults => @client.data_vaults}
+    = render :partial => "shared/data_vault", :locals => {:data_vault => @client.data_vault}
   #comments.tab-pane
     - unless current_user.client
       = render :partial => "shared/files_and_comments", :locals => {:items => @client.files_and_comments.reverse, :id => 'client'}

@@ -9,11 +9,13 @@ class Project < ActiveRecord::Base
   has_many :tickets
   has_many :comments, :as => :commentable
   has_many :file_attachments
-  has_many :data_vaults, :as => :data_vaultable
+  has_one :data_vault, :as => :data_vaultable
 
   validates_presence_of :name
   validates_presence_of :client_id
   validates_uniqueness_of :name, :scope => :client_id
+
+  after_create :create_data_vault
 
   scope :sort_by_name, order('name ASC')
   scope :for_client,    lambda {|client|    where :client_id => client.id }
@@ -93,5 +95,9 @@ class Project < ActiveRecord::Base
     redis.set("fnordmetric-event-#{uuid}", event)
     redis.expire("fnordmetric-event-#{uuid}", 60)
     redis.lpush("fnordmetric-queue", uuid)
+  end
+  private
+  def create_data_vault
+    self.data_vault = DataVault.create(:data_vaultable => self)
   end
 end
