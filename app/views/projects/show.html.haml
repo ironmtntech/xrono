@@ -20,6 +20,8 @@
     %li{:class => "#{@project.xrono_notes.nil? ? "active" : ""}"}= link_to "Release Notes", "#release_notes"
   %li{:class => "#{@project.xrono_notes.nil? && @project.release_notes.nil? ? "active" : ""}"}= link_to "Incomplete Tickets", "#incomplete_tickets"
   %li= link_to "Complete Tickets", "#complete_tickets"
+  %li= link_to "Data Vault", "#data_vault"
+  %li= link_to "Comments and Files", "#comments"
 
 .tab-content
   -if !@project.xrono_notes.nil?
@@ -38,22 +40,25 @@
     - if project_completion_metric(@project) > 0
       = render :partial => 'pie_chart_metrics'
     = render :partial => "ticket_table", :locals => {:tickets => @complete_tickets}
+  #data_vault.tab-pane
+    = render :partial => "shared/data_vaults", :locals => {:data_vaults => @project.data_vaults}
+  #comments.tab-pane
+    - unless current_user.client
+      %hr
+      .clearfix
 
-- unless current_user.client
-  %hr
-  .clearfix
+      .row
+        = render :partial => "comments/comments", :locals => {:comments => @project.comments} if @project.comments.any?
+        = render :partial => "comments/comment_form", :locals => { :commentable_id => @project.id,
+          :commentable_field => "project_id",
+          :commentable_type => "Project",
+          :refurl => project_path(@project),
+          :comment_num => @project.id }
+      .row
+        #files
+          = render :partial => "file_attachments/file_attachments", :locals => { :file_attachments => @project.file_attachments } if @project.file_attachments.any?
+          = link_to t(:add_file_attachment), new_file_attachment_path( :project_id => @project.id )
 
-  .row
-    = render :partial => "comments/comments", :locals => {:comments => @project.comments} if @project.comments.any?
-    = render :partial => "comments/comment_form", :locals => { :commentable_id => @project.id,
-      :commentable_field => "project_id",
-      :commentable_type => "Project",
-      :refurl => project_path(@project),
-      :comment_num => @project.id }
-  .row
-    #files
-      = render :partial => "file_attachments/file_attachments", :locals => { :file_attachments => @project.file_attachments } if @project.file_attachments.any?
-      = link_to t(:add_file_attachment), new_file_attachment_path( :project_id => @project.id )
 
   - content_for :javascripts do
     = javascript_include_tag "ticket_board"

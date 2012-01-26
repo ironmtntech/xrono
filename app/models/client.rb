@@ -7,6 +7,7 @@ class Client < ActiveRecord::Base
   has_many :file_attachments
   has_many :contacts
   has_one  :site_settings
+  has_many :data_vaults, :as => :data_vaultable
 
   validates_presence_of   :name, :status
   validates_uniqueness_of :name, :allow_nil => false

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<s>
+  <class type="Symbol" value="class"/>
+  <s>
+    <special type="Symbol" value="colon2"/>
+    <s>
+      <special type="Symbol" value="colon2"/>
+      <s>
+        <const type="Symbol" value="const"/>
+        <Api type="Symbol" value="Api"/>
+      </s>
+      <special type="Symbol" value="V1"/>
+    </s>
+    <BaseController type="Symbol" value="BaseController"/>
+  </s>
+  <s>
+    <special type="Symbol" value="colon2"/>
+    <s>
+      <const type="Symbol" value="const"/>
+      <Api type="Symbol" value="Api"/>
+    </s>
+    <BaseController type="Symbol" value="BaseController"/>
+  </s>
+  <s>
+    <scope type="Symbol" value="scope"/>
+  </s>
+</s>

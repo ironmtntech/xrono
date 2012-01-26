@@ -1,8 +1,4 @@
 #client
-  %h3= "#{t(:status)}: #{@client.status}"
-  %ul.tabs
-    %li.active= link_to "Incomplete", client_path(@client)
-    %li= link_to "Complete", client_show_complete_path(@client)
   %table#client_details.zebra-striped
     %thead
       %tr
@@ -17,10 +13,13 @@
         %th= @client.uninvoiced_hours
         %th= @client.hours
     %tbody
-      - @incompleted_projects.each do |project|
-        %tr{ :class => cycle("odd", "even") }
-          %td= link_to project, project
-          %td= project.tickets.count
-          %td= project.uninvoiced_hours
-          %td= project.hours
-
+      - if @incompleted_projects.any?
+        - @incompleted_projects.each do |project|
+          %tr{ :class => cycle("odd", "even") }
+            %td= link_to project, project
+            %td= project.tickets.count
+            %td= project.uninvoiced_hours
+            %td= project.hours
+      - else
+        %tr
+          %td{:colspan => 4} No Projects to Show

@@ -9,6 +9,7 @@ class Project < ActiveRecord::Base
   has_many :tickets
   has_many :comments, :as => :commentable
   has_many :file_attachments
+  has_many :data_vaults, :as => :data_vaultable
 
   validates_presence_of :name
   validates_presence_of :client_id

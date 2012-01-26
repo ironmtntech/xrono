@@ -71,8 +71,10 @@ class ClientsController < ApplicationController
   def show
     if admin?
       @incompleted_projects = Project.order("name").incomplete.for_client(@client)
+      @completed_projects = Project.order("name").complete.for_client(@client)
     else
       @incompleted_projects = Project.order("name").incomplete.for_client(@client).for_user(current_user)
+      @completed_projects = Project.order("name").complete.for_client(@client).for_user(current_user)
     end
   end
 
