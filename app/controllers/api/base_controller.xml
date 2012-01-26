@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<s>
+  <class type="Symbol" value="class"/>
+  <s>
+    <special type="Symbol" value="colon2"/>
+    <s>
+      <const type="Symbol" value="const"/>
+      <Api type="Symbol" value="Api"/>
+    </s>
+    <BaseController type="Symbol" value="BaseController"/>
+  </s>
+  <s>
+    <const type="Symbol" value="const"/>
+    <ApplicationController type="Symbol" value="ApplicationController"/>
+  </s>
+  <s>
+    <scope type="Symbol" value="scope"/>
+    <s>
+      <block type="Symbol" value="block"/>
+      <s>
+        <call type="Symbol" value="call"/>
+        <special type="NilClass" value=""/>
+        <special type="Symbol" value="skip_before_filter"/>
+        <s>
+          <arglist type="Symbol" value="arglist"/>
+          <s>
+            <lit type="Symbol" value="lit"/>
+            <special type="Symbol" value="authenticate_user!"/>
+          </s>
+        </s>
+      </s>
+      <s>
+        <call type="Symbol" value="call"/>
+        <special type="NilClass" value=""/>
+        <special type="Symbol" value="before_filter"/>
+        <s>
+          <arglist type="Symbol" value="arglist"/>
+          <s>
+            <lit type="Symbol" value="lit"/>
+            <special type="Symbol" value="verify_authenticity_token"/>
+          </s>
+        </s>
+      </s>
+      <s>
+        <call type="Symbol" value="call"/>
+        <special type="NilClass" value=""/>
+        <special type="Symbol" value="respond_to"/>
+        <s>
+          <arglist type="Symbol" value="arglist"/>
+          <s>
+            <lit type="Symbol" value="lit"/>
+            <json type="Symbol" value="json"/>
+          </s>
+        </s>
+      </s>
+    </s>
+  </s>
+</s>

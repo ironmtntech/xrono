@@ -1,0 +1,1332 @@
+<?xml version="1.0"?>
+<s>
+  <class type="Symbol" value="class"/>
+  <s>
+    <special type="Symbol" value="colon2"/>
+    <s>
+      <const type="Symbol" value="const"/>
+      <Admin type="Symbol" value="Admin"/>
+    </s>
+    <UsersController type="Symbol" value="UsersController"/>
+  </s>
+  <s>
+    <special type="Symbol" value="colon2"/>
+    <s>
+      <const type="Symbol" value="const"/>
+      <Admin type="Symbol" value="Admin"/>
+    </s>
+    <BaseController type="Symbol" value="BaseController"/>
+  </s>
+  <s>
+    <scope type="Symbol" value="scope"/>
+    <s>
+      <block type="Symbol" value="block"/>
+      <s>
+        <call type="Symbol" value="call"/>
+        <special type="NilClass" value=""/>
+        <special type="Symbol" value="before_filter"/>
+        <s>
+          <arglist type="Symbol" value="arglist"/>
+          <s>
+            <lit type="Symbol" value="lit"/>
+            <special type="Symbol" value="load_user_account"/>
+          </s>
+          <s>
+            <hash type="Symbol" value="hash"/>
+            <s>
+              <lit type="Symbol" value="lit"/>
+              <only type="Symbol" value="only"/>
+            </s>
+            <s>
+              <array type="Symbol" value="array"/>
+              <s>
+                <lit type="Symbol" value="lit"/>
+                <update type="Symbol" value="update"/>
+              </s>
+              <s>
+                <lit type="Symbol" value="lit"/>
+                <edit type="Symbol" value="edit"/>
+              </s>
+              <s>
+                <lit type="Symbol" value="lit"/>
+                <destroy type="Symbol" value="destroy"/>
+              </s>
+              <s>
+                <lit type="Symbol" value="lit"/>
+                <projects type="Symbol" value="projects"/>
+              </s>
+            </s>
+          </s>
+        </s>
+      </s>
+      <s>
+        <call type="Symbol" value="call"/>
+        <special type="NilClass" value=""/>
+        <special type="Symbol" value="before_filter"/>
+        <s>
+          <arglist type="Symbol" value="arglist"/>
+          <s>
+            <lit type="Symbol" value="lit"/>
+            <special type="Symbol" value="load_new_user_account"/>
+          </s>
+          <s>
+            <hash type="Symbol" value="hash"/>
+            <s>
+              <lit type="Symbol" value="lit"/>
+              <only type="Symbol" value="only"/>
+            </s>
+            <s>
+              <array type="Symbol" value="array"/>
+              <s>
+                <lit type="Symbol" value="lit"/>
+                <new type="Symbol" value="new"/>
+              </s>
+              <s>
+                <lit type="Symbol" value="lit"/>
+                <create type="Symbol" value="create"/>
+              </s>
+            </s>
+          </s>
+        </s>
+      </s>
+      <s>
+        <defn type="Symbol" value="defn"/>
+        <index type="Symbol" value="index"/>
+        <s>
+          <args type="Symbol" value="args"/>
+        </s>
+        <s>
+          <scope type="Symbol" value="scope"/>
+          <s>
+            <block type="Symbol" value="block"/>
+            <s>
+              <iasgn type="Symbol" value="iasgn"/>
+              <special type="Symbol" value="@users"/>
+              <s>
+                <call type="Symbol" value="call"/>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <const type="Symbol" value="const"/>
+                    <User type="Symbol" value="User"/>
+                  </s>
+                  <unlocked type="Symbol" value="unlocked"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                  </s>
+                </s>
+                <special type="Symbol" value="sort_by_name"/>
+                <s>
+                  <arglist type="Symbol" value="arglist"/>
+                </s>
+              </s>
+            </s>
+          </s>
+        </s>
+      </s>
+      <s>
+        <defn type="Symbol" value="defn"/>
+        <special type="Symbol" value="locked_users"/>
+        <s>
+          <args type="Symbol" value="args"/>
+        </s>
+        <s>
+          <scope type="Symbol" value="scope"/>
+          <s>
+            <block type="Symbol" value="block"/>
+            <s>
+              <iasgn type="Symbol" value="iasgn"/>
+              <special type="Symbol" value="@users"/>
+              <s>
+                <call type="Symbol" value="call"/>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <const type="Symbol" value="const"/>
+                    <User type="Symbol" value="User"/>
+                  </s>
+                  <locked type="Symbol" value="locked"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                  </s>
+                </s>
+                <special type="Symbol" value="sort_by_name"/>
+                <s>
+                  <arglist type="Symbol" value="arglist"/>
+                </s>
+              </s>
+            </s>
+          </s>
+        </s>
+      </s>
+      <s>
+        <defn type="Symbol" value="defn"/>
+        <new type="Symbol" value="new"/>
+        <s>
+          <args type="Symbol" value="args"/>
+        </s>
+        <s>
+          <scope type="Symbol" value="scope"/>
+          <s>
+            <block type="Symbol" value="block"/>
+            <s>
+              <nil type="Symbol" value="nil"/>
+            </s>
+          </s>
+        </s>
+      </s>
+      <s>
+        <defn type="Symbol" value="defn"/>
+        <create type="Symbol" value="create"/>
+        <s>
+          <args type="Symbol" value="args"/>
+        </s>
+        <s>
+          <scope type="Symbol" value="scope"/>
+          <s>
+            <block type="Symbol" value="block"/>
+            <s>
+              <call type="Symbol" value="call"/>
+              <s>
+                <ivar type="Symbol" value="ivar"/>
+                <special type="Symbol" value="@user"/>
+              </s>
+              <special type="Symbol" value="update_attributes"/>
+              <s>
+                <arglist type="Symbol" value="arglist"/>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <special type="NilClass" value=""/>
+                    <params type="Symbol" value="params"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="[]"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <lit type="Symbol" value="lit"/>
+                      <user type="Symbol" value="user"/>
+                    </s>
+                  </s>
+                </s>
+              </s>
+            </s>
+            <s>
+              <if type="Symbol" value="if"/>
+              <s>
+                <call type="Symbol" value="call"/>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <params type="Symbol" value="params"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                      </s>
+                    </s>
+                    <special type="Symbol" value="[]"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                      <s>
+                        <lit type="Symbol" value="lit"/>
+                        <user type="Symbol" value="user"/>
+                      </s>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="[]"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <str type="Symbol" value="str"/>
+                      <client type="String" value="client"/>
+                    </s>
+                  </s>
+                </s>
+                <special type="Symbol" value="=="/>
+                <s>
+                  <arglist type="Symbol" value="arglist"/>
+                  <s>
+                    <str type="Symbol" value="str"/>
+                    <special type="String" value="1"/>
+                  </s>
+                </s>
+              </s>
+              <s>
+                <attrasgn type="Symbol" value="attrasgn"/>
+                <s>
+                  <ivar type="Symbol" value="ivar"/>
+                  <special type="Symbol" value="@user"/>
+                </s>
+                <special type="Symbol" value="client="/>
+                <s>
+                  <arglist type="Symbol" value="arglist"/>
+                  <s>
+                    <true type="Symbol" value="true"/>
+                  </s>
+                </s>
+              </s>
+              <special type="NilClass" value=""/>
+            </s>
+            <s>
+              <if type="Symbol" value="if"/>
+              <s>
+                <call type="Symbol" value="call"/>
+                <s>
+                  <ivar type="Symbol" value="ivar"/>
+                  <special type="Symbol" value="@user"/>
+                </s>
+                <save type="Symbol" value="save"/>
+                <s>
+                  <arglist type="Symbol" value="arglist"/>
+                </s>
+              </s>
+              <s>
+                <block type="Symbol" value="block"/>
+                <s>
+                  <attrasgn type="Symbol" value="attrasgn"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <special type="NilClass" value=""/>
+                    <flash type="Symbol" value="flash"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="[]="/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <lit type="Symbol" value="lit"/>
+                      <notice type="Symbol" value="notice"/>
+                    </s>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <t type="Symbol" value="t"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <lit type="Symbol" value="lit"/>
+                          <special type="Symbol" value="user_created_successfully"/>
+                        </s>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <special type="NilClass" value=""/>
+                  <special type="Symbol" value="redirect_to"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <special type="Symbol" value="admin_users_path"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+              </s>
+              <s>
+                <block type="Symbol" value="block"/>
+                <s>
+                  <attrasgn type="Symbol" value="attrasgn"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <special type="NilClass" value=""/>
+                    <flash type="Symbol" value="flash"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="[]="/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <lit type="Symbol" value="lit"/>
+                      <error type="Symbol" value="error"/>
+                    </s>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <t type="Symbol" value="t"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <lit type="Symbol" value="lit"/>
+                          <special type="Symbol" value="user_created_unsuccessfully"/>
+                        </s>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <special type="NilClass" value=""/>
+                  <special type="Symbol" value="redirect_to"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <special type="Symbol" value="new_admin_user_path"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+              </s>
+            </s>
+          </s>
+        </s>
+      </s>
+      <s>
+        <defn type="Symbol" value="defn"/>
+        <edit type="Symbol" value="edit"/>
+        <s>
+          <args type="Symbol" value="args"/>
+        </s>
+        <s>
+          <scope type="Symbol" value="scope"/>
+          <s>
+            <block type="Symbol" value="block"/>
+            <s>
+              <nil type="Symbol" value="nil"/>
+            </s>
+          </s>
+        </s>
+      </s>
+      <s>
+        <defn type="Symbol" value="defn"/>
+        <update type="Symbol" value="update"/>
+        <s>
+          <args type="Symbol" value="args"/>
+        </s>
+        <s>
+          <scope type="Symbol" value="scope"/>
+          <s>
+            <block type="Symbol" value="block"/>
+            <s>
+              <if type="Symbol" value="if"/>
+              <s>
+                <and type="Symbol" value="and"/>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <s>
+                        <call type="Symbol" value="call"/>
+                        <special type="NilClass" value=""/>
+                        <params type="Symbol" value="params"/>
+                        <s>
+                          <arglist type="Symbol" value="arglist"/>
+                        </s>
+                      </s>
+                      <special type="Symbol" value="[]"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <lit type="Symbol" value="lit"/>
+                          <user type="Symbol" value="user"/>
+                        </s>
+                      </s>
+                    </s>
+                    <special type="Symbol" value="[]"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                      <s>
+                        <str type="Symbol" value="str"/>
+                        <locked type="String" value="locked"/>
+                      </s>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="=="/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <str type="Symbol" value="str"/>
+                      <special type="String" value="1"/>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <not type="Symbol" value="not"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <ivar type="Symbol" value="ivar"/>
+                      <special type="Symbol" value="@user"/>
+                    </s>
+                    <special type="Symbol" value="locked_at?"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                </s>
+              </s>
+              <s>
+                <call type="Symbol" value="call"/>
+                <s>
+                  <ivar type="Symbol" value="ivar"/>
+                  <special type="Symbol" value="@user"/>
+                </s>
+                <special type="Symbol" value="lock_access!"/>
+                <s>
+                  <arglist type="Symbol" value="arglist"/>
+                </s>
+              </s>
+              <s>
+                <if type="Symbol" value="if"/>
+                <s>
+                  <and type="Symbol" value="and"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <s>
+                        <call type="Symbol" value="call"/>
+                        <s>
+                          <call type="Symbol" value="call"/>
+                          <special type="NilClass" value=""/>
+                          <params type="Symbol" value="params"/>
+                          <s>
+                            <arglist type="Symbol" value="arglist"/>
+                          </s>
+                        </s>
+                        <special type="Symbol" value="[]"/>
+                        <s>
+                          <arglist type="Symbol" value="arglist"/>
+                          <s>
+                            <lit type="Symbol" value="lit"/>
+                            <user type="Symbol" value="user"/>
+                          </s>
+                        </s>
+                      </s>
+                      <special type="Symbol" value="[]"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <str type="Symbol" value="str"/>
+                          <locked type="String" value="locked"/>
+                        </s>
+                      </s>
+                    </s>
+                    <special type="Symbol" value="=="/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                      <s>
+                        <str type="Symbol" value="str"/>
+                        <special type="String" value="0"/>
+                      </s>
+                    </s>
+                  </s>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <ivar type="Symbol" value="ivar"/>
+                      <special type="Symbol" value="@user"/>
+                    </s>
+                    <special type="Symbol" value="locked_at?"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <ivar type="Symbol" value="ivar"/>
+                    <special type="Symbol" value="@user"/>
+                  </s>
+                  <special type="Symbol" value="unlock_access!"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                  </s>
+                </s>
+                <special type="NilClass" value=""/>
+              </s>
+            </s>
+            <s>
+              <if type="Symbol" value="if"/>
+              <s>
+                <and type="Symbol" value="and"/>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <s>
+                        <call type="Symbol" value="call"/>
+                        <special type="NilClass" value=""/>
+                        <params type="Symbol" value="params"/>
+                        <s>
+                          <arglist type="Symbol" value="arglist"/>
+                        </s>
+                      </s>
+                      <special type="Symbol" value="[]"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <lit type="Symbol" value="lit"/>
+                          <user type="Symbol" value="user"/>
+                        </s>
+                      </s>
+                    </s>
+                    <special type="Symbol" value="[]"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                      <s>
+                        <str type="Symbol" value="str"/>
+                        <client type="String" value="client"/>
+                      </s>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="=="/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <str type="Symbol" value="str"/>
+                      <special type="String" value="1"/>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <not type="Symbol" value="not"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <ivar type="Symbol" value="ivar"/>
+                      <special type="Symbol" value="@user"/>
+                    </s>
+                    <client type="Symbol" value="client"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                </s>
+              </s>
+              <s>
+                <call type="Symbol" value="call"/>
+                <s>
+                  <ivar type="Symbol" value="ivar"/>
+                  <special type="Symbol" value="@user"/>
+                </s>
+                <special type="Symbol" value="update_attribute"/>
+                <s>
+                  <arglist type="Symbol" value="arglist"/>
+                  <s>
+                    <lit type="Symbol" value="lit"/>
+                    <client type="Symbol" value="client"/>
+                  </s>
+                  <s>
+                    <true type="Symbol" value="true"/>
+                  </s>
+                </s>
+              </s>
+              <s>
+                <if type="Symbol" value="if"/>
+                <s>
+                  <and type="Symbol" value="and"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <s>
+                        <call type="Symbol" value="call"/>
+                        <s>
+                          <call type="Symbol" value="call"/>
+                          <special type="NilClass" value=""/>
+                          <params type="Symbol" value="params"/>
+                          <s>
+                            <arglist type="Symbol" value="arglist"/>
+                          </s>
+                        </s>
+                        <special type="Symbol" value="[]"/>
+                        <s>
+                          <arglist type="Symbol" value="arglist"/>
+                          <s>
+                            <lit type="Symbol" value="lit"/>
+                            <user type="Symbol" value="user"/>
+                          </s>
+                        </s>
+                      </s>
+                      <special type="Symbol" value="[]"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <str type="Symbol" value="str"/>
+                          <client type="String" value="client"/>
+                        </s>
+                      </s>
+                    </s>
+                    <special type="Symbol" value="=="/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                      <s>
+                        <str type="Symbol" value="str"/>
+                        <special type="String" value="0"/>
+                      </s>
+                    </s>
+                  </s>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <ivar type="Symbol" value="ivar"/>
+                      <special type="Symbol" value="@user"/>
+                    </s>
+                    <client type="Symbol" value="client"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <ivar type="Symbol" value="ivar"/>
+                    <special type="Symbol" value="@user"/>
+                  </s>
+                  <special type="Symbol" value="update_attribute"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <lit type="Symbol" value="lit"/>
+                      <client type="Symbol" value="client"/>
+                    </s>
+                    <s>
+                      <false type="Symbol" value="false"/>
+                    </s>
+                  </s>
+                </s>
+                <special type="NilClass" value=""/>
+              </s>
+            </s>
+            <s>
+              <if type="Symbol" value="if"/>
+              <s>
+                <and type="Symbol" value="and"/>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <s>
+                        <call type="Symbol" value="call"/>
+                        <special type="NilClass" value=""/>
+                        <params type="Symbol" value="params"/>
+                        <s>
+                          <arglist type="Symbol" value="arglist"/>
+                        </s>
+                      </s>
+                      <special type="Symbol" value="[]"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <lit type="Symbol" value="lit"/>
+                          <user type="Symbol" value="user"/>
+                        </s>
+                      </s>
+                    </s>
+                    <special type="Symbol" value="[]"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                      <s>
+                        <str type="Symbol" value="str"/>
+                        <password type="String" value="password"/>
+                      </s>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="=="/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <str type="Symbol" value="str"/>
+                      <special type="String" value=""/>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <s>
+                        <call type="Symbol" value="call"/>
+                        <special type="NilClass" value=""/>
+                        <params type="Symbol" value="params"/>
+                        <s>
+                          <arglist type="Symbol" value="arglist"/>
+                        </s>
+                      </s>
+                      <special type="Symbol" value="[]"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <lit type="Symbol" value="lit"/>
+                          <user type="Symbol" value="user"/>
+                        </s>
+                      </s>
+                    </s>
+                    <special type="Symbol" value="[]"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                      <s>
+                        <str type="Symbol" value="str"/>
+                        <special type="String" value="password_confirmation"/>
+                      </s>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="=="/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <str type="Symbol" value="str"/>
+                      <special type="String" value=""/>
+                    </s>
+                  </s>
+                </s>
+              </s>
+              <s>
+                <and type="Symbol" value="and"/>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <params type="Symbol" value="params"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                      </s>
+                    </s>
+                    <special type="Symbol" value="[]"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                      <s>
+                        <lit type="Symbol" value="lit"/>
+                        <user type="Symbol" value="user"/>
+                      </s>
+                    </s>
+                  </s>
+                  <delete type="Symbol" value="delete"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <lit type="Symbol" value="lit"/>
+                      <password type="Symbol" value="password"/>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <params type="Symbol" value="params"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                      </s>
+                    </s>
+                    <special type="Symbol" value="[]"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                      <s>
+                        <lit type="Symbol" value="lit"/>
+                        <user type="Symbol" value="user"/>
+                      </s>
+                    </s>
+                  </s>
+                  <delete type="Symbol" value="delete"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <lit type="Symbol" value="lit"/>
+                      <special type="Symbol" value="password_confirmation"/>
+                    </s>
+                  </s>
+                </s>
+              </s>
+              <special type="NilClass" value=""/>
+            </s>
+            <s>
+              <call type="Symbol" value="call"/>
+              <s>
+                <ivar type="Symbol" value="ivar"/>
+                <special type="Symbol" value="@user"/>
+              </s>
+              <special type="Symbol" value="update_attributes"/>
+              <s>
+                <arglist type="Symbol" value="arglist"/>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <special type="NilClass" value=""/>
+                    <params type="Symbol" value="params"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="[]"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <lit type="Symbol" value="lit"/>
+                      <user type="Symbol" value="user"/>
+                    </s>
+                  </s>
+                </s>
+              </s>
+            </s>
+            <s>
+              <if type="Symbol" value="if"/>
+              <s>
+                <call type="Symbol" value="call"/>
+                <s>
+                  <ivar type="Symbol" value="ivar"/>
+                  <special type="Symbol" value="@user"/>
+                </s>
+                <save type="Symbol" value="save"/>
+                <s>
+                  <arglist type="Symbol" value="arglist"/>
+                </s>
+              </s>
+              <s>
+                <block type="Symbol" value="block"/>
+                <s>
+                  <attrasgn type="Symbol" value="attrasgn"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <special type="NilClass" value=""/>
+                    <flash type="Symbol" value="flash"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="[]="/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <lit type="Symbol" value="lit"/>
+                      <notice type="Symbol" value="notice"/>
+                    </s>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <t type="Symbol" value="t"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <lit type="Symbol" value="lit"/>
+                          <special type="Symbol" value="user_updated_successfully"/>
+                        </s>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <special type="NilClass" value=""/>
+                  <special type="Symbol" value="redirect_to"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <special type="Symbol" value="user_path"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <ivar type="Symbol" value="ivar"/>
+                          <special type="Symbol" value="@user"/>
+                        </s>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+              </s>
+              <s>
+                <block type="Symbol" value="block"/>
+                <s>
+                  <attrasgn type="Symbol" value="attrasgn"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <special type="NilClass" value=""/>
+                    <flash type="Symbol" value="flash"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="[]="/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <lit type="Symbol" value="lit"/>
+                      <error type="Symbol" value="error"/>
+                    </s>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <t type="Symbol" value="t"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <lit type="Symbol" value="lit"/>
+                          <special type="Symbol" value="user_updated_unsuccessfully"/>
+                        </s>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <special type="NilClass" value=""/>
+                  <special type="Symbol" value="redirect_to"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <special type="Symbol" value="edit_admin_user_path"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <ivar type="Symbol" value="ivar"/>
+                          <special type="Symbol" value="@user"/>
+                        </s>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+              </s>
+            </s>
+          </s>
+        </s>
+      </s>
+      <s>
+        <defn type="Symbol" value="defn"/>
+        <projects type="Symbol" value="projects"/>
+        <s>
+          <args type="Symbol" value="args"/>
+        </s>
+        <s>
+          <scope type="Symbol" value="scope"/>
+          <s>
+            <block type="Symbol" value="block"/>
+            <s>
+              <if type="Symbol" value="if"/>
+              <s>
+                <call type="Symbol" value="call"/>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <special type="NilClass" value=""/>
+                  <request type="Symbol" value="request"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                  </s>
+                </s>
+                <special type="Symbol" value="post?"/>
+                <s>
+                  <arglist type="Symbol" value="arglist"/>
+                </s>
+              </s>
+              <s>
+                <block type="Symbol" value="block"/>
+                <s>
+                  <iter type="Symbol" value="iter"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <s>
+                        <call type="Symbol" value="call"/>
+                        <special type="NilClass" value=""/>
+                        <params type="Symbol" value="params"/>
+                        <s>
+                          <arglist type="Symbol" value="arglist"/>
+                        </s>
+                      </s>
+                      <special type="Symbol" value="[]"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <lit type="Symbol" value="lit"/>
+                          <project type="Symbol" value="project"/>
+                        </s>
+                      </s>
+                    </s>
+                    <each type="Symbol" value="each"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                  <s>
+                    <masgn type="Symbol" value="masgn"/>
+                    <s>
+                      <array type="Symbol" value="array"/>
+                      <s>
+                        <lasgn type="Symbol" value="lasgn"/>
+                        <key type="Symbol" value="key"/>
+                      </s>
+                      <s>
+                        <lasgn type="Symbol" value="lasgn"/>
+                        <value type="Symbol" value="value"/>
+                      </s>
+                    </s>
+                  </s>
+                  <s>
+                    <block type="Symbol" value="block"/>
+                    <s>
+                      <lasgn type="Symbol" value="lasgn"/>
+                      <project type="Symbol" value="project"/>
+                      <s>
+                        <call type="Symbol" value="call"/>
+                        <s>
+                          <const type="Symbol" value="const"/>
+                          <Project type="Symbol" value="Project"/>
+                        </s>
+                        <find type="Symbol" value="find"/>
+                        <s>
+                          <arglist type="Symbol" value="arglist"/>
+                          <s>
+                            <call type="Symbol" value="call"/>
+                            <s>
+                              <lvar type="Symbol" value="lvar"/>
+                              <key type="Symbol" value="key"/>
+                            </s>
+                            <special type="Symbol" value="to_i"/>
+                            <s>
+                              <arglist type="Symbol" value="arglist"/>
+                            </s>
+                          </s>
+                        </s>
+                      </s>
+                    </s>
+                    <s>
+                      <lasgn type="Symbol" value="lasgn"/>
+                      <role type="Symbol" value="role"/>
+                      <s>
+                        <call type="Symbol" value="call"/>
+                        <s>
+                          <lvar type="Symbol" value="lvar"/>
+                          <value type="Symbol" value="value"/>
+                        </s>
+                        <special type="Symbol" value="to_sym"/>
+                        <s>
+                          <arglist type="Symbol" value="arglist"/>
+                        </s>
+                      </s>
+                    </s>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <s>
+                        <ivar type="Symbol" value="ivar"/>
+                        <special type="Symbol" value="@user"/>
+                      </s>
+                      <special type="Symbol" value="has_no_roles_for!"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <lvar type="Symbol" value="lvar"/>
+                          <project type="Symbol" value="project"/>
+                        </s>
+                      </s>
+                    </s>
+                    <s>
+                      <if type="Symbol" value="if"/>
+                      <s>
+                        <call type="Symbol" value="call"/>
+                        <s>
+                          <lvar type="Symbol" value="lvar"/>
+                          <role type="Symbol" value="role"/>
+                        </s>
+                        <special type="Symbol" value="=="/>
+                        <s>
+                          <arglist type="Symbol" value="arglist"/>
+                          <s>
+                            <lit type="Symbol" value="lit"/>
+                            <special type="Symbol" value="no_access"/>
+                          </s>
+                        </s>
+                      </s>
+                      <special type="NilClass" value=""/>
+                      <s>
+                        <call type="Symbol" value="call"/>
+                        <s>
+                          <ivar type="Symbol" value="ivar"/>
+                          <special type="Symbol" value="@user"/>
+                        </s>
+                        <special type="Symbol" value="has_role!"/>
+                        <s>
+                          <arglist type="Symbol" value="arglist"/>
+                          <s>
+                            <lvar type="Symbol" value="lvar"/>
+                            <role type="Symbol" value="role"/>
+                          </s>
+                          <s>
+                            <lvar type="Symbol" value="lvar"/>
+                            <project type="Symbol" value="project"/>
+                          </s>
+                        </s>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <attrasgn type="Symbol" value="attrasgn"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <special type="NilClass" value=""/>
+                    <flash type="Symbol" value="flash"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                    </s>
+                  </s>
+                  <special type="Symbol" value="[]="/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <lit type="Symbol" value="lit"/>
+                      <notice type="Symbol" value="notice"/>
+                    </s>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <t type="Symbol" value="t"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                        <s>
+                          <lit type="Symbol" value="lit"/>
+                          <special type="Symbol" value="roles_updated_successfully"/>
+                        </s>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+                <s>
+                  <call type="Symbol" value="call"/>
+                  <special type="NilClass" value=""/>
+                  <special type="Symbol" value="redirect_to"/>
+                  <s>
+                    <arglist type="Symbol" value="arglist"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <special type="Symbol" value="admin_users_path"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+              </s>
+              <special type="NilClass" value=""/>
+            </s>
+          </s>
+        </s>
+      </s>
+      <s>
+        <call type="Symbol" value="call"/>
+        <special type="NilClass" value=""/>
+        <private type="Symbol" value="private"/>
+        <s>
+          <arglist type="Symbol" value="arglist"/>
+        </s>
+      </s>
+      <s>
+        <defn type="Symbol" value="defn"/>
+        <special type="Symbol" value="load_user_account"/>
+        <s>
+          <args type="Symbol" value="args"/>
+        </s>
+        <s>
+          <scope type="Symbol" value="scope"/>
+          <s>
+            <block type="Symbol" value="block"/>
+            <s>
+              <iasgn type="Symbol" value="iasgn"/>
+              <special type="Symbol" value="@user"/>
+              <s>
+                <call type="Symbol" value="call"/>
+                <s>
+                  <const type="Symbol" value="const"/>
+                  <User type="Symbol" value="User"/>
+                </s>
+                <find type="Symbol" value="find"/>
+                <s>
+                  <arglist type="Symbol" value="arglist"/>
+                  <s>
+                    <call type="Symbol" value="call"/>
+                    <s>
+                      <call type="Symbol" value="call"/>
+                      <special type="NilClass" value=""/>
+                      <params type="Symbol" value="params"/>
+                      <s>
+                        <arglist type="Symbol" value="arglist"/>
+                      </s>
+                    </s>
+                    <special type="Symbol" value="[]"/>
+                    <s>
+                      <arglist type="Symbol" value="arglist"/>
+                      <s>
+                        <lit type="Symbol" value="lit"/>
+                        <id type="Symbol" value="id"/>
+                      </s>
+                    </s>
+                  </s>
+                </s>
+              </s>
+            </s>
+          </s>
+        </s>
+      </s>
+      <s>
+        <defn type="Symbol" value="defn"/>
+        <special type="Symbol" value="load_new_user_account"/>
+        <s>
+          <args type="Symbol" value="args"/>
+        </s>
+        <s>
+          <scope type="Symbol" value="scope"/>
+          <s>
+            <block type="Symbol" value="block"/>
+            <s>
+              <iasgn type="Symbol" value="iasgn"/>
+              <special type="Symbol" value="@user"/>
+              <s>
+                <call type="Symbol" value="call"/>
+                <s>
+                  <const type="Symbol" value="const"/>
+                  <User type="Symbol" value="User"/>
+                </s>
+                <new type="Symbol" value="new"/>
+                <s>
+                  <arglist type="Symbol" value="arglist"/>
+                </s>
+              </s>
+            </s>
+          </s>
+        </s>
+      </s>
+    </s>
+  </s>
+</s>
