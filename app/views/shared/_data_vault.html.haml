@@ -4,7 +4,6 @@
       #{data_vault.data}
 
 -content_for :javascripts do 
-  = javascript_include_tag "jquery.jeditable"
   :javascript
     $('.autogrow').editable('/data_vaults/#{data_vault.id}', {
       type:    "textarea",
