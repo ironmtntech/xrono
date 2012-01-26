@@ -1,7 +1,6 @@
 class Ticket < ActiveRecord::Base
   include GuidReferenced
   acts_as_commentable
-  acts_as_audited :only => [:state]
   belongs_to :project
   has_many :work_units
   has_many :file_attachments
