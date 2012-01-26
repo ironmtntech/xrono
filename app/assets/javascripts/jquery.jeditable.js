@@ -435,7 +435,7 @@
                             var cancel = $(settings.cancel);
                         /* otherwise use button with given string as text */
                         } else {
-                            var cancel = $('<button type="cancel" />');
+                            var cancel = $('<button class="btn" type="cancel" />');
                             cancel.html(settings.cancel);
                         }
                         $(this).append(cancel);
