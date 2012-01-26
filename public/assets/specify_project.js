@@ -1,2 +1,0 @@
-// when client is changed, populate the projects
-$("#specify_client_id").change(function(){var a=$("#specify_project_id");a.children().remove(),a.append(new Option("Select a project","")),this.value!=""&&$.get("/dashboard/client",{id:this.value},function(b){$.each(b,function(b,c){a.append(new Option(c.name,c.id))})},"json")}),$("#specify_project_id").change(function(){this.value!=""&&$("#in_dash_ticketboard").load("dashboard/base/give_me_the_tickets",{id:this.value},ticket_board_ready_function())})
