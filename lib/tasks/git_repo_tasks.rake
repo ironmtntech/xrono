@@ -22,7 +22,7 @@ namespace :git_repos do
         puts "\t\t\tAttempting to clone #{project.git_repo_url} to #{project_directory}"
         grit.clone({:quiet => false, :verbose => true, :progress => true, :branch => '37s'}, project.git_repo_url, project_directory)
         xrono_markdown = File.join(project_directory, "XRONO.md")
-        release_notes  = File.join(project_directory, "RELEASE_NOTES.MD")
+        release_notes  = File.join(project_directory, "RELEASE_NOTES.md")
 
         if File.exists?(xrono_markdown)
           project.xrono_notes = File.read(xrono_markdown)
