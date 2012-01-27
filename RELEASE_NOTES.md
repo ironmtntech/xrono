@@ -1,3 +1,7 @@
+01/27/2012
+
+  - Added data vault to store username and passwords
+
 01/24/2012
 
   - Added release note and xrono note functionality to projects
