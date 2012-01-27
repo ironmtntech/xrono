@@ -53,7 +53,7 @@ AssetTrackerTutorial::Application.routes.draw do
   end
 
   resources :work_units, :except => [:destroy, :create] do
-    collection do 
+    collection do
       post :create_in_ticket
       post :create_in_dashboard
     end
@@ -100,7 +100,7 @@ AssetTrackerTutorial::Application.routes.draw do
     namespace :v1 do
       resources :tokens, :only => [:create, :destroy]
       resources :clients, :only => [:index, :create]
-      resources :projects, :only => [:index]
+      resources :projects, :only => [:index, :create]
       resources :tickets, :only => [:index, :show]
       resources :work_units, :only => [:create]
     end

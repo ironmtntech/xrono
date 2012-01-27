@@ -1,16 +1,13 @@
 class Api::V1::TicketsController < Api::V1::BaseController
   def index
     @bucket = Ticket
-
     @bucket = @bucket.where(:project_id => params[:project_id])
-
     @tickets = @bucket.order("name").all
     render :json => @tickets
   end
 
   def show
     @ticket = Ticket.find params[:id]
-
     json_hash = {
         :name           => @ticket.name,
     }
@@ -21,4 +18,12 @@ class Api::V1::TicketsController < Api::V1::BaseController
     end
     render :json => json_hash
   end
+
+  def create
+    @ticket = Ticket.create(params[:ticket])
+    project_id = Project.last.id
+    @ticket.update_attributes(:project_id => project_id)
+    respond_with(@ticket)
+  end
+
 end

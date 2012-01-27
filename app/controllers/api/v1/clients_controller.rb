@@ -1,7 +1,11 @@
 class Api::V1::ClientsController < Api::V1::BaseController
 
   def index
-    @clients = Client.order("name").for_user(current_user)
+    if current_user.present?
+      @clients = Client.order("name").for_user(current_user)
+    else
+      @clients = Client.all
+    end
     render :json => @clients
   end
 
