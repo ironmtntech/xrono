@@ -19,7 +19,7 @@ class Ticket < ActiveRecord::Base
   scope :incomplete, :conditions => ["completed = ?", false]
   scope :complete, :conditions => ["completed = ?", true]
 
-  scope :for_user_scope, lambda{|user|
+  scope :for_user, lambda{|user|
     joins("INNER JOIN projects     p ON p.id=tickets.project_id")
    .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
    .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
@@ -35,7 +35,7 @@ class Ticket < ActiveRecord::Base
 
   scope :for_repo_and_branch, lambda{|repo,branch|
     joins("INNER JOIN projects     p ON p.id=tickets.project_id")
-   .where("p.git_repo = '#{repo}' and tickets.git_branch = '#{branch}'")
+   .where("p.git_repo_name = '#{repo}' and tickets.git_branch = '#{branch}'")
   }
 
   state_machine :state, :initial => :fridge do
@@ -109,14 +109,9 @@ class Ticket < ActiveRecord::Base
   end
 
   def email_list
-    #list = Contact.for_client(self.client).receives_email.map(&:email_address)
-    self.project.users.map(&:email)
+    User.for_project(project).map(&:email)
   end
   ######################################################################
-
-  def self.for_user(user)
-    select {|t| t.allows_access?(user) }
-  end
 
   def client
     project.client
@@ -164,6 +159,6 @@ class Ticket < ActiveRecord::Base
   end
 #### Comment out to look at bug in ticket show page
   def files_and_comments
-    [self.file_attachments, self.comments]
+    [comments, file_attachments].flatten.sort_by {|x| x.created_at}
   end
 end

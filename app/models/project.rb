@@ -59,10 +59,7 @@ class Project < ActiveRecord::Base
   end
 
   def files_and_comments
-    ary = Array.new
-    ary << comments
-    ary << file_attachments
-    ary.flatten.sort_by {|x| x.created_at}
+    [comments, file_attachments].flatten.sort_by {|x| x.created_at}
   end
 
   def log_fnord_user(user)

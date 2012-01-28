@@ -25,6 +25,12 @@ class User < ActiveRecord::Base
   scope :unlocked, where('locked_at IS NULL')
   scope :locked,   where('locked_at IS NOT NULL')
   scope :sort_by_name, order('first_name ASC')
+  scope :for_project, lambda{|project|
+    joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=#{project.id}")
+   .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
+   .joins("INNER JOIN users        u ON ru.user_id = u.id")
+   .where("ru.user_id = users.id")
+  }
 
   # Return the initials of the User
   def initials

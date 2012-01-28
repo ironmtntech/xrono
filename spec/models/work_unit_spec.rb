@@ -419,6 +419,20 @@ describe WorkUnit do
     end
   end
 
+  describe '#overtime?' do
+    it 'should correctly report if it is overtime' do
+      work_unit = WorkUnit.make
+      work_unit.update_attribute(:hours_type, "Overtime")
+      work_unit.overtime?.should be_true
+    end
+
+    it 'should correctly report if it is not overtime' do
+      work_unit = WorkUnit.make
+      work_unit.update_attribute(:hours_type, "PTO")
+      work_unit.overtime?.should be_false
+    end
+  end
+
   describe '#set_effective_hours!' do
     context 'when saving an overtime work unit' do
       before do
@@ -428,6 +442,13 @@ describe WorkUnit do
 
       it 'applies the overtime_multiplier' do
         work_unit.effective_hours.should == 3
+      end
+    end
+
+    describe '#to_s' do
+      it 'should equal description' do
+        work_unit = WorkUnit.make
+        work_unit.to_s.should == work_unit.description
       end
     end
 
