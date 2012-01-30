@@ -20,8 +20,7 @@ class Api::V1::TicketsController < Api::V1::BaseController
   end
 
   def create
-    project = Project.find_by_name(params[:project])
-    project.tickets.create(params[:ticket])
+    @ticket = Ticket.create(params[:ticket])
     respond_with(@ticket)
   end
 
