@@ -6,6 +6,8 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
+puts "Start Seed data creation"
+
 unless Rails.env.production?
 
   require File.expand_path(File.dirname(__FILE__) + "../../spec/blueprints")
@@ -15,27 +17,27 @@ unless Rails.env.production?
   end
 
   # Clients #
-
+  puts "Creating Clients"
   4.times { Client.make }
   Client.make status: 'Suspended'
 
 
   # Projects #
-
+  puts "Creating Projects"
   Client.all.each do |client|
     4.times { Project.make client: client }
   end
 
 
   # Tickets #
-
+  puts "Creating Tickets"
   Project.all.each do |project|
     4.times { Ticket.make project: project }
   end
 
 
   # Users #
-
+  puts "Creating Users"
   admin_user     = User.make :email => 'admin@xrono.org'
   developer_user = User.make :email => 'dev@xrono.org'
   locked_user    = User.make :email => 'locked@xrono.org'
@@ -58,7 +60,7 @@ unless Rails.env.production?
 
 
   # Work Units #
-
+  puts "Creating Work Units"
   monday = Date.current.monday
   friday = monday + 4
   two_weeks_ago = monday.advance(weeks: -1)
@@ -66,6 +68,7 @@ unless Rails.env.production?
 
   (four_weeks_ago..friday).each do |date|
     developers.each do |user|
+      puts "created work unit for developer"
       tickets = Ticket.for_user user
 
       unless tickets.empty? or date.saturday? or date.sunday? or date == friday
@@ -84,6 +87,7 @@ unless Rails.env.production?
                                 invoiced_at: Date.current.to_time
   end
 
+  puts "Assigning devs to work units"
   developers.each do |user|
     tickets = Ticket.for_user user
     unless tickets.empty?
@@ -96,7 +100,7 @@ unless Rails.env.production?
 
 
   # Comments #
-
+  puts "Creating Comments"
   Client.all.each do |client|
     4.times { Comment.make user_id: developers.rand.id, commentable_id: client.id }
   end
@@ -107,5 +111,7 @@ unless Rails.env.production?
 
   # Create a site settings instance, set it to the first Client
   SiteSettings.make client: Client.first
+
+  puts "Seeding complete!"
 
 end

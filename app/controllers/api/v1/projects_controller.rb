@@ -10,16 +10,8 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   end
 
   def create
-    if params[:project].present?
-      @project = Project.create(params[:project])
-      #@project.tickets.create(params[:ticket])
-      respond_with(@project)
-    elsif params[:ticket].present?
-      @ticket = Ticket.create(params[:ticket])
-      project_id = Project.last.id
-      @ticket.update_attributes(:project_id => project_id)
-      respond_with(@ticket)
-    end
+    @project = Project.create(params[:project])
+    respond_with(@project)
   end
 
 end
