@@ -1,3 +1,7 @@
+01/30/2012
+
+  - Made minor modifications to the api for the cli app
+
 01/27/2012
 
   - Added data vault to store username and passwords
