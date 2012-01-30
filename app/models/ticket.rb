@@ -38,6 +38,11 @@ class Ticket < ActiveRecord::Base
    .where("p.git_repo_name = '#{repo}' and tickets.git_branch = '#{branch}'")
   }
 
+  scope :for_repo_url_and_branch, lambda{|repo,branch|
+    joins("INNER JOIN projects     p ON p.id=tickets.project_id")
+   .where("p.git_repo_url = '#{repo}' and tickets.git_branch = '#{branch}'")
+  }
+
   state_machine :state, :initial => :fridge do
     after_transition do |ticket|
       ticket.send_email!

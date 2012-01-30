@@ -2,9 +2,11 @@ class Api::V1::TicketsController < Api::V1::BaseController
   def index
     @bucket = Ticket
 
-    @bucket = @bucket.where(:project_id => params[:project_id])
+    @bucket = @bucket.where(:project_id => params[:project_id]) unless params[:project_id].blank?
+    @bucket = @bucket.for_repo_url_and_branch(params[:repo_url],params[:branch]) unless params[:repo_url].blank? && params[:branch].blank?
 
     @tickets = @bucket.order("name").all
+    Rails.logger.warn @tickets.to_json
     render :json => @tickets
   end
 
