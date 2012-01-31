@@ -130,6 +130,16 @@ describe Ticket do
     end
   end
 
+  describe '.for_repo_url_and_branch' do
+    it "should return a list of tickets who meet this criteria" do
+      project = Project.make
+      project.update_attribute(:git_repo_url, "test")
+      ticket = project.tickets.make
+      ticket.update_attribute(:git_branch, "feature/test")
+      Ticket.for_repo_url_and_branch("test","feature/test").include?(ticket).should be_true
+    end
+  end
+
   describe '#remaining_hours' do
     it 'should return the remaining hours when there are remaining hours' do
       ticket = Ticket.make
