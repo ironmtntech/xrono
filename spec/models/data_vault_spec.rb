@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe DataVault do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to :data_vaultable }
 end

@@ -37,6 +37,14 @@ Spork.prefork do
     config.before(:all)    { Sham.reset(:before_all)  }
     config.before(:each)   { Sham.reset(:before_each) }
 
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    config.before(:each){ DatabaseCleaner.start }
+    config.after(:each){  DatabaseCleaner.clean }
+
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, comment the following line or assign false
     # instead of true.
