@@ -115,6 +115,20 @@ describe User do
     end
   end
 
+  describe '.for_project' do
+    before(:each) do
+      @project = Project.make
+      @user    = User.make
+      @user_1  = User.make
+
+      @user.has_role!("developer",@project)
+    end
+
+    it 'should return all the users listed on a project' do
+      User.for_project(@project).should == [@user]
+    end
+  end
+
   describe '#to_s' do
     subject { user.to_s }
 

@@ -15,6 +15,22 @@ describe Api::V1::TicketsController do
     @ticket_1.update_attribute(:git_branch, "test_branch")
   end
 
+  describe "when I hit create" do
+    describe "with a valid params" do
+      it "should create that ticket" do
+        response = post :create, :ticket => {:project_id => @ticket.project.id, :name => "Test", :estimated_hours => "0", :description => "test"}
+        JSON.parse(response.body)["success"].should == true
+        Ticket.last.name.should == "Test"
+      end
+    end
+    describe "with invalid params" do
+      it "should not create that ticket" do
+        response = post :create, :ticket => {:estimated_hours => "0", :project_id => @ticket.project.id}
+        JSON.parse(response.body)["success"].should == false
+      end
+    end
+  end
+
   describe "when I hit show" do
     describe "with a valid id" do
       it "should return that ticket" do

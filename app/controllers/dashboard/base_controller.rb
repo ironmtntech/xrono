@@ -70,11 +70,6 @@ class Dashboard::BaseController < ApplicationController
     respond_with @tickets
   end
 
-  # GET /projects/show_me_the_tickets
-  def give_me_the_tickets
-    render :partial => "shared/ticketboard", :locals => { :project => Project.find(params[:id]) }
-  end
-
   def calendar
   end
 

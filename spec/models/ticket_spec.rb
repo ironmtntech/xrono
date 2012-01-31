@@ -174,39 +174,6 @@ describe Ticket do
     end
   end
 
-  describe '#states' do
-    it 'should return an array of the states' do
-      Ticket.make.states.should == [:fridge, :development, :peer_review, :user_acceptance, :archived]
-    end
-  end
-
-  describe '#email_list' do
-    it 'should return an array of the email addresses associated with the project' do
-      project = Project.make
-      ticket = project.tickets.make
-
-      user    = User.make
-      user_1  = User.make
-      user.has_role!(:client, project)
-      user_1.has_role!(:developer, project)
-
-      ticket.email_list.should == [user, user_1].map(&:email)
-    end
-  end
-
-  describe "#send_email!" do
-    it 'should send an email to the people in the email list' do
-      project = Project.make
-      ticket = project.tickets.make
-
-      user    = User.make
-      user_1  = User.make
-      user.has_role!(:client, project)
-      user_1.has_role!(:developer, project)
-      lambda { ticket.send_email! }.should change(ActionMailer::Base.deliveries, :count).by(1)
-    end
-  end
-
   describe '#hours' do
     context 'when there are normal work units with hours' do
       it 'should return the correct sum of hours for those work units' do
