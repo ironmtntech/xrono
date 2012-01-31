@@ -1,17 +1,17 @@
 require 'spec_helper'
 
 describe Api::V1::TokensController do
-  let(:user) { User.make }
   describe "creating a token" do
-    before(:all) do
-      user.password = "testtest"
-      user.password_confirmation = "testtest"
-      user.save
+    before(:each) do
+      @user = User.make
+      @user.password = "testtest"
+      @user.password_confirmation = "testtest"
+      @user.save
     end
 
     describe "when sent a valid email and password for a non client non admin" do
       it "should generate a token" do
-        response = post :create, :email => user.email, :password => "testtest"
+        response = post :create, :email => @user.email, :password => "testtest"
         json_response = JSON.parse(response.body)
         json_response["success"].should be_true
         json_response["token"].should =~ /^.{20}$/
@@ -25,8 +25,8 @@ describe Api::V1::TokensController do
 
     describe "when sent a valid email and password for an admin" do
       it "should generate a token" do
-        user.has_role!("admin")
-        response = post :create, :email => user.email, :password => "testtest"
+        @user.has_role!("admin")
+        response = post :create, :email => @user.email, :password => "testtest"
         json_response = JSON.parse(response.body)
         json_response["success"].should be_true
         json_response["token"].should =~ /^.{20}$/
@@ -40,7 +40,7 @@ describe Api::V1::TokensController do
 
     describe "when sent an invalid password" do
       it "should not generate a token" do
-        response = post :create, :email => user.email, :password => "testtest1"
+        response = post :create, :email => @user.email, :password => "testtest1"
         json_response = JSON.parse(response.body)
         json_response["success"].should be_false
       end
@@ -48,7 +48,7 @@ describe Api::V1::TokensController do
 
     describe "when sent an invalid email" do
       it "should not generate a token" do
-        response = post :create, :email => user.email + "t", :password => "testtest1"
+        response = post :create, :email => @user.email + "t", :password => "testtest1"
         json_response = JSON.parse(response.body)
         json_response["success"].should be_false
       end
