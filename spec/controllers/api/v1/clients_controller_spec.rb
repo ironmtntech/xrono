@@ -14,7 +14,14 @@ describe Api::V1::ClientsController do
   end
 
   describe "when I hit index" do
-    describe "without any parameters" do
+    describe "without the auth token" do
+      it "should return success false" do
+        response = get :index
+        response.body.should == {:success => false}.to_json
+      end
+    end
+
+    describe "without any parameters except the auth token" do
       it "should return all clients I have a role for" do
         response = get :index, :auth_token => @user.authentication_token
         response.body.should == [@project.client, @project_1.client].sort{|a,b| a.name <=> b.name}.to_json

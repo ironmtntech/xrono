@@ -1,5 +1,5 @@
 class Api::V1::TokensController < Api::V1::BaseController
-  skip_before_filter :verify_authenticity_token
+  skip_before_filter :verify_api_login
 
   def create
     @user = User.find_by_email(params["email"])
