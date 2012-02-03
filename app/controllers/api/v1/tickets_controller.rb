@@ -17,7 +17,6 @@ class Api::V1::TicketsController < Api::V1::BaseController
       }
       json_array << json_hash
     end
-    Rails.logger.warn json_array.to_json
     render :json => json_array.to_json
   end
 
@@ -38,7 +37,6 @@ class Api::V1::TicketsController < Api::V1::BaseController
     if @ticket.save
       render :json => {:success => true} and return
     else
-      Rails.logger.warn @ticket.errors.full_messages.to_sentence
       render :json => {:succes => false, :errors => @ticket.errors.full_messages.to_sentence} and return
     end
   end

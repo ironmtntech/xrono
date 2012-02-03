@@ -15,6 +15,13 @@ describe Api::V1::ProjectsController do
   end
 
   describe "when getting index as a non admin" do
+    describe "with no auth token" do
+      it "should return success false" do
+        response = get :index
+        response.body.should == {:success => false}.to_json
+      end
+    end
+
     it "should return all @projects that you have a role for" do
       response = get :index, :auth_token => @user.authentication_token
       response.body.should == [@project_2,@project].sort{|a,b| a.name <=> b.name}.to_json
