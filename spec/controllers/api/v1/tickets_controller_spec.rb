@@ -19,11 +19,19 @@ describe Api::V1::TicketsController do
   describe "when I hit create" do
     describe "with a valid params" do
       it "should create that ticket" do
-        response = post :create, :ticket => {:project_id => @ticket.project.id, :name => "Test", :estimated_hours => "0", :description => "test"}
+        response = post :create, :ticket => {:project_id => @ticket.project.id, :name => "Test", :estimated_hours => "0", :description => "test"}, :auth_token => @user.authentication_token
         JSON.parse(response.body)["success"].should == true
         Ticket.last.name.should == "Test"
       end
     end
+
+    describe "with a valid params but no auth token" do
+      it "should create that ticket" do
+        response = post :create, :ticket => {:project_id => @ticket.project.id, :name => "Chuck Testa", :estimated_hours => "0", :description => "Chuck Testa"}
+        JSON.parse(response.body)["success"].should == false
+      end
+    end
+
     describe "with invalid params" do
       it "should not create that ticket" do
         response = post :create, :ticket => {:estimated_hours => "0", :project_id => @ticket.project.id}
