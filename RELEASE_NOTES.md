@@ -1,3 +1,7 @@
+02/06/2012
+
+  - Ticket descriptions now render with markdown
+
 01/30/2012
 
   - Made minor modifications to the api for the cli app
