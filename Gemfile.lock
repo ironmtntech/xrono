@@ -324,12 +324,12 @@ PLATFORMS
 DEPENDENCIES
   acl9 (~> 0.12.0)
   attr_encrypted (~> 1.2.0)
-  awesome_print
+  awesome_print (~> 0.4.0)
   capistrano (~> 2.8.0)
   capybara (~> 1.1.1)
   coffee-rails (~> 3.1.1)
   compass (= 0.12.alpha.0)
-  css3-progress-bar-rails
+  css3-progress-bar-rails (~> 0.2.2)
   cucumber (~> 1.0.6)
   cucumber-rails (~> 1.0.5)
   database_cleaner (~> 0.6.7)
@@ -340,10 +340,10 @@ DEPENDENCIES
   forgery (= 0.3.10)
   github_concern (~> 0.0)
   googlecharts (~> 1.6.8)
-  gravtastic
+  gravtastic (~> 3.2.6)
   grit (~> 2.4.0)
   haml (~> 3.1.3)
-  jquery-rails
+  jquery-rails (~> 1.0.17)
   launchy (~> 0.3.7)
   machinist (~> 1.0.6)
   mysql2 (~> 0.3.0)
@@ -358,16 +358,16 @@ DEPENDENCIES
   resque_mailer (~> 2.0.2)
   rspec (~> 2.6.0)
   rspec-rails (= 2.6.1)
-  ruby-debug19
+  ruby-debug19 (~> 0.11.6)
   sass-rails (~> 3.1.4)
   shoulda!
-  simple-navigation
+  simple-navigation (~> 3.5.0)
   simplecov (~> 0.5.0)
   spork (= 0.9.0.rc9)
   state_machine (~> 1.0.2)
-  therubyracer
+  therubyracer (~> 0.9.9)
   thin (~> 1.2.7)
-  twitter-bootstrap-rails
+  twitter-bootstrap-rails (~> 1.4.0)
   uglifier (>= 1.0.3)
   uuid (~> 2.3.1)
   yajl-ruby (~> 0.7.8)
