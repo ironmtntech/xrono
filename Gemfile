@@ -7,7 +7,7 @@ gem 'gravtastic', '~> 3.2.6'
 gem 'haml', '~> 3.1.3'
 gem 'mysql2', '~> 0.3.0'
 gem 'paperclip', '~> 2.3'
-gem 'rails', '~> 3.1.0'
+gem 'rails', '~> 3.2.0'
 gem 'thin', '~> 1.2.7'
 gem 'uuid', '~> 2.3.1'
 gem 'jquery-rails', '~> 1.0.17'
@@ -17,7 +17,7 @@ gem 'resque', '~> 1.19.0'
 gem 'resque_mailer', '~> 2.0.2'
 gem 'resque-scheduler', '~> 1.9.9'
 gem 'googlecharts', '~> 1.6.8'
-gem 'github_concern', '~> 0.0'
+gem 'github_concern', '~> 0.1'
 gem 'css3-progress-bar-rails', '~> 0.2.2'
 gem 'grit', '~> 2.4.0'
 gem 'rdiscount', '~>1.6.0'
@@ -25,14 +25,14 @@ gem "paper_trail", "~> 2.6.0"
 gem "attr_encrypted", "~> 1.2.0"
 
 gem 'simple-navigation', '~> 3.5.0'
-gem 'sass-rails',   '~> 3.1.4'
+gem 'sass-rails',   '~> 3.2.0'
 
-gem 'fnordmetric', '~> 0.6.6'
+#gem 'fnordmetric', '~> 0.6.6'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'coffee-rails', '~> 3.1.1'
+  gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '0.12.alpha.0'
   gem 'twitter-bootstrap-rails', '~> 1.4.0'
@@ -52,9 +52,9 @@ group :test do
   end
   gem 'awesome_print', '~> 0.4.0',  :require => 'ap'
   gem 'capybara', '~> 1.1.1'
-  gem 'cucumber', '~> 1.0.6'
-  gem 'cucumber-rails', '~> 1.0.5'
-  gem 'database_cleaner', '~> 0.6.7'
+  gem 'cucumber', '~> 1.1.4'
+  gem 'cucumber-rails', '~> 1.2.1'
+  gem 'database_cleaner', '~> 0.7.1'
   gem 'escape_utils', '~> 0.1.9'
   gem 'faker', '~> 0.9.5'
   gem 'forgery', '= 0.3.10'

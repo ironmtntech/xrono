@@ -1,5 +1,7 @@
 02/06/2012
 
+  - Upgraded to rails 3.2
+  - Removed fnordmetric as it was not compatible with the rails 3.2 upgrade
   - Ticket descriptions now render with markdown
 
 01/30/2012

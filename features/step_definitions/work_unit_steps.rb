@@ -3,7 +3,7 @@ Given /^I have (?:a|an) "([^\"]*)" work unit scheduled today for "([^\"]*)" hour
 end
 
 Then /^I should see the following work_units:$/ do |expected_work_units_table|
-  expected_work_units_table.diff!(tableish('table tr', 'td,th'))
+  expected_work_units_table.diff!(find('table').all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } })
 end
 
 When /^I create a work unit with #{capture_model}$/ do |ticket|

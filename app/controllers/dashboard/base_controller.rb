@@ -42,7 +42,6 @@ class Dashboard::BaseController < ApplicationController
   # Regular scoped methods                                                     #
   ##############################################################################
   def index
-    log_fnord_event(_type: 'dashboard_view')
     if current_user.has_role?(:developer) && !admin?
       unless current_user.work_units_for_day(Date.current.prev_working_day).any?
         @message = {:title => t(:management),
