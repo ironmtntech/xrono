@@ -1,3 +1,7 @@
+02/07/2012
+
+  - Refactored the way that work_units are loaded in the calendar.
+
 02/06/2012
 
   - Upgraded to rails 3.2

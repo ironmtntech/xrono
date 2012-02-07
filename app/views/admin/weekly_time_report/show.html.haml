@@ -7,7 +7,7 @@
   = image_tag external_hours_chart_url(@users, :width => "500x200", :title => "Cumulative Hours Worked")
   - @users.each do |user|
     %h3= user
-    = render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => user }
+    = render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => user, :work_units => user.work_units_between(@start_date, @start_date + 6.days)}
   = render :partial => 'week_pagination', :locals => { :start_date => @start_date }
 - else
   %h3= t(:there_are_no_users_to_show)

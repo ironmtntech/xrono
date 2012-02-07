@@ -28,11 +28,13 @@ class ApplicationController < ActionController::Base
     start_date, end_date = date.beginning_of_week.to_date, date.end_of_week.to_date
     internal_hours, external_hours = [],[]
     max_hours = 0
+    bucket = WorkUnit.for_users(users).scheduled_between(start_date,end_date)
+    hours = bucket.all
     (start_date..end_date).each do |i_date|
       _beg, _end = i_date.beginning_of_day, i_date.end_of_day
-      bucket = WorkUnit.for_users(users).scheduled_between(_beg, _end)
-      int = bucket.for_client(@site_settings.client).sum(:hours)
-      ext = bucket.except_client(@site_settings.client).sum(:hours)
+      todays_hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
+      int = todays_hours.select{|wu| wu.client == @site_settings.client}.inject(BigDecimal("0.0")) {|sum,x| sum + x.hours}
+      ext = todays_hours.select{|wu| wu.client != @site_settings.client}.inject(BigDecimal("0.0")) {|sum,x| sum + x.hours}
       internal_hours << int
       external_hours << ext
       max_hours = [max_hours, int, ext].max

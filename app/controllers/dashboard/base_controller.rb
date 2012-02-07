@@ -1,6 +1,7 @@
 class Dashboard::BaseController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
   before_filter :get_calendar_details, :only => [:index, :calendar, :update_calendar]
+  before_filter :load_work_units, :only => [:index, :calendar, :update_calendar]
   before_filter :redirect_clients
   respond_to :html, :json, :js
 
@@ -43,7 +44,7 @@ class Dashboard::BaseController < ApplicationController
   ##############################################################################
   def index
     if current_user.has_role?(:developer) && !admin?
-      unless current_user.work_units_for_day(Date.current.prev_working_day).any?
+      unless (@start_date..(@start_date + 6.days)).include?(Date.current.prev_working_day) && @work_units.select{|wu| wu.scheduled_at.to_date == Date.current.prev_working_day}.any?
         @message = {:title => t(:management),
           :body => t(:enter_time_for_previous_day)}
       end
@@ -72,6 +73,10 @@ class Dashboard::BaseController < ApplicationController
   def calendar
   end
 
+  def load_work_units
+    @work_units = current_user.work_units_between(@start_date, @start_date + 6.days)
+  end
+
   def update_calendar
     respond_to do |format|
       format.js {
@@ -81,6 +86,7 @@ class Dashboard::BaseController < ApplicationController
             :partial => 'shared/calendar',
             :locals => {
               :start_date => @start_date,
+              :work_units => @work_units,
               :user => current_user
             }
           ),

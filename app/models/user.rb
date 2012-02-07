@@ -37,6 +37,10 @@ class User < ActiveRecord::Base
     "#{first_name[0]}#{middle_initial}#{last_name[0]}".upcase
   end
 
+  def work_units_between(start_time, end_time)
+    work_units.scheduled_between(start_time.beginning_of_day, end_time.end_of_day)
+  end
+
   def work_units_for_day(time)
     work_units.scheduled_between(time.beginning_of_day, time.end_of_day)
   end
