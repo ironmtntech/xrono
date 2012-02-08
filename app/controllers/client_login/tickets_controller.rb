@@ -15,6 +15,7 @@ class ClientLogin::TicketsController < ClientLogin::BaseController
 
   # POST /tickets
   def create
+    @ticket.estimated_hours = 0.0
     if @ticket.save
       if request.xhr?
         flash.now[:notice] = t(:ticket_created_successfully)

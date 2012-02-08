@@ -5,7 +5,6 @@ end
 Then /^I should be able to create a new ticket$/ do
   step %{I follow "New Ticket"}
   step %{I fill in "Name" with "test"}
-  step %{I fill in "Estimated hours" with "10"}
   step %{I fill in "Description" with "test description"}
   step %{I press "Create Ticket"}
   step %{I should see "Ticket created successfully"}
