@@ -45,27 +45,15 @@ class ClientsController < ApplicationController
 
   public
   def index
-    if admin?
-      @clients = Client.order("name").active
-    else
-      @clients = Client.order("name").active.for_user(current_user)
-    end
+    @clients = authorized_clients.active
   end
 
   def inactive_clients
-    if admin?
-      @clients = Client.order("name").inactive
-    else
-      @clients = Client.order("name").inactive.for_user(current_user)
-    end
+    authorized_clients.inactive
   end
 
   def suspended_clients
-    if admin?
-      @clients = Client.order("name").suspended
-    else
-      @clients = Client.order("name").suspended.for_user(current_user)
-    end
+    authorized_clients.suspended
   end
 
   def show
@@ -108,4 +96,11 @@ class ClientsController < ApplicationController
     @client.allows_access? current_user
   end
 
+  def authorized_clients
+    if admin?
+      Client.order("name")
+    else
+      Client.order("name").for_user(current_user)
+    end
+  end
 end
