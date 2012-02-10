@@ -1,31 +1,77 @@
 class WorkUnit < ActiveRecord::Base
   include GuidReferenced
   acts_as_commentable
+
   has_many :comments, :as => :commentable
   belongs_to :ticket
   belongs_to :user
+
   validates_presence_of :ticket_id, :user_id, :description, :hours, :scheduled_at, :effective_hours, :hours_type
   validates_numericality_of :hours, :greater_than => -1
-
-  scope :scheduled_between, lambda{|start_time, end_time| where('scheduled_at BETWEEN ? AND ?', start_time, end_time) }
-  scope :unpaid, lambda{ where('paid IS NULL or paid = ""') }
-  scope :not_invoiced, lambda{ where('invoiced IS NULL OR invoiced = ""') }
-  scope :for_client, lambda{|client| joins({:ticket => {:project => [:client]}}).where("clients.id = ?", client.id) }
-  scope :except_client, lambda{|client| joins({:ticket => {:project => [:client]}}).where("clients.id <> ?", client.id) }
-  scope :for_project, lambda{|project| joins({:ticket => [:project]}).where("projects.id = ?", project.id)}
-  scope :for_ticket, lambda {|ticket| where(:ticket_id => ticket.id) }
-  scope :for_user, lambda{|user| where(:user_id => user.id)}
-  scope :for_users, lambda{|users| where("user_id IN (?)", users.map{|user| user.id} ) }
-  scope :sort_by_scheduled_at, order('scheduled_at DESC')
-  scope :pto, where(:hours_type => 'PTO')
-  scope :cto, where(:hours_type => 'CTO')
-  scope :overtime, where(:hours_type => 'Overtime')
-  scope :normal, where(:hours_type => 'Normal')
-  scope :on_estimated_ticket, lambda{ joins(:ticket).where("tickets.estimated_hours IS NOT NULL AND tickets.estimated_hours > 0") }
-
   before_validation :set_effective_hours!
   after_validation :validate_client_status
   after_create :send_email!
+
+
+  def self.scheduled_between(start_time, end_time)
+    where('scheduled_at BETWEEN ? AND ?', start_time, end_time)
+  end
+
+  def self.unpaid
+    where('paid IS NULL or paid = ""')
+  end
+
+  def self.not_invoiced
+    where('invoiced IS NULL OR invoiced = ""')
+  end
+
+  def self.for_client(client)
+    joins({:ticket => {:project => [:client]}}).where("clients.id = ?", client.id)
+  end
+
+  def self.except_client(client)
+    joins({:ticket => {:project => [:client]}}).where("clients.id <> ?", client.id)
+  end
+
+  def self.for_project
+    joins({:ticket => [:project]}).where("projects.id = ?", project.id)
+  end
+
+  def self.for_ticket
+    where(:ticket_id => ticket.id)
+  end
+
+  def self.for_user
+    where(:user_id => user.id)
+  end
+
+  def self.for_users
+    where("user_id IN (?)", users.map{|user| user.id})
+  end
+
+  def self.sort_by_scheduled_at
+    order('scheduled_at DESC')
+  end
+
+  def self.pto
+    where(:hours_type => 'PTO')
+  end
+
+  def self.cto
+    where(:hours_type => 'CTO')
+  end
+
+  def self.overtime
+    where(:hours_type => 'Overtime')
+  end
+
+  def self.normal
+    where(:hours_type => 'Normal')
+  end
+
+  def self.on_estimated_ticket
+     joins(:ticket).where("tickets.estimated_hours IS NOT NULL AND tickets.estimated_hours > 0")
+  end
 
   def validate_client_status
     if client && client.status == "Inactive"
