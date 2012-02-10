@@ -10,15 +10,15 @@
     %tfoot
       %tr.calendar_foot
         - (0..6).map{|x| start_date + x.days }.each do |date|
-          %td.span2= "#{t(:total)}: #{user.work_units_for_day(date).sum(:effective_hours)}"
-        %td.span2= "#{t(:week)}: #{user.work_units_for_week(start_date).sum(:effective_hours)}"
+          %td.span2= "#{t(:total)}: #{work_units.select{|wu| wu.scheduled_at.to_date == date.to_date}.inject(BigDecimal("0")){|sum,x| sum + x.effective_hours}}"
+        %td.span2= "#{t(:week)}: #{work_units.inject(BigDecimal("0")){|sum,x| sum + x.effective_hours}}"
     %tbody
       %tr
         - (start_date..(start_date + 6.days)).each do |date|
           %td.span2
-            - unless user.work_units_for_day(date).empty?
+            - unless work_units.select{|wu| wu.scheduled_at.to_date == date.to_date}.empty?
               %ul.unstyled
-                - user.work_units_for_day(date).each do |work_unit|
+                - work_units.select{|wu| wu.scheduled_at.to_date == date.to_date}.each do |work_unit|
                   %li{:class => "work_unit " << work_unit.hours_type.downcase }
                     - render_label_for(work_unit.hours_type)
                     = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description, :rel => 'twipsy' }
@@ -32,7 +32,7 @@
               %li#pto_left= "#{t(:pto_left)}: #{user.pto_hours_left(start_date.end_of_week)}"
             - if user.daily_target_hours
               %li#target_hours= "#{t(:target_hours_offset)}: #{user.target_hours_offset(last_effective_date(start_date))}"
-            - if @site_settings.client && user.work_units_for_week(start_date).present?
+            - if @site_settings.client && work_units.present?
               %li#external_percentage= "#{t(:external_percentage)}: #{external_work_percentage(user, start_date.beginning_of_week, start_date.end_of_week)}%"
         %td.span2
           = image_tag external_hours_chart_url(user, :date => start_date, :width => "260x100", :title => "Hours Worked")

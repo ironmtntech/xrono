@@ -14,10 +14,23 @@
       = f.label :name
       .input
         = f.text_field :name
+    -if current_user.admin?
+      .clearfix
+        = f.label :rate_a
+        .input
+          = f.text_field :rate_a
+      .clearfix
+        = f.label :rate_b
+        .input
+          = f.text_field :rate_b
     .clearfix
-      = f.label :git_repo
+      = f.label :git_repo_name
       .input
-        = f.text_field :git_repo
+        = f.text_field :git_repo_name
+    .clearfix
+      = f.label :git_repo_url
+      .input
+        = f.text_field :git_repo_url
     .clearfix
       = f.label :overtime_multiplier
       .input

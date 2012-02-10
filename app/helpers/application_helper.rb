@@ -33,4 +33,17 @@ module ApplicationHelper
     end
   end
 
+  def project_completion_metric(project)
+    work_unit_hours_array = Array.new # Empty array to work with
+
+    # Take the summation of estimated_hours on a ticket from the project
+    estimated_hours = Ticket.for_project(project).sum(:estimated_hours)
+    
+    # Push the work unit hours in if the ticket on the project has estimated hours
+    work_unit_hours = WorkUnit.for_project(project).on_estimated_ticket.sum(:hours)
+    
+    # Calculatre the projects completion as a percent
+    percent = (((work_unit_hours / estimated_hours)).to_f * 100.00).to_i rescue 0
+    [percent, 100].min # Make sure you don't go over 100 percent and confuse the graphs
+  end
 end

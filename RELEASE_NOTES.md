@@ -1,3 +1,29 @@
+02/07/2012
+
+  - Refactored the way that work_units are loaded in the calendar.
+
+02/06/2012
+
+  - Upgraded to rails 3.2
+  - Removed fnordmetric as it was not compatible with the rails 3.2 upgrade
+  - Ticket descriptions now render with markdown
+
+01/30/2012
+
+  - Made minor modifications to the api for the cli app
+
+01/27/2012
+
+  - Added data vault to store username and passwords
+
+01/24/2012
+
+  - Added release note and xrono note functionality to projects
+
+01/23/2012
+
+  - Added ability to create tickets while creating a new work unit
+
 01/04/2012
 
   - Added realtime metrics
@@ -14,7 +40,7 @@
     > Users with "Client Logins" have an awesome experience to manage (add/update) their contacts and view their work units
     > Users with "Client Logins" will also be able to see reporting on a per-ticket basis that shows a fancy pie chart.
       The pie chart displays a percentage of completion based on estimated time to complete a ticket and the ammount of
-      that estimated time that remains. 
+      that estimated time that remains.
 
 12/15/2011
 

@@ -73,5 +73,43 @@ describe Project do
     end
   end
 
-end
+  describe "#allows_access?" do
+    it "should return true if you have access" do
+      project         = Project.make
 
+      user_admin      = User.make
+      user_admin.roles.create(:name => "admin")
+
+      user_non_admin  = User.make
+      user_with_role  = User.make
+      user_with_role.roles.create(:name => "client", :authorizable => project)
+
+      project.allows_access?(user_admin).should == true
+      project.allows_access?(user_non_admin).should == false
+      project.allows_access?(user_with_role).should == true
+    end
+  end
+
+  describe "Project#for_user_and_role" do
+    it "should return all projects with user and role" do
+      project = Project.make
+      project.save
+      user    = User.make
+      user.save
+      user.roles.create(:name => "client", :authorizable => project)
+
+      Project.for_user_and_role(user,"client").should == [project]
+    end
+  end
+
+  describe '#files_and_comments' do
+    it 'should list all files and comments' do
+      project = Project.make
+      comment = project.comments.create(:title => "test", :comment => "test")
+      File.open("tmp/tmp.txt", "w") {|f| f.write "test"}
+      fa = project.file_attachments.create(:attachment_file => File.open("tmp/tmp.txt","r"))
+      project.files_and_comments.should == [comment,fa]
+      File.delete("tmp/tmp.txt")
+    end
+  end
+end

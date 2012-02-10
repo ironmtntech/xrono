@@ -7,9 +7,12 @@ class Client < ActiveRecord::Base
   has_many :file_attachments
   has_many :contacts
   has_one  :site_settings
+  has_one :data_vault, :as => :data_vaultable
 
   validates_presence_of   :name, :status
   validates_uniqueness_of :name, :allow_nil => false
+
+  after_create :create_data_vault
 
   scope :sort_by_name, order('name ASC')
   scope :active, where('status = "10"')
@@ -80,5 +83,10 @@ class Client < ActiveRecord::Base
       select {|c| c.allows_access?(user) }
     end
 =end
+  end
+
+  private
+  def create_data_vault
+    self.data_vault = DataVault.create(:data_vaultable => self)
   end
 end

@@ -3,6 +3,9 @@ AssetTrackerTutorial::Application.routes.draw do
 
   devise_for :users, :path => '/', :path_names => { :sign_in => 'login', :sign_out => 'logout' }
 
+  post "/data_vaults/:id", :to => "data_vaults#update"
+  resources :data_vaults, :only => [:show]
+
   namespace :admin do
     resources :invoices
     resources :payroll
@@ -101,7 +104,7 @@ AssetTrackerTutorial::Application.routes.draw do
       resources :tokens, :only => [:create, :destroy]
       resources :clients, :only => [:index]
       resources :projects, :only => [:index]
-      resources :tickets, :only => [:index, :show]
+      resources :tickets, :only => [:index, :show, :create]
       resources :work_units, :only => [:create]
     end
   end

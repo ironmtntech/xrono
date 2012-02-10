@@ -21,6 +21,7 @@ class WorkUnit < ActiveRecord::Base
   scope :cto, where(:hours_type => 'CTO')
   scope :overtime, where(:hours_type => 'Overtime')
   scope :normal, where(:hours_type => 'Normal')
+  scope :on_estimated_ticket, lambda{ joins(:ticket).where("tickets.estimated_hours IS NOT NULL AND tickets.estimated_hours > 0") }
 
   before_validation :set_effective_hours!
   after_validation :validate_client_status
@@ -33,11 +34,7 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def send_email!
-    begin
-      Notifier.work_unit_notification(self.id, email_list).deliver if email_list.length > 0
-    rescue Exception => e
-      logger.warn("At #{Time.now} couldn't deliver notification email for Work Unit: #{ self.id }\n\nHere's the issue: #{e.message}")
-    end
+    Notifier.work_unit_notification(self.id, email_list).deliver if email_list.length > 0
   end
 
   def email_list

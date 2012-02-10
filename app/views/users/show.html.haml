@@ -9,5 +9,7 @@
   - if @user.locked_at?
     = t(:user_is_locked)
 .clear    
-= render :partial => 'shared/calendar', :locals => { :start_date => Date.current.beginning_of_week, :user => @user }
-= render :partial => 'shared/calendar', :locals => { :start_date => Date.current.advance({:weeks => -1}).beginning_of_week, :user => @user }
+-@start_date = Date.current.beginning_of_week
+= render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => @user, :work_units => @user.work_units_between(@start_date,  @start_date + 6.days) }
+-@start_date = Date.current.advance({:weeks => -1}).beginning_of_week
+= render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => @user, :work_units => @user.work_units_between(@start_date,  @start_date + 6.days) }

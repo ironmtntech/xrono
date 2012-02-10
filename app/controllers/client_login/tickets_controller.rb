@@ -6,10 +6,33 @@ class ClientLogin::TicketsController < ClientLogin::BaseController
   access_control do
     allow :admin
     allow :developer, :of => :project
-    allow :client, :of => :project, :to => :show
+    allow :client, :of => :project, :to => [:show, :new, :create]
   end
 
-  
+  # GET /tickets/new
+  def new
+  end
+
+  # POST /tickets
+  def create
+    @ticket.estimated_hours = 0.0
+    if @ticket.save
+      if request.xhr?
+        flash.now[:notice] = t(:ticket_created_successfully)
+        render :json => "{\"success\": true}", :layout => false, :status => 200 and return
+      else
+        flash[:notice] = t(:ticket_created_successfully)
+      end
+      redirect_to client_login_ticket_path(@ticket) and return
+    else
+      if request.xhr?
+        render :json => @ticket.errors.full_messages.to_json, :layout => false, :status => 406 and return
+      end
+      flash[:error] = t(:ticket_created_unsuccessfully)
+      render :action => :new and return
+    end
+  end
+
   # GET /tickets/:id
   def show
     @work_units = WorkUnit.for_ticket(@ticket).sort_by_scheduled_at
@@ -22,9 +45,12 @@ class ClientLogin::TicketsController < ClientLogin::BaseController
     end
   end
 
-
   private
 
+    def load_new_ticket
+      @ticket = Ticket.new(params[:ticket])
+      @ticket.project = Project.find(params[:project_id]) if params[:project_id]
+    end
 
     def load_ticket
       if params[:id]

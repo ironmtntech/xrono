@@ -1,0 +1,4 @@
+%p.ticket_metrics
+  = image_tag Gchart.pie(:title => "Remaining Estimated Hours vs Hours Worked Over Entire Project",
+    :size => '450x230', :bar_color => "76959c,364447", :data => [100 - project_completion_metric(@project), project_completion_metric(@project)], :labels => ["Remaining Estimated", "Hours Worked"])
+

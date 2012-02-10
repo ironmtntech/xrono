@@ -35,7 +35,7 @@ class TicketsController < ApplicationController
 
   # GET /tickets/:id
   def show
-    @work_units = WorkUnit.for_ticket(@ticket).sort_by_scheduled_at
+    @work_units = WorkUnit.order("id").for_ticket(@ticket).sort_by_scheduled_at
     unless @ticket.estimated_hours
       flash.now[:notice] = "NOTE: The estimated amount of time to complete this ticket has not been entered."
     end
@@ -66,44 +66,6 @@ class TicketsController < ApplicationController
       flash.now[:error] = t(:ticket_updated_unsuccessfully)
       render :action => 'edit'
     end
-  end
-
-  def advance_state 
-    return unless current_user.has_role?(:developer, @ticket.project) || current_user.admin?
-    @ticket.advance_state!
-    if request.xhr?
-      render :nothing => true
-    else
-      redirect_to url_for(@ticket.project)
-    end
-  end
-
-  def reverse_state 
-    return unless current_user.has_role?(:developer, @ticket.project) || current_user.admin?
-    @ticket.reverse_state!
-    if request.xhr?
-      render :nothing => true
-    else
-      redirect_to url_for(@ticket.project)
-    end
-  end
-
-  def ticket_detail
-    @work_units = Ticket.find(params[:ticket_id]).work_units
-    render :layout => false
-  end
-
-  def toggle_complete
-    if @ticket.completed
-      @ticket.update_attribute(:completed, false)
-      status = "incomplete"
-    elsif !@ticket.completed
-      @ticket.update_attribute(:completed, true)
-      status = "complete"
-    else
-      status = "failed to update"
-    end
-    redirect_to @ticket, :notice => "Ticket #{status}."
   end
 
   private

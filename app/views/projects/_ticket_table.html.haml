@@ -18,14 +18,17 @@
       %th= @project.hours
       %th &nbsp;
   %tbody
-    - tickets.each do |ticket|
+    - if tickets.any?
+      - tickets.each do |ticket|
+        %tr
+          %td= ticket.id
+          %td= link_to ticket, ticket
+          %td= ticket.work_units.count
+          %td= ticket.uninvoiced_hours
+          %td= ticket.hours
+          %td= progress_bar(ticket.percentage_complete, :color => 'blue', :rounded => true)
+          - if admin? || current_user.has_role?(:developer, @project)
+            %td= link_to t(:edit), edit_ticket_path(ticket), :class => 'btn'
+    - else
       %tr
-        %td= ticket.id
-        %td= link_to ticket, ticket
-        %td= ticket.work_units.count
-        %td= ticket.uninvoiced_hours
-        %td= ticket.hours
-        %td= progress_bar(ticket.percentage_complete, :color => 'blue', :rounded => true)
-        - if admin? || current_user.has_role?(:developer, @project)
-          %td= link_to t(:edit), edit_ticket_path(ticket), :class => 'btn'
-
+        %td{:colspan => 6} No Tickets to Show

@@ -1,4 +1,5 @@
 class WorkUnitsController < ApplicationController
+  before_filter :create_ticket, :only => [:create_in_dashboard]
   before_filter :load_new_work_unit, :only => [:new, :create_in_dashboard]
   before_filter :check_for_params, :only => [:create_in_dashboard]
   before_filter :load_work_unit, :only => [:show, :edit, :update]
@@ -6,14 +7,13 @@ class WorkUnitsController < ApplicationController
   access_control do
     allow :admin
     allow :developer, :of => :project
-    
     allow :client, :of => :project, :to => :show
   end
-  
+
   # GET /work_units/new
   def new
   end
-  
+
   # POST /work_units
   def create_in_dashboard
     if request.xhr?
@@ -42,10 +42,9 @@ class WorkUnitsController < ApplicationController
       flash[:error] = "There was a problem creating the work unit."
       render :template => 'work_units/new'
     end
-    
   end
 
-  def index 
+  def index
     if params[:invoiced] != nil
       @work_units = WorkUnit.find_all_by_invoiced(params[:invoiced])
       @search = "Invoiced: " + params[:invoiced]
@@ -124,4 +123,16 @@ class WorkUnitsController < ApplicationController
       @work_unit = WorkUnit.find(params[:id])
     end
 
+    def create_ticket
+      if params["ticket"]
+        @ticket = Ticket.new(params["ticket"])
+        @ticket.project_id = params[:work_unit][:project_id]
+        if @ticket.save
+          params.delete :ticket
+          params[:work_unit][:ticket_id] = @ticket.id
+        else
+          render :json => {:success => false, :errors => "On Demand Ticket was invalid"}, :layout => false, :status => 406 and return
+        end
+      end
+    end
 end
