@@ -28,13 +28,12 @@ class ApplicationController < ActionController::Base
     start_date, end_date = date.beginning_of_week.to_date, date.end_of_week.to_date
     internal_hours, external_hours = [],[]
     max_hours = 0
-    bucket = WorkUnit.for_users(users).scheduled_between(start_date,end_date)
-    hours = bucket.all
+    hours = WorkUnit.for_users(users).scheduled_between(start_date,end_date).all
     (start_date..end_date).each do |i_date|
       _beg, _end = i_date.beginning_of_day, i_date.end_of_day
-      todays_hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
-      int = todays_hours.select{|wu| wu.client == @site_settings.client}.inject(BigDecimal("0.0")) {|sum,x| sum + x.hours}
-      ext = todays_hours.select{|wu| wu.client != @site_settings.client}.inject(BigDecimal("0.0")) {|sum,x| sum + x.hours}
+      hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
+      int = hours.select{|wu| wu.client == @site_settings.client}.sum_array_of_hours
+      ext = hours.select{|wu| wu.client != @site_settings.client}.sum_array_of_hours
       internal_hours << int
       external_hours << ext
       max_hours = [max_hours, int, ext].max
@@ -51,6 +50,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def sum_array_of_hours hours
+    hours.inject(BigDecimal("0.0")) {|sum,x| sum + x.hours}
+  end
 
   def redirect_unless_monday(path_prefix, date)
     @start_date = date ? Date.parse(date) : Date.current
