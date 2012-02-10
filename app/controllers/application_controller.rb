@@ -32,8 +32,8 @@ class ApplicationController < ActionController::Base
     (start_date..end_date).each do |i_date|
       _beg, _end = i_date.beginning_of_day, i_date.end_of_day
       hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
-      int = hours.select{|wu| wu.client == @site_settings.client}.sum_array_of_hours
-      ext = hours.select{|wu| wu.client != @site_settings.client}.sum_array_of_hours
+      int = sum_array_of_hours(hours.select{|wu| wu.client == @site_settings.client})
+      ext = sum_array_of_hours(hours.select{|wu| wu.client != @site_settings.client})
       internal_hours << int
       external_hours << ext
       max_hours = [max_hours, int, ext].max
