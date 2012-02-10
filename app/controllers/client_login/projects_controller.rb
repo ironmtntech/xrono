@@ -1,4 +1,6 @@
 class ClientLogin::ProjectsController < ClientLogin::BaseController
+  include ControllerMixins::Authorization
+
   before_filter :load_project, :only => [:show]
   before_filter :load_file_attachments, :only => [:show]
 
