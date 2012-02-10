@@ -19,25 +19,15 @@ class ApplicationController < ActionController::Base
   end
 
   def external_hours_chart_url(users, options = {})
-    users = [users] unless users.is_a?(Array)
+    users = Array(users)
     return if @site_settings.client.nil?
     width       = options.fetch(:width, "450x120")
     chart_color = options.fetch(:chart_color, "F9F9F9")
     date        = options.fetch(:date, Time.zone.now)
     title       = options.fetch(:title, "")
     start_date, end_date = date.beginning_of_week.to_date, date.end_of_week.to_date
-    internal_hours, external_hours = [],[]
-    max_hours = 0
     hours = WorkUnit.for_users(users).scheduled_between(start_date,end_date).all
-    (start_date..end_date).each do |i_date|
-      _beg, _end = i_date.beginning_of_day, i_date.end_of_day
-      hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
-      int = sum_array_of_hours(hours.select{|wu| wu.client == @site_settings.client})
-      ext = sum_array_of_hours(hours.select{|wu| wu.client != @site_settings.client})
-      internal_hours << int
-      external_hours << ext
-      max_hours = [max_hours, int, ext].max
-    end
+    internet_hours, external_hours, max_hours = determine_daily_hours(hours, start_date, end_date)
     GChart.bar(:title => title,
                          :orientation => :vertical,
                          :axis => [["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], [0, max_hours]],
@@ -50,6 +40,21 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def determine_daily_hours hours, start_date, end_date
+    internal_hours, external_hours = [],[]
+    max_hours = 0
+    (start_date..end_date).each do |i_date|
+      _beg, _end = i_date.beginning_of_day, i_date.end_of_day
+      hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
+      int = sum_array_of_hours(hours.select{|wu| wu.client == @site_settings.client})
+      ext = sum_array_of_hours(hours.select{|wu| wu.client != @site_settings.client})
+      internal_hours << int
+      external_hours << ext
+      max_hours = [max_hours, int, ext].max
+    end
+    return internal_hours, external_hours, max_hours
+  end
 
   def sum_array_of_hours hours
     hours.inject(BigDecimal("0.0")) {|sum,x| sum + x.hours}
