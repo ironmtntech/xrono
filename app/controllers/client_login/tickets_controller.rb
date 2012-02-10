@@ -1,5 +1,3 @@
-require 'controller_mixins/tickets'
-
 class ClientLogin::TicketsController < ClientLogin::BaseController
   include ControllerMixins::Tickets
 

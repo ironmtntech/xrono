@@ -1,7 +1,6 @@
-require 'controller_mixins/work_units'
-
 class WorkUnitsController < ApplicationController
   include ControllerMixins::WorkUnits
+  include ControllerMixins::Authorization
 
   before_filter :create_ticket, :only => [:create_in_dashboard]
   before_filter :load_new_work_unit, :only => [:new, :create_in_dashboard]
@@ -9,11 +8,7 @@ class WorkUnitsController < ApplicationController
   before_filter :load_work_unit, :only => [:show, :edit, :update]
   before_filter :require_admin, :only => [:index]
 
-  access_control do
-    allow :admin
-    allow :developer, :of => :project
-    allow :client, :of => :project, :to => :show
-  end
+  authorize_owners_with_client_show(:project)
 
   # GET /work_units/new
   def new

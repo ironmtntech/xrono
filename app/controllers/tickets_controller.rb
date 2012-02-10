@@ -1,18 +1,13 @@
-require 'controller_mixins/tickets'
-
 class TicketsController < ApplicationController
   include ControllerMixins::Tickets
+  include ControllerMixins::Authorization
 
   before_filter :load_new_ticket, :only => [:new, :create]
   before_filter :load_ticket, :only => [:show, :edit, :update, :advance_state, :reverse_state, :ticket_detail, :toggle_complete]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
   before_filter :load_project
 
-  access_control do
-    allow :admin
-    allow :developer, :of => :project
-    allow :client, :of => :project, :to => :show
-  end
+  authorize_owners_with_client_show(:project)
 
   # GET /tickets/new
   def new
