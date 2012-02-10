@@ -33,19 +33,19 @@ class WorkUnit < ActiveRecord::Base
     joins({:ticket => {:project => [:client]}}).where("clients.id <> ?", client.id)
   end
 
-  def self.for_project
+  def self.for_project(project)
     joins({:ticket => [:project]}).where("projects.id = ?", project.id)
   end
 
-  def self.for_ticket
+  def self.for_ticket(ticket)
     where(:ticket_id => ticket.id)
   end
 
-  def self.for_user
+  def self.for_user(user)
     where(:user_id => user.id)
   end
 
-  def self.for_users
+  def self.for_users(users)
     where("user_id IN (?)", users.map{|user| user.id})
   end
 
