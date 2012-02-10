@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     title       = options.fetch(:title, "")
     start_date, end_date = date.beginning_of_week.to_date, date.end_of_week.to_date
     hours = WorkUnit.for_users(users).scheduled_between(start_date,end_date).all
-    internet_hours, external_hours, max_hours = determine_daily_hours(hours, start_date, end_date)
+    internal_hours, external_hours, max_hours = determine_daily_hours(hours, start_date, end_date)
     GChart.bar(:title => title,
                          :orientation => :vertical,
                          :axis => [["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], [0, max_hours]],
