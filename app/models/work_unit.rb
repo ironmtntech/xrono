@@ -79,6 +79,14 @@ class WorkUnit < ActiveRecord::Base
     end
   end
 
+  def internal?
+    SiteSettings.first.try(:client) == client
+  end
+
+  def external?
+    !internal?
+  end
+
   def send_email!
     Notifier.work_unit_notification(self.id, email_list).deliver if email_list.length > 0
   end

@@ -47,17 +47,13 @@ class ApplicationController < ActionController::Base
     (start_date..end_date).each do |i_date|
       _beg, _end = i_date.beginning_of_day, i_date.end_of_day
       hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
-      int = sum_array_of_hours(hours.select{|wu| wu.client == @site_settings.client})
-      ext = sum_array_of_hours(hours.select{|wu| wu.client != @site_settings.client})
+      int = hours.select{|wu| wu.internal? }.sum(&:hours)
+      ext = hours.select{|wu| wu.external? }.sum(&:hours)
       internal_hours << int
       external_hours << ext
       max_hours = [max_hours, int, ext].max
     end
-    return internal_hours, external_hours, max_hours
-  end
-
-  def sum_array_of_hours hours
-    hours.inject(BigDecimal("0.0")) {|sum,x| sum + x.hours}
+    return [internal_hours, external_hours, max_hours]
   end
 
   def redirect_unless_monday(path_prefix, date)
