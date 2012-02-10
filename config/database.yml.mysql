@@ -15,7 +15,6 @@ test: &test
   database: xrono_test
   username: root
   password: 
-  reconnect: true
 
 cucumber:
   <<: *test
