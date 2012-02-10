@@ -3,11 +3,7 @@ class ProjectsController < ApplicationController
   before_filter :load_project, :only => [:show, :edit, :update]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
 
-  access_control do
-    allow :admin
-    allow :developer, :of => :project
-    allow :client, :of => :project, :to => [:show]
-  end
+  authorize_owners_with_client_show(:project)
 
   # GET /projects/new
   def new
