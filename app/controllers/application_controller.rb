@@ -19,15 +19,16 @@ class ApplicationController < ActionController::Base
   end
 
   def external_hours_chart_url(users, options = {})
-    users = Array(users)
-    return if @site_settings.client.nil?
-    width       = options.fetch(:width, "450x120")
-    chart_color = options.fetch(:chart_color, "F9F9F9")
-    date        = options.fetch(:date, Time.zone.now)
-    title       = options.fetch(:title, "")
-    start_date, end_date = date.beginning_of_week.to_date, date.end_of_week.to_date
+    users                 = Array(users)
+    width                 = options.fetch(:width, "450x120")
+    chart_color           = options.fetch(:chart_color, "F9F9F9")
+    date                  = options.fetch(:date, Time.zone.now)
+    title                 = options.fetch(:title, "")
+    start_date, end_date  = date.beginning_of_week.to_date, date.end_of_week.to_date
+
     hours = WorkUnit.for_users(users).scheduled_between(start_date,end_date).all
     internal_hours, external_hours, max_hours = determine_daily_hours(hours, start_date, end_date)
+
     GChart.bar(:title => title,
                          :orientation => :vertical,
                          :axis => [["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], [0, max_hours]],
