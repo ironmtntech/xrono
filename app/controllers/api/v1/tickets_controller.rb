@@ -1,23 +1,21 @@
 class Api::V1::TicketsController < Api::V1::BaseController
   def index
-    @bucket = Ticket
+    @bucket = Ticket.order("name")
 
     @bucket = @bucket.where(:project_id => params[:project_id]) unless params[:project_id].blank?
     @bucket = @bucket.for_repo_url_and_branch(params[:repo_url],params[:branch]) unless params[:repo_url].blank? && params[:branch].blank?
 
-    @tickets = @bucket.order("name").all
     json_array = []
-    @tickets.each do |ticket|
-      json_hash = {
+    @bucket.all.each do |ticket|
+      json_array << {
           :id                   => ticket.id,
           :name                 => ticket.name,
           :estimated_hours      => ticket.estimated_hours,
           :percentage_complete  => ticket.percentage_complete,
           :hours                => ticket.hours
       }
-      json_array << json_hash
     end
-    render :json => json_array.to_json
+    render :json => json_array
   end
 
   def show
