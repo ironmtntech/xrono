@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  include ControllerMixins::Generic
   include ControllerMixins::Tickets
   include ControllerMixins::Authorization
 
@@ -44,13 +45,7 @@ class TicketsController < ApplicationController
     end
 
     @ticket.update_attributes(params[:ticket])
-    if @ticket.save
-      flash[:notice] = t(:ticket_updated_successfully)
-      redirect_to ticket_path(@ticket)
-    else
-      flash.now[:error] = t(:ticket_updated_unsuccessfully)
-      render :action => 'edit'
-    end
+    generic_save_and_redirect(:ticket)
   end
 
   private
