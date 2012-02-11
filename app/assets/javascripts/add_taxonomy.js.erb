@@ -13,7 +13,7 @@ $("#checkbox").change(function(){
 
   params = {bucket: "Client"}
   params["all"] = this.checked ? 'true' : 'false'
-  $.get("/dashboard/collaborative_index", params, function(data){
+  $.get("/dashboard/json_index", params, function(data){
     $.each(data, function(i, client){
       me.append( new Option(client.name, client.id) )
     });
@@ -34,7 +34,7 @@ $("#work_unit_client_id").change(function(){
   if(this.value != '') {
     params = {bucket: "Project", id: this.value}
     params["all"] = document.getElementById("checkbox").checked ? 'true' : 'false'
-    $.get("/dashboard/collaborative_index", params, function(data){
+    $.get("/dashboard/json_index", params, function(data){
       $.each(data, function(i, project){
         me.append( new Option(project.name, project.id) )
       });
@@ -54,28 +54,16 @@ $("#work_unit_project_id").change(function(){
   me.append( new Option("Select a ticket","") )
   me.append( new Option("New Ticket", "-1") )
   if(!this.value.blank) {
-    var checkbox = $("#checkbox");
-    if(document.getElementById("checkbox").checked) {   
-      $.get("/dashboard/collaborative_project", { id: this.value }, function(data){
-        $.each(data, function(i, ticket){
-          me.append( new Option(ticket.name, ticket.id) )
-        });
-        <% unless Rails.env.test? || Rails.env.cucumber? %>
-          <% # only use chosen in dev r prod - it breaks cukes %>
-          me.trigger("liszt:updated");
-        <% end %>
-      }, "json");
-    } else {
-      $.get("/dashboard/project", { id: this.value }, function(data){
-        $.each(data, function(i, ticket){
-          me.append( new Option(ticket.name, ticket.id) )
-        });
-        <% unless Rails.env.test? || Rails.env.cucumber? %>
-          <% # only use chosen in dev r prod - it breaks cukes %>
-          me.trigger("liszt:updated");
-        <% end %>
-      }, "json");
-    }
+    params = {bucket: "Ticket", id: this.value, all: "true"}
+    $.get("/dashboard/json_index", params, function(data){
+      $.each(data, function(i, ticket){
+        me.append( new Option(ticket.name, ticket.id) )
+      });
+      <% unless Rails.env.test? || Rails.env.cucumber? %>
+        <% # only use chosen in dev r prod - it breaks cukes %>
+        me.trigger("liszt:updated");
+      <% end %>
+    }, "json");
   }
 });
 

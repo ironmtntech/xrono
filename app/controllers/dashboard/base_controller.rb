@@ -5,43 +5,13 @@ class Dashboard::BaseController < ApplicationController
   before_filter :redirect_clients
   respond_to :html, :json, :js
 
-  ##############################################################################
-  # Methods called by checkbox to display full list of clients/projects/tickets#
-  # for developers who want to bill on a project they are not assigned to.     #
-  ##############################################################################
-
-  # Show ALL clients                                                           #
-  def collaborative_index
+  def json_index
     bucket = decide_bucket
     bucket = bucket.for_user(current_user) unless params["all"] == "true"
     bucket.order("name")
     render :json => bucket.all
   end
 
-  # Show ALL projects                                                          #
-  def collaborative_client
-    @projects = Project.order("name").incomplete.where("client_id = ?", params[:id])
-    render :json => @projects
-  end
-
-  # Show ALL tickets                                                           #
-  def collaborative_project
-    @tickets = Ticket.order("name").incomplete.where("project_id = ?", params[:id])
-    render :json => @tickets
-  end
-
-  # Undoes effects of checkbox, rendering only the clients for which developer #
-  # has projects assigned.                                                     #
-  def json_index
-    @clients = Client.order("name").active.for_user(current_user)
-    @projects = []
-    @tickets = []
-    render :json => @clients
-  end
-
-  ##############################################################################
-  # Regular scoped methods                                                     #
-  ##############################################################################
   def index
     if current_user.has_role?(:developer) && !admin?
       unless (@start_date..(@start_date + 6.days)).include?(Date.current.prev_working_day) && @work_units.select{|wu| wu.scheduled_at.to_date == Date.current.prev_working_day}.any?
@@ -109,6 +79,8 @@ class Dashboard::BaseController < ApplicationController
       Client.active
     when "Project"
       Project.incomplete.where("client_id = ?", params[:id])
+    when "Ticket"
+      Ticket.incomplete.where("project_id = ?", params[:id])
     end
   end
 
