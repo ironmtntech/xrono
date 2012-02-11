@@ -7,13 +7,7 @@ class Api::V1::TicketsController < Api::V1::BaseController
 
     json_array = []
     @bucket.all.each do |ticket|
-      json_array << {
-          :id                   => ticket.id,
-          :name                 => ticket.name,
-          :estimated_hours      => ticket.estimated_hours,
-          :percentage_complete  => ticket.percentage_complete,
-          :hours                => ticket.hours
-      }
+      json_array << build_hash_for_ticket(ticket)
     end
     render :json => json_array
   end
@@ -37,5 +31,16 @@ class Api::V1::TicketsController < Api::V1::BaseController
     else
       render :json => {:success => false, :errors => @ticket.errors.full_messages.to_sentence} and return
     end
+  end
+
+  private
+  def build_hash_for_ticket ticket
+      {
+          :id                   => ticket.id,
+          :name                 => ticket.name,
+          :estimated_hours      => ticket.estimated_hours,
+          :percentage_complete  => ticket.percentage_complete,
+          :hours                => ticket.hours
+      }
   end
 end
