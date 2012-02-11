@@ -119,7 +119,7 @@ $("#new_work_unit").submit(function() {
       document.getElementById("hours_type").options[0].selected = true; // May need to do this two ways (browser differences)
       $("#hours_type").selectedIndex = 0;           // Reset hours_type to "normal"
       $("#hours_type").trigger("liszt:updated");    // Chosen provides an overlay for the hours_type select box.  Here we tell chosen we've changed the selected item.
-      $.get("/dashboard/json_index", { id: this.value }, function(data){
+      $.get("/dashboard/json_index", { bucket: "Client", id: this.value }, function(data){
         $.each(data, function(i, client){
          $("#work_unit_client_id").append( new Option(client.name, client.id) )
         });
