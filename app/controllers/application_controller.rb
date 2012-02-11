@@ -19,26 +19,15 @@ class ApplicationController < ActionController::Base
   end
 
   def external_hours_chart_url(users, options = {})
-    users = [users] unless users.is_a?(Array)
+    users = Array(users)
     return if @site_settings.client.nil?
     width       = options.fetch(:width, "450x120")
     chart_color = options.fetch(:chart_color, "F9F9F9")
     date        = options.fetch(:date, Time.zone.now)
     title       = options.fetch(:title, "")
     start_date, end_date = date.beginning_of_week.to_date, date.end_of_week.to_date
-    internal_hours, external_hours = [],[]
-    max_hours = 0
-    bucket = WorkUnit.for_users(users).scheduled_between(start_date,end_date)
-    hours = bucket.all
-    (start_date..end_date).each do |i_date|
-      _beg, _end = i_date.beginning_of_day, i_date.end_of_day
-      todays_hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
-      int = todays_hours.select{|wu| wu.client == @site_settings.client}.inject(BigDecimal("0.0")) {|sum,x| sum + x.hours}
-      ext = todays_hours.select{|wu| wu.client != @site_settings.client}.inject(BigDecimal("0.0")) {|sum,x| sum + x.hours}
-      internal_hours << int
-      external_hours << ext
-      max_hours = [max_hours, int, ext].max
-    end
+    hours = WorkUnit.for_users(users).scheduled_between(start_date,end_date).all
+    internal_hours, external_hours, max_hours = determine_daily_hours(hours, start_date, end_date)
     GChart.bar(:title => title,
                          :orientation => :vertical,
                          :axis => [["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], [0, max_hours]],
@@ -51,6 +40,21 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def determine_daily_hours hours, start_date, end_date
+    internal_hours, external_hours = [],[]
+    max_hours = 0
+    (start_date..end_date).each do |i_date|
+      _beg, _end = i_date.beginning_of_day, i_date.end_of_day
+      hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
+      int = hours.select{|wu| wu.internal? }.sum(&:hours)
+      ext = hours.select{|wu| wu.external? }.sum(&:hours)
+      internal_hours << int
+      external_hours << ext
+      max_hours = [max_hours, int, ext].max
+    end
+    return [internal_hours, external_hours, max_hours]
+  end
 
   def redirect_unless_monday(path_prefix, date)
     @start_date = date ? Date.parse(date) : Date.current

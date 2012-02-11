@@ -1,12 +1,10 @@
 class ClientLogin::ProjectsController < ClientLogin::BaseController
+  include ControllerMixins::Authorization
+
   before_filter :load_project, :only => [:show]
   before_filter :load_file_attachments, :only => [:show]
 
-  access_control do
-    allow :admin
-    allow :developer, :of => :project
-    allow :client, :of => :project, :to => [:show]
-  end
+  authorize_owners_with_client_show(:project)
 
   # GET /projects/:id
   def show

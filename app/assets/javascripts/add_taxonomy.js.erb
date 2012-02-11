@@ -31,6 +31,10 @@ $("#work_unit_client_id").change(function(){
   me.append( new Option("Select a project","") )
   $("#work_unit_ticket_id").children().remove();
   $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
+  <% unless Rails.env.test? || Rails.env.cucumber? %>
+    <% # only use chosen in dev or prod - it breaks cukes %>
+    $("#work_unit_ticket_id").trigger("liszt:updated");
+  <% end %>
   if(this.value != '') {
     params = {bucket: "Project", id: this.value}
     params["all"] = document.getElementById("checkbox").checked ? 'true' : 'false'

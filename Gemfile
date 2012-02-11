@@ -66,6 +66,8 @@ group :test do
   #gem 'shoulda', '~> 2.11.3'
   gem 'shoulda', :git=>'git://github.com/3den/shoulda.git'
   gem 'simplecov', '~> 0.5.0'
+  gem 'simplecov-rcov'
+  gem 'rcov', '0.9.11'
   gem 'spork', '0.9.0.rc9'
   gem 'yajl-ruby', '~> 0.7.8'
 end
