@@ -31,14 +31,11 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def update
-    if params[:user]["locked"] == "1"
-      @user.lock_access!
-    elsif params[:user]["locked"] == "0"
-      @user.unlock_access!
-    end
+    params[:user]["locked"] == "1" ? @user.lock_access! : @user.unlock_access!
 
     if params[:user]["password"] == "" && params[:user]["password_confirmation"] == ""
-      params[:user].delete(:password) && params[:user].delete(:password_confirmation)
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
     end
 
     @user.update_attributes(params[:user])
