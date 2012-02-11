@@ -1,4 +1,6 @@
 class ClientsController < ApplicationController
+  include ControllerMixins::Generic
+
   before_filter :load_new_client, :only => [:new, :create]
   before_filter :load_client, :only => [:edit, :show, :update]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
@@ -68,13 +70,7 @@ class ClientsController < ApplicationController
   end
 
   def create
-    if @client.save
-      flash[:notice] = t(:client_created_successfully)
-      redirect_to client_path(@client)
-    else
-      flash.now[:error] = t(:client_created_unsuccessfully)
-      render :action => 'new'
-    end
+    generic_save_and_redirect(:client, :create)
   end
 
   def update
