@@ -49,13 +49,17 @@ class ApplicationController < ActionController::Base
       hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
       internal_hours << sum_hours(:internal?, hours)
       external_hours << sum_hours(:external?, hours)
-      max_hours = [max_hours, hours.map(&:hours).max.to_i].max
+      max_hours = [max_hours, max_hours(hours)].max
     end
     return [internal_hours, external_hours, max_hours]
   end
 
   def sum_hours(method, hours)
     hours.select{|wu| wu.send(method) }.sum(&:hours)
+  end
+
+  def max_hours hours
+    hours.map(&:hours).max.to_i
   end
 
   def redirect_unless_monday(path_prefix, date)
