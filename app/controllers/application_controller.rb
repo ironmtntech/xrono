@@ -47,11 +47,9 @@ class ApplicationController < ActionController::Base
     (start_date..end_date).each do |i_date|
       _beg, _end = i_date.beginning_of_day, i_date.end_of_day
       hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
-      int = hours.select{|wu| wu.internal? }.sum(&:hours)
-      ext = hours.select{|wu| wu.external? }.sum(&:hours)
-      internal_hours << int
-      external_hours << ext
-      max_hours = [max_hours, int, ext].max
+      internal_hours << hours.select{|wu| wu.internal? }.sum(&:hours)
+      external_hours << hours.select{|wu| wu.external? }.sum(&:hours)
+      max_hours = [max_hours, hours.map(&:hours).max.to_i].max
     end
     return [internal_hours, external_hours, max_hours]
   end
