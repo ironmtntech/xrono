@@ -1,6 +1,7 @@
 class Admin::UsersController < Admin::BaseController
   before_filter :load_user_account, :only => [:update, :edit, :destroy, :projects]
   before_filter :load_new_user_account, :only => [:new, :create]
+  before_filter :filter_blank_password, :only => [:update]
 
   def index
     @users = User.unlocked.sort_by_name
@@ -33,11 +34,6 @@ class Admin::UsersController < Admin::BaseController
   def update
     params[:user]["locked"] == "1" ? @user.lock_access! : @user.unlock_access!
 
-    if params[:user]["password"] == "" && params[:user]["password_confirmation"] == ""
-      params[:user].delete(:password)
-      params[:user].delete(:password_confirmation)
-    end
-
     @user.update_attributes(params[:user])
     if @user.save
       flash[:notice] = t(:user_updated_successfully)
@@ -61,7 +57,14 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
-private
+  private
+
+  def filter_blank_password
+    if params[:user]["password"] == "" && params[:user]["password_confirmation"] == ""
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+  end
 
   def load_user_account
     @user = User.find(params[:id])
