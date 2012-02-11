@@ -68,8 +68,12 @@ class User < ActiveRecord::Base
     "#{first_name.capitalize} #{middle_initial.capitalize} #{last_name.capitalize}"
   end
 
+  def developer?
+    @developer ||= has_role?(:developer)
+  end
+
   def admin?
-    has_role?(:admin)
+    @admin ||= has_role?(:admin)
   end
 
   def locked
@@ -112,6 +116,15 @@ class User < ActiveRecord::Base
     raise "Date must be a date object" unless date.is_a?(Date)
     worked_hours = WorkUnit.for_user(self).scheduled_between(date.beginning_of_year, date.end_of_day).sum(:hours)
     worked_hours - expected_hours(date)
+  end
+
+  def entered_time_yesterday?
+    return true if !developer? || admin?
+    previous_work_days_work_units.any?
+  end
+
+  def previous_work_days_work_units
+    work_units_between(Date.current.prev_working_day.beginning_of_day, Date.current.prev_working_day.end_of_day)
   end
 
   def percentage_work_for(client, start_date, end_date)

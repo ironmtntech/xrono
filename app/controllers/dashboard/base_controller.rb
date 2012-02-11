@@ -13,12 +13,7 @@ class Dashboard::BaseController < ApplicationController
   end
 
   def index
-    if current_user.has_role?(:developer) && !admin?
-      unless (@start_date..(@start_date + 6.days)).include?(Date.current.prev_working_day) && @work_units.select{|wu| wu.scheduled_at.to_date == Date.current.prev_working_day}.any?
-        @message = {:title => t(:management),
-          :body => t(:enter_time_for_previous_day)}
-      end
-    end
+    @message = {:title => t(:management), :body => t(:enter_time_for_previous_day)} unless current_user.entered_time_yesterday?
     @clients = Client.order("name").active.for_user(current_user)
     @projects = []
     @tickets = []
