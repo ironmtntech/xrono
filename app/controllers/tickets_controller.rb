@@ -45,7 +45,7 @@ class TicketsController < ApplicationController
     end
 
     @ticket.update_attributes(params[:ticket])
-    generic_save_and_redirect(:ticket)
+    generic_save_and_redirect(:ticket, :update)
   end
 
   private

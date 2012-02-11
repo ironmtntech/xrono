@@ -70,7 +70,7 @@ class ClientsController < ApplicationController
   end
 
   def create
-    generic_save_and_redirect(:client)
+    generic_save_and_redirect(:client, :create)
   end
 
   def update
