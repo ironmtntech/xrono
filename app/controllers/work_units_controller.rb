@@ -74,18 +74,13 @@ class WorkUnitsController < ApplicationController
       false
     end
     def check_for_params
-      if params[:work_unit][:client_id].blank?
-        render :json => {:success => false, :errors => "You must select a client." }, :layout => false, :status => 406 and return
-      elsif params[:work_unit][:project_id].blank?
-        render :json => {:success => false, :errors => "You must select a project." }, :layout => false, :status => 406 and return
-      elsif params[:work_unit][:ticket_id].blank?
-        render :json => {:success => false, :errors => "You must select a ticket." }, :layout => false, :status => 406 and return
-      elsif params[:work_unit][:hours].blank?
-        render :json => {:success => false, :errors => "You must input number of hours." }, :layout => false, :status => 406 and return
-      elsif params[:hours_type].blank?
+      [:client_id, :project_id, :hours, :description].each do |key|
+        if params[:work_unit][key].blank?
+          render :json => {:success => false, :errors => "You must select a #{key.to_s}." }, :layout => false, :status => 406 and return
+        end
+      end
+      if params[:hours_type].blank?
         render :json => {:success => false, :errors => "You must select an hours type." }, :layout => false, :status => 406 and return
-      elsif params[:work_unit][:description].blank?
-        render :json => {:success => false, :errors => "You must supply a description for the work unit." }, :layout => false, :status => 406 and return
       elsif params[:hours_type] == "CTO" && !check_internal_client
         render :json => {:success => false, :errors => "You can only select CTO as hours type on internal client." }, :layout => false, :status => 406 and return
       end
