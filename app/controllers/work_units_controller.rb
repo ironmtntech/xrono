@@ -76,7 +76,7 @@ class WorkUnitsController < ApplicationController
     def check_for_params
       [:client_id, :project_id, :hours, :description].each do |key|
         if params[:work_unit][key].blank?
-          render :json => {:success => false, :errors => "You must select a #{key.to_s}." }, :layout => false, :status => 406 and return
+          render :json => {:success => false, :errors => "#{key.to_s.gsub("_id","")} can't be blank." }, :layout => false, :status => 406 and return
         end
       end
       if params[:hours_type].blank?
