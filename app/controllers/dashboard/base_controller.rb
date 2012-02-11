@@ -12,10 +12,10 @@ class Dashboard::BaseController < ApplicationController
 
   # Show ALL clients                                                           #
   def collaborative_index
-    @clients = Client.order("name").active
-    @projects = []
-    @tickets = []
-    render :json => @clients
+    bucket = decide_bucket
+    bucket = bucket.for_user(current_user) unless params["all"] == "true"
+    bucket.order("name")
+    render :json => bucket.all
   end
 
   # Show ALL projects                                                          #
@@ -102,6 +102,15 @@ class Dashboard::BaseController < ApplicationController
   end
 
   private
+
+  def decide_bucket
+    case params["bucket"]
+    when "Client"
+      Client.active
+    when "Project"
+      Project.incomplete.where("client_id = ?", params[:id])
+    end
+  end
 
   def get_calendar_details
     if params[:date].present? && params[:date] != "null"
