@@ -105,7 +105,7 @@ AssetTrackerTutorial::Application.routes.draw do
       resources :clients, :only => [:index]
       resources :projects, :only => [:index]
       resources :tickets, :only => [:index, :show, :create]
-      resources :work_units, :only => [:create]
+      resources :work_units, :only => [:index, :create]
     end
   end
 end
