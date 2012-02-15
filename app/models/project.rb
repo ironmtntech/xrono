@@ -46,6 +46,14 @@ class Project < ActiveRecord::Base
     WorkUnit.for_project(self).sum(:effective_hours)
   end
 
+  def hours_this_month
+    WorkUnit.for_project(self).scheduled_between(Time.zone.now.beginning_of_month, Time.zone.now.end_of_month).sum(:effective_hours)
+  end
+
+  def hours_this_week
+    WorkUnit.for_project(self).scheduled_between(Time.zone.now.beginning_of_week, Time.zone.now.end_of_week).sum(:effective_hours)
+  end
+
   def work_units
     WorkUnit.for_project(self)
   end
