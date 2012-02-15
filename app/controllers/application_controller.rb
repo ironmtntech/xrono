@@ -82,8 +82,8 @@ class ApplicationController < ActionController::Base
 
   def access_denied
     flash[:notice] = 'Access denied.'
-    if current_user && current_user.client
-      redirect_to client_login_path
+    if current_user && current_user.client?
+      redirect_to client_login_clients_path
     else
       redirect_to root_path
     end
@@ -94,8 +94,8 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_clients
-    if current_user && current_user.client
-      redirect_to client_login_path unless current_user.admin?
+    if current_user && current_user.client?
+      redirect_to client_login_clients_path unless current_user.admin?
     end
   end
 end

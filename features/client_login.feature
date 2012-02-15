@@ -5,4 +5,4 @@ Feature: Client Login
   Scenario: Logging in with client - true
     Given I am an authenticated user with a client role
       And I visit /
-     Then I should see "Client:" 
+     Then I should see "Clients" 

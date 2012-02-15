@@ -68,6 +68,10 @@ class User < ActiveRecord::Base
     "#{first_name.capitalize} #{middle_initial.capitalize} #{last_name.capitalize}"
   end
 
+  def client?
+    @client ||= has_role?(:client)
+  end
+
   def developer?
     @developer ||= has_role?(:developer)
   end
