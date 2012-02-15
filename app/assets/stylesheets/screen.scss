@@ -10,7 +10,7 @@
 
 //** SCREEN STYLES **//
 body{
-  padding-top: 60px;
+  padding-top: 90px;
 }
 
 .calendar{
@@ -21,6 +21,19 @@ body{
     tfoot{
       td{
         border-bottom: 1px solid #eee;
+      }
+    }
+    tbody {
+      tr {
+        td {
+          ul {
+             li {
+              a {
+                font-size: .9em;
+              }
+             }
+          }
+        }
       }
     }
   }
@@ -56,6 +69,14 @@ body div.container div.row div.span16 div input#global_invoiced {
 body div.container div.row div.span16 div form table.invoice tfoot tr td textarea {
   width:100%;
 }
+div.navbar div.fill div.container ul.nav {
+  margin: 10px 10px 0 0;
+  li {
+    a {
+      color:#fff;
+    }
+  }
+}
 
 ul.nav{
   li{
@@ -77,7 +98,7 @@ ul.nav{
   }
 }
 
-.topbar{
+.navbar-fixed-top{
   a{
     color: #ddd;
   }
@@ -93,12 +114,16 @@ tfoot{
 }
 
 footer.footer{
-  border-top: 1px solid #e5e5e5;
-  background-color: #eeeeee;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
-  padding: 30px 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .024) inset;
   text-shadow: 0 1px 0 #ffffff;
+  width: auto;
+  .container P {
+    margin: 10px 0 0 0;
+    padding: 10px 0 0 0;
+    border-top: 1px solid #e5e5e5;
+  }
 }
+
 
 .topbar{
   .brand{

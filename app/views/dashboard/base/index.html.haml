@@ -8,10 +8,10 @@
 = render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user, :work_units => @work_units }
 
 .row
-  .span8
+  .span6
     .module
       = render :partial => 'tickets/add_ticket'
-  .span8
+  .span6
     - if current_user.has_role?(:developer) or current_user.has_role?(:admin)
       .module
         = render :partial => 'work_units/add_work_unit'

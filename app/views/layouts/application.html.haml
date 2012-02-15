@@ -7,8 +7,8 @@
     = csrf_meta_tag
     = yield :head
   %body
-    .topbar
-      .fill
+    .navbar.navbar-fixed-top
+      .fill.navbar-inner
         .container
           = link_to image_tag(@site_settings.site_logo.url), '/', :class => 'brand'
           = render partial: "shared/menu"
@@ -16,7 +16,7 @@
       = render partial: "shared/flashes"
       .row
         - if (content_column_right = yield :content_column_right).empty?
-          .span16= yield
+          .span12= yield
         - else
           .span12= yield
           .span4= yield :content_column_right

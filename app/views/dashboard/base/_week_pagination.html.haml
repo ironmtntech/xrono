@@ -1,10 +1,10 @@
 .date_pagination
   .row
-    .span7
-      = link_to t(:previous_week).html_safe, dashboard_path(:date => (@start_date - 1.week).strftime("%F")), :class => "previous_week recent_work get_week_calendar"
+    .span5
+      = link_to t(:previous_week).html_safe, dashboard_path(:date => (@start_date - 1.week).strftime("%F")), :class => "previous_week recent_work get_week_calendar previous"
     .span2
       - unless (start_date..(start_date + 6.days)).include?(Date.current)
         = link_to t(:current), dashboard_path, :class => "today recent_work get_week_calendar"
-    .span7.last
+    .span5.last
       -# if (start_date + 6.days) < Date.current     <---- prevents viewing future dates on dashboard calendar
       = link_to t(:next_week).html_safe, dashboard_path(:date => (@start_date + 1.week)), :class => "next_week recent_work get_week_calendar"

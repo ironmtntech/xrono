@@ -1,5 +1,5 @@
 .calendar
-  %table.zebra-striped
+  %table.table.table-striped
     %thead
       %tr.calendar_top
         - (0..6).map{|x| start_date + x.days }.each do |date|
@@ -21,7 +21,7 @@
                 - work_units.select{|wu| wu.scheduled_at.to_date == date.to_date}.each do |work_unit|
                   %li{:class => "work_unit " << work_unit.hours_type.downcase }
                     - render_label_for(work_unit.hours_type)
-                    = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description, :rel => 'twipsy' }
+                    = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description, :rel => 'tooltip' }
                     %span.description= '- ' + work_unit.description
 
         %td.span2
@@ -38,8 +38,8 @@
           = image_tag external_hours_chart_url(user, :date => start_date, :width => "260x100", :title => "Hours Worked")
 - if request.xhr?
   :javascript
-    $('a[rel=twipsy]').twipsy({ placement: 'below'} );
+    $('a[rel=tooltip]').tooltip({ placement: 'bottom'} );
 - else
   - content_for :javascripts do
     :javascript
-      $('a[rel=twipsy]').twipsy({ placement: 'below'} );
+      $('a[rel=tooltip]').tooltip({ placement: 'bottom'} );

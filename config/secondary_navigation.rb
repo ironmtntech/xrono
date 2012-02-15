@@ -53,7 +53,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :help, t(:help), '#', :id => 'help_modal_link', :highlights_on => lambda{ false } unless current_user.client
     primary.item :logout, t(:logout), destroy_user_session_path
 
-    primary.dom_class = 'nav secondary-nav'
+    primary.dom_class = 'nav secondary-nav pull-right'
 
     # you can also specify a css id or class to attach to this particular level
     # works for all levels of the menu
