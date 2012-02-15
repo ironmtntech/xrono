@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!, :except => [:payload]
   protect_from_forgery
   layout 'application'
-  helper_method :redirect_to_ref_url, :admin?, :external_hours_chart_url
+  helper_method :redirect_to_ref_url, :admin?, :external_hours_chart_url, :client?
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
   def build_week_hash_for(date, hash={})
@@ -79,6 +79,10 @@ class ApplicationController < ActionController::Base
 
   def admin?
     current_user && current_user.admin?
+  end
+
+  def client?
+    current_user && current_user.client?
   end
 
   def access_denied
