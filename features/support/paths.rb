@@ -8,6 +8,9 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
+    when /the clients client_login_client page/
+      client_login_client_path(Client.for_user(@current_user).first)
+
     when /the home\s?page/
       '/'
 

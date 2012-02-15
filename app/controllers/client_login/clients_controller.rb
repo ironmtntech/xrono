@@ -22,6 +22,7 @@ public
       bucket = bucket.for_user(current_user)
     end
     @clients = bucket.all
+    redirect_to client_login_client_path(@clients.first) if @clients.count == 1
   end
 
   def show
