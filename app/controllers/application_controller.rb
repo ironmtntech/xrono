@@ -3,6 +3,7 @@ require File.expand_path('../../../vendor/gems/gchart/lib/gchart', __FILE__)
 class ApplicationController < ActionController::Base
   include RefurlHelper
   before_filter :initialize_site_settings
+  before_filter :redirect_clients
   before_filter :authenticate_user!, :except => [:payload]
   protect_from_forgery
   layout 'application'
