@@ -99,6 +99,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_clients
+    return if params[:controller] == "devise/sessions"
     if current_user && current_user.client?
       redirect_to client_login_clients_path unless current_user.admin?
     end
