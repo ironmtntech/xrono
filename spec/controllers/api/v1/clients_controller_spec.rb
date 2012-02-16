@@ -9,7 +9,7 @@ describe Api::V1::ClientsController do
     @user.ensure_authentication_token!
     @project = Project.make
     @project_1 = Project.make
-    @user.has_role!("client", @project)
+    @user.has_role!("developer", @project)
     @user.has_role!("developer", @project_1)
   end
 
