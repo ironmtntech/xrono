@@ -2,11 +2,6 @@ Feature: Client Login
   If a user has the client boolean set to true,
   then they should have different login behaviour.
 
-  Scenario: Logging in as a client
-    Given I am an authenticated user with a client role
-    And I visit /
-    Then I should see "Clients" 
-
   Scenario: Logging in with only one client
     Given I am an authenticated user with a client role
     And I only have 1 client
