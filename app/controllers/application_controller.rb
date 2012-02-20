@@ -1,5 +1,3 @@
-require File.expand_path('../../../vendor/gems/gchart/lib/gchart', __FILE__)
-
 class ApplicationController < ActionController::Base
   include RefurlHelper
   before_filter :initialize_site_settings
@@ -28,16 +26,6 @@ class ApplicationController < ActionController::Base
 
     hours = WorkUnit.for_users(users).scheduled_between(start_date,end_date).all
     internal_hours, external_hours, max_hours = determine_daily_hours(hours, start_date, end_date)
-
-    GChart.bar(:title => title,
-                         :orientation => :vertical,
-                         :axis => [["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], [0, max_hours]],
-                         :colors => ['ff0000', '00ff00'],
-                         :size => width,
-                         :data => [internal_hours,external_hours],
-                         :legend => ["Int","Ext"],
-                         :extras => {"chf" => "bg,s,00000000"} # Makes fill transparent
-                         ).to_url
   end
 
   private

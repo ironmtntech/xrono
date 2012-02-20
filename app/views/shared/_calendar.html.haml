@@ -34,8 +34,7 @@
               %li#target_hours= "#{t(:target_hours_offset)}: #{user.target_hours_offset(last_effective_date(start_date))}"
             - if @site_settings.client && work_units.present?
               %li#external_percentage= "#{t(:external_percentage)}: #{external_work_percentage(user, start_date.beginning_of_week, start_date.end_of_week)}%"
-        %td.span2
-          = image_tag external_hours_chart_url(user, :date => start_date, :width => "260x100", :title => "Hours Worked")
+        %td.span2{:id => "#{user.id}_chart"}
 - if request.xhr?
   :javascript
     $('a[rel=twipsy]').twipsy({ placement: 'below'} );
@@ -43,3 +42,30 @@
   - content_for :javascripts do
     :javascript
       $('a[rel=twipsy]').twipsy({ placement: 'below'} );
+
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        // Create the data table.
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Topping');
+          data.addColumn('number', 'Slices');
+          data.addRows([
+            ['Mushrooms', 3],
+            ['Onions', 1],
+            ['Olives', 1],
+            ['Zucchini', 1],
+            ['Pepperoni', 2]
+          ]);
+
+              // Set chart options
+          var options = {'title':'How Much Pizza I Ate Last Night',
+            'width':100,
+            'height':100};
+
+          // Instantiate and draw our chart, passing in some options.
+          var chart = new google.visualization.BarChart(document.getElementById("#{user.id}_chart"));
+          chart.draw(data, options);
+      }
