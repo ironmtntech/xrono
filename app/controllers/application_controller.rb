@@ -8,6 +8,14 @@ class ApplicationController < ActionController::Base
   helper_method :redirect_to_ref_url, :admin?, :external_hours_for_chart, :client?
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
+  def get_calendar_details
+    if params[:date].present? && params[:date] != "null"
+      @start_date = Date.parse(params[:date]).beginning_of_week
+    else
+      @start_date = Date.current.beginning_of_week
+    end
+  end
+
   def build_week_hash_for(date, hash={})
     until date.saturday?
       day = date.strftime("%A")

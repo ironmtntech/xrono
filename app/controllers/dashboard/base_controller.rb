@@ -77,12 +77,4 @@ class Dashboard::BaseController < ApplicationController
       Ticket.incomplete.where("project_id = ?", params[:id])
     end
   end
-
-  def get_calendar_details
-    if params[:date].present? && params[:date] != "null"
-      @start_date = Date.parse(params[:date]).beginning_of_week
-    else
-      @start_date = Date.current.beginning_of_week
-    end
-  end
 end
