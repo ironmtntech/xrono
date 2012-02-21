@@ -1,0 +1,13 @@
+- if @project_report_rows.any?
+  %table
+    %thead
+      %th{:colspan => 2}
+        = "Project time report from #{2.weeks.ago.to_date} to #{Time.now.end_of_week.to_date}"
+    %tbody
+      %tr
+        %th Project
+        %th Hours
+      - @project_report_rows.each do |project_report|
+        %tr
+          %td= project_report.project_name
+          %td= project_report.total_hours

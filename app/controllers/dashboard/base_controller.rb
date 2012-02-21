@@ -16,6 +16,8 @@ class Dashboard::BaseController < ApplicationController
     @clients = Client.order("name").active.for_user(current_user)
     @projects = []
     @tickets = []
+
+    @project_report_rows = WorkUnit.for_user(current_user).scheduled_between(Time.now - 1.year, Time.now).joins(:ticket => :project).select("projects.name as project_name, SUM(work_units.effective_hours) as total_hours").group("projects.name")
   end
 
   def client
