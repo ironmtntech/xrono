@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
   include GuidReferenced
   acts_as_commentable
   acts_as_authorization_object
+  acts_as_taggable
 
   github_concern :repo => :git_repo_name
 
