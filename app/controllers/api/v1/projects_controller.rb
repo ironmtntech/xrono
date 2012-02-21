@@ -14,7 +14,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   def create
     @project = Project.new(params[:project])
     if @project.save
-      render :json => {:success => true} and return
+      render :json => {:success => true, :id => @project.id} and return
     else
       render :json => {:success => false, :errors => @project.errors.full_messages.to_sentence} and return
     end
