@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120126154403) do
+ActiveRecord::Schema.define(:version => 20120221193022) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -208,5 +208,7 @@ ActiveRecord::Schema.define(:version => 20120126154403) do
     t.string   "hours_type"
     t.decimal  "effective_hours", :precision => 10, :scale => 2
   end
+
+  add_index "work_units", ["user_id"], :name => "index_work_units_on_user_id"
 
 end
