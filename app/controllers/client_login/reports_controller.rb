@@ -9,7 +9,7 @@ class ClientLogin::ReportsController < ClientLogin::BaseController
     start_date = Time.zone.parse(params[:start_date_hidden]).beginning_of_day
     end_date = Time.zone.parse(params[:end_date_hidden]).end_of_day
     if params[:project_id].nil?
-      project = Project.first
+      project = Project.for_user(current_user).first
     else
       project = Project.for_user(current_user).find params[:project_id]
     end
