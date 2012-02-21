@@ -7,7 +7,7 @@
           .clearfix
             =label_tag :project
             .input
-              =select_tag :project_id, options_from_collection_for_select(@projects, :id, :name)
+              =select_tag :project_id, options_from_collection_for_select(@projects, :id, :name, :selected => params[:project_id])
           .clearfix
             =label_tag :start_date
             .input
