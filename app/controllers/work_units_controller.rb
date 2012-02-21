@@ -1,14 +1,14 @@
 class WorkUnitsController < ApplicationController
+  include ControllerMixins::WorkUnits
+  include ControllerMixins::Authorization
+
   before_filter :create_ticket, :only => [:create_in_dashboard]
   before_filter :load_new_work_unit, :only => [:new, :create_in_dashboard]
   before_filter :check_for_params, :only => [:create_in_dashboard]
   before_filter :load_work_unit, :only => [:show, :edit, :update]
   before_filter :require_admin, :only => [:index]
-  access_control do
-    allow :admin
-    allow :developer, :of => :project
-    allow :client, :of => :project, :to => :show
-  end
+
+  authorize_owners_with_client_show(:project)
 
   # GET /work_units/new
   def new
@@ -44,16 +44,6 @@ class WorkUnitsController < ApplicationController
     end
   end
 
-  def index
-    if params[:invoiced] != nil
-      @work_units = WorkUnit.find_all_by_invoiced(params[:invoiced])
-      @search = "Invoiced: " + params[:invoiced]
-    else
-      @work_units = WorkUnit.find_all_by_paid(params[:paid])
-      @search = "Paid: " + params[:paid]
-    end
-  end
-
   # GET /work_units/:id
   def show
   end
@@ -84,18 +74,13 @@ class WorkUnitsController < ApplicationController
       false
     end
     def check_for_params
-      if params[:work_unit][:client_id].blank?
-        render :json => {:success => false, :errors => "You must select a client." }, :layout => false, :status => 406 and return
-      elsif params[:work_unit][:project_id].blank?
-        render :json => {:success => false, :errors => "You must select a project." }, :layout => false, :status => 406 and return
-      elsif params[:work_unit][:ticket_id].blank?
-        render :json => {:success => false, :errors => "You must select a ticket." }, :layout => false, :status => 406 and return
-      elsif params[:work_unit][:hours].blank?
-        render :json => {:success => false, :errors => "You must input number of hours." }, :layout => false, :status => 406 and return
-      elsif params[:hours_type].blank?
+      [:client_id, :project_id, :hours, :description].each do |key|
+        if params[:work_unit][key].blank?
+          render :json => {:success => false, :errors => "#{key.to_s.gsub("_id","")} can't be blank." }, :layout => false, :status => 406 and return
+        end
+      end
+      if params[:hours_type].blank?
         render :json => {:success => false, :errors => "You must select an hours type." }, :layout => false, :status => 406 and return
-      elsif params[:work_unit][:description].blank?
-        render :json => {:success => false, :errors => "You must supply a description for the work unit." }, :layout => false, :status => 406 and return
       elsif params[:hours_type] == "CTO" && !check_internal_client
         render :json => {:success => false, :errors => "You can only select CTO as hours type on internal client." }, :layout => false, :status => 406 and return
       end

@@ -135,6 +135,17 @@ describe Client do
     end
   end
 
+  describe 'tickets' do
+    it 'should return the tickets for the client' do
+      client    = Client.make
+      project   = client.projects.make
+      ticket    = project.tickets.make
+      ticket_2  = project.tickets.make
+      ticket_3  = Ticket.make
+      client.tickets.should == [ticket,ticket_2]
+    end
+  end
+
   describe 'file_and_comments' do
     before do
       @file_attachment = FileAttachment.create! :client_id => client.id, :ticket_id => ticket.id, :project_id => project.id, :attachment_file_file_name => "file.file", :created_at => 2.days.ago

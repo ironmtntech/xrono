@@ -11,28 +11,17 @@ $("#checkbox").change(function(){
   $("#work_unit_ticket_id").children().remove();
   $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
 
-  if(this.checked) {
-    this.value = 1
-    $.get("/dashboard/collaborative_index", { id: this.value }, function(data){
-      $.each(data, function(i, client){
-        me.append( new Option(client.name, client.id) )
-      });
-      <% unless Rails.env.test? || Rails.env.cucumber? %>
-        <% # only use chosen in dev r prod - it breaks cukes %>
-        me.trigger("liszt:updated");
-      <% end %>
-    }, "json");
-  } else {
-    $.get("/dashboard/json_index", { id: this.value }, function(data){
-      $.each(data, function(i, client){
-        me.append( new Option(client.name, client.id) )
-      });
-      <% unless Rails.env.test? || Rails.env.cucumber? %>
-        <% # only use chosen in dev r prod - it breaks cukes %>
-        me.trigger("liszt:updated");
-      <% end %>
-    }, "json");
-  } 
+  params = {bucket: "Client"}
+  params["all"] = this.checked ? 'true' : 'false'
+  $.get("/dashboard/json_index", params, function(data){
+    $.each(data, function(i, client){
+      me.append( new Option(client.name, client.id) )
+    });
+    <% unless Rails.env.test? || Rails.env.cucumber? %>
+      <% # only use chosen in dev r prod - it breaks cukes %>
+      me.trigger("liszt:updated");
+    <% end %>
+  }, "json");
 });
 
 // when client is changed, populate the projects
@@ -43,27 +32,18 @@ $("#work_unit_client_id").change(function(){
   $("#work_unit_ticket_id").children().remove();
   $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
   if(this.value != '') {
-    if(document.getElementById("checkbox").checked) {   
-      $.get("/dashboard/collaborative_client", { id: this.value }, function(data){
-        $.each(data, function(i, project){
-          me.append( new Option(project.name, project.id) )
-        });
-        <% unless Rails.env.test? || Rails.env.cucumber? %>
-          <% # only use chosen in dev r prod - it breaks cukes %>
-          me.trigger("liszt:updated");
-        <% end %>
-      }, "json");
-    } else {
-      $.get("/dashboard/client", { id: this.value }, function(data){
-        $.each(data, function(i, project){
-          me.append( new Option(project.name, project.id) )
-        });
-        <% unless Rails.env.test? || Rails.env.cucumber? %>
-          <% # only use chosen in dev r prod - it breaks cukes %>
-          me.trigger("liszt:updated");
-        <% end %>
-      }, "json");
-    }
+    params = {bucket: "Project", id: this.value}
+    params["all"] = document.getElementById("checkbox").checked ? 'true' : 'false'
+    $.get("/dashboard/json_index", params, function(data){
+      $.each(data, function(i, project){
+        me.append( new Option(project.name, project.id) )
+      });
+      <% unless Rails.env.test? || Rails.env.cucumber? %>
+        <% # only use chosen in dev r prod - it breaks cukes %>
+        me.trigger("liszt:updated");
+        $("#work_unit_ticket_id").trigger("liszt:updated");
+      <% end %>
+    }, "json");
   }
 });
 
@@ -74,28 +54,16 @@ $("#work_unit_project_id").change(function(){
   me.append( new Option("Select a ticket","") )
   me.append( new Option("New Ticket", "-1") )
   if(!this.value.blank) {
-    var checkbox = $("#checkbox");
-    if(document.getElementById("checkbox").checked) {   
-      $.get("/dashboard/collaborative_project", { id: this.value }, function(data){
-        $.each(data, function(i, ticket){
-          me.append( new Option(ticket.name, ticket.id) )
-        });
-        <% unless Rails.env.test? || Rails.env.cucumber? %>
-          <% # only use chosen in dev r prod - it breaks cukes %>
-          me.trigger("liszt:updated");
-        <% end %>
-      }, "json");
-    } else {
-      $.get("/dashboard/project", { id: this.value }, function(data){
-        $.each(data, function(i, ticket){
-          me.append( new Option(ticket.name, ticket.id) )
-        });
-        <% unless Rails.env.test? || Rails.env.cucumber? %>
-          <% # only use chosen in dev r prod - it breaks cukes %>
-          me.trigger("liszt:updated");
-        <% end %>
-      }, "json");
-    }
+    params = {bucket: "Ticket", id: this.value, all: "true"}
+    $.get("/dashboard/json_index", params, function(data){
+      $.each(data, function(i, ticket){
+        me.append( new Option(ticket.name, ticket.id) )
+      });
+      <% unless Rails.env.test? || Rails.env.cucumber? %>
+        <% # only use chosen in dev r prod - it breaks cukes %>
+        me.trigger("liszt:updated");
+      <% end %>
+    }, "json");
   }
 });
 
@@ -151,7 +119,7 @@ $("#new_work_unit").submit(function() {
       document.getElementById("hours_type").options[0].selected = true; // May need to do this two ways (browser differences)
       $("#hours_type").selectedIndex = 0;           // Reset hours_type to "normal"
       $("#hours_type").trigger("liszt:updated");    // Chosen provides an overlay for the hours_type select box.  Here we tell chosen we've changed the selected item.
-      $.get("/dashboard/json_index", { id: this.value }, function(data){
+      $.get("/dashboard/json_index", { bucket: "Client", id: this.value }, function(data){
         $.each(data, function(i, client){
          $("#work_unit_client_id").append( new Option(client.name, client.id) )
         });

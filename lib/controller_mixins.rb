@@ -1,0 +1,5 @@
+require 'controller_mixins/tickets'
+require 'controller_mixins/work_units'
+require 'controller_mixins/contacts'
+require 'controller_mixins/authorization'
+require 'controller_mixins/generic'

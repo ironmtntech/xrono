@@ -19,7 +19,7 @@ class Ticket < ActiveRecord::Base
   scope :incomplete, :conditions => ["completed = ?", false]
   scope :complete, :conditions => ["completed = ?", true]
 
-  scope :for_user_scope, lambda{|user|
+  scope :for_user, lambda{|user|
     joins("INNER JOIN projects     p ON p.id=tickets.project_id")
    .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
    .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
@@ -35,88 +35,14 @@ class Ticket < ActiveRecord::Base
 
   scope :for_repo_and_branch, lambda{|repo,branch|
     joins("INNER JOIN projects     p ON p.id=tickets.project_id")
-   .where("p.git_repo = '#{repo}' and tickets.git_branch = '#{branch}'")
+   .where("p.git_repo_name = '#{repo}' and tickets.git_branch = '#{branch}'")
   }
 
-  state_machine :state, :initial => :fridge do
-    after_transition do |ticket|
-      ticket.send_email!
-    end
+  scope :for_repo_url_and_branch, lambda{|repo,branch|
+    joins("INNER JOIN projects     p ON p.id=tickets.project_id")
+   .where("p.git_repo_url = '#{repo}' and tickets.git_branch = '#{branch}'")
+  }
 
-    state :fridge do
-      def advance_state!
-        move_to_development!
-      end
-    end
-
-    state :development do
-      def advance_state!
-        move_to_peer_review!
-      end
-    end
-
-    state :peer_review do
-      def advance_state!
-        move_to_user_acceptance!
-      end
-
-      def reverse_state!
-        move_to_development!
-      end
-    end
-
-    state :user_acceptance do
-      def advance_state!
-        move_to_archived!
-      end
-      
-      def reverse_state!
-        move_to_development!
-      end
-    end
-
-    state :archived do
-    end
-
-    event :move_to_development do
-      transition [:fridge, :peer_review, :user_acceptance] => :development
-    end
-
-    event :move_to_peer_review do
-      transition :development => :peer_review
-    end
-
-    event :move_to_user_acceptance do
-      transition :peer_review => :user_acceptance
-    end
-
-    event :move_to_archived do
-      transition :user_acceptance => :archived
-    end
-  end
-
-  def states
-    Ticket.state_machine.states.keys if Ticket.state_machine
-  end
-
-  ################### ADDING EMAIL FUNCTIONALITY #######################
-  def send_email!
-    begin
-      Notifier.ticket_state_change(self, email_list).deliver if email_list.length > 0
-    rescue Exception => e
-      logger.warn("At #{Time.now} couldn't deliver notification email for state change on ticket: #{ self.id }\n\nHere's the issue: #{e.message}")
-    end
-  end
-
-  def email_list
-    #list = Contact.for_client(self.client).receives_email.map(&:email_address)
-    self.project.users.map(&:email)
-  end
-  ######################################################################
-
-  def self.for_user(user)
-    select {|t| t.allows_access?(user) }
-  end
 
   def client
     project.client
@@ -164,6 +90,6 @@ class Ticket < ActiveRecord::Base
   end
 #### Comment out to look at bug in ticket show page
   def files_and_comments
-    [self.file_attachments, self.comments]
+    [comments, file_attachments].flatten.sort_by {|x| x.created_at}
   end
 end

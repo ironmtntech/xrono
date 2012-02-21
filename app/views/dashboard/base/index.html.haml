@@ -5,7 +5,7 @@
 .week_pagination
   = render :partial => 'dashboard/base/week_pagination', :locals => { :start_date => @start_date }
 
-= render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user }
+= render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user, :work_units => @work_units }
 
 .row
   .span8

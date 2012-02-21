@@ -1,4 +1,6 @@
 class ClientsController < ApplicationController
+  include ControllerMixins::Generic
+
   before_filter :load_new_client, :only => [:new, :create]
   before_filter :load_client, :only => [:edit, :show, :update]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
@@ -45,27 +47,15 @@ class ClientsController < ApplicationController
 
   public
   def index
-    if admin?
-      @clients = Client.order("name").active
-    else
-      @clients = Client.order("name").active.for_user(current_user)
-    end
+    @clients = authorized_clients.active
   end
 
   def inactive_clients
-    if admin?
-      @clients = Client.order("name").inactive
-    else
-      @clients = Client.order("name").inactive.for_user(current_user)
-    end
+    authorized_clients.inactive
   end
 
   def suspended_clients
-    if admin?
-      @clients = Client.order("name").suspended
-    else
-      @clients = Client.order("name").suspended.for_user(current_user)
-    end
+    authorized_clients.suspended
   end
 
   def show
@@ -80,13 +70,7 @@ class ClientsController < ApplicationController
   end
 
   def create
-    if @client.save
-      flash[:notice] = t(:client_created_successfully)
-      redirect_to client_path(@client)
-    else
-      flash.now[:error] = t(:client_created_unsuccessfully)
-      render :action => 'new'
-    end
+    generic_save_and_redirect(:client, :create)
   end
 
   def update
@@ -108,4 +92,11 @@ class ClientsController < ApplicationController
     @client.allows_access? current_user
   end
 
+  def authorized_clients
+    if admin?
+      Client.order("name")
+    else
+      Client.order("name").for_user(current_user)
+    end
+  end
 end

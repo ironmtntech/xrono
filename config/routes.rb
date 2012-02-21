@@ -24,8 +24,13 @@ AssetTrackerTutorial::Application.routes.draw do
   get '/admin', :controller => "admin/base", :action => "index"
   get '/admin/reports', :controller => "admin/base", :action => "reports"
 
-  match '/client_login' => "client_login/base#index"
   namespace :client_login do
+    root :to => "clients#index"
+    resources :reports, :only => [:index] do
+      collection do
+        match :work_units
+      end
+    end
     resources :clients do
       resources :contacts
     end
@@ -76,22 +81,12 @@ AssetTrackerTutorial::Application.routes.draw do
   resources :file_attachments
 
   namespace :dashboard do
+    get :json_index, :controller => "base", :action => :json_index
     resources :base do
-      collection do
-        post :give_me_the_tickets
-      end
     end
   end
 
-  get '/dashboard/collaborative_index', :controller => "dashboard/base", :action => "collaborative_index"
-  get '/dashboard/collaborative_client', :controller => "dashboard/base", :action => "collaborative_client"
-  get '/dashboard/collaborative_project', :controller => "dashboard/base", :action => "collaborative_project"
-  get '/dashboard/json_index', :controller => "dashboard/base", :action => "json_index"
-  get '/dashboard', :controller => "dashboard/base", :action => "index"
-  get '/dashboard/collaborative_index', :controller => "dashboard/base", :action => "collaborative_index"
-  get '/dashboard/collaborative_client', :controller => "dashboard/base", :action => "collaborative_client"
-  get '/dashboard/collaborative_project', :controller => "dashboard/base", :action => "collaborative_project"
-  get '/dashboard/json_index', :controller => "dashboard/base", :action => "json_index"
+  get '/dashboard', :controller => "dashboard/base", :action => :index
   get '/dashboard/calendar', :controller => "dashboard/base", :action => "calendar"
   get '/dashboard/client', :controller => "dashboard/base", :action => "client"
   get '/dashboard/project', :controller => "dashboard/base", :action => "project"
@@ -104,8 +99,8 @@ AssetTrackerTutorial::Application.routes.draw do
       resources :tokens, :only => [:create, :destroy]
       resources :clients, :only => [:index]
       resources :projects, :only => [:index]
-      resources :tickets, :only => [:index, :show]
-      resources :work_units, :only => [:create]
+      resources :tickets, :only => [:index, :show, :create]
+      resources :work_units, :only => [:index, :create]
     end
   end
 end

@@ -4,7 +4,7 @@ Feature: Ticket board
   Wants a modal with all the right info
 
   @javascript @wip
-  Scenario: User double clicks ticket to see detailed view 
+  Scenario: User double clicks ticket to see detailed view
     Given I am an authenticated user with an admin role
     Given a client "test client" exists with name: "test client"
     And a project "test project" exists with name: "test project", client: client "test client"
@@ -40,3 +40,9 @@ Feature: Ticket board
     And I press "Submit"
     Then I should be on the ticket's page
     And I should see "File Attachment created successfully" within "#flash_notice"
+
+    @javascript
+  Scenario: Client can add a ticket to an existing project
+    Given I am an authenticated client on an existing project page
+    Then I should be able to create a new ticket
+

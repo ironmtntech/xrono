@@ -1,3 +1,25 @@
+02/16/2012
+
+  - Added better client dashboard to see monthly work unit statistics.
+
+02/07/2012
+
+  - Refactored the way that work_units are loaded in the calendar.
+
+02/06/2012
+
+  - Upgraded to rails 3.2
+  - Removed fnordmetric as it was not compatible with the rails 3.2 upgrade
+  - Ticket descriptions now render with markdown
+
+01/30/2012
+
+  - Made minor modifications to the api for the cli app
+
+01/27/2012
+
+  - Added data vault to store username and passwords
+
 01/24/2012
 
   - Added release note and xrono note functionality to projects
