@@ -11,6 +11,15 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     render :json => @bucket.all
   end
 
+  def create
+    @project = Project.new(params[:project])
+    if @project.save
+      render :json => {:success => true, :id => @project.id} and return
+    else
+      render :json => {:success => false, :errors => @project.errors.full_messages.to_sentence} and return
+    end
+  end
+
   private
   def load_client_from_client_initials
     params[:client_id] = Client.where(:initials => params[:client_initials]).first.id unless params[:client_initials].blank?
