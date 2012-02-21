@@ -4,8 +4,8 @@ class ClientLogin::ReportsController < ClientLogin::BaseController
   end
 
   def work_units
-    params[:start_date_hidden] ||= Date.current.to_s
-    params[:end_date_hidden] ||= Date.current.to_s
+    params[:start_date_hidden] ||= Date.current.beginning_of_month.to_s
+    params[:end_date_hidden] ||= Date.current.end_of_month.to_s
     start_date = Time.zone.parse(params[:start_date_hidden]).beginning_of_day
     end_date = Time.zone.parse(params[:end_date_hidden]).end_of_day
     if params[:project_id].nil?
