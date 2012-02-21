@@ -20,13 +20,4 @@ class Api::V1::WorkUnitsController < Api::V1::BaseController
       render :json => {:succes => false, :errors => @work_unit.errors.full_messages.to_sentence} and return
     end
   end
-
-  protected
-  def get_calendar_details
-    if params[:date].present? && params[:date] != "null"
-      @start_date = Date.parse(params[:date]).beginning_of_week
-    else
-      @start_date = Date.current.beginning_of_week
-    end
-  end
 end

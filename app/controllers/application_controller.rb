@@ -1,5 +1,3 @@
-require File.expand_path('../../../vendor/gems/gchart/lib/gchart', __FILE__)
-
 class ApplicationController < ActionController::Base
   include RefurlHelper
   before_filter :initialize_site_settings
@@ -7,8 +5,16 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!, :except => [:payload]
   protect_from_forgery
   layout 'application'
-  helper_method :redirect_to_ref_url, :admin?, :external_hours_chart_url, :client?
+  helper_method :redirect_to_ref_url, :admin?, :external_hours_for_chart, :client?
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
+
+  def get_calendar_details
+    if params[:date].present? && params[:date] != "null"
+      @start_date = Date.parse(params[:date]).beginning_of_week
+    else
+      @start_date = Date.current.beginning_of_week
+    end
+  end
 
   def build_week_hash_for(date, hash={})
     until date.saturday?
@@ -19,48 +25,24 @@ class ApplicationController < ActionController::Base
     return hash
   end
 
-  def external_hours_chart_url(users, options = {})
+  def external_hours_for_chart(users, options = {})
     users                 = Array(users)
-    width                 = options.fetch(:width, "450x120")
     date                  = options.fetch(:date, Time.zone.now)
-    title                 = options.fetch(:title, "")
     start_date, end_date  = date.beginning_of_week.to_date, date.end_of_week.to_date
 
-    hours = WorkUnit.for_users(users).scheduled_between(start_date,end_date).all
-    internal_hours, external_hours, max_hours = determine_daily_hours(hours, start_date, end_date)
-
-    GChart.bar(:title => title,
-                         :orientation => :vertical,
-                         :axis => [["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], [0, max_hours]],
-                         :colors => ['ff0000', '00ff00'],
-                         :size => width,
-                         :data => [internal_hours,external_hours],
-                         :legend => ["Int","Ext"],
-                         :extras => {"chf" => "bg,s,00000000"} # Makes fill transparent
-                         ).to_url
+    final_array = []
+    (start_date..end_date).each do |i_date|
+      next if [6,7].include? i_date.cwday
+      _beg, _end = i_date.beginning_of_day, i_date.end_of_day
+      hours = WorkUnit.for_users(users).scheduled_between(_beg,_end).all
+      final_array << [i_date.strftime("%a"), sum_hours(:external?, hours).to_f, sum_hours(:internal?, hours).to_f]
+    end
+    final_array
   end
 
   private
-
-  def determine_daily_hours hours, start_date, end_date
-    internal_hours, external_hours = [],[]
-    max_hours = 0
-    (start_date..end_date).each do |i_date|
-      _beg, _end = i_date.beginning_of_day, i_date.end_of_day
-      hours = hours.select {|wu| wu.scheduled_at.to_date == _beg.to_date }
-      internal_hours << sum_hours(:internal?, hours)
-      external_hours << sum_hours(:external?, hours)
-      max_hours = [max_hours, max_hours(hours)].max
-    end
-    return [internal_hours, external_hours, max_hours]
-  end
-
   def sum_hours(method, hours)
     hours.select{|wu| wu.send(method) }.sum(&:hours)
-  end
-
-  def max_hours hours
-    hours.map(&:hours).max.to_i
   end
 
   def redirect_unless_monday(path_prefix, date)

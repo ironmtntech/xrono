@@ -4,10 +4,35 @@
 
 - if @users.any?
   = render :partial => 'week_pagination', :locals => { :start_date => @start_date }
-  = image_tag external_hours_chart_url(@users, :width => "500x200", :title => "Cumulative Hours Worked")
+  #overall_chart
   - @users.each do |user|
     %h3= user
     = render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => user, :work_units => user.work_units_between(@start_date, @start_date + 6.days)}
   = render :partial => 'week_pagination', :locals => { :start_date => @start_date }
 - else
   %h3= t(:there_are_no_users_to_show)
+- content_for :javascripts do
+  :javascript
+    google.load('visualization', '1.0', {'packages':['corechart']});
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day');
+        data.addColumn('number', 'External Hours');
+        data.addColumn('number', 'Internal Hours');
+        data.addRows(#{external_hours_for_chart(@users, :date => @start_date)});
+
+            // Set chart options
+        var options = {'title':'Weekly Hours',
+          'width':"100%",
+          'isStacked': true,
+          'legend': {position: 'none'},
+          'height':200};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.ColumnChart(document.getElementById("overall_chart"));
+        chart.draw(data, options);
+    }

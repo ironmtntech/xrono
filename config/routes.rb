@@ -26,6 +26,11 @@ AssetTrackerTutorial::Application.routes.draw do
 
   namespace :client_login do
     root :to => "clients#index"
+    resources :reports, :only => [:index] do
+      collection do
+        match :work_units
+      end
+    end
     resources :clients do
       resources :contacts
     end
