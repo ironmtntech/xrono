@@ -10,14 +10,14 @@ namespace :git_repos do
     Client.active.all.each do |client|
       puts "Working on client #{client.name}"
       #make the client directories
-      client_directory = File.join(workspace_dir,  client.name.gsub("//","").gsub(" ","_"))
+      client_directory = File.join(workspace_dir,  client.name.gsub("//","").gsub(" ","_").gsub("/",""))
       puts "\tCreating client directory at #{client_directory}"
       Dir.mkdir(client_directory) unless Dir.exists?(client_directory)
 
       #Loop over the projects and clone or update the repos
       client.projects.with_git_repos.all.each do |project|
         puts "\t\tWorking on Project #{project.name}"
-        project_directory = File.join(client_directory, project.name.gsub("//","").gsub(" ","_"))
+        project_directory = File.join(client_directory, project.name.gsub("//","").gsub(" ","_").gsub("/",""))
         grit = Grit::Git.new('/tmp/')
         puts "\t\t\tAttempting to clone #{project.git_repo_url} to #{project_directory}"
         begin
