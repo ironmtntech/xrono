@@ -16,6 +16,9 @@
       .module
         = render :partial => 'work_units/add_work_unit'
 
+.dashboard_2week_time_report
+  = render :partial => 'two_week_time_report'
+
 - content_for :javascripts do
   = javascript_include_tag 'add_taxonomy'
   = javascript_include_tag "ticket_board"
