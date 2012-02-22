@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
   before_filter :load_new_project, :only => [:new, :create]
   before_filter :load_project, :only => [:show, :edit, :update]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
+  before_filter :handle_tags
 
   authorize_owners_with_client_show(:project)
 
@@ -66,6 +67,10 @@ class ProjectsController < ApplicationController
 
     def load_file_attachments
       @file_attachments = @project.file_attachments
+    end
+
+    def handle_tags
+      params[:project]['tag_list'] = get_tag_list_for(params[:tags]) if params[:tags]
     end
 
 end

@@ -112,4 +112,11 @@ describe Project do
       File.delete("tmp/tmp.txt")
     end
   end
+
+  describe 'tagging' do
+    it 'should be taggable' do
+      project = Project.new
+      project.is_taggable?.should == true
+    end
+  end
 end

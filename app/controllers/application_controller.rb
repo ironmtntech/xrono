@@ -86,4 +86,8 @@ class ApplicationController < ActionController::Base
       redirect_to client_login_clients_path unless current_user.admin?
     end
   end
+
+  def get_tag_list_for(array)
+    array.join(",")
+  end
 end
