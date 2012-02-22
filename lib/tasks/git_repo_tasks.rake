@@ -20,7 +20,11 @@ namespace :git_repos do
         project_directory = File.join(client_directory, project.name.gsub("//","").gsub(" ","_"))
         grit = Grit::Git.new('/tmp/')
         puts "\t\t\tAttempting to clone #{project.git_repo_url} to #{project_directory}"
-        grit.clone({:quiet => false, :verbose => true, :progress => true, :branch => '37s'}, project.git_repo_url, project_directory)
+        begin
+          grit.clone({:quiet => false, :verbose => true, :progress => true, :branch => '37s'}, project.git_repo_url, project_directory)
+        rescue Grit::Git::GitTimeout
+          next
+        end
         xrono_markdown = File.join(project_directory, "XRONO.md")
         release_notes  = File.join(project_directory, "RELEASE_NOTES.md")
 
