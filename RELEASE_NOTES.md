@@ -1,3 +1,7 @@
+02/22/2012
+
+  - Link to projects in two week time report on dash.
+
 02/16/2012
 
   - Added better client dashboard to see monthly work unit statistics.
