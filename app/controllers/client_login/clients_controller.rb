@@ -5,36 +5,30 @@ class ClientLogin::ClientsController < ClientLogin::BaseController
     allow :admin
 
     action :index do
-      allow :developer
       allow :client
     end
 
     action :show do
-      allow :developer, :if => :user_is_authorized
       allow :client, :if => :user_is_authorized
     end
   end
 
-protected
-  def load_client
-    @client = Client.find(params[:id])
-  end
-
 public
   def index
+    bucket = Client.order("name")
     if admin?
-      @clients = Client.order("name").all
+      bucket = bucket.all
     else
-      @clients = Client.order("name").for_user(current_user)
+      bucket = bucket.for_user(current_user)
     end
+    @clients = bucket.all
+    redirect_to client_login_client_path(@clients.first) if @clients.count == 1
   end
 
   def show
-    if admin?
-      @projects = Project.sort_by_name.for_client(@client)
-    else
-      @projects = Project.sort_by_name.for_client(@client).for_user(current_user)
-    end
+    bucket = Project.sort_by_name.for_client(@client)
+    bucket = bucket.for_user(current_user) unless admin?
+    @projects = bucket.all
   end
 
 private
@@ -42,4 +36,7 @@ private
     @client.allows_access? current_user
   end
 
+  def load_client
+    @client = Client.find(params[:id])
+  end
 end

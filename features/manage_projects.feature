@@ -33,6 +33,20 @@ Feature: Manage projects
     And I press "Update"
     Then I should see "project 2"
 
+  Scenario: Tagging a project
+    Given I am an authenticated user
+    Given a client "test client" exists with name: "test client"
+    And a project exists with name: "tagged project", client: client "test client"
+    And I am assigned to the project
+    When I am on the client's page
+    And I follow "tagged project"
+    And I follow "Edit: tagged project"
+    And I fill in "Name" with "the tagged project"
+    And I fill in "project_tag_list" with "the_tag"
+    And I press "Update"
+    And I follow "Edit: the tagged project"
+    Then I should see "the_tag"
+
   Scenario: Edit a project - invalid
     Given I am an authenticated user with an admin role
     Given a client "test client2" exists
@@ -65,13 +79,14 @@ Feature: Manage projects
     And I press "Create"
     Then I should see "There was a problem saving the new project."
 
+    @wip
   Scenario: User cannot see projects without access
     Given I am an authenticated user with a client role
     And a client "test client2" exists with name: "test client2", initials: "TC2", status: "Active"
     And a project exists with name: "test project1", client: client "test client2"
     And I am assigned to the project
     And a project exists with name: "test project2", client: client "test client2"
-    When I am on the client's page
+    When I am on the clients client_login_client page
     Then I should see "test project1"
     Then I should not see "test project2"
 

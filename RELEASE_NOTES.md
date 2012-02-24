@@ -1,3 +1,7 @@
+02/16/2012
+
+  - Added better client dashboard to see monthly work unit statistics.
+
 02/07/2012
 
   - Refactored the way that work_units are loaded in the calendar.

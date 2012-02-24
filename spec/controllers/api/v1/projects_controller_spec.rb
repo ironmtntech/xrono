@@ -11,7 +11,7 @@ describe Api::V1::ProjectsController do
     @project_3 = Project.make
     @user.ensure_authentication_token!
     @user.has_role!("developer", @project)
-    @user.has_role!("client", @project_2)
+    @user.has_role!("developer", @project_2)
   end
 
   describe "when getting index as a non admin" do

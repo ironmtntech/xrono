@@ -2,7 +2,6 @@ class Dashboard::BaseController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
   before_filter :get_calendar_details, :only => [:index, :calendar, :update_calendar]
   before_filter :load_work_units, :only => [:index, :calendar, :update_calendar]
-  before_filter :redirect_clients
   respond_to :html, :json, :js
 
   def json_index
@@ -17,6 +16,8 @@ class Dashboard::BaseController < ApplicationController
     @clients = Client.order("name").active.for_user(current_user)
     @projects = []
     @tickets = []
+
+    @project_report_rows = WorkUnit.for_user(current_user).scheduled_between(Time.zone.now - 2.weeks, Time.zone.now.end_of_day).joins(:ticket => :project).select("projects.id as project_id, projects.name as project_name, SUM(work_units.effective_hours) as total_hours").group("projects.name")
   end
 
   def client
@@ -76,14 +77,6 @@ class Dashboard::BaseController < ApplicationController
       Project.incomplete.where("client_id = ?", params[:id])
     when "Ticket"
       Ticket.incomplete.where("project_id = ?", params[:id])
-    end
-  end
-
-  def get_calendar_details
-    if params[:date].present? && params[:date] != "null"
-      @start_date = Date.parse(params[:date]).beginning_of_week
-    else
-      @start_date = Date.current.beginning_of_week
     end
   end
 end

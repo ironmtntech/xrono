@@ -24,8 +24,13 @@ AssetTrackerTutorial::Application.routes.draw do
   get '/admin', :controller => "admin/base", :action => "index"
   get '/admin/reports', :controller => "admin/base", :action => "reports"
 
-  match '/client_login' => "client_login/base#index"
   namespace :client_login do
+    root :to => "clients#index"
+    resources :reports, :only => [:index] do
+      collection do
+        match :work_units
+      end
+    end
     resources :clients do
       resources :contacts
     end
@@ -93,7 +98,7 @@ AssetTrackerTutorial::Application.routes.draw do
     namespace :v1 do
       resources :tokens, :only => [:create, :destroy]
       resources :clients, :only => [:index]
-      resources :projects, :only => [:index]
+      resources :projects, :only => [:index, :create]
       resources :tickets, :only => [:index, :show, :create]
       resources :work_units, :only => [:index, :create]
     end

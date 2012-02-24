@@ -51,11 +51,11 @@ class ClientsController < ApplicationController
   end
 
   def inactive_clients
-    authorized_clients.inactive
+    @clients = authorized_clients.inactive
   end
 
   def suspended_clients
-    authorized_clients.suspended
+    @clients = authorized_clients.suspended
   end
 
   def show

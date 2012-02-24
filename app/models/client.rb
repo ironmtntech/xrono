@@ -42,6 +42,14 @@ class Client < ActiveRecord::Base
     WorkUnit.for_client(self).not_invoiced.sum(:effective_hours)
   end
 
+  def hours_this_month
+    WorkUnit.for_client(self).scheduled_between(Time.zone.now.beginning_of_month, Time.zone.now.end_of_month).sum(:effective_hours)
+  end
+
+  def hours_this_week
+    WorkUnit.for_client(self).scheduled_between(Time.zone.now.beginning_of_week, Time.zone.now.end_of_week).sum(:effective_hours)
+  end
+
   def to_s
     name
   end

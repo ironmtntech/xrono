@@ -21,8 +21,9 @@ gem 'github_concern', '~> 0.1'
 gem 'css3-progress-bar-rails', '~> 0.2.2'
 gem 'grit', '~> 2.4.0'
 gem 'rdiscount', '~>1.6.0'
-gem "paper_trail", "~> 2.6.0"
-gem "attr_encrypted", "~> 1.2.0"
+gem 'paper_trail', '~> 2.6.0'
+gem 'attr_encrypted', '~> 1.2.0'
+gem 'acts-as-taggable-on', '~> 2.2.2'
 
 gem 'simple-navigation', '~> 3.5.0'
 gem 'sass-rails',   '~> 3.2.0'

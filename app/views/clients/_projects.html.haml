@@ -4,12 +4,16 @@
       %tr
         %th= t(:projects)
         %th= t(:tickets)
+        %th This week's hours
+        %th This months's hours
         %th= t(:uninvoiced_hours)
         %th= t(:total_hours)
     %tfoot
       %tr
         %th= t(:all_projects)
         %th= @client.tickets.count
+        %th= @client.hours_this_week
+        %th= @client.hours_this_month
         %th= @client.uninvoiced_hours
         %th= @client.hours
     %tbody
@@ -18,6 +22,8 @@
           %tr{ :class => cycle("odd", "even") }
             %td= link_to project, project
             %td= project.tickets.count
+            %td= project.hours_this_week
+            %td= project.hours_this_month
             %td= project.uninvoiced_hours
             %td= project.hours
       - else
