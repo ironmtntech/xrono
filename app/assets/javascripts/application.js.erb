@@ -16,11 +16,6 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 $(function() {
-  $("#help").dialog({ autoOpen: false });
-  $("#help_modal_link").click(function() {
-    $("#help").dialog('open')
-    return false;
-  });
   <% unless Rails.env.test? || Rails.env.cucumber? %>
     <% # only use chosen in dev r prod - it breaks cukes %>
     $(".chzn-select").chosen();

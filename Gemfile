@@ -36,7 +36,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '0.12.alpha.0'
-  gem 'twitter-bootstrap-rails', '~> 2.0'
+  gem 'twitter-bootstrap-rails', :git => 'git://github.com/isotope11/twitter-bootstrap-rails.git'
 end
 
 group :production do

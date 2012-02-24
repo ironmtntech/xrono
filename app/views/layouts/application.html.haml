@@ -13,7 +13,6 @@
           = link_to image_tag(@site_settings.site_logo.url), '/', :class => 'brand'
           = render partial: "shared/menu"
 
-              
     .container
       = render partial: "shared/flashes"
       .row
@@ -29,5 +28,4 @@
           &copy; 
           = t(:company_name)
           2011
-    = render partial: "shared/help"
     = render partial: "shared/javascripts"
