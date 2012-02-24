@@ -7,11 +7,13 @@
     = csrf_meta_tag
     = yield :head
   %body
-    .navbar.navbar-fixed-top
-      .fill.navbar-inner
-        .container
-          = link_to image_tag(@site_settings.site_logo.url), '/', :class => 'brand'
-          = render partial: "shared/menu"
+    .nav-collapse.collapse
+      .navbar.navbar-fixed-top
+        .fill.navbar-inner
+          .container
+            = link_to image_tag(@site_settings.site_logo.url), '/', :class => 'brand'
+            = render partial: "shared/menu"
+            .btn-navbar
     .container
       = render partial: "shared/flashes"
       .row

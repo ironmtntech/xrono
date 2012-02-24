@@ -3,6 +3,7 @@
  *= require chosen
  *= require _jquery-ui-1.8.16.custom
  *= require css3-progress-bar
+ *= require responsive
 */
 
 @import "compass";
@@ -133,9 +134,10 @@ footer.footer{
 
 .week_pagination{
   background-color: #f9f9f9;
-  border-width: 1px 0;
+  border-width: 1px;
   border-color: #ddd;
   border-style: solid;
+  @include border-radius(5px);
   .date_pagination{
     .span2{
       text-align: center;

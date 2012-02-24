@@ -35,7 +35,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '0.12.alpha.0'
-  gem 'twitter-bootstrap-rails', '~> 1.4.0'
+  gem 'twitter-bootstrap-rails', '~> 2.0'
 end
 
 group :production do
