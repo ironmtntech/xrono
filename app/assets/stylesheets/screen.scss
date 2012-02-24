@@ -93,7 +93,7 @@ table {
   }
 }
 
-input[type=text], input[type=password]{
+input {
   height: 26px;
   line-height: auto;
 }
@@ -156,7 +156,6 @@ tfoot{
 }
 
 footer.footer{
-  box-shadow: 0 5px 15px rgba(0, 0, 0, .024) inset;
   text-shadow: 0 1px 0 #ffffff;
   width: auto;
   .container P {
