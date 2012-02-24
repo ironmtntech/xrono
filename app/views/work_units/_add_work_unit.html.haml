@@ -4,15 +4,13 @@
 
     #work_unit_errors
 
-    .clearfix
-      .input
-        %ul.inputs-list
-          %li
-            %label
-              %input{:id => "checkbox", :type => "checkbox", :name => "checkbox", :value => true, :checked => false}
-              %span Show hidden clients and projects
-
-    .clearfix
+    .field_row
+      .input.left
+        %input{:id => "checkbox", :type => "checkbox", :name => "checkbox", :value => true, :checked => false}
+      %label.hidden_clients 
+        Show hidden clients and projects
+        
+    .field_row
       %label= "#{t(:scheduled_on)}:"
       .input
         = link_to Date.current, "#", :id => "schedule_modal_link"
@@ -24,17 +22,17 @@
         .input
           = text_field_tag :scheduled_at, Date.current
 
-    .clearfix
+    .field_row
       %label{:for => "work_unit_client_id"}= "#{t(:client)}:"
       .input
         = collection_select("work_unit", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) }, :class => 'chzn-select')
 
-    .clearfix
+    .field_row
       %label{:for => "work_unit_project_id"}= "#{t(:project)}:"
       .input
         = collection_select("work_unit", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) }, :class => 'chzn-select')
 
-    .clearfix
+    .field_row
       %label{:for => "work_unit_ticket_id"}= "#{t(:ticket)}:"
       .input
         = collection_select("work_unit", "ticket_id", @tickets, "id", "name", { :prompt => t(:select_a_ticket) }, :class => 'chzn-select')
@@ -43,31 +41,31 @@
       %hr
       %legend On Demand Ticket
       %br
-      .clearfix
+      .field_row
         %label{:for => "on_demand_ticket_name"} Name:
         .input
           = text_field_tag "ticket[name]", nil, :id => "on_demand_ticket_name"
-      .clearfix
+      .field_row
         %label{:for => "on_demand_ticket_estimated_hours"} Estimated Hours:
         .input
           = text_field_tag "ticket[estimated_hours]", "0", :id => "on_demand_ticket_estimated_hours"
-      .clearfix
+      .field_row
         %label{:for => "on_demand_ticket_description"} Description
         .input
           = text_area_tag "ticket[description]",nil,  {:id => "on_demand_ticket_description", :rows => 5 }
       %hr
 
-    .clearfix
+    .field_row
       %label{:for => "hours_type"}= "#{t(:type)}:"
       .input
         = select_tag("hours_type", options_for_select(['Normal', 'Overtime', 'CTO', 'PTO']), :class => 'chzn-select')
 
-    .clearfix
+    .field_row
       %label{:for => "work_unit_hours"}= "#{t(:hours).capitalize}:"
       .input
         = f.text_field :hours, { :size => 10 }
 
-    .clearfix
+    .field_row
       %label{:for => "work_unit_description"}= "#{t(:description)}:"
       .input
         = f.text_area :description, { :rows => 5 }

@@ -13,7 +13,7 @@
       %li= link_to "#{t(:edit)}: #{@project}", edit_project_path
       %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project)
 
-%ul.tabs{"data-tabs" => "tabs"}
+%ul.nav.nav-tabs{"data-tabs" => "tabs"}
   -if !@project.xrono_notes.nil?
     %li.active= link_to "Project Notes", "#project_notes"
   -if !@project.release_notes.nil?

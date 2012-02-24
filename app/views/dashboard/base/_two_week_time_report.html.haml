@@ -1,5 +1,5 @@
 - if @project_report_rows.any?
-  %table
+  %table.table.table-striped.table-bordered
     %thead
       %th{:colspan => 2}
         = "Project time report from #{(Time.zone.now - 2.weeks).to_date} to #{Time.zone.now.end_of_day.to_date}"
