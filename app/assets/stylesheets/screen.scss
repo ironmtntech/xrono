@@ -6,7 +6,7 @@
 */
 
 @import "compass";
-@import "compass/css3/border-radius";
+@import "compass/css3";
 
 
 //** SCREEN STYLES **//
@@ -47,6 +47,9 @@ table {
       font-size: .8em;
     }
   }
+}
+.btn-group {
+  display:inline-block;
 }
 #add_ticket, #new_work_unit {
   .actions {
@@ -145,7 +148,6 @@ ul.nav{
   .fill{
     padding: 6px 0;
     @include linear-gradient(color-stops(#75959d, #698891 30%, #5d7a82 100%));
-    @include box-shadow;
   }
 }
 
