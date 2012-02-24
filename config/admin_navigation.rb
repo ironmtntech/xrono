@@ -57,7 +57,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :users, t(:users), admin_users_path
     primary.item :site_settings, t(:site_settings), edit_admin_site_settings_path
 
-    primary.dom_class = 'pills'
+    primary.dom_class = 'nav-pills nav'
     #primary.selected_class = 'active'
 
     # you can also specify a css id or class to attach to this particular level

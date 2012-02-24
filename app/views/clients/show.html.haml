@@ -8,7 +8,7 @@
     %li= link_to 'Edit Client', edit_client_path
     %li= link_to 'New Project', new_project_path(:client => @client) 
 
-%ul.nav.nav-tabs{"data-tabs" => "tabs"}
+%ul.nav.nav-pills{"data-tabs" => "tabs"}
   %li.active= link_to "Incompleted Projects", "#incompleted_projects"
   %li= link_to "Completed Projects", "#completed_projects"
   %li= link_to "Data Vault", "#data_vault"

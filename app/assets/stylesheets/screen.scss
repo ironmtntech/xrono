@@ -3,17 +3,20 @@
  *= require chosen
  *= require _jquery-ui-1.8.16.custom
  *= require css3-progress-bar
- *= require responsive
 */
 
 @import "compass";
 @import "compass/css3/border-radius";
 
+
 //** SCREEN STYLES **//
-body{
+body {
   padding-top: 90px;
 }
-
+table {
+  font-size: 1em;
+  margin-top: 10px;
+}
 .calendar{
   table{
     td{
@@ -45,7 +48,36 @@ body{
     }
   }
 }
-
+#add_ticket, #new_work_unit {
+  .actions {
+    input {
+      float:right;
+      margin: 0 118px 0 0;
+    }
+  }
+  .field_row {
+    width: 100%;
+    margin: 0 0 10px 0;
+    label.hidden_clients {
+      width: auto;
+      margin: 0 0 0 10px;
+    }
+    label {
+      display: inline-block;
+      width: 115px;
+      margin: 0 5px 0 0;
+      text-align:right;
+      vertical-align: top;
+    }
+    .input.left {
+      margin-left:100px;
+    }
+    .input {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+}
 .work_unit{
   &.overtime, &.overtime a {
     color: #C43C35;
@@ -62,7 +94,14 @@ input[type=text], input[type=password]{
   height: 26px;
   line-height: auto;
 }
-
+table.invoice {
+  td.totals {
+    width: 100%;
+    textarea {
+      width:100%;
+    }
+  }
+}
 body div.container div.row div.span16 div input#global_invoiced {
   float:right;
 }
@@ -124,8 +163,12 @@ footer.footer{
     border-top: 1px solid #e5e5e5;
   }
 }
-
-
+h3 {
+  margin: 10px 0 5px 0;
+}
+.right {
+  float:right;
+}
 .topbar{
   .brand{
     padding: 0;
@@ -139,11 +182,12 @@ footer.footer{
   border-style: solid;
   @include border-radius(5px);
   .date_pagination{
-    .span2{
+    .span.center{
       text-align: center;
     }
-    .span7.last{
+    .span.last{
       text-align: right;
+      float:right;
     }
     a{
       display: inline-block;
@@ -192,7 +236,7 @@ footer.footer{
 
 #schedule_modal_link{
   position: relative;
-  top: 8px;
+  top: 0;
 }
 
 body div.container div.row div.span16 p.ticket_metrics {
