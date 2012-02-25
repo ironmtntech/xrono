@@ -54,7 +54,7 @@ Feature: Manage tickets
     And I press "Create"
     Then I should see "name 1"
 
-  @javascript @wip
+  @wip
   Scenario: Register new ticket
     Given I am an authenticated user with an admin role
     And a client exists with name: "New client"
@@ -68,3 +68,7 @@ Feature: Manage tickets
     Then I should see "Ticket created successfully" within ".alert-message"
     When I go to the project's page
     Then I should see "New ticket" within "table"
+
+  Scenario: Client can add a ticket to an existing project
+    Given I am an authenticated client on an existing project page
+    Then I should be able to create a new ticket
