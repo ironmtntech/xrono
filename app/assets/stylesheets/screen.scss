@@ -8,7 +8,6 @@
 @import "compass";
 @import "compass/css3";
 
-
 //** SCREEN STYLES **//
 body {
   padding-top: 90px;
@@ -122,6 +121,7 @@ div.navbar div.fill div.container-fluid ul.nav {
 }
 
 .navbar{
+  @include single-box-shadow;
   .primary-nav{
     li{
       a{
