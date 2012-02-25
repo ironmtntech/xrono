@@ -121,22 +121,24 @@ div.navbar div.fill div.container ul.nav {
   }
 }
 
-ul.nav{
-  li{
-    a{
-      @include border-radius(8px);
-      &:hover{
-        background-color: #75959d;
+.navbar{
+  .nav{
+    li{
+      a{
+        @include border-radius(8px);
+        &:hover{
+          background-color: #75959d;
+        }
+        margin-left: 2px;
+        margin-right: 2px;
       }
-      margin-left: 2px;
-      margin-right: 2px;
     }
-  }
-  li.selected{
-    a{
-      background-color: #5d7a82;
-      color: white;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
+    li.selected{
+      a{
+        background-color: #5d7a82;
+        color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
+      }
     }
   }
 }
