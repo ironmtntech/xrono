@@ -126,7 +126,7 @@ div.navbar div.fill div.container ul.nav {
     li{
       a{
         @include border-radius(8px);
-        &:hover{
+        &:hover {
           background-color: #75959d;
         }
         margin-left: 2px;
@@ -138,6 +138,25 @@ div.navbar div.fill div.container ul.nav {
         background-color: #5d7a82;
         color: white;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
+      }
+    }
+  }
+  .fill .container li.dropdown{
+    a.dropdown-toggle{
+      padding: 0 4px 0 0;
+    }
+    span{
+      display: inline-block;
+      padding: 4px;
+    }
+    ul.dropdown-menu{
+      li{
+        a{
+          color: #75959d;
+          &:hover {
+            color: white;
+          }
+        }
       }
     }
   }
