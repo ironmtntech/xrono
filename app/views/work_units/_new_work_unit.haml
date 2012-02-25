@@ -1,4 +1,5 @@
 = form_for @work_unit, :url => create_in_ticket_work_units_path do |f|
   %fieldset
-    %legend #{@work_unit.client} > #{@work_unit.project} > #{@work_unit.ticket}
+    %legend #{t(:new_work_unit)} #{@work_unit.client} > #{@work_unit.project} > #{@work_unit.ticket}
+  
     = render "shared_form", :f => f
