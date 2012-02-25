@@ -1,36 +1,34 @@
 .row-fluid
   .span6
-    .module
-      = form_for @user do |u|
-        %fieldset
-          %legend= t(:edit_user)
-          .clearfix
-            = u.label :first_name, t(:first_name)
-            .input
-              = u.text_field(:first_name)
-          .clearfix
-            = u.label :middle_initial, t(:middle_initial)
-            .input
-              = u.text_field(:middle_initial)
-          .clearfix
-            = u.label :last_name, t(:last_name)
-            .input
-              = u.text_field(:last_name)
-          .clearfix
-            = u.label :email, t(:email_address)
-            .input
-              = u.text_field(:email)
-          .clearfix
-            = u.label :expanded_calendar, t(:expanded_calendar)
-            .input
-              = u.check_box(:expanded_calendar)
-          .clearfix
-            = u.label :daily_target_hours, t(:daily_target_hours) 
-            .input
-              = u.text_field(:daily_target_hours)
-          .actions
-            = u.submit t(:update), :class => 'btn primary'
+    = form_for @user, :html => { :class => 'form-horizontal' } do |u|
+      %fieldset
+        %legend= t(:edit_user)
+        .control-group
+          = u.label :first_name, t(:first_name), :class => 'control-label'
+          .controls
+            = u.text_field(:first_name)
+        .control-group
+          = u.label :middle_initial, t(:middle_initial), :class => 'control-label'
+          .controls
+            = u.text_field(:middle_initial)
+        .control-group
+          = u.label :last_name, t(:last_name), :class => 'control-label'
+          .controls
+            = u.text_field(:last_name)
+        .control-group
+          = u.label :email, t(:email_address), :class => 'control-label'
+          .controls
+            = u.text_field(:email)
+        .control-group
+          = u.label :expanded_calendar, t(:expanded_calendar), :class => 'control-label'
+          .controls
+            = u.check_box(:expanded_calendar)
+        .control-group
+          = u.label :daily_target_hours, t(:daily_target_hours) , :class => 'control-label'
+          .controls
+            = u.text_field(:daily_target_hours)
+        .form-actions
+          = u.submit t(:update), :class => 'btn primary'
 
   .span6
-    .module
-      = render :partial => "change_password_form", :locals => {:user => @user}
+    = render "change_password_form", :user => @user

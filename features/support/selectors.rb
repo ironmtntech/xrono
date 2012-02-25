@@ -12,7 +12,7 @@ module HtmlSelectorsHelpers
       "html > body"
 
     when "the actions list"
-      ".actions"
+      ".form-actions"
 
     when "the subnav"
       ".nav-pills"

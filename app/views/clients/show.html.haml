@@ -16,14 +16,14 @@
 
 .tab-content
   #incompleted_projects.tab-pane.active
-    = render :partial => "projects", :locals => {:projects => @incompleted_projects}
+    = render "projects", :projects => @incompleted_projects
   #completed_projects.tab-pane
-    = render :partial => "projects", :locals => {:projects => @completed_projects}
+    = render "projects", :projects => @completed_projects
   #data_vault.tab-pane
-    = render :partial => "shared/data_vault", :locals => {:data_vault => @client.data_vault}
+    = render "shared/data_vault", :data_vault => @client.data_vault
   #comments.tab-pane
     - unless current_user.client
-      = render :partial => "shared/files_and_comments", :locals => {:items => @client.files_and_comments.reverse, :id => 'client'}
+      = render "shared/files_and_comments", :items => @client.files_and_comments.reverse, :id => 'client'
 
 - content_for :javascripts do
   = javascript_include_tag "bootstrap-tabs"

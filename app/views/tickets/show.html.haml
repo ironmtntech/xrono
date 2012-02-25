@@ -26,4 +26,4 @@
 = render "shared/work_unit_index"
 
 - unless current_user.client
-  = render :partial => "shared/files_and_comments", :locals => {:items => @ticket.files_and_comments.reverse, :id => 'ticket'}
+  = render "shared/files_and_comments", :items => @ticket.files_and_comments.reverse, :id => 'ticket'

@@ -1,14 +1,14 @@
 %h2 Weekly Time Report
 
-= render :partial => 'admin/nav'
+= render 'admin/nav'
 
 - if @users.any?
-  = render :partial => 'week_pagination', :locals => { :start_date => @start_date }
+  = render 'week_pagination', :start_date => @start_date
   #overall_chart
   - @users.each do |user|
     %h3= user
-    = render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => user, :work_units => user.work_units_between(@start_date, @start_date + 6.days)}
-  = render :partial => 'week_pagination', :locals => { :start_date => @start_date }
+    = render 'shared/calendar', :start_date => @start_date, :user => user, :work_units => user.work_units_between(@start_date, @start_date + 6.days)
+  = render 'week_pagination', :start_date => @start_date
 - else
   %h3= t(:there_are_no_users_to_show)
 - content_for :javascripts do

@@ -1,27 +1,23 @@
-- if @message
-  #message{:title => @message[:title], :style => "display: none;"}
-    %p= @message[:body]
-
 .week_pagination
-  = render :partial => 'dashboard/base/week_pagination', :locals => { :start_date => @start_date }
+  = render 'dashboard/base/week_pagination', :start_date => @start_date
 
-= render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user, :work_units => @work_units }
+= render 'shared/calendar', :start_date => @start_date, :user => current_user, :work_units => @work_units
 
 .row-fluid
   .span6
     .module
-      = render :partial => 'tickets/add_ticket'
+      = render 'tickets/add_ticket'
   .span6
     - if current_user.has_role?(:developer) or current_user.has_role?(:admin)
       .module
-        = render :partial => 'work_units/add_work_unit'
+        = render 'work_units/add_work_unit'
 
 .dashboard_2week_time_report
-  = render :partial => 'two_week_time_report'
-
-- content_for :javascripts do
-  = javascript_include_tag 'add_taxonomy'
+  = render 'two_week_time_report'
 
 - if @message
   #message{:title => @message[:title], :style => "display: none;"}
     %p= @message[:body]
+
+- content_for :javascripts do
+  = javascript_include_tag 'add_taxonomy'

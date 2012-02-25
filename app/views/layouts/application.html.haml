@@ -11,10 +11,10 @@
       .fill.navbar-inner
         .container-fluid
           = link_to image_tag(@site_settings.site_logo.url), '/', :class => 'brand'
-          = render partial: "shared/menu"
+          = render "shared/menu"
 
     .container-fluid
-      = render partial: "shared/flashes"
+      = render "shared/flashes"
       .row-fluid
         - if (content_column_right = yield :content_column_right).empty?
           .span12= yield
@@ -28,4 +28,4 @@
           &copy; 
           = t(:company_name)
           2011
-    = render partial: "shared/javascripts"
+    = render "shared/javascripts"

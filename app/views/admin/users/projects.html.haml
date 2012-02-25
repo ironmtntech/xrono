@@ -1,6 +1,6 @@
 %h1= t(:roles)
 
-= render :partial => '/users/user_head', :locals => { :user => @user }
+= render '/users/user_head', :user => @user 
 
 .module
   = form_tag(projects_admin_user_path, :method => 'post') do
@@ -15,7 +15,7 @@
         %th= t(:no_roles)
       - Client.sort_by_name.each do |client|
         - if client.status == "Active"
-          = render :partial => "shared/user_roles", :locals => { :user => @user, :client => client }
+          = render "shared/user_roles", :user => @user, :client => client
     = submit_tag("Submit", :class => 'btn primary')
 
 - content_for :javascripts do
