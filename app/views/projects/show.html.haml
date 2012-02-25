@@ -44,21 +44,7 @@
     = render "shared/data_vault", :data_vault => @project.data_vault
   #comments.tab-pane
     - unless current_user.client
-      %hr
-      .clearfix
-
-      .row-fluid
-        = render "comments/comments", :comments => @project.comments if @project.comments.any?
-        = render "comments/comment_form", :commentable_id => @project.id,
-          :commentable_field => "project_id",
-          :commentable_type => "Project",
-          :refurl => project_path(@project),
-          :comment_num => @project.id
-      .row-fluid
-        #files
-          = render "file_attachments/file_attachments", :file_attachments => @project.file_attachments if @project.file_attachments.any?
-          = link_to t(:add_file_attachment), new_file_attachment_path( :project_id => @project.id )
-
+      = render "shared/files_and_comments", :items => @project.files_and_comments.reverse, :id => 'project'
 
   - content_for :javascripts do
     = javascript_include_tag "ticket_board"
