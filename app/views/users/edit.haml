@@ -1,5 +1,5 @@
 .row-fluid
-  .span8
+  .span6
     .module
       = form_for @user do |u|
         %fieldset
@@ -31,6 +31,6 @@
           .actions
             = u.submit t(:update), :class => 'btn primary'
 
-  .span8
+  .span6
     .module
       = render :partial => "change_password_form", :locals => {:user => @user}
