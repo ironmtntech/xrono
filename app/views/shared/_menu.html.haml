@@ -8,6 +8,7 @@
     %li.dropdown
       %a{:href => '#', :class => 'dropdown-toggle', 'data-toggle' => 'dropdown'}
         = show_gravatar_for(current_user, 30)
-        %span= current_user
+        %span
+          = current_user
         %b.caret
       = render_navigation(:level => 1, :context => 'secondary')
