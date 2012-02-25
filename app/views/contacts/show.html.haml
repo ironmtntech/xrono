@@ -1,6 +1,6 @@
 %h2= "#{t(:contact)}: #{@contact.first_name} #{@contact.last_name}"
 
-%ul.pills
+%ul.nav.nav-pills
   %li= link_to t(:all_contacts), client_contacts_path
   %li= link_to t(:edit_contact), edit_client_contact_path(@client)
   %li= button_to t(:delete_contact), client_contact_path(@contact.client, @contact), :method => :delete, :confirm => t(:are_you_sure), :class => 'btn'

@@ -1,6 +1,6 @@
 %h2= "#{@ticket.client}: #{@ticket.project} - #{@ticket}"
 
-%ul.pills
+%ul.nav.nav-pills
   %li= link_to "#{t(:client)}: #{@ticket.client}", client_path(@ticket.project.client)
   %li= link_to "#{t(:project)}: #{@ticket.project}", project_path(@ticket.project)
   - if admin? || current_user.has_role?(:developer, @ticket.project)

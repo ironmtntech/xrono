@@ -1,6 +1,6 @@
 = render :partial => 'user_head', :locals => { :user => @user }
 
-%ul.pills
+%ul.nav.nav-pills
   %li= link_to t(:historical_time_report), historical_time_user_path
   - if @user == current_user or current_user.admin?
     %li= link_to "Edit User", edit_user_path(@user)
