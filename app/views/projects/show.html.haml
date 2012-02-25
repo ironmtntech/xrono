@@ -34,11 +34,11 @@
         #{@project.release_notes}
   #incomplete_tickets.tab-pane{:class => "#{@project.xrono_notes.nil? && @project.release_notes.nil? ? "active" : ""}"}
     - if project_completion_metric(@project) > 0
-      = render :partial => 'pie_chart_metrics'
+      = progress_bar(project_completion_metric(@project), :color => 'blue', :rounded => true)
     = render :partial => "ticket_table", :locals => {:tickets => @incomplete_tickets}
   #complete_tickets.tab-pane
     - if project_completion_metric(@project) > 0
-      = render :partial => 'pie_chart_metrics'
+      = progress_bar(project_completion_metric(@project), :color => 'blue', :rounded => true)
     = render :partial => "ticket_table", :locals => {:tickets => @complete_tickets}
   #data_vault.tab-pane
     = render :partial => "shared/data_vault", :locals => {:data_vault => @project.data_vault}
