@@ -105,14 +105,14 @@ table.invoice {
     }
   }
 }
-body div.container div.row div.span16 div input#global_invoiced {
+body div.container-fluid div.row div.span16 div input#global_invoiced {
   float:right;
 }
 
-body div.container div.row div.span16 div form table.invoice tfoot tr td textarea {
+body div.container-fluid div.row div.span16 div form table.invoice tfoot tr td textarea {
   width:100%;
 }
-div.navbar div.fill div.container ul.nav {
+div.navbar div.fill div.container-fluid ul.nav {
   margin: 10px 10px 0 0;
   li {
     a {
@@ -141,7 +141,7 @@ div.navbar div.fill div.container ul.nav {
       }
     }
   }
-  .fill .container li.dropdown{
+  .fill .container-fluid li.dropdown{
     a.dropdown-toggle{
       padding: 0 4px 0 0;
     }
@@ -184,7 +184,7 @@ tfoot{
 footer.footer{
   text-shadow: 0 1px 0 #ffffff;
   width: auto;
-  .container P {
+  .container-fluid p {
     margin: 10px 0 0 0;
     padding: 10px 0 0 0;
     border-top: 1px solid #e5e5e5;
@@ -246,7 +246,7 @@ h3 {
   top: 0;
 }
 
-body div.container div.row div.span16 p.ticket_metrics {
+body div.container-fluid div.row div.span16 p.ticket_metrics {
   text-align:center;
 }
 

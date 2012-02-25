@@ -9,13 +9,13 @@
   %body
     .navbar.navbar-fixed-top
       .fill.navbar-inner
-        .container
+        .container-fluid
           = link_to image_tag(@site_settings.site_logo.url), '/', :class => 'brand'
           = render partial: "shared/menu"
 
-    .container
+    .container-fluid
       = render partial: "shared/flashes"
-      .row
+      .row-fluid
         - if (content_column_right = yield :content_column_right).empty?
           .span12= yield
         - else
@@ -23,7 +23,7 @@
           .span4= yield :content_column_right
     .clear
     %footer.footer
-      .container
+      .container-fluid
         %p
           &copy; 
           = t(:company_name)
