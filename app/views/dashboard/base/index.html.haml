@@ -5,12 +5,9 @@
 
 .row-fluid
   .span6
-    .module
-      = render 'tickets/add_ticket'
+    = render 'tickets/add_ticket'
   .span6
-    - if current_user.has_role?(:developer) or current_user.has_role?(:admin)
-      .module
-        = render 'work_units/add_work_unit'
+    = render 'work_units/add_work_unit'
 
 .dashboard_2week_time_report
   = render 'two_week_time_report'
