@@ -71,4 +71,5 @@ group :test do
   gem 'rcov', '0.9.11'
   gem 'spork', '0.9.0.rc9'
   gem 'yajl-ruby', '~> 0.7.8'
+  gem 'ci_reporter'
 end
