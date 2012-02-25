@@ -122,7 +122,7 @@ div.navbar div.fill div.container ul.nav {
 }
 
 .navbar{
-  .nav{
+  .primary-nav{
     li{
       a{
         @include border-radius(8px);
@@ -197,26 +197,6 @@ h3 {
       padding: 1em;
     }
   }
-}
-
-.nav.secondary-nav{
-  li#edit_user{
-    a{
-      padding-top: 4px;
-      padding-bottom: 0;
-    }
-    img{
-      margin-right: 10px;
-    }
-    span{
-      position: relative;
-      top: -10px;
-    }
-  }
-}
-
-.twipsy{
-  font-size: 13px;
 }
 
 .module{

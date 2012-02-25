@@ -56,7 +56,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :admin, t(:admin), admin_path, :if => lambda{ admin? }, :highlights_on => /admin/
     primary.item :users, t(:users), users_path, :unless => lambda{ admin? || client? }
 
-    primary.dom_class = 'nav'
+    primary.dom_class = 'nav primary-nav'
 
     # you can also specify a css id or class to attach to this particular level
     # works for all levels of the menu

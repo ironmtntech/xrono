@@ -52,7 +52,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :edit_user, t(:edit_profile), edit_user_path(current_user)
     primary.item :logout, t(:logout), destroy_user_session_path
 
-    primary.dom_class = 'nav secondary-nav pull-right'
+    primary.dom_class = 'dropdown-menu'
 
     # you can also specify a css id or class to attach to this particular level
     # works for all levels of the menu
