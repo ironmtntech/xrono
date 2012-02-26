@@ -3,6 +3,7 @@
   - Bootstrap2 upgrade complete and in place.
   - Clean up various views to be more idiomatic rails3
   - Clean up display in general to be more happy-to-be-bootstrap
+  - Change pie charts to progress bars
 
 02/16/2012
 
