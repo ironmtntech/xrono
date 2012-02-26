@@ -15,7 +15,7 @@ module HtmlSelectorsHelpers
       ".form-actions"
 
     when "the subnav"
-      ".nav-pills"
+      ".btn-group"
 
     when "the edit project link"
       "a[rel=edit-project]"
