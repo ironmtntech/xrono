@@ -3,7 +3,7 @@
 = render 'admin/nav'
 
 .right
-  = link_to t(:new_user), new_admin_user_path, :class => "add_new_button btn primary"
+  = link_to bootstrap_icon('plus') + t(:new_user), new_admin_user_path, :class => "add_new_button btn primary"
 
 .btn-group
   = link_to "Unlocked", admin_users_path, :class => 'btn active'
