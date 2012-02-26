@@ -1,16 +1,22 @@
 %h2= "#{@ticket.client}: #{@ticket.project} - #{@ticket}"
 
-%ul.pills
+%ul.nav.nav-pills
   %li= link_to "#{t(:client)}: #{@ticket.client}", client_path(@ticket.project.client)
   %li= link_to "#{t(:project)}: #{@ticket.project}", project_path(@ticket.project)
   - if admin? || current_user.has_role?(:developer, @ticket.project)
     %li= link_to "#{t(:edit)}: #{@ticket}", edit_ticket_path
     %li= link_to t(:new_work_unit), new_ticket_work_unit_path(@ticket)
 
+%p.ticket_description
+  - if @ticket.description
+    %h3 Ticket Description
+    :markdown
+      #{@ticket.description}
+
+%br/
 %p.ticket_metrics
   - if @ticket.estimated_hours && @ticket.percentage_complete
-    = image_tag Gchart.pie(:title => "Remaining Estimated Hours vs Hours Worked -- #{@ticket.percentage_complete}% complete",
-      :size => '450x230', :bar_color => "76959c,364447", :data => [100 - @ticket.percentage_complete, @ticket.percentage_complete], :labels => ["Remaining Estimated", "Hours Worked"])
+    = progress_bar(@ticket.percentage_complete, :color => 'blue', :rounded => true)
     %br/
     %b Estimated Hours:
     = @ticket.estimated_hours
@@ -20,4 +26,4 @@
 = render "shared/work_unit_index"
 
 - unless current_user.client
-  = render :partial => "shared/files_and_comments", :locals => {:items => @ticket.files_and_comments.reverse, :id => 'ticket'}
+  = render "shared/files_and_comments", :items => @ticket.files_and_comments.reverse, :id => 'ticket'

@@ -11,34 +11,34 @@
   %fieldset
     %legend= "#{@work_unit.ticket.project.client}: #{@work_unit.ticket.project} - #{@work_unit.ticket}"
 
-    .clearfix
-      %label= "#{t(:scheduled_on)}:"
-      .input
+    .control-group
+      %label.control-label= t(:scheduled_on)
+      .controls
         = link_to @work_unit.scheduled_at.to_date, "#", :id => "schedule_modal_link"
 
     #schedule_modal
       %p= t(:enter_work_units_on_completion_day)
-      .clearfix
-        %label= t(:scheduled_at)
-        .input
+      .control-group
+        %label.control-label= t(:scheduled_at)
+        .controls
           = text_field_tag :scheduled_at, @work_unit.scheduled_at
 
-    .clearfix
-      = f.label :hours_type
-      .input
+    .control-group
+      = f.label :hours_type, :class => 'control-label'
+      .controls
         = f.select :hours_type, ['Normal', 'Overtime', 'CTO', 'PTO']
 
-    .clearfix
-      = f.label :hours
-      .input
+    .control-group
+      = f.label :hours, :class => 'control-label'
+      .controls
         = f.text_field :hours
 
-    .clearfix
-      = f.label :description
-      .input
+    .control-group
+      = f.label :description, :class => 'control-label'
+      .controls
         = f.text_area :description, :class => 'xxlarge', :rows => 5
 
-    .actions
-      = f.hidden_field :scheduled_at, value: Date.current
+    .form-actions
+      = f.hidden_field :scheduled_at, value: @work_unit.scheduled_at
       = f.hidden_field :ticket_id, value: @work_unit.ticket.id
       = f.submit :class => 'btn primary'

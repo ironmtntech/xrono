@@ -26,3 +26,18 @@ Then /^there should be a user with a client login in the database$/ do
   email = "client_login@user.com"
   User.find(:all, :conditions => ["email = ? AND client = ?", email, true]).any?.should == true
 end
+
+Given /^I am an authenticated client on an existing project page$/ do
+  visit destroy_user_session_path
+  current_user = User.make(:email => "current_user@example.com", :password => "password", :password_confirmation => "password")
+  current_user.has_role!("client")
+  c = Client.create(name: "Test Client", status: "Active")
+  p = Project.create(name: "Test Project", client_id: c.id)
+  current_user.has_role!(:client, p)
+  visit new_user_session_path
+  step %{I fill in "user_email" with "current_user@example.com"}
+  step %{I fill in "user_password" with "password"}
+  step %{I press "Sign in"}
+  visit client_login_project_path(p)
+end
+

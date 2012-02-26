@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :load_user, :only => [:show, :edit, :change_password, :historical_time, :update]
+  skip_before_filter :redirect_clients
 
   access_control do
     allow :admin

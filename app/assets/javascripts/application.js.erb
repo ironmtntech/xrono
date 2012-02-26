@@ -9,17 +9,13 @@
 //= require file_attachments
 //= require schedule_modal
 //= require chosen.jquery.js
-//= require bootstrap-twipsy
+//= require jquery.jeditable.js
+//= require twitter/bootstrap
 
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
 $(function() {
-  $("#help").dialog({ autoOpen: false });
-  $("#help_modal_link").click(function() {
-    $("#help").dialog('open')
-    return false;
-  });
   <% unless Rails.env.test? || Rails.env.cucumber? %>
     <% # only use chosen in dev r prod - it breaks cukes %>
     $(".chzn-select").chosen();

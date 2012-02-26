@@ -5,11 +5,10 @@
 %div
   = form_tag(admin_invoice_path, :method => 'put', :multipart => true) do
     = submit_tag t(:submit), :class => 'invoice_submit btn primary'
-    %br/
-    %br/
+
     .clear
     - @tickets.each do |ticket|
-      %table.invoice.zebra-striped
+      %table.invoice.table.table-striped
         %thead
           %tr
             %td{:colspan => "3"}= ticket.long_name
@@ -41,7 +40,7 @@
             %td.totals{:colspan => "3"}= t(:totals)
             %td.totals{:colspan => "3"}= ticket.uninvoiced_hours
           %tr
-            %td{:colspan => "6"}
+            %td.totals
               = find_and_preserve do
                 %textarea{:cols => "100%", :rows => "10"}
                   = "#{ticket.long_name}"

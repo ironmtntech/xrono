@@ -50,12 +50,13 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>. 
     #
     primary.item :home, t(:home), root_path
-    primary.item :clients, t(:clients), clients_path
+    primary.item :clients, t(:clients), clients_path, :unless => lambda { client? }
     primary.item :admin_users, t(:users), admin_users_path, :if => lambda{ admin? }, :highlights_on => lambda{ false }
+    primary.item :reports, "Reports", client_login_reports_path, :if => lambda {client?}
     primary.item :admin, t(:admin), admin_path, :if => lambda{ admin? }, :highlights_on => /admin/
-    primary.item :users, t(:users), users_path, :unless => lambda{ admin? }
+    primary.item :users, t(:users), users_path, :unless => lambda{ admin? || client? }
 
-    primary.dom_class = 'nav'
+    primary.dom_class = 'nav primary-nav'
 
     # you can also specify a css id or class to attach to this particular level
     # works for all levels of the menu

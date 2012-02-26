@@ -1,0 +1,31 @@
+%table.tickets.table.table-striped
+  %thead
+    %tr
+      %th  #
+      %th= t(:tickets)
+      %th= t(:work_units)
+      %th= t(:uninvoiced_hours)
+      %th= t(:total_hours)
+      %th= t(:percent_complete)
+      - if admin? || current_user.has_role?(:developer, @project)
+        %th= t(:edit)
+  %tfoot
+    %tr
+      %th= t(:all_tickets)
+      %th &nbsp;
+      %th= @project.work_units.count
+      %th= @project.uninvoiced_hours
+      %th= @project.hours
+      %th &nbsp;
+  %tbody
+    - @tickets.each do |ticket|
+      %tr
+        %td= ticket.id
+        %td= link_to ticket, client_login_ticket_path(ticket)
+        %td= ticket.work_units.count
+        %td= ticket.uninvoiced_hours
+        %td= ticket.hours
+        %td= progress_bar(ticket.percentage_complete, :color => 'blue', :rounded => true)
+        - if admin? || current_user.has_role?(:developer, @project)
+          %td= link_to t(:edit), edit_ticket_path(ticket), :class => 'btn'
+

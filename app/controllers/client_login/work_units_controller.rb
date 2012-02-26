@@ -1,24 +1,11 @@
 class ClientLogin::WorkUnitsController < ClientLogin::BaseController
+  include ControllerMixins::WorkUnits
+  include ControllerMixins::Authorization
 
-  access_control do
-    allow :admin
-    allow :developer, :of => :project
-    allow :client, :of => :project, :to => :show
-  end
-  
-  def index 
-    if params[:invoiced] != nil
-      @work_units = WorkUnit.find_all_by_invoiced(params[:invoiced])
-      @search = "Invoiced: " + params[:invoiced]
-    else
-      @work_units = WorkUnit.find_all_by_paid(params[:paid])
-      @search = "Paid: " + params[:paid]
-    end
-  end
+  authorize_owners_with_client_show(:project)
 
   # GET /work_units/:id
   def show
     @work_unit = WorkUnit.find params[:id]
   end
-
 end

@@ -1,7 +1,6 @@
 before_script:
-  - "mysql -e 'create database xrono_text;'"
   - "cp config/database.yml.mysql config/database.yml"
-script: "bundle exec rake db:create db:migrate spec"
+script: "bundle exec rake db:create db:migrate db:test:clone spec"
 notifications:
   email:
     - josh@isotope11.com

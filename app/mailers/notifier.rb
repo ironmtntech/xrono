@@ -15,12 +15,4 @@ class Notifier < ActionMailer::Base
     @work_unit = WorkUnit.find work_unit_id
     mail(:bcc => addresses, :subject => "[Xrono] Work Unit: #{@work_unit.guid}") {|f| f.text}
   end
-
-  def ticket_state_change(ticket, addresses)
-    @ticket = ticket
-    mail(:cc => addresses, :subject => "[Xrono] State changed on Ticket: #{@ticket.name}") do |detail|
-      detail.text { render :text => "#{@ticket.name} is now in #{@ticket.state}" }
-      detail.html { render :text => "<h1> #{@ticket.name} is now in #{@ticket.state} </h1>" }
-    end
-  end 
 end

@@ -1,60 +1,27 @@
 class Dashboard::BaseController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
   before_filter :get_calendar_details, :only => [:index, :calendar, :update_calendar]
-  before_filter :redirect_clients
+  before_filter :load_work_units, :only => [:index, :calendar, :update_calendar]
   respond_to :html, :json, :js
 
-  ##############################################################################
-  # Methods called by checkbox to display full list of clients/projects/tickets#
-  # for developers who want to bill on a project they are not assigned to.     #
-  ##############################################################################
-  
-  # Show ALL clients                                                           #
-  def collaborative_index
-    @clients = Client.not_inactive.sort_by_name
-    @projects = []
-    @tickets = []
-    render :json => @clients
-  end
-
-  # Show ALL projects                                                          #
-  def collaborative_client
-    @projects = Project.find(:all, :conditions => {:client_id => params[:id]}, :order => "name")
-    render :json => @projects
-  end
-  
-  # Show ALL tickets                                                           #
-  def collaborative_project
-    @tickets = Ticket.find(:all, :conditions => {:project_id => params[:id]}, :order => "name")
-    render :json => @tickets
-  end
-
-  # Undoes effects of checkbox, rendering only the clients for which developer #
-  # has projects assigned.                                                     #
   def json_index
-    @clients = Client.not_inactive.sort_by_name.for_user(current_user)
-    @projects = []
-    @tickets = []
-    render :json => @clients
+    bucket = decide_bucket
+    bucket = bucket.for_user(current_user) unless params["all"] == "true"
+    bucket.order("name")
+    render :json => bucket.all
   end
-  
-  ##############################################################################
-  # Regular scoped methods                                                     #
-  ##############################################################################
+
   def index
-    if current_user.has_role?(:developer) && !admin?
-      unless current_user.work_units_for_day(Date.current.prev_working_day).any?
-        @message = {:title => t(:management),
-          :body => t(:enter_time_for_previous_day)}
-      end
-    end
-    @clients = Client.not_inactive.sort_by_name.for_user(current_user)
+    @message = {:title => t(:management), :body => t(:enter_time_for_previous_day)} unless current_user.entered_time_yesterday?
+    @clients = Client.order("name").active.for_user(current_user)
     @projects = []
     @tickets = []
+
+    @project_report_rows = WorkUnit.for_user(current_user).scheduled_between(Time.zone.now - 2.weeks, Time.zone.now.end_of_day).joins(:ticket => :project).select("projects.id as project_id, projects.name as project_name, SUM(work_units.effective_hours) as total_hours").group("projects.name")
   end
 
   def client
-    @projects = Project.sort_by_name.for_client_id(params[:id])
+    @projects = Project.order("name").incomplete.for_client_id(params[:id])
     unless admin?
       @projects = @projects.for_user_and_role(current_user, :developer)
     end
@@ -62,19 +29,18 @@ class Dashboard::BaseController < ApplicationController
   end
 
   def project
-    @tickets = Ticket.find(:all, :conditions => {:project_id => params[:id]}, :order => "name")
+    @tickets = Ticket.order("name").incomplete.where("project_id = ?", params[:id])
     #unless admin?
     #  @tickets = @tickets.for_user_and_role(current_user, :developer)
     #end
     respond_with @tickets
   end
 
-  # GET /projects/show_me_the_tickets
-  def give_me_the_tickets
-    render :partial => "shared/ticketboard", :locals => { :project => Project.find(params[:id]) }
+  def calendar
   end
 
-  def calendar
+  def load_work_units
+    @work_units = current_user.work_units_between(@start_date, @start_date + 6.days)
   end
 
   def update_calendar
@@ -86,6 +52,7 @@ class Dashboard::BaseController < ApplicationController
             :partial => 'shared/calendar',
             :locals => {
               :start_date => @start_date,
+              :work_units => @work_units,
               :user => current_user
             }
           ),
@@ -102,11 +69,14 @@ class Dashboard::BaseController < ApplicationController
 
   private
 
-  def get_calendar_details
-    if params[:date].present? && params[:date] != "null"
-      @start_date = Date.parse(params[:date]).beginning_of_week
-    else
-      @start_date = Date.current.beginning_of_week
+  def decide_bucket
+    case params["bucket"]
+    when "Client"
+      Client.active
+    when "Project"
+      Project.incomplete.where("client_id = ?", params[:id])
+    when "Ticket"
+      Ticket.incomplete.where("project_id = ?", params[:id])
     end
   end
 end

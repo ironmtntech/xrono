@@ -27,6 +27,6 @@ When /^I delete the (\d+)(?:st|nd|rd|th) project$/ do |pos|
 end
 
 Then /^I should see the following projects:$/ do |expected_projects_table|
-  expected_projects_table.diff!(tableish('table tr', 'td,th'))
+  expected_projects_table.diff!(find('table').all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } })
 end
 

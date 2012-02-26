@@ -1,17 +1,46 @@
 class Api::V1::TicketsController < Api::V1::BaseController
-
   def index
-    @bucket = Ticket
+    @bucket = Ticket.order("name")
 
-    @project = Project.find_by_id(params["project_id"])
-    @bucket = @bucket.for_project(@project) if @project
+    @bucket = @bucket.where(:project_id => params[:project_id]) unless params[:project_id].blank?
+    @bucket = @bucket.for_repo_url_and_branch(params[:repo_url],params[:branch]) unless params[:repo_url].blank? && params[:branch].blank?
 
-    @client = Client.find_by_id(params["client_id"])
-    @bucket = @bucket.for_client(@client) if @client
+    json_array = []
+    @bucket.all.each do |ticket|
+      json_array << build_hash_for_ticket(ticket)
+    end
+    render :json => json_array
+  end
 
-    @bucket = @bucket.for_user_scope(current_user)
+  def show
+    @ticket = Ticket.find params[:id]
 
-    @tickets = @bucket.order("name").all
-    render :json => @tickets
+    json_hash = {
+        :name                 => @ticket.name,
+        :estimated_hours      => @ticket.estimated_hours,
+        :percentage_complete  => @ticket.percentage_complete,
+        :hours                => @ticket.hours
+    }
+    render :json => json_hash
+  end
+
+  def create
+    @ticket = Ticket.new(params[:ticket])
+    if @ticket.save
+      render :json => {:success => true} and return
+    else
+      render :json => {:success => false, :errors => @ticket.errors.full_messages.to_sentence} and return
+    end
+  end
+
+  private
+  def build_hash_for_ticket ticket
+      {
+          :id                   => ticket.id,
+          :name                 => ticket.name,
+          :estimated_hours      => ticket.estimated_hours,
+          :percentage_complete  => ticket.percentage_complete,
+          :hours                => ticket.hours
+      }
   end
 end

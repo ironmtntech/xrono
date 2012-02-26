@@ -1,28 +1,27 @@
 #add_ticket
-  = form_for Ticket.new(params[:ticket]) do |f|
+  = form_for Ticket.new(params[:ticket]), :html => { :class => 'form-horizontal' } do |f|
     %fieldset
       %legend= t(:add_ticket)
       #ticket-errors
-      .clearfix
-        %label{:for => "ticket_client_id"}= "#{t(:client)}:"
-        .input
+      .control-group
+        %label.control-label{:for => "ticket_client_id"}= "#{t(:client)}:"
+        .controls
           = collection_select("ticket", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) }, :class => 'chzn-select')
-      .clearfix
-        %label{:for => "ticket_project_id"}= "#{t(:project)}:"
-        .input
+      .control-group
+        %label.control-label{:for => "ticket_project_id"}= "#{t(:project)}:"
+        .controls
           = collection_select("ticket", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) }, :class => 'chzn-select')
-      .clearfix
-        %label{:for => "ticket_name"}= "#{t(:name)}:"
-        .input
+      .control-group
+        %label.control-label{:for => "ticket_name"}= "#{t(:name)}:"
+        .controls
           = f.text_field :name, { :size => 10 }
-      .clearfix
-        %label{:for => "ticket_estimated_hours"}= "#{t(:estimated_hours)}:"
-        .input
+      .control-group
+        %label.control-label{:for => "ticket_estimated_hours"}= "#{t(:estimated_hours)}:"
+        .controls
           = f.text_field :estimated_hours, { :size => 10 }
-      .clearfix
-        %label{:for => "ticket_description"}= "#{t(:description)}:"
-        .input
+      .control-group
+        %label.control-label{:for => "ticket_description"}= "#{t(:description)}:"
+        .controls
           = f.text_area :description, { :rows => 5 }
-
-      .actions
+      .form-actions
         = f.submit t(:create_ticket), :class => 'add_new_button btn primary'

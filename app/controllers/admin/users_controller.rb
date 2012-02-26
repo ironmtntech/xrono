@@ -1,9 +1,14 @@
 class Admin::UsersController < Admin::BaseController
   before_filter :load_user_account, :only => [:update, :edit, :destroy, :projects]
   before_filter :load_new_user_account, :only => [:new, :create]
+  before_filter :filter_blank_password, :only => [:update]
 
   def index
-    @users = {unlocked: User.unlocked.sort_by_name, locked: User.locked.sort_by_name}
+    @users = User.unlocked.sort_by_name
+  end
+
+  def locked_users
+    @users = User.locked.sort_by_name
   end
 
   def new
@@ -27,21 +32,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def update
-    if params[:user]["locked"] == "1" && !@user.locked_at?
-      @user.lock_access!
-    elsif params[:user]["locked"] == "0" && @user.locked_at?
-      @user.unlock_access!
-    end
-
-    if params[:user]["client"] == "1" && !@user.client
-      @user.update_attribute(:client, true)
-    elsif params[:user]["client"] == "0" && @user.client
-      @user.update_attribute(:client, false)
-    end
-
-    if params[:user]["password"] == "" && params[:user]["password_confirmation"] == ""
-      params[:user].delete(:password) && params[:user].delete(:password_confirmation)
-    end
+    params[:user]["locked"] == "1" ? @user.lock_access! : @user.unlock_access!
 
     @user.update_attributes(params[:user])
     if @user.save
@@ -66,7 +57,14 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
-private
+  private
+
+  def filter_blank_password
+    if params[:user]["password"] == "" && params[:user]["password_confirmation"] == ""
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+  end
 
   def load_user_account
     @user = User.find(params[:id])

@@ -9,7 +9,6 @@ describe Ticket do
 
   it { should validate_presence_of :project_id }
   it { should validate_presence_of :name }
-  it { should validate_presence_of :estimated_hours }
 
   describe '#to_s' do
     subject { @ticket.to_s }
@@ -86,6 +85,24 @@ describe Ticket do
     end
   end
 
+  describe '.for_user_role' do
+    context 'when a user has access to a project' do
+      it 'should return a collection of tickets for all the projects to which the user is assigned' do
+        user = User.make
+        project1 = Project.make
+        project2 = Project.make
+        user.has_role!(:developer, project1)
+        user.has_role!(:client, project2)
+        ticket1 = Ticket.make(:project => project1)
+        ticket2 = Ticket.make(:project => project1)
+        ticket3 = Ticket.make(:project => project2)
+        Ticket.for_user_and_role(user,"developer").include?(ticket1).should be_true
+        Ticket.for_user_and_role(user,"developer").include?(ticket2).should be_true
+        Ticket.for_user_and_role(user,"developer").include?(ticket3).should be_false
+      end
+    end
+  end
+
   describe '.for_user' do
     context 'when a user has access to a project' do
       it 'should return a collection of tickets for all the projects to which the user is assigned' do
@@ -100,6 +117,60 @@ describe Ticket do
         Ticket.for_user(user).include?(ticket2).should be_true
         Ticket.for_user(user).include?(ticket3).should be_false
       end
+    end
+  end
+
+  describe '.for_repo_and_branch' do
+    it "should return a list of tickets who meet this criteria" do
+      project = Project.make
+      project.update_attribute(:git_repo_name, "test")
+      ticket = project.tickets.make
+      ticket.update_attribute(:git_branch, "feature/test")
+      Ticket.for_repo_and_branch("test","feature/test").include?(ticket).should be_true
+    end
+  end
+
+  describe '.for_repo_url_and_branch' do
+    it "should return a list of tickets who meet this criteria" do
+      project = Project.make
+      project.update_attribute(:git_repo_url, "test")
+      ticket = project.tickets.make
+      ticket.update_attribute(:git_branch, "feature/test")
+      Ticket.for_repo_url_and_branch("test","feature/test").include?(ticket).should be_true
+    end
+  end
+
+  describe '#remaining_hours' do
+    it 'should return the remaining hours when there are remaining hours' do
+      ticket = Ticket.make
+      ticket.estimated_hours = 10
+      wu = ticket.work_units.make
+      wu.update_attribute(:effective_hours, 5)
+      ticket.remaining_hours.should == 5
+    end
+
+    it 'should return 0 when there are more effective hours than estimated hours' do
+      ticket = Ticket.make
+      ticket.estimated_hours = 10
+      wu = ticket.work_units.make
+      wu.update_attribute(:effective_hours, 11)
+      ticket.remaining_hours.should == 0
+    end
+  end
+
+  describe '#percentage_complete' do
+    it 'calculate the percentage left on the ticket' do
+      ticket = Ticket.make
+      ticket.estimated_hours = 10
+      wu = ticket.work_units.make
+      wu.update_attribute(:effective_hours, 5)
+      ticket.percentage_complete.should == 50.0
+    end
+
+    it 'should return 0 when there is an error' do
+      ticket = Ticket.make
+      ticket.estimated_hours = nil
+      ticket.percentage_complete.should == 0
     end
   end
 
@@ -121,6 +192,17 @@ describe Ticket do
       lambda do
         Ticket.make
       end.should change(Ticket, :count).by(1)
+    end
+  end
+
+  describe '#files_and_comments' do
+    it 'should list all files and comments' do
+      ticket = Ticket.make
+      comment = ticket.comments.create(:title => "test", :comment => "test")
+      File.open("tmp/tmp.txt", "w") {|f| f.write "test"}
+      fa = ticket.file_attachments.create(:attachment_file => File.open("tmp/tmp.txt","r"))
+      ticket.files_and_comments.should == [comment,fa]
+      File.delete("tmp/tmp.txt")
     end
   end
 

@@ -50,14 +50,7 @@ Feature: Manage Work Units
     And I am assigned to the project
     And I visit /
     And I follow "close"
-    When I select "test client" from "work_unit_client_id"
-    And I select "test project" from "work_unit_project_id"
-    And I select "test ticket" from "work_unit_ticket_id"
-    And I select "Overtime" from "hours_type"
-    And I fill in "work_unit_hours" with "2"
-    And I fill in "work_unit_description" with "test description"
-    And I press "Create Work Unit"
-    Then I should see "This client is suspended. Please contact an Administrator."
+    Then the "work_unit_client_id" field should not contain "test client"
 
   Scenario: Edit a work unit
     Given I am an authenticated user with an admin role
@@ -70,6 +63,17 @@ Feature: Manage Work Units
     And I fill in "work_unit_hours" with "2"
     And I press "Update Work unit"
     Then I should see "Work unit updated" within ".alert-message"
+
+  Scenario: Edit a work unit from yesterday
+    Given I am an authenticated user with an admin role
+    And a client "test client" exists with name: "test client", initials: "TTC", status: "Suspended"
+    And a project "test project" exists with name: "test project", client: client "test client"
+    And a ticket "test ticket" exists with project: project "test project", name: "test ticket"
+    And I have a "2" hour work unit for yesterday with ticket "test ticket"
+    When I go to the last work units edit page
+    And I press "Update Work unit"
+    Then I should see "Work unit updated" within ".alert-message"
+    And that work unit should still have a scheduled at date of yesterday
 
   Scenario: Attempt to edit a work unit you do not have access to
     Given I am an authenticated user

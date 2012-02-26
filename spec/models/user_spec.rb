@@ -115,6 +115,20 @@ describe User do
     end
   end
 
+  describe '.for_project' do
+    before(:each) do
+      @project = Project.make
+      @user    = User.make
+      @user_1  = User.make
+
+      @user.has_role!("developer",@project)
+    end
+
+    it 'should return all the users listed on a project' do
+      User.for_project(@project).should == [@user]
+    end
+  end
+
   describe '#to_s' do
     subject { user.to_s }
 
@@ -160,8 +174,8 @@ describe User do
 
     before do
       site_settings.update_attributes(:total_yearly_pto_per_user => 40)
-      work_unit1.update_attributes(:hours => 2, :hours_type => 'PTO', :scheduled_at => '2011-01-01')
-      work_unit2.update_attributes(:hours => 3, :hours_type => 'PTO', :scheduled_at => '2011-12-30')
+      work_unit1.update_attributes(:hours => 2, :hours_type => 'PTO', :scheduled_at => Date.today)
+      work_unit2.update_attributes(:hours => 3, :hours_type => 'PTO', :scheduled_at => 1.days.from_now)
       work_unit3.update_attributes(:hours => 5, :hours_type => 'PTO', :scheduled_at => '2010-12-31')
     end
 

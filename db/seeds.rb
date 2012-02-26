@@ -42,7 +42,6 @@ client_user    = User.make :email => 'client@xrono.org'
 developers = [ admin_user, developer_user ]
 8.times { developers.push User.make }
 
-
 # Roles #
 
 admin_user.has_role!(:admin)
