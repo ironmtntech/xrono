@@ -1,4 +1,4 @@
-# Xrono
+## Xrono
 [![Travis CI Build Status](http://travis-ci.org/isotope11/xrono.png)](http://travis-ci.org/isotope11/xrono)
 
 Xrono is a mature, open source, time tracking solution for your business.
@@ -11,15 +11,14 @@ active development, so feel free to check out our
 [support](http://www.xrono.org/#support) section of our
 [website](http://www.xrono.org/) if you have any questions.
 
-## Continuous Integration Trends
+### Continuous Integration Trends
 
-### Test Result Trend
+#### Test Result Trend
 ![Test Result Trend](http://isotope11.selfip.com:3026/job/Xrono/test/trend)
-### Rcov coverage
+#### Rcov coverage
 ![Rcov coverage](http://isotope11.selfip.com:3026/job/Xrono/rcov/graph)
 
-## Development Installation
-
+### Development Installation
 * Fork, then clone the repository to your development environment
 * If you are using rvm, create a .rvmrc
 * gem install bundler
@@ -32,15 +31,14 @@ active development, so feel free to check out our
 * rake spec
 * rake cucumber
 
-## Support
+### Support
 For support, please do one of the following:
 
 * Post to our [Google Group](http://groups.google.com/group/xrono).
 * Join us in IRC on Freenode [#xrono](irc://irc.freenode.net:6667/xrono)
 * Create a ticket on our [GitHub Issue Tracker](http://github.com/isotope11/xrono/issues) for bugs.
 
-## Contributing
-
+### Contributing
 We love contributions! please fork the project, make your changes in a branch,
 test them properly - rspec for model/lib/helpers) and cucumber for integration
 testing - then send us a pull request.
