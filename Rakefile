@@ -9,7 +9,7 @@ require 'resque_scheduler/tasks'
 require 'rubygems'
 begin
   require 'ci/reporter/rake/rspec'     # use this if you're using RSpec
-rescue
+rescue LoadError
 end
 
 AssetTrackerTutorial::Application.load_tasks
