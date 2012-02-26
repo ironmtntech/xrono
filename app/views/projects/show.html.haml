@@ -10,8 +10,8 @@
   %ul.nav.nav-pills
     %li= link_to "#{t(:client)}: #{@project.client}" , client_path(@project.client)
     - if admin? || current_user.has_role?(:developer, @project)
-      %li= link_to "#{t(:edit)}: #{@project}", edit_project_path
-      %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project)
+      %li= link_to t(:edit_project), edit_project_path, :class => 'btn'
+      %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project), :class => 'btn'
 
 %ul.nav.nav-tabs{"data-tabs" => "tabs"}
   -if !@project.xrono_notes.nil?
