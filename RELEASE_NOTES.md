@@ -4,6 +4,8 @@
   - Clean up various views to be more idiomatic rails3
   - Clean up display in general to be more happy-to-be-bootstrap
   - Change pie charts to progress bars
+  - Make most active project show up at top of projects listing.
+  - factor out a show_message method from dashboard code.
 
 02/16/2012
 
