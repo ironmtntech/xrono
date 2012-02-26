@@ -12,9 +12,7 @@
 .dashboard_2week_time_report
   = render 'two_week_time_report'
 
-- if @message
-  #message{:title => @message[:title], :style => "display: none;"}
-    %p= @message[:body]
+= render_message(@message)
 
 - content_for :javascripts do
   = javascript_include_tag 'add_taxonomy'
