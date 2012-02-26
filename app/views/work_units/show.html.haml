@@ -1,10 +1,7 @@
-%h2= "#{@work_unit.client}: #{@work_unit.project} - #{@work_unit.ticket}"
+= render 'breadcrumbs'
 
-%ul.nav.nav-pills
-  %li #{link_to "#{t(:client)}: #{@work_unit.client}", client_path(@work_unit.client)}
-  %li #{link_to "#{t(:project)}: #{@work_unit.project}", project_path(@work_unit.project)}
-  %li= link_to "#{t(:ticket)}: #{@work_unit.ticket}", ticket_path(@work_unit.ticket) 
-  - if (@work_unit.user == current_user) || admin?
+- if (@work_unit.user == current_user) || admin?
+  %ul.nav.nav-pills
     %li= link_to bootstrap_icon('edit') + t(:edit_work_unit), edit_work_unit_path, :class => 'btn'
 
 #work_unit

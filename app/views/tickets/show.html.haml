@@ -1,19 +1,18 @@
-%h2= "#{@ticket.client}: #{@ticket.project} - #{@ticket}"
+= render 'breadcrumbs'
 
-%ul.nav.nav-pills
-  %li= link_to "#{t(:client)}: #{@ticket.client}", client_path(@ticket.project.client)
-  %li= link_to "#{t(:project)}: #{@ticket.project}", project_path(@ticket.project)
-  - if admin? || current_user.has_role?(:developer, @ticket.project)
-    %li= link_to bootstrap_icon('edit') + t(:edit_ticket), edit_ticket_path, :class => 'btn'
-    %li= link_to bootstrap_icon('plus') + t(:new_work_unit), new_ticket_work_unit_path(@ticket), :class => 'btn'
+- if admin? || current_user.has_role?(:developer, @ticket.project)
+  .btn-group
+    = link_to bootstrap_icon('edit') + t(:edit_ticket), edit_ticket_path, :class => 'btn'
+    = link_to bootstrap_icon('plus') + t(:new_work_unit), new_ticket_work_unit_path(@ticket), :class => 'btn'
 
-%p.ticket_description
-  - if @ticket.description
+- if @ticket.description
+  %p.ticket_description
     %h3 Ticket Description
     :markdown
       #{@ticket.description}
 
 %br/
+
 %p.ticket_metrics
   - if @ticket.estimated_hours && @ticket.percentage_complete
     = progress_bar(@ticket.percentage_complete, :color => 'blue', :rounded => true)

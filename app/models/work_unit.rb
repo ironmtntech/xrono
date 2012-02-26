@@ -120,7 +120,11 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def to_s
-    description
+    if new_record?
+      I18n.t(:new_work_unit)
+    else
+      description[0..80]
+    end
   end
 
   def allows_access?(user)

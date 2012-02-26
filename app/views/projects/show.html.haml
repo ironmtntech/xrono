@@ -1,17 +1,16 @@
-#page_header
-  %h2
-    = "#{@project.client}: #{@project}"
+= render 'breadcrumbs'
 
-  -if current_user.admin?
-    %ul
-      %li= "Rate A: #{number_to_currency(@project.rate_a)}"
-      %li= "Rate B: #{number_to_currency(@project.rate_b)}"
+- if admin? || current_user.has_role?(:developer, @project)
+  .btn-group
+    = link_to bootstrap_icon('edit') + t(:edit_project), edit_project_path, :class => 'btn'
+    = link_to bootstrap_icon('plus') + t(:new_ticket), new_ticket_path(:project_id => @project), :class => 'btn'
+  %br
+  %br
 
-  %ul.nav.nav-pills
-    %li= link_to "#{t(:client)}: #{@project.client}" , client_path(@project.client)
-    - if admin? || current_user.has_role?(:developer, @project)
-      %li= link_to bootstrap_icon('edit') + t(:edit_project), edit_project_path, :class => 'btn'
-      %li= link_to bootstrap_icon('plus') + t(:new_ticket), new_ticket_path(:project_id => @project), :class => 'btn'
+- if current_user.admin?
+  %ul
+    %li= "Rate A: #{number_to_currency(@project.rate_a)}"
+    %li= "Rate B: #{number_to_currency(@project.rate_b)}"
 
 %ul.nav.nav-tabs{"data-tabs" => "tabs"}
   -if !@project.xrono_notes.nil?
