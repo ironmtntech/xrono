@@ -446,9 +446,9 @@ describe WorkUnit do
     end
 
     describe '#to_s' do
-      it 'should equal description' do
+      it 'should equal the truncated description' do
         work_unit = WorkUnit.make
-        work_unit.to_s.should == work_unit.description
+        work_unit.to_s.should == work_unit.description[0..80]
       end
     end
 
