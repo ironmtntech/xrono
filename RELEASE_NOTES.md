@@ -1,3 +1,9 @@
+02/27/2012
+
+  - Bootstrap2 upgrade complete and in place.
+  - Clean up various views to be more idiomatic rails3
+  - Clean up display in general to be more happy-to-be-bootstrap
+
 02/16/2012
 
   - Added better client dashboard to see monthly work unit statistics.
