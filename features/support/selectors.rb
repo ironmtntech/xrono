@@ -14,6 +14,9 @@ module HtmlSelectorsHelpers
     when "the actions list"
       ".form-actions"
 
+    when "the breadcrumbs"
+      "ul.breadcrumb"
+
     when "the subnav"
       ".btn-group"
 

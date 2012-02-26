@@ -1,6 +1,6 @@
 before_script:
   - "cp config/database.yml.mysql config/database.yml"
-script: "bundle exec rake db:create db:migrate db:test:clone spec"
+script: "bundle exec rake db:create db:migrate db:test:clone spec cucumber"
 notifications:
   email:
     - josh@isotope11.com
