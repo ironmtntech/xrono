@@ -28,7 +28,7 @@ Feature: Manage projects
     And I am assigned to the project
     When I am on the client's page
     And I follow "test project"
-    And I follow "Edit project"
+    And I follow the edit project link
     And I fill in "Name" with "project 2"
     And I press "Update"
     Then I should see "project 2"
@@ -40,11 +40,11 @@ Feature: Manage projects
     And I am assigned to the project
     When I am on the client's page
     And I follow "tagged project"
-    And I follow "Edit project"
+    And I follow the edit project link
     And I fill in "Name" with "the tagged project"
     And I fill in "project_tag_list" with "the_tag"
     And I press "Update"
-    And I follow "Edit project"
+    And I follow the edit project link
     Then I should see "the_tag"
 
   Scenario: Edit a project - invalid
@@ -54,7 +54,7 @@ Feature: Manage projects
     And I am assigned to the project
     When I am on the client's page
     And I follow "test project"
-    And I follow "Edit project"
+    And I follow the edit project link
     And I fill in "Name" with ""
     And I press "Update"
     Then I should see "There was a problem saving the project."

@@ -17,6 +17,9 @@ module HtmlSelectorsHelpers
     when "the subnav"
       ".nav-pills"
 
+    when "the edit project link"
+      "a[rel=edit-project]"
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
