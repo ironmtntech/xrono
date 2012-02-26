@@ -6,8 +6,8 @@
     %li= link_to t(:all_clients), clients_path
   %li= link_to 'View Contacts', client_contacts_path(@client)
   - if admin?
-    %li= link_to 'Edit Client', edit_client_path, :class => 'btn'
-    %li= link_to 'New Project', new_project_path(:client => @client), :class => 'btn'
+    %li= link_to bootstrap_icon('edit') + 'Edit Client', edit_client_path, :class => 'btn'
+    %li= link_to bootstrap_icon('plus') + 'New Project', new_project_path(:client => @client), :class => 'btn'
 
 %ul.nav.nav-tabs{"data-tabs" => "tabs"}
   %li.active= link_to "Incompleted Projects", "#incompleted_projects"
