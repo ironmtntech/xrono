@@ -6,10 +6,9 @@ describe Api::V1::ClientsController do
   let(:project) { Project.make }
   let(:project_2) { Project.make }
 
+  authenticate_user!
+
   before(:each) do
-    request.env['warden'].stub :authenticate! => user
-    controller.stub :current_user => user
-    user.ensure_authentication_token!
     user.has_role!("developer", project)
     user.has_role!("developer", project_2)
   end

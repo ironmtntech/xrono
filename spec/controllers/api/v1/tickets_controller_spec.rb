@@ -6,11 +6,9 @@ describe Api::V1::TicketsController do
   let(:ticket) { Ticket.make }
   let(:ticket_2) { Ticket.make }
 
-  before(:each) do
-    request.env['warden'].stub :authenticate! => user
-    controller.stub :current_user => user
-    user.ensure_authentication_token!
+  authenticate_user!
 
+  before(:each) do
     ticket.project.update_attribute(:git_repo_url, "test_2")
     ticket.update_attribute(:git_branch, "test_branch")
 
