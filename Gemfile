@@ -65,7 +65,7 @@ group :test do
   gem 'machinist', '~> 1.0.6'
   gem 'pickle', '= 0.4.8'
   gem 'rspec-rails'
-  gem 'shoulda', '~> 3.0'
+  gem 'shoulda-matchers', '~> 1.0'
   gem 'simplecov', '~> 0.5.0'
   gem 'simplecov-rcov'
   gem 'rcov', '0.9.11'

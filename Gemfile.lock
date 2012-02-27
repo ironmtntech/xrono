@@ -254,10 +254,6 @@ GEM
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
-    shoulda (3.0.0)
-      shoulda-context (~> 1.0.0)
-      shoulda-matchers (~> 1.0.0)
-    shoulda-context (1.0.0)
     shoulda-matchers (1.0.0)
     simple-navigation (3.5.1)
       activesupport (>= 2.3.2)
@@ -349,7 +345,7 @@ DEPENDENCIES
   rspec-rails
   ruby-debug19 (~> 0.11.6)
   sass-rails (~> 3.2.0)
-  shoulda (~> 3.0)
+  shoulda-matchers (~> 1.0)
   simple-navigation (~> 3.5.0)
   simplecov (~> 0.5.0)
   simplecov-rcov
