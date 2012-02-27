@@ -49,7 +49,7 @@ end
 
 group :test do
   unless ENV['travis']
-    gem 'ruby-debug19', '~> 0.11.6', :require => 'ruby-debug'
+    gem 'ruby-debug19', '~> 0.11.6', :require => 'ruby-debug', :platform => :mri_19
   end
   gem 'awesome_print', '~> 0.4.0',  :require => 'ap'
   gem 'capybara', '~> 1.1.1'
