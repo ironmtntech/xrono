@@ -58,12 +58,10 @@ describe Ticket do
   end
 
   describe '#long_name' do
+    let(:ticket) { Ticket.make }
     it 'returns a descriptive string with the ticket id, project, and client' do
-      ticket = Ticket.make
-      id = ticket.id
-      project_name = ticket.project.name
-      client_name = ticket.project.client.name
-      long_name = "Ticket: [#{id}] - #{project_name} Ticket for #{client_name}"
+      long_name = "Ticket: [#{ticket.id}] - #{ticket.project.name} - #{ticket.name} ticket for #{ticket.project.client.name}"
+
       ticket.long_name.should == long_name
     end
   end
