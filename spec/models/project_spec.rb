@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe Project do
-  before { @project = Project.make(:name => 'New Project') }
+  let(:project) { Project.make(:name => 'New Project') }
+  let(:ticket_1) { Ticket.make(:project => project) }
+  let(:ticket_2) { Ticket.make(:project => project) }
 
   it { should belong_to :client }
   it { should have_many :tickets }
@@ -10,10 +12,10 @@ describe Project do
 
   it { should validate_presence_of :name }
   it { should validate_presence_of :client_id }
-  it { should validate_uniqueness_of(:name).scoped_to(:client_id) }
+  it { project; should validate_uniqueness_of(:name).scoped_to(:client_id) }
 
   describe '#to_s' do
-    subject { @project.to_s }
+    subject { project.to_s }
 
     it 'returns the name of the project as a string' do
       should == 'New Project'
@@ -22,9 +24,6 @@ describe Project do
 
   describe '#hours' do
     it 'returns total number of hours from all tickets on the project' do
-      project = Project.make
-      ticket_1 = Ticket.make(:project => project)
-      ticket_2 = Ticket.make(:project => project)
       WorkUnit.make(:ticket => ticket_1)
       WorkUnit.make(:ticket => ticket_2)
       project.hours.should == ticket_1.work_units.first.effective_hours + ticket_2.work_units.first.effective_hours
@@ -39,6 +38,7 @@ describe Project do
       work_unit_2 = WorkUnit.make(:ticket => ticket)
       work_unit_3 = WorkUnit.make(:ticket => ticket, :invoiced => 'Invoiced', :invoiced_at => Time.current)
       total_hours = work_unit_1.effective_hours + work_unit_2.effective_hours
+
       project.uninvoiced_hours.should == total_hours
     end
   end
@@ -74,31 +74,33 @@ describe Project do
   end
 
   describe "#allows_access?" do
+    let(:project) { Project.make }
+    let(:user_admin) {
+      _user = User.make
+      _user.roles.create(:name => 'admin')
+      _user
+    }
+    let(:user_non_admin) { User.make }
+    let(:user_with_role) {
+      _user = User.make
+      _user.roles.create(:name => "client", :authorizable => project)
+      _user
+    }
+
     it "returns true if you have access" do
-      project         = Project.make
-
-      user_admin      = User.make
-      user_admin.roles.create(:name => "admin")
-
-      user_non_admin  = User.make
-      user_with_role  = User.make
-      user_with_role.roles.create(:name => "client", :authorizable => project)
-
-      project.allows_access?(user_admin).should == true
-      project.allows_access?(user_non_admin).should == false
-      project.allows_access?(user_with_role).should == true
+      project.allows_access?(user_admin).should be_true
+      project.allows_access?(user_non_admin).should be_false
+      project.allows_access?(user_with_role).should be_true
     end
   end
 
   describe "Project#for_user_and_role" do
     it "returns all projects with user and role" do
       project = Project.make
-      project.save
       user    = User.make
-      user.save
       user.roles.create(:name => "client", :authorizable => project)
 
-      Project.for_user_and_role(user,"client").should == [project]
+      Project.for_user_and_role(user, "client").should == [project]
     end
   end
 
@@ -115,8 +117,7 @@ describe Project do
 
   describe 'tagging' do
     it 'is taggable' do
-      project = Project.new
-      project.is_taggable?.should == true
+      Project.new.is_taggable?.should be_true
     end
   end
 end
