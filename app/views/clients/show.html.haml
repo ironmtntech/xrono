@@ -1,12 +1,12 @@
-%h2= "#{t(:client)}: #{@client}"
-%h3= "#{t(:status)}: #{@client.status}"
+= render 'breadcrumbs'
 
-%ul.nav.nav-pills
-  %li= link_to 'View Contacts', client_contacts_path(@client)
+.btn-group
+  = link_to 'View Contacts', client_contacts_path(@client), :class => 'btn'
   - if admin?
-    %li= link_to t(:all_clients), clients_path
-    %li= link_to 'Edit Client', edit_client_path
-    %li= link_to 'New Project', new_project_path(:client => @client) 
+    = link_to bootstrap_icon('edit') + 'Edit Client', edit_client_path, :class => 'btn'
+    = link_to bootstrap_icon('plus') + 'New Project', new_project_path(:client => @client), :class => 'btn'
+%br
+%br
 
 %ul.nav.nav-tabs{"data-tabs" => "tabs"}
   %li.active= link_to "Incompleted Projects", "#incompleted_projects"

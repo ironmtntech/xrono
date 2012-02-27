@@ -51,7 +51,11 @@ class Client < ActiveRecord::Base
   end
 
   def to_s
-    name
+    if status == "Active"
+      name
+    else
+      "#{name} (#{status})"
+    end
   end
 
   def status

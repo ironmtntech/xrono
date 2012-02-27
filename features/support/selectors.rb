@@ -14,8 +14,14 @@ module HtmlSelectorsHelpers
     when "the actions list"
       ".form-actions"
 
+    when "the breadcrumbs"
+      "ul.breadcrumb"
+
     when "the subnav"
-      ".nav-pills"
+      ".btn-group"
+
+    when "the edit project link"
+      "a[rel=edit-project]"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
