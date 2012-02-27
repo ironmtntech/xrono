@@ -56,7 +56,7 @@ group :test do
   gem 'awesome_print', '~> 0.4.0',  :require => 'ap'
   gem 'capybara', '~> 1.1.1'
   gem 'cucumber', '~> 1.1.4'
-  gem 'cucumber-rails', '~> 1.2.1'
+  gem 'cucumber-rails', '~> 1.2.1', :require => false
   gem 'database_cleaner', '~> 0.7.1'
   gem 'escape_utils', '~> 0.1.9'
   gem 'faker', '~> 0.9.5'
