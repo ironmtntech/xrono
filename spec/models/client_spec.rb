@@ -152,7 +152,7 @@ describe Client do
       @comment = Comment.create! :title => "Test", :comment => "Herro", :commentable_id => client.id, :created_at => 1.hours.ago, :commentable_type => "Client"
     end
 
-    it 'should add file attachments and comments in the correct order' do
+    it 'adds file attachments and comments in the correct order' do
       client.files_and_comments.should == [@file_attachment, @comment]
     end
   end
