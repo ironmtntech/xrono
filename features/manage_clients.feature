@@ -82,7 +82,6 @@ Feature: Client Management
     And I select "Active" from "Status"
     And I press "Create"
     Then I should see "name 1"
-    And I should see "Active"
 
   Scenario: Register new client as an admin - invalid
     Given I am an authenticated user with an admin role
