@@ -21,7 +21,7 @@ describe Project do
   end
 
   describe '#hours' do
-    it 'should return total number of hours from all tickets on the project' do
+    it 'returns total number of hours from all tickets on the project' do
       project = Project.make
       ticket_1 = Ticket.make(:project => project)
       ticket_2 = Ticket.make(:project => project)
@@ -66,7 +66,7 @@ describe Project do
   end
 
   describe 'while being created' do
-    it 'should create a new project from the blueprint' do
+    it 'creates a new project from the blueprint' do
       lambda do
         Project.make
       end.should change(Project, :count).by(1)
@@ -74,7 +74,7 @@ describe Project do
   end
 
   describe "#allows_access?" do
-    it "should return true if you have access" do
+    it "returns true if you have access" do
       project         = Project.make
 
       user_admin      = User.make
@@ -91,7 +91,7 @@ describe Project do
   end
 
   describe "Project#for_user_and_role" do
-    it "should return all projects with user and role" do
+    it "returns all projects with user and role" do
       project = Project.make
       project.save
       user    = User.make
@@ -103,7 +103,7 @@ describe Project do
   end
 
   describe '#files_and_comments' do
-    it 'should list all files and comments' do
+    it 'lists all files and comments' do
       project = Project.make
       comment = project.comments.create(:title => "test", :comment => "test")
       File.open("tmp/tmp.txt", "w") {|f| f.write "test"}
@@ -114,7 +114,7 @@ describe Project do
   end
 
   describe 'tagging' do
-    it 'should be taggable' do
+    it 'is taggable' do
       project = Project.new
       project.is_taggable?.should == true
     end
