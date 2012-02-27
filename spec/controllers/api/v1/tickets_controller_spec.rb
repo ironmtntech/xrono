@@ -18,7 +18,7 @@ describe Api::V1::TicketsController do
 
   describe "when I hit create" do
     describe "with a valid params" do
-      it "should create that ticket" do
+      it "creates that ticket" do
         response = post :create, :ticket => {:project_id => @ticket.project.id, :name => "Test", :estimated_hours => "0", :description => "test"}, :auth_token => @user.authentication_token
         JSON.parse(response.body)["success"].should == true
         Ticket.last.name.should == "Test"
@@ -26,14 +26,14 @@ describe Api::V1::TicketsController do
     end
 
     describe "with a valid params but no auth token" do
-      it "should create that ticket" do
+      it "creates that ticket" do
         response = post :create, :ticket => {:project_id => @ticket.project.id, :name => "Chuck Testa", :estimated_hours => "0", :description => "Chuck Testa"}
         JSON.parse(response.body)["success"].should == false
       end
     end
 
     describe "with invalid params" do
-      it "should not create that ticket" do
+      it "doesn't create that ticket" do
         response = post :create, :ticket => {:estimated_hours => "0", :project_id => @ticket.project.id}
         JSON.parse(response.body)["success"].should == false
       end
@@ -42,14 +42,14 @@ describe Api::V1::TicketsController do
 
   describe "when I hit show" do
     describe "without an auth token" do
-      it "should return success false" do
+      it "returns success false" do
         response = get :show, :id => @ticket.id
         response.body.should == {:success => false}.to_json
       end
     end
 
     describe "with a valid id" do
-      it "should return that ticket" do
+      it "returns that ticket" do
         response = get :show, :id => @ticket.id, :auth_token => @user.authentication_token
         json_hash = ""
         [@ticket].sort{|a,b| a.name <=> b.name}.each do |ticket|
@@ -66,13 +66,13 @@ describe Api::V1::TicketsController do
   end
   describe "when I hit index" do
     describe "without an auth token" do
-      it "should return success false" do
+      it "returns success false" do
         response = get :index
         response.body.should == {:success => false}.to_json
       end
     end
     describe "without any parameters except auth token" do
-      it "should return all tickets" do
+      it "returns all tickets" do
         response = get :index, :auth_token => @user.authentication_token
         json_array = []
         [@ticket,@ticket_1].sort{|a,b| a.name <=> b.name}.each do |ticket|
@@ -90,7 +90,7 @@ describe Api::V1::TicketsController do
     end
     describe "with some parameters" do
       describe "git_repo_url and branch" do
-        it "should return all tickets from that project with git_repo_url and branch_name" do
+        it "returns all tickets from that project with git_repo_url and branch_name" do
           response = get :index, :repo_url => "test", :branch => "test_branch", :auth_token => @user.authentication_token
           json_array = []
           [@ticket_1].sort{|a,b| a.name <=> b.name}.each do |ticket|
@@ -107,7 +107,7 @@ describe Api::V1::TicketsController do
         end
       end
       describe "project_id" do
-        it "should return all tickets from that project" do
+        it "returns all tickets from that project" do
           response = get :index, :project_id => @ticket.project_id, :auth_token => @user.authentication_token
           json_array = []
           [@ticket].sort{|a,b| a.name <=> b.name}.each do |ticket|

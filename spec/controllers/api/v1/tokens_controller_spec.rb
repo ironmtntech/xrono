@@ -10,7 +10,7 @@ describe Api::V1::TokensController do
     end
 
     describe "when sent a valid email and password for a non client non admin" do
-      it "should generate a token" do
+      it "generates a token" do
         response = post :create, :email => @user.email, :password => "testtest"
         json_response = JSON.parse(response.body)
         json_response["success"].should be_true
@@ -24,7 +24,7 @@ describe Api::V1::TokensController do
     end
 
     describe "when sent a valid email and password for an admin" do
-      it "should generate a token" do
+      it "generates a token" do
         @user.has_role!("admin")
         response = post :create, :email => @user.email, :password => "testtest"
         json_response = JSON.parse(response.body)
@@ -39,7 +39,7 @@ describe Api::V1::TokensController do
     end
 
     describe "when sent an invalid password" do
-      it "should not generate a token" do
+      it "does not generate a token" do
         response = post :create, :email => @user.email, :password => "testtest1"
         json_response = JSON.parse(response.body)
         json_response["success"].should be_false
@@ -47,7 +47,7 @@ describe Api::V1::TokensController do
     end
 
     describe "when sent an invalid email" do
-      it "should not generate a token" do
+      it "does not generate a token" do
         response = post :create, :email => @user.email + "t", :password => "testtest1"
         json_response = JSON.parse(response.body)
         json_response["success"].should be_false
