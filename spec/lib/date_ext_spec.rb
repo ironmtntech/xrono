@@ -9,15 +9,15 @@ describe Date do
 
   context "when determining the previous working day" do
 
-    it "should have a prev_working_day method" do
+    it "has a prev_working_day method" do
       @monday.respond_to?(:prev_working_day).should be true
     end
 
-    it "should return monday when run on a tuesday" do
+    it "returns monday when run on a tuesday" do
       @tuesday.prev_working_day.should == @monday
     end
 
-    it "should return friday when run on a monday" do
+    it "returns friday when run on a monday" do
       @monday.prev_working_day.should == @friday
     end
 
@@ -25,15 +25,15 @@ describe Date do
 
   context "when determining the next working day" do
 
-    it "should have a next_working_day method" do
+    it "has a next_working_day method" do
       @monday.respond_to?(:next_working_day).should be true
     end
 
-    it "should return tuesday when run on a monday" do
+    it "returns tuesday when run on a monday" do
       @monday.next_working_day.should == @tuesday
     end
 
-    it "should return monday when run on a friday" do
+    it "returns monday when run on a friday" do
       @friday.next_working_day.should == @monday
     end
 
