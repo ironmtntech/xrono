@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   let(:user) { User.make }
-  let(:user2) { User.make }
+  let(:user_2) { User.make }
   let(:work_unit1) { WorkUnit.make(:user => user) }
   let(:work_unit2) { WorkUnit.make(:user => user) }
   let(:work_unit3) { WorkUnit.make(:user => user) }
@@ -37,11 +37,11 @@ describe User do
 
     before do
       user.update_attribute(:first_name, 'Aaron')
-      user2.update_attribute(:first_name, 'Zed')
+      user_2.update_attribute(:first_name, 'Zed')
     end
 
     it 'returns a collection of users sorted by first name' do
-      should == [user, user2]
+      should == [user, user_2]
     end
   end
 
@@ -107,7 +107,7 @@ describe User do
     before do
       work_unit1.update_attributes(:paid => nil, :paid_at => nil)
       work_unit2.update_attributes(:paid => 'True', :paid_at => Time.now)
-      work_unit3.update_attributes(:user => user2)
+      work_unit3.update_attributes(:user => user_2)
     end
 
     it 'returns a collection of work units which are unpaid and belong to the user' do
@@ -116,16 +116,13 @@ describe User do
   end
 
   describe '.for_project' do
+    let(:project) { Project.make }
     before(:each) do
-      @project = Project.make
-      @user    = User.make
-      @user_1  = User.make
-
-      @user.has_role!("developer",@project)
+      user.has_role!("developer", project)
     end
 
     it 'returns all the users listed on a project' do
-      User.for_project(@project).should == [@user]
+      User.for_project(project).should == [user]
     end
   end
 
