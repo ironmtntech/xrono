@@ -4,14 +4,14 @@ describe Api::V1::ClientsController do
 
   let(:user) { User.make }
   let(:project) { Project.make }
-  let(:project_1) { Project.make }
+  let(:project_2) { Project.make }
 
   before(:each) do
     request.env['warden'].stub :authenticate! => user
     controller.stub :current_user => user
     user.ensure_authentication_token!
     user.has_role!("developer", project)
-    user.has_role!("developer", project_1)
+    user.has_role!("developer", project_2)
   end
 
   describe "when I hit index" do
@@ -25,7 +25,7 @@ describe Api::V1::ClientsController do
     describe "without any parameters except the auth token" do
       it "returns all clients I have a role for" do
         response = get :index, :auth_token => user.authentication_token
-        response.body.should == [project.client, project_1.client].sort{|a,b| a.name <=> b.name}.to_json
+        response.body.should == [project.client, project_2.client].sort{|a,b| a.name <=> b.name}.to_json
       end
     end
 
