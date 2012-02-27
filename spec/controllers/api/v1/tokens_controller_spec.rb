@@ -2,16 +2,11 @@ require 'spec_helper'
 
 describe Api::V1::TokensController do
   describe "creating a token" do
-    before(:each) do
-      @user = User.make
-      @user.password = "testtest"
-      @user.password_confirmation = "testtest"
-      @user.save
-    end
+    let(:user) { User.make(:password => 'testtest', :password_confirmation => 'testtest') }
 
     describe "when sent a valid email and password for a non client non admin" do
-      it "should generate a token" do
-        response = post :create, :email => @user.email, :password => "testtest"
+      it "generates a token" do
+        response = post :create, :email => user.email, :password => "testtest"
         json_response = JSON.parse(response.body)
         json_response["success"].should be_true
         json_response["token"].should =~ /^.{20}$/
@@ -24,9 +19,9 @@ describe Api::V1::TokensController do
     end
 
     describe "when sent a valid email and password for an admin" do
-      it "should generate a token" do
-        @user.has_role!("admin")
-        response = post :create, :email => @user.email, :password => "testtest"
+      it "generates a token" do
+        user.has_role!("admin")
+        response = post :create, :email => user.email, :password => "testtest"
         json_response = JSON.parse(response.body)
         json_response["success"].should be_true
         json_response["token"].should =~ /^.{20}$/
@@ -39,16 +34,16 @@ describe Api::V1::TokensController do
     end
 
     describe "when sent an invalid password" do
-      it "should not generate a token" do
-        response = post :create, :email => @user.email, :password => "testtest1"
+      it "does not generate a token" do
+        response = post :create, :email => user.email, :password => "testtest1"
         json_response = JSON.parse(response.body)
         json_response["success"].should be_false
       end
     end
 
     describe "when sent an invalid email" do
-      it "should not generate a token" do
-        response = post :create, :email => @user.email + "t", :password => "testtest1"
+      it "does not generate a token" do
+        response = post :create, :email => "#{user.email}t", :password => "testtest1"
         json_response = JSON.parse(response.body)
         json_response["success"].should be_false
       end
