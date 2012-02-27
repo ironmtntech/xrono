@@ -64,7 +64,7 @@ describe Ticket do
       project_name = ticket.project.name
       client_name = ticket.project.client.name
       long_name = "Ticket: [#{id}] - #{project_name} Ticket for #{client_name}"
-      ticket.long_name
+      ticket.long_name.should == long_name
     end
   end
 
