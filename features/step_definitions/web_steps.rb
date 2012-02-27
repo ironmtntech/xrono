@@ -248,6 +248,10 @@ Then /^I should see a link with text "([^\"]*)"$/ do |text|
   page.should have_link(text)
 end
 
+Then /^I should see selector ([^\"]*)$/ do |text|
+  page.should have_selector(*selector_for(text))
+end
+
 Then /^I should not see a link with text "([^\"]*)"$/ do |text|
   page.should have_no_link(text)
 end
