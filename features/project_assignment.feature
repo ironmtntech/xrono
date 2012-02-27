@@ -24,7 +24,7 @@ Feature: Project Assignment
     And a project exists with name: "Testproject", client: client "Acme"
     And I am assigned to the project
     When I go to the project's page
-    Then I should see "Testproject" within "h2"
+    Then I should see "Testproject" within the breadcrumbs
 
   Scenario: User tries to access the client of a project they are not assigned to
     Given I am an authenticated user
