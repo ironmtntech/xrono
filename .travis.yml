@@ -1,7 +1,7 @@
 before_script:
   - "sh -e /etc/init.d/xvfb start"
   - "cp config/database.yml.mysql config/database.yml"
-  - "bundle exec rake db:create db:migrate db:test:clone"
+  - "bundle exec rake db:create db:migrate db:test:clone > /dev/null"
 script: "DISPLAY=:99.0 bundle exec rake spec cucumber"
 notifications:
   email:
