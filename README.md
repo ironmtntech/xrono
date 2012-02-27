@@ -34,17 +34,13 @@ Here are some screenshots of what it looks like:
 ![Rcov coverage](http://isotope11.selfip.com:3026/job/Xrono/rcov/graph)
 
 ### Development Installation
-* Fork, then clone the repository to your development environment
-* If you are using rvm, create a .rvmrc
-* gem install bundler
-* bundle install
-* If you get errors involving linecache19, you may need to do something like: "gem install ruby-debug19 -- --with-ruby-include=<path to your ruby install>" then re-run "bundle install"
-* cp config/database.yml.example config/database.yml
-* Change config/database.yml as you see fit to match your development environment needs
-* rake db:reset
-* rake db:test:clone
-* rake spec
-* rake cucumber
+Fork, then clone the repository to your development environment
+
+    gem install bundler
+    bundle install
+    cp config/database.yml.example config/database.yml
+    # Change config/database.yml as you see fit to match your development environment needs
+    rake db:reset db:test:clone spec cucumber
 
 ### Support
 For support, please do one of the following:
