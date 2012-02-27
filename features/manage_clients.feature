@@ -46,6 +46,26 @@ Feature: Client Management
     Then I should see "Projects"
     And I should see a link with text "Edit"
 
+  Scenario: View inactive clients as a non admin
+    Given I am an authenticated user
+     When I am on the inactive clients page
+     Then I should see "Access denied."
+
+  Scenario: View inactive clients as a non admin
+    Given I am an authenticated user with an admin role
+     When I am on the inactive clients page
+     Then I should see "All Inactive Clients"
+
+  Scenario: View suspended clients as a non admin
+    Given I am an authenticated user
+     When I am on the suspended clients page
+     Then I should see "Access denied."
+
+  Scenario: View suspended clients as a non admin
+    Given I am an authenticated user with an admin role
+     When I am on the suspended clients page
+     Then I should see "All Suspended Clients"
+
   Scenario: Edit a client
     Given I am an authenticated user with an admin role
     And a client "test client2" exists with name: "test client2", initials: "TC2", status: "Active"
