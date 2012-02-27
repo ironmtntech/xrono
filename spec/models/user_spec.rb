@@ -117,9 +117,7 @@ describe User do
 
   describe '.for_project' do
     let(:project) { Project.make }
-    before(:each) do
-      user.has_role!("developer", project)
-    end
+    before(:each) { user.has_role!("developer", project) }
 
     it 'returns all the users listed on a project' do
       User.for_project(project).should == [user]
