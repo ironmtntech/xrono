@@ -12,8 +12,10 @@ active development, so feel free to check out our
 [website](http://www.xrono.org/) if you have any questions.
 
 ### Demo site
-[See it in action here.](http://demo.xrono.org)  You can log in as any of the
-following email addresses.  All have the password '123456'
+[See it in action here.](http://demo.xrono.org)
+
+You can log in as any of the following email addresses.  All have the password
+'123456'
 
 admin@xrono.org
 dev@xrono.org
@@ -22,8 +24,10 @@ client@xrono.org
 ### Screenshots
 Here are some screenshots of what it looks like:
 
+#### The developer dashboard
 ![Dashboard](https://raw.github.com/isotope11/xrono/master/doc/xrono_dash.png)
 
+#### A ticket view
 ![Ticket Details](https://raw.github.com/isotope11/xrono/master/doc/xrono_ticket.png)
 
 ### Continuous Integration Trends
