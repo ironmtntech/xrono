@@ -24,6 +24,7 @@ gem 'rdiscount', '~>1.6.0'
 gem 'paper_trail', '~> 2.6.0'
 gem 'attr_encrypted', '~> 1.2.0'
 gem 'acts-as-taggable-on', '~> 2.2.2'
+gem 'dynamic_form', '~> 1.0.0'
 
 gem 'simple-navigation', '~> 3.5.0'
 gem 'sass-rails',   '~> 3.2.0'
