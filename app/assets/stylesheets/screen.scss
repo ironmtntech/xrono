@@ -9,9 +9,7 @@
 @import "compass/css3";
 
 //** SCREEN STYLES **//
-body {
-  padding-top: 90px;
-}
+
 table {
   font-size: 1em;
   margin-top: 10px;
@@ -212,6 +210,10 @@ h3 {
     .span.center{
       text-align: center;
     }
+    .span.first{
+      text-align: left;
+      float:left;
+    }
     .span.last{
       text-align: right;
       float:right;
@@ -265,3 +267,5 @@ body div.container-fluid div.row div.span16 p.ticket_metrics {
 .cto {
   color: #F89406;
 }
+
+@import "responsive";
