@@ -21,7 +21,6 @@ table {
     }
     tfoot{
       td{
-        border-bottom: 1px solid #eee;
       }
     }
     tbody {
@@ -192,11 +191,7 @@ h3 {
 }
 
 .week_pagination{
-  background-color: #f9f9f9;
-  border-width: 1px;
-  border-color: #ddd;
-  border-style: solid;
-  @include border-radius(5px);
+  border-bottom:1px solid #eee;
   .date_pagination{
     .span.center{
       text-align: center;
@@ -258,12 +253,17 @@ body div.container-fluid div.row div.span16 p.ticket_metrics {
 .cto {
   color: #F89406;
 }
-
+legend {
+  -webkit-margin-top-collapse: separate;
+  
+}
 .form-actions {
   background-color:#fff;
   @include linear-gradient(#fafafa #fff);
 }
 .login_form {
+  display:block;
+  margin-top:10px;
   label {
     display:inline-block;
     width: 65px;
