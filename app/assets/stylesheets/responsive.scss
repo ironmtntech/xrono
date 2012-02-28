@@ -143,6 +143,14 @@
   body {
     padding-top: 90px;
   }
+  .nav.primary-nav {
+   display: inline-block;
+   width: 50%;
+   text-align:right;
+   li {
+    display:inline-block;
+   }
+  }
   .row {
     margin-left: -20px;
     *zoom: 1;
@@ -328,7 +336,7 @@
   .nav.primary-nav {
    display: inline-block;
    width: 50%;
-   text-align:right;
+   text-align:left;
    li {
     display:inline-block;
    }

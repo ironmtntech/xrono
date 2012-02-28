@@ -119,7 +119,7 @@ div.navbar div.fill div.container-fluid ul.nav {
 }
 
 .navbar{
-  @include single-box-shadow;
+  @include box-shadow(0 0 5px #ccc);
   .primary-nav{
     li{
       a{
@@ -179,15 +179,6 @@ tfoot{
   border-top: 2px solid #bbb;
 }
 
-footer.footer{
-  text-shadow: 0 1px 0 #ffffff;
-  width: auto;
-  .container-fluid p {
-    margin: 10px 0 0 0;
-    padding: 10px 0 0 0;
-    border-top: 1px solid #e5e5e5;
-  }
-}
 h3 {
   margin: 10px 0 5px 0;
 }
@@ -266,6 +257,36 @@ body div.container-fluid div.row div.span16 p.ticket_metrics {
 
 .cto {
   color: #F89406;
+}
+
+.form-actions {
+  background-color:#fff;
+  @include linear-gradient(#fafafa #fff);
+}
+.login_form {
+  label {
+    display:inline-block;
+    width: 65px;
+    text-align:right;
+    padding-right: 10px;
+    vertical-align:top;
+  }
+  .input {
+    display:inline-block;
+    vertical-align:middle;
+  }
+  .remember {
+    input {
+      margin: 0 4px 0 77px;
+    }
+    label {
+      width: auto;
+      padding-top: 2px;
+    }
+  }
+  .btn {
+    margin: 7px 0 0 77px;
+  }
 }
 
 @import "responsive";
