@@ -5,8 +5,6 @@
   - if admin?
     = link_to bootstrap_icon('edit') + 'Edit Client', edit_client_path, :class => 'btn'
     = link_to bootstrap_icon('plus') + 'New Project', new_project_path(:client => @client), :class => 'btn'
-%br
-%br
 
 %ul.nav.nav-tabs{"data-tabs" => "tabs"}
   %li.active= link_to "Incompleted Projects", "#incompleted_projects"
