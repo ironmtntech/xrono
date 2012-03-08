@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
   end
 
   def initialize_site_settings
-    @site_settings = SiteSettings.first ? SiteSettings.first : SiteSettings.create(:total_yearly_pto_per_user => 40, :overtime_multiplier => 1.5)
+    @site_settings = SiteSettings.first ? SiteSettings.first : SiteSettings.create(:total_yearly_pto_per_user => BigDecimal('40'), :overtime_multiplier => BigDecimal('1.5'))
   end
 
   def redirect_clients
