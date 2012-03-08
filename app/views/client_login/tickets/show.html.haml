@@ -7,7 +7,7 @@
 %p.ticket_description
   - if @ticket.description
     %h3 Ticket Description
-    :markdown
+    :kramdown
       #{@ticket.description}
 
 %p.ticket_metrics

@@ -25,11 +25,11 @@
 .tab-content
   -if !@project.xrono_notes.nil?
     #project_notes.tab-pane.active
-      :markdown
+      :kramdown
         #{@project.xrono_notes}
   -if !@project.release_notes.nil?
     #release_notes.tab-pane{:class => "#{@project.xrono_notes.nil? ? "active" : ""}"}
-      :markdown
+      :kramdown
         #{@project.release_notes}
   #incomplete_tickets.tab-pane{:class => "#{@project.xrono_notes.nil? && @project.release_notes.nil? ? "active" : ""}"}
     - if project_completion_metric(@project) > 0
