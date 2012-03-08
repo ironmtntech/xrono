@@ -40,6 +40,7 @@ GEM
     awesome_print (0.4.0)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-java)
+    bootstrap-sass (2.0.1)
     bouncy-castle-java (1.5.0146.1)
     builder (3.0.0)
     capistrano (2.8.0)
@@ -296,6 +297,7 @@ DEPENDENCIES
   acts_as_commentable (~> 3.0.1)
   attr_encrypted (~> 1.2.0)
   awesome_print (~> 0.4.0)
+  bootstrap-sass
   capistrano (~> 2.8.0)
   capybara (~> 1.1.1)
   ci_reporter

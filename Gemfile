@@ -36,6 +36,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '0.12.alpha.0'
+  gem 'bootstrap-sass'
 end
 
 group :development do
