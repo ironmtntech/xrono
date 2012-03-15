@@ -1,7 +1,7 @@
 before_script:
   - "sh -e /etc/init.d/xvfb start"
   #- "cp config/database.yml.mysql.jruby config/database.yml"
-  - "if [[ `eval ruby -v` =~ 'jruby' ]]; then cp config/database.yml.$db.jruby config/database.yml; else cp config/database.yml.$db config/database.yaml; fi;"
+  - "if [[ `eval ruby -v` =~ 'jruby' ]]; then database_yml=config/database.yml.$db.jruby; else database_yml=config/database.yml.$db; fi;echo "Copying $database_yml";cp $database_yml config/database.yml;"
   - "bundle exec rake db:create db:migrate db:test:clone > /dev/null"
 script:
   - "DISPLAY=:99.0 bundle exec rspec ./spec/"
