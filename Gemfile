@@ -65,7 +65,7 @@ group :test do
 end
 
 platforms :jruby do
-  gem 'activerecord-jdbc-adapter', :require => false
+  gem 'activerecord-jdbcmysql-adapter', :require => false
   gem 'jdbc-mysql'
   gem 'jruby-openssl'
   gem 'warbler'
