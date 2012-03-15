@@ -1,6 +1,6 @@
 before_script:
   - "sh -e /etc/init.d/xvfb start"
-  - "cp config/database.yml.mysql config/database.yml"
+  - "cp config/database.yml.mysql.jruby config/database.yml"
   - "bundle exec rake db:create db:migrate db:test:clone > /dev/null"
 script:
   - "DISPLAY=:99.0 bundle exec rspec ./spec/"
@@ -11,6 +11,6 @@ notifications:
     - agamble@isotope11.com
 rvm:
   #- 1.8.7 # We don't support 1.8.7 for xrono, there are 1.9 style hashes everywhere
-  - 1.9.2
-  - 1.9.3
+  #- 1.9.2
+  #- 1.9.3
   - jruby
