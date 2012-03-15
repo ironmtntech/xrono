@@ -8,6 +8,7 @@ script:
 notifications:
   email:
     - josh@isotope11.com
+    - agamble@isotope11.com
 rvm:
   #- 1.8.7 # We don't support 1.8.7 for xrono, there are 1.9 style hashes everywhere
   - 1.9.2

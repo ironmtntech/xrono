@@ -24,7 +24,6 @@ gem 'acts-as-taggable-on', '~> 2.2.2'
 gem 'acts_as_commentable', '~> 3.0.1'
 gem 'dynamic_form', '~> 1.0.0'
 gem 'kramdown'
-gem 'warbler'
 
 gem 'simple-navigation', '~> 3.5.0'
 gem 'sass-rails',   '~> 3.2.0'
@@ -45,8 +44,10 @@ group :development do
 end
 
 group :test do
-  unless ENV['travis'] || RUBY_VERSION >= '1.9.3'
-    gem 'ruby-debug19', '~> 0.11.6', :require => 'ruby-debug', :platform => :mri_19
+  platforms :ruby do
+    unless ENV['travis'] || RUBY_VERSION >= '1.9.3'
+      gem 'ruby-debug19', '~> 0.11.6', :require => 'ruby-debug', :platform => :mri_19
+    end
   end
   gem 'awesome_print', '~> 0.4.0',  :require => 'ap'
   gem 'capybara', '~> 1.1.1'
@@ -72,6 +73,7 @@ platforms :jruby do
   gem 'activerecord-jdbc-adapter', :require => false
   gem 'jdbc-mysql'
   gem 'jruby-openssl'
+  gem 'warbler'
 end
 
 platforms :ruby do
