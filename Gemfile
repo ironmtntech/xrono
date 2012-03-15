@@ -6,6 +6,7 @@ gem 'devise', '~> 1.4.9'
 gem 'gravtastic', '~> 3.2.6'
 gem 'haml', '~> 3.1.3'
 gem 'mysql2', '~> 0.3.0'
+gem 'pg'
 gem 'paperclip', '~> 2.3'
 gem 'rails', '~> 3.2.0'
 gem 'thin', '~> 1.2.7'
@@ -48,9 +49,6 @@ group :development do
 end
 
 group :test do
-  unless ENV['travis']
-    gem 'ruby-debug19', '~> 0.11.6', :require => 'ruby-debug'
-  end
   gem 'awesome_print', '~> 0.4.0',  :require => 'ap'
   gem 'capybara', '~> 1.1.1'
   gem 'cucumber', '~> 1.1.4'
