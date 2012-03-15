@@ -68,7 +68,6 @@ platforms :jruby do
   gem 'activerecord-jdbcmysql-adapter'
   gem 'jdbc-mysql'
   gem 'jruby-openssl'
-  gem 'warbler'
 end
 
 platforms :ruby do
