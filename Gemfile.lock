@@ -317,7 +317,6 @@ DEPENDENCIES
   resque-scheduler (~> 1.9.9)
   resque_mailer (~> 2.0.2)
   rspec-rails
-  ruby-debug19 (~> 0.11.6)
   sass-rails (~> 3.2.0)
   shoulda-matchers (~> 1.0)
   simple-navigation (~> 3.5.0)
