@@ -2,43 +2,42 @@
 require 'bundler/capistrano'
 
 # main details
-set :application, "xrono.isotope11.com"
-role :web, "xrono.isotope11.com"
-role :app, "xrono.isotope11.com"
-role :db, "xrono.isotope11.com", :primary => true
+set :application, "jxrono.isotope11.com"
+server "jxrono.isotope11.com", :web, :app, :db, :primary => true
 
 # server details
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
-set :deploy_to, "/home/deployer/xrono"
+set :deploy_to, "/opt/trinidad/jxrono"
 set :user, "deployer"
+set :group, "deployer"
 set :use_sudo, false
 
 # repo details
 set :scm, :git
-#set :git_username, "knewter"
 set :repository, "git://github.com/isotope11/xrono.git"
-set :branch, "master"
+set :branch, "jruby"
 set :git_enable_submodules, 1
 
-# runtime dependencies
-depend :remote, :gem, "bundler", "1.0.21"
+set :default_environment,
+  'PATH' => "/opt/jruby/bin:$PATH",
+  'JSVC_ARGS_EXTRA' => "-user vagrant",
+  'JRUBY_OPTS' => '--1.9'
+set :bundle_dir, ""
+set :bundle_flags, "--system --quiet"
 
 # tasks
 namespace :deploy do
-  before 'deploy:setup', :db
-
   task :start, :roles => :app do
-    run "touch #{current_path}/tmp/restart.txt"
+    run "/etc/init.d/trinidad start"
   end
 
   task :stop, :roles => :app do
     # Do nothing.
   end
 
-  desc "Restart Application"
   task :restart, :roles => :app do
-    run "touch #{current_path}/tmp/restart.txt"
+    run "touch #{current_release}/tmp/restart.txt"
   end
 
   desc "Symlink shared resources on each release"
