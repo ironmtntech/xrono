@@ -69,8 +69,6 @@ platforms :jruby do
   gem 'jdbc-mysql'
   gem 'jruby-openssl'
   gem 'trinidad'
-  gem 'trinidad_diagnostics_extension'
-  gem 'ffi-ncurses'
 end
 
 platforms :ruby do

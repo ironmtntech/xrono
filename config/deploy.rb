@@ -8,7 +8,7 @@ server "jxrono.isotope11.com", :web, :app, :db, :primary => true
 # server details
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
-set :deploy_to, "/opt/trinidad/jxrono"
+set :deploy_to, "/home/deployer/jxrono"
 set :user, "deployer"
 set :group, "deployer"
 set :use_sudo, false
@@ -21,15 +21,15 @@ set :git_enable_submodules, 1
 
 set :default_environment,
   'PATH' => "/opt/jruby/bin:$PATH",
-  'JSVC_ARGS_EXTRA' => "-user vagrant",
+  'JSVC_ARGS_EXTRA' => "-user deployer",
   'JRUBY_OPTS' => '--1.9'
 set :bundle_dir, ""
-set :bundle_flags, "--system --quiet"
+set :bundle_flags, "--deployment --quiet"
 
 # tasks
 namespace :deploy do
   task :start, :roles => :app do
-    run "/etc/init.d/trinidad start"
+    run "#{sudo} JSVC_ARGS_EXTRA='-user deployer' /etc/init.d/trinidad start"
   end
 
   task :stop, :roles => :app do
@@ -37,7 +37,7 @@ namespace :deploy do
   end
 
   task :restart, :roles => :app do
-    run "touch #{current_release}/tmp/restart.txt"
+    run "#{sudo} JSVC_ARGS_EXTRA='-user deployer' /etc/init.d/trinidad restart"
   end
 
   desc "Symlink shared resources on each release"

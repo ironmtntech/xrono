@@ -1,6 +1,4 @@
 jruby_max_runtimes: 1
-extensions:
-  diagnostics:
 ajp:
   port: 8099
 
