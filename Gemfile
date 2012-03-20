@@ -65,7 +65,6 @@ group :test do
   gem 'launchy', '~> 0.3.7'
   gem 'machinist', '~> 1.0.6'
   gem 'pickle', '= 0.4.8'
-  gem 'rspec-rails'
   gem 'shoulda-matchers', '~> 1.0'
   gem 'simplecov', '~> 0.5.0'
   gem 'simplecov-rcov'
@@ -74,3 +73,10 @@ group :test do
   gem 'yajl-ruby', '~> 0.7.8'
   gem 'ci_reporter'
 end
+
+group :test, :development do
+  # rspec-rails needs to be in the development group to expose generators
+  # and rake tasks without having to type `RAILS_ENV=test`
+  gem 'rspec-rails'
+end
+
