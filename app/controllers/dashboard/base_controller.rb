@@ -17,7 +17,7 @@ class Dashboard::BaseController < ApplicationController
     @projects = []
     @tickets = []
 
-    @project_report_rows = WorkUnit.for_user(current_user).scheduled_between(Time.zone.now - 2.weeks, Time.zone.now.end_of_day).joins(:ticket => :project).select("projects.id as project_id, projects.name as project_name, SUM(work_units.effective_hours) as total_hours").group("projects.name")
+    @project_report_rows = WorkUnit.for_user(current_user).scheduled_between(Time.zone.now - 2.weeks, Time.zone.now.end_of_day).joins(:ticket => :project).select("projects.id as project_id, projects.name as project_name, SUM(work_units.effective_hours) as total_hours").group("projects.name").sort_by{|r| r.total_hours}.reverse # Sort in ruby because I ran into sql problems - should be sorting like 5 rows max so no worries
   end
 
   def client

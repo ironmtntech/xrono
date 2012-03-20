@@ -1,5 +1,1 @@
-.module
-  %h2= t(:new_contact)
-
-  = form_for @contact, :url => client_contacts_path do |f| 
-    = render :partial => 'form', :locals => {:f => f}
+= render 'form', :legend => t(:new_contact)

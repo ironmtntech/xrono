@@ -25,6 +25,8 @@ gem 'rdiscount', '~>1.6.0'
 gem 'paper_trail', '~> 2.6.0'
 gem 'attr_encrypted', '~> 1.2.0'
 gem 'acts-as-taggable-on', '~> 2.2.2'
+gem 'acts_as_commentable', '~> 3.0.1'
+gem 'dynamic_form', '~> 1.0.0'
 
 gem 'simple-navigation', '~> 3.5.0'
 gem 'sass-rails',   '~> 3.2.0'
@@ -37,7 +39,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '0.12.alpha.0'
-  gem 'twitter-bootstrap-rails', '~> 1.4.0'
+  gem 'twitter-bootstrap-rails', :git => 'git://github.com/isotope11/twitter-bootstrap-rails.git'
 end
 
 group :production do
@@ -49,10 +51,13 @@ group :development do
 end
 
 group :test do
+  unless ENV['travis'] || RUBY_VERSION >= '1.9.3'
+    gem 'ruby-debug19', '~> 0.11.6', :require => 'ruby-debug', :platform => :mri_19
+  end
   gem 'awesome_print', '~> 0.4.0',  :require => 'ap'
   gem 'capybara', '~> 1.1.1'
   gem 'cucumber', '~> 1.1.4'
-  gem 'cucumber-rails', '~> 1.2.1'
+  gem 'cucumber-rails', '~> 1.2.1', :require => false
   gem 'database_cleaner', '~> 0.7.1'
   gem 'escape_utils', '~> 0.1.9'
   gem 'faker', '~> 0.9.5'
@@ -60,13 +65,12 @@ group :test do
   gem 'launchy', '~> 0.3.7'
   gem 'machinist', '~> 1.0.6'
   gem 'pickle', '= 0.4.8'
-  gem 'rspec', '~> 2.6.0'
-  gem 'rspec-rails', '= 2.6.1'
-  #gem 'shoulda', '~> 2.11.3'
-  gem 'shoulda', :git=>'git://github.com/3den/shoulda.git'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers', '~> 1.0'
   gem 'simplecov', '~> 0.5.0'
   gem 'simplecov-rcov'
   gem 'rcov', '0.9.11'
   gem 'spork', '0.9.0.rc9'
   gem 'yajl-ruby', '~> 0.7.8'
+  gem 'ci_reporter'
 end

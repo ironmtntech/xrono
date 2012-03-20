@@ -46,6 +46,26 @@ Feature: Client Management
     Then I should see "Projects"
     And I should see a link with text "Edit"
 
+  Scenario: View inactive clients as a non admin
+    Given I am an authenticated user
+     When I am on the inactive clients page
+     Then I should see "Access denied."
+
+  Scenario: View inactive clients as a non admin
+    Given I am an authenticated user with an admin role
+     When I am on the inactive clients page
+     Then I should see "All Inactive Clients"
+
+  Scenario: View suspended clients as a non admin
+    Given I am an authenticated user
+     When I am on the suspended clients page
+     Then I should see "Access denied."
+
+  Scenario: View suspended clients as a non admin
+    Given I am an authenticated user with an admin role
+     When I am on the suspended clients page
+     Then I should see "All Suspended Clients"
+
   Scenario: Edit a client
     Given I am an authenticated user with an admin role
     And a client "test client2" exists with name: "test client2", initials: "TC2", status: "Active"
@@ -82,7 +102,6 @@ Feature: Client Management
     And I select "Active" from "Status"
     And I press "Create"
     Then I should see "name 1"
-    And I should see "Active"
 
   Scenario: Register new client as an admin - invalid
     Given I am an authenticated user with an admin role
@@ -93,5 +112,5 @@ Feature: Client Management
   Scenario: Register new client - the form
     Given I am an authenticated user with an admin role
     When I go to the new client page
-    Then I should see a link with text "Cancel" within ".actions"
+    Then I should see a link with text "Cancel" within the actions list
 

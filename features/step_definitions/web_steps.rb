@@ -61,6 +61,10 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
+When /^(?:|I )follow ([^"]*)$/ do |link|
+  find(*selector_for(link)).click
+end
+
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, :with => value)
 end
@@ -242,6 +246,10 @@ end
 
 Then /^I should see a link with text "([^\"]*)"$/ do |text|
   page.should have_link(text)
+end
+
+Then /^I should see selector ([^\"]*)$/ do |text|
+  page.should have_selector(*selector_for(text))
 end
 
 Then /^I should not see a link with text "([^\"]*)"$/ do |text|

@@ -1,5 +1,5 @@
 #client
-  %table#client_details.zebra-striped
+  %table#client_details.table.table-striped
     %thead
       %tr
         %th= t(:projects)
@@ -28,4 +28,4 @@
             %td= project.hours
       - else
         %tr
-          %td{:colspan => 4} No Projects to Show
+          %td{:colspan => 99} No Projects to Show

@@ -1,0 +1,11 @@
+%ul.breadcrumb
+  %li
+    = link_to "#{t(:client)}: #{@work_unit.client}", client_path(@work_unit.client)
+    %span.divider /
+  %li
+    = link_to "#{t(:project)}: #{@work_unit.project}", project_path(@work_unit.project)
+    %span.divider /
+  %li
+    = link_to "#{t(:ticket)}: #{@work_unit.ticket}", ticket_path(@work_unit.ticket) 
+    %span.divider /
+  %li= "#{t(:work_unit)}: #{@work_unit}"

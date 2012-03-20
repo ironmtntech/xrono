@@ -1,0 +1,48 @@
+= form_for [:admin, @user], :html => { :class => "new_user form-horizontal" } do |f|
+  %fieldset
+    %legend= legend
+    .control-group
+      = f.label :first_name, :class => 'control-label'
+      .controls
+        = f.text_field :first_name
+    .control-group
+      = f.label :last_name, :class => 'control-label'
+      .controls
+        = f.text_field :last_name
+    .control-group
+      = f.label :middle_initial, :class => 'control-label'
+      .controls
+        = f.text_field :middle_initial
+    .control-group
+      = f.label :email, :class => 'control-label'
+      .controls
+        = f.text_field :email
+    .control-group
+      = f.label :password, :class => 'control-label'
+      .controls
+        = f.password_field :password
+    .control-group
+      = f.label :password_confirmation, :class => 'control-label'
+      .controls
+        = f.password_field :password_confirmation
+    .control-group
+      = f.label :expanded_calendar, t(:expanded_calendar), :class => 'control-label'
+      .controls
+        = f.check_box(:expanded_calendar)
+    .control-group
+      = f.label :daily_target_hours, t(:daily_target_hours) , :class => 'control-label'
+      .controls
+        = f.text_field(:daily_target_hours)
+    .control-group
+      = f.label :locked, :class => 'control-label'
+      .controls
+        = f.check_box :locked
+    .control-group
+      = f.label :client, "Client Login", :class => 'control-label'
+      .controls
+        = f.check_box :client
+
+    .form-actions
+      = f.submit :class => 'add_new_button btn primary'
+
+      = link_to t(:cancel), admin_users_path, :class => 'cancel_button btn'

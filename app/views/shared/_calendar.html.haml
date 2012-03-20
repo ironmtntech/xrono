@@ -1,5 +1,5 @@
 .calendar
-  %table.zebra-striped
+  %table.table.table-striped
     %thead
       %tr.calendar_top
         - (0..6).map{|x| start_date + x.days }.each do |date|
@@ -11,7 +11,7 @@
       %tr.calendar_foot
         - (0..6).map{|x| start_date + x.days }.each do |date|
           %td.span2= "#{t(:total)}: #{work_units.select{|wu| wu.scheduled_at.to_date == date.to_date}.inject(BigDecimal("0")){|sum,x| sum + x.effective_hours}}"
-        %td.span2= "#{t(:week)}: #{work_units.inject(BigDecimal("0")){|sum,x| sum + x.effective_hours}}"
+        %td.span2{ colspan: 2 }= "#{t(:week)}: #{work_units.inject(BigDecimal("0")){|sum,x| sum + x.effective_hours}}"
     %tbody
       %tr
         - (start_date..(start_date + 6.days)).each do |date|
@@ -21,7 +21,7 @@
                 - work_units.select{|wu| wu.scheduled_at.to_date == date.to_date}.each do |work_unit|
                   %li{:class => "work_unit " << work_unit.hours_type.downcase }
                     - render_label_for(work_unit.hours_type)
-                    = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description, :rel => 'twipsy' }
+                    = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description, :rel => 'tooltip' }
                     %span.description= '- ' + work_unit.description
 
         %td.span2
@@ -37,35 +37,34 @@
         %td.span2{:id => "#{user.id}_chart"}
 - if request.xhr?
   :javascript
-    $('a[rel=twipsy]').twipsy({ placement: 'below'} );
+    $('a[rel=twipsy]').tooltip({ placement: 'bottom'} );
     // Create the data table.
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Day');
-      data.addColumn('number', 'External Hours');
-      data.addColumn('number', 'Internal Hours');
-      data.addRows(#{external_hours_for_chart(user, :date => start_date)});
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Day');
+    data.addColumn('number', 'External Hours');
+    data.addColumn('number', 'Internal Hours');
+    data.addRows(#{external_hours_for_chart(user, :date => start_date)});
 
-          // Set chart options
-      var options = {'title':'Weekly Hours',
-        'width':250,
-        'backgroundColor': "#f5f5f5",
-        'isStacked': true,
-        'legend': {position: 'none'},
-        'height':120};
+        // Set chart options
+    var options = {'title':'Weekly Hours',
+      'width':250,
+      'backgroundColor': "#f5f5f5",
+      'isStacked': true,
+      'legend': {position: 'none'},
+      'height':120};
 
-      // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.ColumnChart(document.getElementById("#{user.id}_chart"));
-      chart.draw(data, options);
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById("#{user.id}_chart"));
+    chart.draw(data, options);
 - else
   - content_for :javascripts do
     :javascript
-      $('a[rel=twipsy]').twipsy({ placement: 'below'} );
+      $('a[rel=twipsy]').tooltip({ placement: 'bottom'} );
 
       google.load('visualization', '1.0', {'packages':['corechart']});
       google.setOnLoadCallback(drawChart);
 
       function drawChart() {
-
         // Create the data table.
           var data = new google.visualization.DataTable();
           data.addColumn('string', 'Day');

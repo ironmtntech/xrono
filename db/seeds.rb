@@ -44,7 +44,6 @@ unless Rails.env.production?
   developers = [ admin_user, developer_user ]
   8.times { developers.push User.make }
 
-
   # Roles #
 
   admin_user.has_role!(:admin)

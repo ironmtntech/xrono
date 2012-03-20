@@ -10,12 +10,10 @@ module GuidReferenced
     end
   end
 
-  module InstanceMethods
-    protected
-    def generate_guid
-      if guid.blank?
-        self.guid = UUID.generate
-      end
+protected
+  def generate_guid
+    if guid.blank?
+      self.guid = UUID.generate
     end
   end
 end

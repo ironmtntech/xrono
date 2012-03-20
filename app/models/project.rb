@@ -60,7 +60,11 @@ class Project < ActiveRecord::Base
   end
 
   def to_s
-    name
+    if new_record?
+      I18n.t(:new_project)
+    else
+      name
+    end
   end
 
   def allows_access?(user)

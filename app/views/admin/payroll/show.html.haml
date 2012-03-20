@@ -7,7 +7,7 @@
   = submit_tag t(:submit), :class => 'invoice_submit btn primary'
   .clear
   - @clients.each do |client|
-    %table.invoice.zebra-striped
+    %table.invoice.table-striped.table
       %thead
         %tr
           %th{:colspan => 4}= "#{t(:client)}: #{client}"

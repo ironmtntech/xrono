@@ -1,4 +1,4 @@
-%table.clients.zebra-striped
+%table.table.table-striped.clients
   %thead
     %tr
       %th= t(:name)
@@ -16,5 +16,5 @@
         %td= client.projects.count
         %td= client.tickets.count
         %td= client.status
-        -if admin?
+        - if admin?
           %td= link_to t(:edit), edit_client_path(client), :class => 'btn'

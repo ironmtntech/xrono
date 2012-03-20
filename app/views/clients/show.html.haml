@@ -1,14 +1,12 @@
-%h2= "#{t(:client)}: #{@client}"
-%h3= "#{t(:status)}: #{@client.status}"
+= render 'breadcrumbs'
 
-%ul.pills
-  %li= link_to 'View Contacts', client_contacts_path(@client)
+.btn-group
+  = link_to 'View Contacts', client_contacts_path(@client), :class => 'btn'
   - if admin?
-    %li= link_to t(:all_clients), clients_path
-    %li= link_to 'Edit Client', edit_client_path
-    %li= link_to 'New Project', new_project_path(:client => @client) 
+    = link_to bootstrap_icon('edit') + 'Edit Client', edit_client_path, :class => 'btn'
+    = link_to bootstrap_icon('plus') + 'New Project', new_project_path(:client => @client), :class => 'btn'
 
-%ul.tabs{"data-tabs" => "tabs"}
+%ul.nav.nav-tabs{"data-tabs" => "tabs"}
   %li.active= link_to "Incompleted Projects", "#incompleted_projects"
   %li= link_to "Completed Projects", "#completed_projects"
   %li= link_to "Data Vault", "#data_vault"
@@ -16,14 +14,14 @@
 
 .tab-content
   #incompleted_projects.tab-pane.active
-    = render :partial => "projects", :locals => {:projects => @incompleted_projects}
+    = render "projects", :projects => @incompleted_projects
   #completed_projects.tab-pane
-    = render :partial => "projects", :locals => {:projects => @completed_projects}
+    = render "projects", :projects => @completed_projects
   #data_vault.tab-pane
-    = render :partial => "shared/data_vault", :locals => {:data_vault => @client.data_vault}
+    = render "shared/data_vault", :data_vault => @client.data_vault
   #comments.tab-pane
     - unless current_user.client
-      = render :partial => "shared/files_and_comments", :locals => {:items => @client.files_and_comments.reverse, :id => 'client'}
+      = render "shared/files_and_comments", :items => @client.files_and_comments.reverse, :id => 'client'
 
 - content_for :javascripts do
   = javascript_include_tag "bootstrap-tabs"

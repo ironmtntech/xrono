@@ -49,11 +49,10 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            when the item should be highlighted, you can set a regexp which is matched
     #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>. 
     #
-    primary.item :edit_user, show_gravatar_for(current_user, 30) + "<span>#{t(:edit)} #{current_user}</span>".html_safe, edit_user_path(current_user)
-    primary.item :help, t(:help), '#', :id => 'help_modal_link', :highlights_on => lambda{ false }, :unless => lambda { client? }
+    primary.item :edit_user, t(:edit_profile), edit_user_path(current_user)
     primary.item :logout, t(:logout), destroy_user_session_path
 
-    primary.dom_class = 'nav secondary-nav'
+    primary.dom_class = 'dropdown-menu'
 
     # you can also specify a css id or class to attach to this particular level
     # works for all levels of the menu

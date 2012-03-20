@@ -1,38 +1,38 @@
-= form_for(@ticket) do |f|
+= form_for(@ticket, :html => { :class => 'form-horizontal'  }) do |f|
   - if @ticket.errors.any?
     #error_explanation
       %h2
         = pluralize(@ticket.errors.count, "error")
         = "#{t(:prohibited_this_ticket_from_being_saved)}:"
-
       %ul
-      - @ticket.errors.full_messages.each do |msg|
-        %li= msg
+        - @ticket.errors.full_messages.each do |msg|
+          %li= msg
 
   %fieldset
-    .clearfix
-      = f.label :name
-      .input
+    %legend= legend
+    .control-group
+      = f.label :name, :class => 'control-label'
+      .controls
         = f.text_field :name
-    .clearfix
-      = f.label :estimated_hours
-      .input
+    .control-group
+      = f.label :estimated_hours, :class => 'control-label'
+      .controls
         = f.text_field :estimated_hours
-    .clearfix
-      = f.label :git_branch
-      .input
+    .control-group
+      = f.label :git_branch, :class => 'control-label'
+      .controls
         = f.text_field :git_branch
-    .clearfix
-      = f.label :description
-      .input
+    .control-group
+      = f.label :description, :class => 'control-label'
+      .controls
         = f.text_area :description, :class => 'xxlarge', :rows => 5
-    .clearfix
-      = f.label :completed
-      .input
+    .control-group
+      = f.label :completed, :class => 'control-label'
+      .controls
         = f.check_box :completed
 
     = hidden_field_tag :project_id, @ticket.project.id
-    .actions
+    .form-actions
       = f.submit :class => "add_new_button btn primary"
       - if @ticket.new_record?
         = link_to t(:cancel), project_path(@project), :class => "cancel_button btn"

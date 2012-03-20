@@ -1,4 +1,4 @@
-%table.tickets.zebra-striped
+%table.tickets.table.table-striped
   %thead
     %tr
       %th  #
@@ -17,6 +17,8 @@
       %th= @project.uninvoiced_hours
       %th= @project.hours
       %th &nbsp;
+      - if admin? || current_user.has_role?(:developer, @project)
+        %th &nbsp;
   %tbody
     - if tickets.any?
       - tickets.each do |ticket|
