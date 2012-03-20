@@ -18,11 +18,11 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def self.unpaid
-    where('paid IS NULL or paid = ""')
+    where(:paid => [nil, ''])
   end
 
   def self.not_invoiced
-    where('invoiced IS NULL OR invoiced = ""')
+    where(:invoiced => [nil, ''])
   end
 
   def self.for_client(client)
