@@ -27,7 +27,7 @@ describe WorkUnit do
     end
 
     it 'returns a collection of work units scheduled between the two given dates' do
-      should == [work_unit1, work_unit2]
+      should =~ [work_unit1, work_unit2]
     end
   end
 
@@ -69,7 +69,7 @@ describe WorkUnit do
     end
 
     it 'returns a collection of work units that belong to the given client' do
-      should == [work_unit1, work_unit2]
+      should =~ [work_unit1, work_unit2]
     end
   end
 
@@ -85,7 +85,7 @@ describe WorkUnit do
     end
 
     it 'returns a collection of work units that belong to the given project' do
-      should == [work_unit1, work_unit2]
+      should =~ [work_unit1, work_unit2]
     end
   end
 
@@ -100,7 +100,7 @@ describe WorkUnit do
     end
 
     it 'returns a collection of work units that belong to the given ticket' do
-      should == [work_unit1, work_unit2]
+      should =~ [work_unit1, work_unit2]
     end
   end
 
@@ -115,7 +115,7 @@ describe WorkUnit do
     end
 
     it 'returns a collection of work units that belong to the given user' do
-      should == [work_unit1, work_unit2]
+      should =~ [work_unit1, work_unit2]
     end
   end
 

@@ -112,5 +112,4 @@ Feature: Manage Work Units
     And I fill in "work_unit_hours" with "2"
     And I fill in "work_unit_description" with "test description"
     And I press "Create Work Unit"
-    Then show me the page
     Then I should see "You can only select CTO as hours type on internal client."
