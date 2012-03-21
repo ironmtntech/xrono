@@ -22,7 +22,10 @@ class User < ActiveRecord::Base
   has_many :comments
 
   # Scopes
-  scope :with_unpaid_work_units, joins(:work_units).where('work_units.paid IS NULL OR work_units.paid = ""').group('users.id')
+  def self.with_unpaid_work_units
+    select('distinct users.*').joins(:work_units).where(:work_units => {:paid => [nil, '']})
+  end
+
   scope :unlocked, where('locked_at IS NULL')
   scope :locked,   where('locked_at IS NOT NULL')
   scope :sort_by_name, order('first_name ASC')
