@@ -15,9 +15,9 @@ class Client < ActiveRecord::Base
   after_create :create_data_vault
 
   scope :sort_by_name, order('name ASC')
-  scope :active, where('status = "10"')
-  scope :inactive, where('status != "10" AND status != "20"')
-  scope :suspended, where('status = 20')
+  scope :active, where(:status => '10')
+  scope :suspended, where(:status => '20')
+  scope :inactive, where(:status => '30')
   scope :for_user, lambda{|user|
    joins("INNER JOIN projects     p ON p.client_id=clients.id")
    .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
