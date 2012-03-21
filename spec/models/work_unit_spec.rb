@@ -128,7 +128,7 @@ describe WorkUnit do
     end
 
     it 'returns a collection of work units sorted by scheduled time, descending' do
-      should =~ [work_unit2, work_unit1]
+      should == [work_unit2, work_unit1]
     end
   end
 
