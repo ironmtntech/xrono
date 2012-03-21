@@ -51,9 +51,6 @@ group :development do
 end
 
 group :test do
-  unless ENV['travis'] || RUBY_VERSION >= '1.9.3'
-    gem 'ruby-debug19', '~> 0.11.6', :require => 'ruby-debug', :platform => :mri_19
-  end
   gem 'awesome_print', '~> 0.4.0',  :require => 'ap'
   gem 'capybara', '~> 1.1.1'
   gem 'cucumber', '~> 1.1.4'
