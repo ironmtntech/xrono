@@ -12,4 +12,4 @@ begin
 rescue LoadError
 end
 
-AssetTrackerTutorial::Application.load_tasks
+#AssetTrackerTutorial::Application.load_tasks
