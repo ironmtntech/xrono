@@ -64,23 +64,15 @@ group :test do
 end
 
 platforms :jruby do
-  case ENV["db"]
-  when "postgres"
-    gem 'activerecord-jdbcpostgresql-adapter'
-  else
-    gem 'activerecord-jdbcmysql-adapter'
-  end
+  gem 'activerecord-jdbcpostgresql-adapter'
+  gem 'activerecord-jdbcmysql-adapter'
   gem 'jruby-openssl'
   gem 'trinidad'
 end
 
 platforms :ruby do
-  case ENV["db"]
-  when "postgres"
-    gem 'pg'
-  else
-    gem 'mysql2', '~> 0.3.0'
-  end
+  gem 'pg'
+  gem 'mysql2', '~> 0.3.0'
 end
 
 group :test, :development do
