@@ -84,7 +84,7 @@ Feature: Manage Work Units
     When I go to the work unit's page
     Then I should see "Access denied" within ".alert-message"
 
-  @javascript
+  @javascript @wip
   Scenario: Add new work order to a ticket
     Given I am an authenticated user with an admin role
     And a ticket "ticket1" exists

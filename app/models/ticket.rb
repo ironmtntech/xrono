@@ -20,27 +20,19 @@ class Ticket < ActiveRecord::Base
   scope :complete, :conditions => ["completed = ?", true]
 
   scope :for_user, lambda{|user|
-    joins("INNER JOIN projects     p ON p.id=tickets.project_id")
-   .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
-   .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
-   .where("ru.user_id = ?", user.id)
+    joins("INNER JOIN projects p ON p.id=tickets.project_id").joins("INNER JOIN roles r ON r.authorizable_type='Project' AND r.authorizable_id=p.id").joins("INNER JOIN roles_users ru ON ru.role_id = r.id").where("ru.user_id = ?", user.id)
   }
 
   scope :for_user_and_role, lambda{|user, role|
-    joins("INNER JOIN projects     p ON p.id=tickets.project_id")
-   .joins("INNER JOIN roles        r ON r.authorizable_type='Project' AND r.authorizable_id=p.id")
-   .joins("INNER JOIN roles_users ru ON ru.role_id = r.id")
-   .where("ru.user_id = #{user.id} AND r.name = '#{role}'")
+    joins("INNER JOIN projects p ON p.id=tickets.project_id").joins("INNER JOIN roles r ON r.authorizable_type='Project' AND r.authorizable_id=p.id").joins("INNER JOIN roles_users ru ON ru.role_id = r.id").where("ru.user_id = #{user.id} AND r.name = '#{role}'")
   }
 
   scope :for_repo_and_branch, lambda{|repo,branch|
-    joins("INNER JOIN projects     p ON p.id=tickets.project_id")
-   .where("p.git_repo_name = '#{repo}' and tickets.git_branch = '#{branch}'")
+    joins("INNER JOIN projects p ON p.id=tickets.project_id").where("p.git_repo_name = '#{repo}' and tickets.git_branch = '#{branch}'")
   }
 
   scope :for_repo_url_and_branch, lambda{|repo,branch|
-    joins("INNER JOIN projects     p ON p.id=tickets.project_id")
-   .where("p.git_repo_url = '#{repo}' and tickets.git_branch = '#{branch}'")
+    joins("INNER JOIN projects p ON p.id=tickets.project_id").where("p.git_repo_url = '#{repo}' and tickets.git_branch = '#{branch}'")
   }
 
 

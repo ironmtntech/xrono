@@ -13,6 +13,7 @@ Given /^the user "([^"]*)" has (?:a|an) "([^"]*)" role(?: on #{capture_model})?$
   else
     User.find_by_email(email).has_role!(role.to_sym)
   end
+  debugger
 end
 
 When /^I delete the (\d+)(?:st|nd|rd|th) user$/ do |pos|
@@ -31,8 +32,8 @@ Given /^I am an authenticated client on an existing project page$/ do
   visit destroy_user_session_path
   current_user = User.make(:email => "current_user@example.com", :password => "password", :password_confirmation => "password")
   current_user.has_role!("client")
-  c = Client.create(name: "Test Client", status: "Active")
-  p = Project.create(name: "Test Project", client_id: c.id)
+  c = Client.create(:name => "Test Client", :status => "Active")
+  p = Project.create(:name => "Test Project", :client_id => c.id)
   current_user.has_role!(:client, p)
   visit new_user_session_path
   step %{I fill in "user_email" with "current_user@example.com"}

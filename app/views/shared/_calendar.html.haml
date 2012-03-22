@@ -11,7 +11,7 @@
       %tr.calendar_foot
         - (0..6).map{|x| start_date + x.days }.each do |date|
           %td.span2= "#{t(:total)}: #{work_units.select{|wu| wu.scheduled_at.to_date == date.to_date}.inject(BigDecimal("0")){|sum,x| sum + x.effective_hours}}"
-        %td.span2{ colspan: 2 }= "#{t(:week)}: #{work_units.inject(BigDecimal("0")){|sum,x| sum + x.effective_hours}}"
+        %td.span2{ :colspan => 2 }= "#{t(:week)}: #{work_units.inject(BigDecimal("0")){|sum,x| sum + x.effective_hours}}"
     %tbody
       %tr
         - (start_date..(start_date + 6.days)).each do |date|

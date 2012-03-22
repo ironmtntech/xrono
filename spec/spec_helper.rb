@@ -1,9 +1,11 @@
 # Simplecov Setup
-require 'simplecov'
-require 'simplecov-rcov'
-SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-SimpleCov.start 'rails' do
-  add_filter '/vendor/'
+if RUBY_VERSION >= '1.9.2'
+  require 'simplecov'
+  require 'simplecov-rcov'
+  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+  SimpleCov.start 'rails' do
+    add_filter '/vendor/'
+  end
 end
 
 # Loading more in this block will cause your tests to run faster. However,
