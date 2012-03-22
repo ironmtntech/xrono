@@ -17,4 +17,5 @@ rvm:
   - jruby
 
 env:
-  db=mysql
+  - db=mysql
+  - db=postgres

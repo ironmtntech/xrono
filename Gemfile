@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 
+gem 'rails', '~> 3.2.2'
 gem 'acl9', '~> 0.12.0'
 gem 'capistrano', '~> 2.8.0'
 gem 'devise', '~> 1.4.9'
 gem 'gravtastic', '~> 3.2.6'
 gem 'haml', '~> 3.1.3'
 gem 'paperclip', '~> 2.3'
-gem 'rails', '~> 3.2.0'
 gem 'uuid', '~> 2.3.1'
 gem 'jquery-rails', '~> 1.0.17'
 gem 'rake', '0.9.2'
@@ -54,7 +54,6 @@ group :test do
   gem 'launchy', '~> 0.3.7'
   gem 'machinist', '~> 1.0.6'
   gem 'pickle', '= 0.4.8'
-  gem 'rspec-rails'
   gem 'shoulda-matchers', '~> 1.0'
   gem 'simplecov', '~> 0.5.0'
   gem 'simplecov-rcov'
@@ -73,5 +72,11 @@ end
 
 platforms :ruby do
   gem 'mysql2', '~> 0.3.0'
+end
+
+group :test, :development do
+  # rspec-rails needs to be in the development group to expose generators
+  # and rake tasks without having to type `RAILS_ENV=test`
+  gem 'rspec-rails'
 end
 

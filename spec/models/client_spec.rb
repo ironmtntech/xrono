@@ -80,7 +80,7 @@ describe Client do
       let(:ticket2) { Ticket.make(:project => project) }
 
       it 'returns the collection of tickets that belong to the client' do
-        should == [ticket, ticket2]
+        should =~ [ticket, ticket2]
       end
     end
   end
@@ -142,7 +142,7 @@ describe Client do
       ticket    = project.tickets.make
       ticket_2  = project.tickets.make
       ticket_3  = Ticket.make
-      client.tickets.should == [ticket,ticket_2]
+      client.tickets.should =~ [ticket,ticket_2]
     end
   end
 

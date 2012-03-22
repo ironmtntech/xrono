@@ -21,9 +21,9 @@ class Project < ActiveRecord::Base
   scope :sort_by_name, order('name ASC')
   scope :for_client,    lambda {|client|    where :client_id => client.id }
   scope :for_client_id, lambda {|client_id| where :client_id => client_id }
-  scope :incomplete, where("completed = ?", false)
-  scope :complete, where("completed = ?", true)
-  scope :with_git_repos, where("git_repo_url IS NOT NULL")
+  scope :incomplete, where(:completed => false)
+  scope :complete, where(:completed => true)
+  scope :with_git_repos, where(arel_table[:git_repo_url].not_eq(nil))
 
   scope :for_user, lambda{|user|
     joins("INNER JOIN roles r ON r.authorizable_type='#{model_name}' AND r.authorizable_id=projects.id").joins("INNER JOIN roles_users ru ON ru.role_id = r.id").joins("INNER JOIN users u ON ru.user_id = u.id").where("ru.user_id = #{user.id}")
