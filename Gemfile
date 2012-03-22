@@ -61,7 +61,9 @@ group :test do
   gem 'spork', '0.9.0.rc9'
   gem 'yajl-ruby', '~> 0.7.8'
   gem 'ci_reporter'
-  gem 'capybara-webkit'
+  unless ENV['travis']
+    gem 'capybara-webkit'
+  end
 end
 
 platforms :jruby do
