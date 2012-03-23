@@ -29,6 +29,9 @@ module NavigationHelpers
     when /the last work units edit page/
       edit_work_unit_path(WorkUnit.last)
 
+    when /^my edit profile page$/
+      edit_user_path(@current_user)
+
     # the following are examples using path_to_pickle
     when /^the admin #{capture_model}(?:'s)? page$/
       path_to_pickle 'admin', $1

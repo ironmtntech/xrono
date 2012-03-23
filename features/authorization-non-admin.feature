@@ -23,7 +23,7 @@ Feature: Non-admin Authorization
 
   Scenario: Change user password (non-admin)
     Given I am an authenticated user with a client role
-    And I follow "Edit"
+    When I am on my edit profile page
     And I fill in "Password" with "password" 
     And I fill in "Password Confirmation" with "password"
     And I press "Change Password"
@@ -31,7 +31,7 @@ Feature: Non-admin Authorization
     
   Scenario: Change user password unsuccessfully (non-admin)
     Given I am an authenticated user with a client role
-    And I follow "Edit"
+    When I am on my edit profile page
     And I fill in "Password" with "password" 
     And I fill in "Password Confirmation" with "incorrect_password"
     And I press "Change Password"

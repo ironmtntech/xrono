@@ -1,14 +1,12 @@
 %h2= t(:all_users)
 
-= render :partial => 'admin/nav'
+= render 'admin/nav'
 
 .right
-  = link_to t(:new_user), new_admin_user_path, :class => "add_new_button btn primary"
+  = link_to bootstrap_icon('plus') + t(:new_user), new_admin_user_path, :class => "add_new_button btn primary"
 
 .btn-group
   = link_to "Unlocked", admin_users_path, :class => 'btn active'
   = link_to "Locked", admin_locked_users_path, :class => 'btn'
 
-
-= render :partial => "unlocked_users"
-
+= render "unlocked_users"

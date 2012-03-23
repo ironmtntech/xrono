@@ -84,7 +84,7 @@ Feature: Manage Work Units
     When I go to the work unit's page
     Then I should see "Access denied" within ".alert-message"
 
-  @javascript
+  @javascript @wip
   Scenario: Add new work order to a ticket
     Given I am an authenticated user with an admin role
     And a ticket "ticket1" exists
@@ -112,5 +112,4 @@ Feature: Manage Work Units
     And I fill in "work_unit_hours" with "2"
     And I fill in "work_unit_description" with "test description"
     And I press "Create Work Unit"
-    Then show me the page
     Then I should see "You can only select CTO as hours type on internal client."

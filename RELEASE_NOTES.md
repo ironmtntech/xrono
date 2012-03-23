@@ -1,3 +1,16 @@
+03/23/2012
+
+  - Add totals to weekly time report
+
+02/27/2012
+
+  - Bootstrap2 upgrade complete and in place.
+  - Clean up various views to be more idiomatic rails3
+  - Clean up display in general to be more happy-to-be-bootstrap
+  - Change pie charts to progress bars
+  - Make most active project show up at top of projects listing.
+  - factor out a show_message method from dashboard code.
+
 02/22/2012
 
   - Link to projects in two week time report on dash.

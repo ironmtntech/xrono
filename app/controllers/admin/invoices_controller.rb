@@ -29,7 +29,7 @@ class Admin::InvoicesController < ApplicationController
   private
 
   def load_unpaid_work_units
-    @work_units = WorkUnit.where('invoiced IS NULL OR invoiced = ""')
+    @work_units = WorkUnit.not_invoiced
   end
 
   def load_unpaid_work_units_for_client

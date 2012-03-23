@@ -1,17 +1,16 @@
-#page_header
-  %h2
-    = "#{@project.client}: #{@project}"
+= render 'breadcrumbs'
 
-  -if current_user.admin?
-    %ul
-      %li= "Rate A: #{number_to_currency(@project.rate_a)}"
-      %li= "Rate B: #{number_to_currency(@project.rate_b)}"
+- if admin? || current_user.has_role?(:developer, @project)
+  .btn-group
+    = link_to bootstrap_icon('edit') + t(:edit_project), edit_project_path, :class => 'btn', :rel => 'edit-project'
+    = link_to bootstrap_icon('plus') + t(:new_ticket), new_ticket_path(:project_id => @project), :class => 'btn'
+  %br
+  %br
 
-  %ul.pills
-    %li= link_to "#{t(:client)}: #{@project.client}" , client_path(@project.client)
-    - if admin? || current_user.has_role?(:developer, @project)
-      %li= link_to "#{t(:edit)}: #{@project}", edit_project_path
-      %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project)
+- if current_user.admin?
+  %ul
+    %li= "Rate A: #{number_to_currency(@project.rate_a)}"
+    %li= "Rate B: #{number_to_currency(@project.rate_b)}"
 
 %ul.nav.nav-tabs{"data-tabs" => "tabs"}
   -if !@project.xrono_notes.nil?
@@ -26,39 +25,25 @@
 .tab-content
   -if !@project.xrono_notes.nil?
     #project_notes.tab-pane.active
-      :markdown
+      :kramdown
         #{@project.xrono_notes}
   -if !@project.release_notes.nil?
     #release_notes.tab-pane{:class => "#{@project.xrono_notes.nil? ? "active" : ""}"}
-      :markdown
+      :kramdown
         #{@project.release_notes}
   #incomplete_tickets.tab-pane{:class => "#{@project.xrono_notes.nil? && @project.release_notes.nil? ? "active" : ""}"}
     - if project_completion_metric(@project) > 0
-      = render :partial => 'pie_chart_metrics'
-    = render :partial => "ticket_table", :locals => {:tickets => @incomplete_tickets}
+      = progress_bar(project_completion_metric(@project), :color => 'blue', :rounded => true)
+    = render "ticket_table", :tickets => @incomplete_tickets
   #complete_tickets.tab-pane
     - if project_completion_metric(@project) > 0
-      = render :partial => 'pie_chart_metrics'
-    = render :partial => "ticket_table", :locals => {:tickets => @complete_tickets}
+      = progress_bar(project_completion_metric(@project), :color => 'blue', :rounded => true)
+    = render "ticket_table", :tickets => @complete_tickets
   #data_vault.tab-pane
-    = render :partial => "shared/data_vault", :locals => {:data_vault => @project.data_vault}
+    = render "shared/data_vault", :data_vault => @project.data_vault
   #comments.tab-pane
     - unless current_user.client
-      %hr
-      .clearfix
-
-      .row
-        = render :partial => "comments/comments", :locals => {:comments => @project.comments} if @project.comments.any?
-        = render :partial => "comments/comment_form", :locals => { :commentable_id => @project.id,
-          :commentable_field => "project_id",
-          :commentable_type => "Project",
-          :refurl => project_path(@project),
-          :comment_num => @project.id }
-      .row
-        #files
-          = render :partial => "file_attachments/file_attachments", :locals => { :file_attachments => @project.file_attachments } if @project.file_attachments.any?
-          = link_to t(:add_file_attachment), new_file_attachment_path( :project_id => @project.id )
-
+      = render "shared/files_and_comments", :items => @project.files_and_comments.reverse, :id => 'project'
 
   - content_for :javascripts do
     = javascript_include_tag "ticket_board"

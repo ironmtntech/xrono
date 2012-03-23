@@ -1,4 +1,4 @@
-= form_for(@ticket, :url => client_login_ticket_path) do |f|
+= form_for([:client_login, @ticket]) do |f|
   - if @ticket.errors.any?
     #error_explanation
       %h2
@@ -10,17 +10,18 @@
         %li= msg
 
   %fieldset
-    .clearfix
-      = f.label :name
-      .input
+    %legend= legend
+    .control-group
+      = f.label :name, :class => 'control-label'
+      .controls
         = f.text_field :name
-    .clearfix
-      = f.label :description
-      .input
+    .control-group
+      = f.label :description, :class => 'control-label'
+      .controls
         = f.text_area :description, :class => 'xxlarge', :rows => 5
-    .clearfix
-      = f.label :completed
-      .input
+    .control-group
+      = f.label :completed, :class => 'control-label'
+      .controls
         = f.check_box :completed
 
     = hidden_field_tag :project_id, @ticket.project.id

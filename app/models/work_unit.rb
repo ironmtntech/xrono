@@ -18,11 +18,11 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def self.unpaid
-    where('paid IS NULL or paid = ""')
+    where(:paid => [nil, ''])
   end
 
   def self.not_invoiced
-    where('invoiced IS NULL OR invoiced = ""')
+    where(:invoiced => [nil, ''])
   end
 
   def self.for_client(client)
@@ -120,7 +120,11 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def to_s
-    description
+    if new_record?
+      I18n.t(:new_work_unit)
+    else
+      description[0..80]
+    end
   end
 
   def allows_access?(user)

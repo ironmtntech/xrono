@@ -1,5 +1,5 @@
 /*
- *= require twitter/bootstrap
+ *= require bootstrap_and_overrides
  *= require chosen
  *= require _jquery-ui-1.8.16.custom
  *= require css3-progress-bar
@@ -8,12 +8,16 @@
 @import "compass/css3";
 
 //** SCREEN STYLES **//
-body {
-  padding-top: 90px;
+a {
+  outline:none;
 }
+
 table {
   font-size: 1em;
   margin-top: 10px;
+}
+fieldset {
+  padding-top: 10px;
 }
 .calendar{
   table{
@@ -22,7 +26,6 @@ table {
     }
     tfoot{
       td{
-        border-bottom: 1px solid #eee;
       }
     }
     tbody {
@@ -91,7 +94,7 @@ table {
   }
 }
 
-input[type=text], input[type=password]{
+input {
   height: 26px;
   line-height: auto;
 }
@@ -103,14 +106,14 @@ table.invoice {
     }
   }
 }
-body div.container div.row div.span16 div input#global_invoiced {
+body div.container-fluid div.row div.span16 div input#global_invoiced {
   float:right;
 }
 
-body div.container div.row div.span16 div form table.invoice tfoot tr td textarea {
+body div.container-fluid div.row div.span16 div form table.invoice tfoot tr td textarea {
   width:100%;
 }
-div.navbar div.fill div.container ul.nav {
+div.navbar div.fill div.container-fluid ul.nav {
   margin: 10px 10px 0 0;
   li {
     a {
@@ -119,22 +122,49 @@ div.navbar div.fill div.container ul.nav {
   }
 }
 
-ul.nav{
-  li{
-    a{
-      @include border-radius(8px);
-      &:hover{
-        background-color: #75959d;
+.navbar{
+  @include box-shadow(0 0 5px #ccc);
+  .primary-nav{
+    li{
+      a{
+        @include border-radius(8px);
+        &:hover {
+          background-color: #75959d;
+        }
+        margin-left: 2px;
+        margin-right: 2px;
       }
-      margin-left: 2px;
-      margin-right: 2px;
+    }
+    li.selected{
+      a{
+        background-color: #5d7a82;
+        color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
+      }
     }
   }
-  li.selected{
-    a{
-      background-color: #5d7a82;
-      color: white;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
+  .fill .container-fluid li.dropdown{
+    a.dropdown-toggle{
+      padding: 0 4px 0 0;
+    }
+    span{
+      position: relative;
+      top: -10px;
+      padding: 4px;
+    }
+    b.caret{
+      position: relative;
+      top: 4px;
+    }
+    ul.dropdown-menu{
+      li{
+        a{
+          color: #75959d;
+          &:hover {
+            color: white;
+          }
+        }
+      }
     }
   }
 }
@@ -153,16 +183,6 @@ tfoot{
   border-top: 2px solid #bbb;
 }
 
-footer.footer{
-  box-shadow: 0 5px 15px rgba(0, 0, 0, .024) inset;
-  text-shadow: 0 1px 0 #ffffff;
-  width: auto;
-  .container P {
-    margin: 10px 0 0 0;
-    padding: 10px 0 0 0;
-    border-top: 1px solid #e5e5e5;
-  }
-}
 h3 {
   margin: 10px 0 5px 0;
 }
@@ -176,14 +196,14 @@ h3 {
 }
 
 .week_pagination{
-  background-color: #f9f9f9;
-  border-width: 1px;
-  border-color: #ddd;
-  border-style: solid;
-  @include border-radius(5px);
+  border-bottom:1px solid #eee;
   .date_pagination{
     .span.center{
       text-align: center;
+    }
+    .span.first{
+      text-align: left;
+      float:left;
     }
     .span.last{
       text-align: right;
@@ -194,26 +214,6 @@ h3 {
       padding: 1em;
     }
   }
-}
-
-.nav.secondary-nav{
-  li#edit_user{
-    a{
-      padding-top: 4px;
-      padding-bottom: 0;
-    }
-    img{
-      margin-right: 10px;
-    }
-    span{
-      position: relative;
-      top: -10px;
-    }
-  }
-}
-
-.twipsy{
-  font-size: 13px;
 }
 
 .module{
@@ -239,7 +239,7 @@ h3 {
   top: 0;
 }
 
-body div.container div.row div.span16 p.ticket_metrics {
+body div.container-fluid div.row div.span16 p.ticket_metrics {
   text-align:center;
 }
 
@@ -258,3 +258,40 @@ body div.container div.row div.span16 p.ticket_metrics {
 .cto {
   color: #F89406;
 }
+legend {
+  -webkit-margin-top-collapse: separate;
+  
+}
+.form-actions {
+  background-color:#fff;
+  @include linear-gradient(#fafafa #fff);
+}
+.login_form {
+  display:block;
+  margin-top:10px;
+  label {
+    display:inline-block;
+    width: 65px;
+    text-align:right;
+    padding-right: 10px;
+    vertical-align:top;
+  }
+  .input {
+    display:inline-block;
+    vertical-align:middle;
+  }
+  .remember {
+    input {
+      margin: 0 4px 0 77px;
+    }
+    label {
+      width: auto;
+      padding-top: 2px;
+    }
+  }
+  .btn {
+    margin: 7px 0 0 77px;
+  }
+}
+
+@import "responsive";

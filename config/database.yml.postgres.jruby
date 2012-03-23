@@ -1,0 +1,20 @@
+production:
+  adapter: jdbcpostgresql
+  database: xrono_production
+  username: postgres
+  min_messages: WARNING
+
+development:
+  adapter: jdbcpostgresql
+  database: xrono_development
+  username: postgres
+  min_messages: WARNING
+
+test: &test
+  adapter: jdbcpostgresql
+  database: xrono_test
+  username: postgres
+  min_messages: WARNING
+
+cucumber:
+  <<: *test

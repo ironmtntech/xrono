@@ -1,4 +1,4 @@
-= form_for(@project) do |f|
+= form_for(@project, :html => { :class => 'form-horizontal' }) do |f|
   - if @project.errors.any?
     #error_explanation
       %h2
@@ -10,41 +10,42 @@
         %li= msg
 
   %fieldset
-    .clearfix
-      = f.label :name
-      .input
+    %legend= legend
+    .control-group
+      = f.label :name, :class => 'control-label'
+      .controls
         = f.text_field :name
-    -if current_user.admin?
-      .clearfix
-        = f.label :rate_a
-        .input
+    - if current_user.admin?
+      .control-group
+        = f.label :rate_a, :class => 'control-label'
+        .controls
           = f.text_field :rate_a
-      .clearfix
-        = f.label :rate_b
-        .input
+      .control-group
+        = f.label :rate_b, :class => 'control-label'
+        .controls
           = f.text_field :rate_b
-    .clearfix
-      = f.label :git_repo_name
-      .input
+    .control-group
+      = f.label :git_repo_name, :class => 'control-label'
+      .controls
         = f.text_field :git_repo_name
-    .clearfix
-      = f.label :git_repo_url
-      .input
+    .control-group
+      = f.label :git_repo_url, :class => 'control-label'
+      .controls
         = f.text_field :git_repo_url
-    .clearfix
-      = f.label :overtime_multiplier
-      .input
+    .control-group
+      = f.label :overtime_multiplier, :class => 'control-label'
+      .controls
         = f.text_field :overtime_multiplier
-    .clearfix
-      = f.label :completed
-      .input
+    .control-group
+      = f.label :completed, :class => 'control-label'
+      .controls
         = f.check_box :completed
-    .clearfix
-      = f.label :tags
-      .input
-        = f.text_field :tag_list, :class => "ui-autocomplete-input"
+    .control-group
+      = f.label :tags, :class => 'control-label'
+      .controls
+        = f.text_field :tag_list, :class => "ui-autocomplete-controls"
     = hidden_field_tag :client, @project.client.id
-    .actions
+    .form-actions
       = f.submit :class => "add_new_button btn primary"
       = link_to t(:cancel), client_path(@project.client), :class => 'btn'
 
@@ -91,5 +92,3 @@
           }
         });
       });
-      
-

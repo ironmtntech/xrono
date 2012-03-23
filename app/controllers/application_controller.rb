@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def build_week_hash_for(date, hash={})
-    until date.saturday?
+    until date.wday == 7 #Saturday
       day = date.strftime("%A")
       hash[day] = date
       date = date.tomorrow
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_unless_monday(path_prefix, date)
     @start_date = date ? Date.parse(date) : Date.current
-    unless @start_date.monday?
+    unless @start_date.wday == 1 #Monday
       redirect_to(path_prefix + @start_date.beginning_of_week.strftime("%F"))
     end
   end
@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
   end
 
   def initialize_site_settings
-    @site_settings = SiteSettings.first ? SiteSettings.first : SiteSettings.create(:total_yearly_pto_per_user => 40, :overtime_multiplier => 1.5)
+    @site_settings = SiteSettings.first ? SiteSettings.first : SiteSettings.create(:total_yearly_pto_per_user => BigDecimal('40'), :overtime_multiplier => BigDecimal('1.5'))
   end
 
   def redirect_clients

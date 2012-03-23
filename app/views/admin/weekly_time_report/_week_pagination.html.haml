@@ -1,6 +1,6 @@
 .week_pagination
   .date_pagination
-    .row
+    .row-fluid
       .span
         = link_to t(:previous_week).html_safe,
             admin_weekly_time_report_path((start_date - 1.week).beginning_of_week)

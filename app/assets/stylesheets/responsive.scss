@@ -12,7 +12,23 @@
   visibility: hidden;
 }
 @media (max-width: 480px) {
-
+.nav.primary-nav {
+ display: inline-block;
+ width: 50%;
+ text-align:right;
+}
+.nav.pull-right {
+ display: inline-block;
+ width: 100%;
+ border-top:1px solid #ccc;
+ padding-top: 10px;
+ li {
+   display:inline-block;
+ }
+}
+  body {
+    padding-top:0;
+  }
   .nav-collapse {
     -webkit-transform: translate3d(0, 0, 0);
   }
@@ -86,7 +102,26 @@
   }
 }
 @media (max-width: 768px) {
- 
+ body {
+   padding-top:0;
+ }
+ .nav.primary-nav {
+  display: inline-block;
+  width: 50%;
+  text-align:right;
+ }
+ .nav.pull-right {
+  display: inline-block;
+  width: 100%;
+  border-top:1px solid #ccc;
+  padding-top: 10px;
+  li {
+    display:inline-block;
+  }
+ }
+ .container-fluid {
+  padding: 0 15px;
+ }
   .container {
     width: auto;
     padding: 0 20px;
@@ -105,7 +140,17 @@
   }
 }
 @media (min-width: 768px) and (max-width: 980px) {
-
+  body {
+    padding-top: 90px;
+  }
+  .nav.primary-nav {
+   display: inline-block;
+   width: 50%;
+   text-align:right;
+   li {
+    display:inline-block;
+   }
+  }
   .row {
     margin-left: -20px;
     *zoom: 1;
@@ -282,7 +327,38 @@
   }
 }
 @media (max-width: 980px) {
-
+  body {
+    padding-top:0;
+  }
+  .navbar .fill .container-fluid li.dropdown a.dropdown-toggle {
+    float:left;
+  }
+  .nav.primary-nav {
+   display: inline-block;
+   width: 50%;
+   text-align:left;
+   li {
+    display:inline-block;
+   }
+  }
+  .nav.pull-right {
+   display: inline-block;
+   width: 100%;
+   border-top:1px solid #ccc;
+   padding-top: 10px;
+   li.dropdown {
+    width: 100%;
+   }
+   .dropdown-toggle {
+    display:inline-block;
+   }
+   li {
+     display:inline-block;
+     a {
+      color:#fff;
+     }
+   }
+  }
   .navbar-fixed-top {
     position: static;
     margin-bottom: 18px;
@@ -380,13 +456,17 @@
   }
 }
 @media (min-width: 980px) {
-
+  body {
+    padding-top: 85px;
+  }
   .nav-collapse.collapse {
     height: auto !important;
   }
 }
 @media (min-width: 1200px) {
-
+  body {
+    padding-top: 85px;
+  }
   .row {
     margin-left: -30px;
     *zoom: 1;

@@ -1,13 +1,13 @@
 %h2= "#{@ticket.client}: #{@ticket.project} - #{@ticket}"
 
-%ul.pills
+%ul.nav.nav-pills
   %li= link_to "#{t(:client)}: #{@ticket.client}", client_login_client_path(@ticket.project.client)
   %li= link_to "#{t(:project)}: #{@ticket.project}", client_login_project_path(@ticket.project)
 
 %p.ticket_description
   - if @ticket.description
     %h3 Ticket Description
-    :markdown
+    :kramdown
       #{@ticket.description}
 
 %p.ticket_metrics

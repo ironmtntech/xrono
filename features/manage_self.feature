@@ -16,7 +16,6 @@ Feature: Self administration
 
   @wip
   Scenario: Change password failure
-
     When I go to the home page
     And I follow "Users"
     And I follow "Clark D Kent"
@@ -42,8 +41,8 @@ Feature: Self administration
     And I fill in "work_unit_description" with "New description"
     And I press "Create Work Unit"
     Then I should see description
-    And I follow "Edit"
+    When I am on my edit profile page
     Then the "Expanded Calendar" checkbox should not be checked
-    And I check "Expanded Calendar"
+    When I check "Expanded Calendar"
     And I press "Update"
     Then I should see description.expand    

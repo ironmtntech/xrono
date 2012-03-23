@@ -1,5 +1,5 @@
 - flash.each do |key, message|
-  %div{ :class => "alert-message fade in #{key}", "data-alert" => "data-alert" }
+  %div{ :class => "alert, alert-message fade in #{key}", "data-alert" => "data-alert" }
     %p= message
 - content_for :javascripts do
   :javascript

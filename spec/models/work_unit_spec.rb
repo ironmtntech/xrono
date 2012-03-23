@@ -26,8 +26,8 @@ describe WorkUnit do
       work_unit2.update_attribute(:scheduled_at, Time.now)
     end
 
-    it 'should return a collection of work units scheduled between the two given dates' do
-      should == [work_unit1, work_unit2]
+    it 'returns a collection of work units scheduled between the two given dates' do
+      should =~ [work_unit1, work_unit2]
     end
   end
 
@@ -39,7 +39,7 @@ describe WorkUnit do
       work_unit2.update_attributes(:paid => nil, :paid_at => nil)
     end
 
-    it 'should return a collection of work units which are unpaid' do
+    it 'returns a collection of work units which are unpaid' do
       should == [work_unit2]
     end
   end
@@ -52,7 +52,7 @@ describe WorkUnit do
       work_unit2.update_attributes(:invoiced => nil, :invoiced_at => nil)
     end
 
-    it 'should return a collection of work units which are not invoiced' do
+    it 'returns a collection of work units which are not invoiced' do
       should == [work_unit2]
     end
   end
@@ -68,8 +68,8 @@ describe WorkUnit do
       work_unit2.update_attribute(:ticket, ticket)
     end
 
-    it 'should return a collection of work units that belong to the given client' do
-      should == [work_unit1, work_unit2]
+    it 'returns a collection of work units that belong to the given client' do
+      should =~ [work_unit1, work_unit2]
     end
   end
 
@@ -84,8 +84,8 @@ describe WorkUnit do
       work_unit2.update_attribute(:ticket, ticket)
     end
 
-    it 'should return a collection of work units that belong to the given project' do
-      should == [work_unit1, work_unit2]
+    it 'returns a collection of work units that belong to the given project' do
+      should =~ [work_unit1, work_unit2]
     end
   end
 
@@ -99,8 +99,8 @@ describe WorkUnit do
       work_unit2.update_attribute(:ticket, ticket)
     end
 
-    it 'should return a collection of work units that belong to the given ticket' do
-      should == [work_unit1, work_unit2]
+    it 'returns a collection of work units that belong to the given ticket' do
+      should =~ [work_unit1, work_unit2]
     end
   end
 
@@ -114,8 +114,8 @@ describe WorkUnit do
       work_unit2.update_attribute(:user, user)
     end
 
-    it 'should return a collection of work units that belong to the given user' do
-      should == [work_unit1, work_unit2]
+    it 'returns a collection of work units that belong to the given user' do
+      should =~ [work_unit1, work_unit2]
     end
   end
 
@@ -127,7 +127,7 @@ describe WorkUnit do
       work_unit2.update_attribute(:scheduled_at, Date.current)
     end
 
-    it 'should return a collection of work units sorted by scheduled time, descending' do
+    it 'returns a collection of work units sorted by scheduled time, descending' do
       should == [work_unit2, work_unit1]
     end
   end
@@ -135,12 +135,12 @@ describe WorkUnit do
   describe ".hours" do
     subject { WorkUnit.hours}
 
-    it "should not allow negative numbers" do
+    it "rejects negative numbers" do
       work_unit1.update_attribute(:hours, -1)
       work_unit1.should_not be_valid
     end
 
-    it "should not accept characters" do
+    it "rejects characters" do
       work_unit1.update_attribute(:hours, "asdf#")
       work_unit1.should_not be_valid
     end
@@ -155,7 +155,7 @@ describe WorkUnit do
       work_unit2.update_attribute(:hours_type, 'Normal')
     end
 
-    it 'should return a collection of work units with hours type "PTO"' do
+    it 'returns a collection of work units with hours type "PTO"' do
       should == [work_unit1]
     end
   end
@@ -168,7 +168,7 @@ describe WorkUnit do
       work_unit2.update_attribute(:hours_type, 'Normal')
     end
 
-    it 'should return a collection of work units with hours type "CTO"' do
+    it 'returns a collection of work units with hours type "CTO"' do
       should == [work_unit1]
     end
   end
@@ -181,16 +181,16 @@ describe WorkUnit do
       work_unit2.update_attribute(:hours_type, 'Normal')
     end
 
-    it 'should return a collection of work units with hours type "Overtime"' do
+    it 'returns a collection of work units with hours type "Overtime"' do
       should == [work_unit1]
     end
 
-    it 'should return true if hours type is overtime' do
+    it 'returns true if hours type is overtime' do
       work_unit1.overtime?.should == true
     end
   end
 
-  
+
 
   describe '.normal' do
     subject { WorkUnit.normal }
@@ -200,7 +200,7 @@ describe WorkUnit do
       work_unit2.update_attribute(:hours_type, 'Normal')
     end
 
-    it 'should return a collection of work units with hours type "Normal"' do
+    it 'returns a collection of work units with hours type "Normal"' do
       should == [work_unit2]
     end
   end
@@ -227,7 +227,7 @@ describe WorkUnit do
         contact2.update_attribute(:receives_email, false)
       end
 
-      it 'should send the email' do
+      it 'sends the email' do
         lambda { work_unit.send_email! }.should change(ActionMailer::Base.deliveries, :count).by(1)
       end
     end
@@ -236,7 +236,7 @@ describe WorkUnit do
 #  describe '#not_send_email!' do
 #    context 'when there are NO contacts for the parent client who receive email' do
 #
-#      it 'should not send the email' do
+#      it 'will not send the email' do
 #        lambda { work_unit.send_email! }.should_not change(ActionMailer::Base.deliveries, :count).by(1)
 #      end
 #    end
@@ -254,7 +254,7 @@ describe WorkUnit do
         contact2.update_attribute(:receives_email, false)
       end
 
-      it 'should return a collection of email addresses for those contacts' do
+      it 'returns a collection of email addresses for those contacts' do
         should == [contact1.email_address]
       end
     end
@@ -263,7 +263,7 @@ describe WorkUnit do
   describe '#client' do
     subject { work_unit.client }
 
-    it 'should return the parent client' do
+    it 'returns the parent client' do
       should == work_unit.ticket.project.client
     end
   end
@@ -271,7 +271,7 @@ describe WorkUnit do
   describe '#project' do
     subject { work_unit.project }
 
-    it 'should return the parent project' do
+    it 'returns the parent project' do
       should == work_unit.ticket.project
     end
   end
@@ -377,7 +377,7 @@ describe WorkUnit do
         site_settings.update_attribute(:overtime_multiplier, 2.0)
       end
 
-      it 'should return the project overtime multiplier' do
+      it 'returns the project overtime multiplier' do
         should == 3
       end
     end
@@ -389,7 +389,7 @@ describe WorkUnit do
         site_settings.update_attribute(:overtime_multiplier, 2.0)
       end
 
-      it 'should return the client overtime multiplier' do
+      it 'returns the client overtime multiplier' do
         should == 2.5
       end
     end
@@ -401,7 +401,7 @@ describe WorkUnit do
         site_settings.update_attribute(:overtime_multiplier, 2.0)
       end
 
-      it 'should return the site settings overtime multiplier' do
+      it 'returns the site settings overtime multiplier' do
         should == 2
       end
     end
@@ -413,20 +413,20 @@ describe WorkUnit do
         site_settings.overtime_multiplier = nil
       end
 
-      it 'should default to 1.5' do
+      it 'defaults to 1.5' do
         should == 1.5
       end
     end
   end
 
   describe '#overtime?' do
-    it 'should correctly report if it is overtime' do
+    it 'correctly reports if it is overtime' do
       work_unit = WorkUnit.make
       work_unit.update_attribute(:hours_type, "Overtime")
       work_unit.overtime?.should be_true
     end
 
-    it 'should correctly report if it is not overtime' do
+    it 'correctly reports if it is not overtime' do
       work_unit = WorkUnit.make
       work_unit.update_attribute(:hours_type, "PTO")
       work_unit.overtime?.should be_false
@@ -446,9 +446,9 @@ describe WorkUnit do
     end
 
     describe '#to_s' do
-      it 'should equal description' do
+      it 'equals the truncated description' do
         work_unit = WorkUnit.make
-        work_unit.to_s.should == work_unit.description
+        work_unit.to_s.should == work_unit.description[0..80]
       end
     end
 

@@ -1,6 +1,10 @@
 module ApplicationHelper
   include Acl9Helpers
 
+  def bootstrap_icon(name)
+    content_tag('i', nil, :class => "icon-#{name}")
+  end
+
   def external_work_percentage(user, start_date, end_date)
     if @site_settings.client
       internal = user.percentage_work_for(@site_settings.client, start_date, end_date)
