@@ -5,8 +5,8 @@
 - if @users.any?
   = render 'week_pagination', :start_date => @start_date
   %h3 Totals
-  %p External: #{@weekly_hours_sum[0]}
-  %p Internal: #{@weekly_hours_sum[1]}
+  %p External: #{@weekly_hours_sum.map{|a| a[1] }.sum}
+  %p Internal: #{@weekly_hours_sum.map{|a| a[2] }.sum}
   #overall_chart
   - @users.each do |user|
     %h3= user
