@@ -4,6 +4,9 @@
 
 - if @users.any?
   = render :partial => 'week_pagination', :locals => { :start_date => @start_date }
+  %h3 Totals
+  %p External: #{@weekly_hours_sum[0]}
+  %p Internal: #{@weekly_hours_sum[1]}
   #overall_chart
   - @users.each do |user|
     %h3= user
@@ -23,7 +26,7 @@
         data.addColumn('string', 'Day');
         data.addColumn('number', 'External Hours');
         data.addColumn('number', 'Internal Hours');
-        data.addRows(#{external_hours_for_chart(@users, :date => @start_date)});
+        data.addRows(#{@weekly_hours_sum});
 
             // Set chart options
         var options = {'title':'Weekly Hours',
