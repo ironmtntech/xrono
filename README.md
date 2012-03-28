@@ -34,9 +34,9 @@ Here are some screenshots of what it looks like:
 ### Continuous Integration Trends
 
 #### Test Result Trend
-![Test Result Trend](http://isotope11.selfip.com:3026/job/Xrono/test/trend)
+![Test Result Trend](http://isotope11.selfip.com:8080/job/Xrono/test/trend)
 #### Rcov coverage
-![Rcov coverage](http://isotope11.selfip.com:3026/job/Xrono/rcov/graph)
+![Rcov coverage](http://isotope11.selfip.com:8080/job/Xrono/rcov/graph)
 
 ### Development Installation
 Fork, then clone the repository to your development environment
