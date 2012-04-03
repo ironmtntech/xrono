@@ -6,6 +6,7 @@
       %th= t(:projects)
       %th= t(:tickets)
       %th= t(:status)
+      %th= t(:recent_users)
       - if admin?
         %th= t(:edit)
   %tbody
@@ -16,5 +17,8 @@
         %td= client.projects.count
         %td= client.tickets.count
         %td= client.status
+        %td
+          - @recent_users_for_clients[client.id].each do |user|
+            = show_gravatar_for(user, 30)
         - if admin?
           %td= link_to t(:edit), edit_client_path(client), :class => 'btn'
