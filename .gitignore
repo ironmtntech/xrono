@@ -16,3 +16,4 @@ db/seeds.rb
 tags
 node_modules
 .sass-cache/*
+spec/reports

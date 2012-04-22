@@ -52,8 +52,17 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :home, t(:home), root_path
     primary.item :clients, t(:clients), clients_path, :unless => lambda { client? }
     primary.item :admin_users, t(:users), admin_users_path, :if => lambda{ admin? }, :highlights_on => lambda{ false }
-    primary.item :reports, "Reports", client_login_reports_path, :if => lambda {client?}
-    primary.item :admin, t(:admin), admin_path, :if => lambda{ admin? }, :highlights_on => /admin/
+    primary.item :reports, "Reports", client_login_reports_path, :if => lambda { client? }
+    primary.item :admin, t(:admin), admin_path, :if => lambda{ admin? }, :highlights_on => /admin/ do |admin|
+      admin.item :invoice, t(:invoice), admin_invoices_path
+      admin.item :payroll, t(:payroll), admin_payroll_index_path
+      admin.item :reports, t(:reports), admin_reports_path do |reports|
+        reports.item :unentered_time_report, t(:unentered_time_report), admin_unentered_time_report_index_path, :highlights_on => /unentered_time_report/
+        reports.item :weekly_time_report, t(:weekly_time_report), admin_weekly_time_report_index_path, :highlights_on => /weekly_time_report/
+      end
+      admin.item :users, t(:users), admin_users_path
+      admin.item :site_settings, t(:site_settings), edit_admin_site_settings_path
+    end
     primary.item :users, t(:users), users_path, :unless => lambda{ admin? || client? }
 
     primary.dom_class = 'nav primary-nav'

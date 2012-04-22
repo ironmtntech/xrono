@@ -143,25 +143,31 @@ div.navbar div.fill div.container-fluid ul.nav {
       }
     }
   }
-  .fill .container-fluid li.dropdown{
-    a.dropdown-toggle{
-      padding: 0 4px 0 0;
+  .fill .container-fluid {
+    ul.pull-right{
+      li.dropdown{
+        a.dropdown-toggle{
+          padding: 0 4px 0 0;
+        }
+        span{
+          position: relative;
+          top: -10px;
+          padding: 4px;
+        }
+        b.caret{
+          position: relative;
+          top: 4px;
+        }
+      }
     }
-    span{
-      position: relative;
-      top: -10px;
-      padding: 4px;
-    }
-    b.caret{
-      position: relative;
-      top: 4px;
-    }
-    ul.dropdown-menu{
-      li{
-        a{
-          color: #75959d;
-          &:hover {
-            color: white;
+    li.dropdown{
+      ul.dropdown-menu{
+        li{
+          a{
+            color: #75959d;
+            &:hover {
+              color: white;
+            }
           }
         }
       }
