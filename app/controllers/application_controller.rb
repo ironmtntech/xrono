@@ -32,7 +32,6 @@ class ApplicationController < ActionController::Base
 
     final_array = []
     (start_date..end_date).each do |i_date|
-      next if [6,7].include? i_date.cwday
       _beg, _end = i_date.beginning_of_day, i_date.end_of_day
       hours = WorkUnit.for_users(users).scheduled_between(_beg,_end).all
       final_array << [i_date.strftime("%a"), sum_hours(:external?, hours).to_f, sum_hours(:internal?, hours).to_f]
