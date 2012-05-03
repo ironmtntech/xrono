@@ -1,4 +1,3 @@
-
 ## Xrono
 [![Travis CI Build Status](http://travis-ci.org/isotope11/xrono.png)](http://travis-ci.org/isotope11/xrono)
 
