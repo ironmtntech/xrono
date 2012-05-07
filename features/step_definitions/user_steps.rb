@@ -13,7 +13,6 @@ Given /^the user "([^"]*)" has (?:a|an) "([^"]*)" role(?: on #{capture_model})?$
   else
     User.find_by_email(email).has_role!(role.to_sym)
   end
-  debugger
 end
 
 When /^I delete the (\d+)(?:st|nd|rd|th) user$/ do |pos|
