@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def build_week_hash_for(date, hash={})
-    until date.wday == 7 #Saturday
+    until date.wday == 0 #Sunday
       day = date.strftime("%A")
       hash[day] = date
       date = date.tomorrow

@@ -10,7 +10,7 @@
     %b= hours_entered_for_day(date).to_s + " hours entered."
     - if date.past?
       %table.table.table-striped.table-bordered
-        - for user in @users do
+        - @users.each do |user|
           - unless user.work_units_for_day(date).any?
             %tr
               %td= link_to user, user_path(user)
