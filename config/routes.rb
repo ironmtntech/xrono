@@ -1,4 +1,6 @@
 AssetTrackerTutorial::Application.routes.draw do
+  mount Doorkeeper::Engine => '/oauth'
+
   root :to => "dashboard/base#index"
 
   devise_for :users, :path => '/', :path_names => { :sign_in => 'login', :sign_out => 'logout' }

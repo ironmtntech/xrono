@@ -37,6 +37,10 @@ Here are some screenshots of what it looks like:
 #### Rcov coverage
 ![Rcov coverage](http://isotope11.selfip.com:8080/job/Xrono/rcov/graph)
 
+### OAuth provider
+
+Xrono is now an OAuth2 provider.  [Details on how you can totes verify this here.](https://github.com/applicake/doorkeeper/wiki/Testing-your-provider-with-OAuth2-gem)
+
 ### Development Installation
 Fork, then clone the repository to your development environment
 
