@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin
-    unless current_user && current_user.admin?
+    unless admin?
       flash[:error] = t(:you_must_be_an_admin_to_do_that)
       redirect_to root_path
     end
