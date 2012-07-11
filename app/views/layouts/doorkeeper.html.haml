@@ -1,0 +1,31 @@
+%html
+  %head
+    %title= yield(:title) + t(:app_name)
+    %meta{"content" => "text/html;charset=UTF-8", "http-equiv" => "content-type"}
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0" }
+    %link{:rel => "shortcut icon", :href => "/favicon.ico"}
+    = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
+    = csrf_meta_tag
+    = yield :head
+  %body
+    .navbar.navbar-fixed-top
+      .fill.navbar-inner
+        .container-fluid
+          = link_to image_tag(@site_settings.site_logo.url), '/', :class => 'brand'
+
+    .container-fluid
+      = render "shared/flashes"
+      .row-fluid
+        - if (content_column_right = yield :content_column_right).empty?
+          .span12= yield
+        - else
+          .span12= yield
+          .span4= yield :content_column_right
+    .clear
+    %footer.footer
+      .container-fluid
+        %p
+          &copy; 
+          = t(:company_name)
+          2012
+    = render "shared/javascripts"
