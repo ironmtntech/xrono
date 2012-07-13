@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   before_filter :load_user, :only => [:show, :edit, :change_password, :historical_time, :update]
+  skip_before_filter :redirect_clients
 
   access_control do
     allow :admin
     allow :developer, :to => [:edit, :change_password, :update], :if => :user_is_current_user?
     allow :developer, :to => [:index, :show, :historical_time]
-    allow :client, :to => [:edit, :change_password], :if => :user_is_current_user?
-    allow :client, :to => [:index, :show, :historical_time]
+    allow :client, :to => [:edit, :show, :change_password], :if => :user_is_current_user?
   end
 
   def index
@@ -23,6 +23,7 @@ class UsersController < ApplicationController
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.save
+      sign_in(@user, :bypass => true)
       flash[:notice] = t(:password_updated_successfully)
       redirect_to :action => :show
     else

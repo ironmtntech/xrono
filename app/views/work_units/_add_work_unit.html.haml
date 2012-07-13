@@ -1,48 +1,81 @@
-#add_work_unit
-  %h3.dashboard_title= t(:add_work_unit)
+= form_for WorkUnit.new(params[:work_unit]), :url =>  create_in_dashboard_work_units_path, :html => { :class => 'form-horizontal' } do |f|
+  %fieldset
+    %legend= t(:add_work_unit)
 
-= form_for WorkUnit.new(params[:work_unit]), :url =>  create_in_dashboard_work_units_path() do |f|
-  #work_unit_errors
-  -if current_user.has_role?(:developer) 
-    %label{:for => "checkbox"}
-      %input{:id => "checkbox", :type => "checkbox", :name => "checkbox", :value => true, :checked => false}
-      ="Show hidden clients and projects"
+    #work_unit_errors
 
-  .work_unit_field
-    %label= "#{t(:scheduled_on)}:"
-    = link_to Date.current, "#", :id => "schedule_modal_link"
+    .control-group
+      %label.hidden_clients.control-label
+        Show hidden clients and projects
+      .controls
+        %input{:id => "checkbox", :type => "checkbox", :name => "checkbox", :value => true, :checked => false}
+        
+    .control-group
+      %label.control-label= "#{t(:scheduled_on)}:"
+      .controls
+        = link_to Date.current, "#", :id => "schedule_modal_link"
 
-  #schedule_modal
-    %p= t(:enter_work_units_on_completion_day)
-    .work_unit_field
-      %label= t(:scheduled_at)
-      = text_field_tag :scheduled_at, Date.current
+    #schedule_modal
+      %p= t(:enter_work_units_on_completion_day)
+      .control-group
+        %label.control-label= t(:scheduled_at)
+        .controls
+          = text_field_tag :scheduled_at, Date.current
 
-  .work_unit_field
-    %label{:for => "work_unit_client_id"}= "#{t(:client)}:"
-    = collection_select("work_unit", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) })
+    .control-group
+      %label.control-label{:for => "work_unit_client_id"}= "#{t(:client)}:"
+      .controls
+        = collection_select("work_unit", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) }, :class => 'chzn-select')
 
-  .work_unit_field
-    %label{:for => "work_unit_project_id"}= "#{t(:project)}:"
-    = collection_select("work_unit", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) })
+    .control-group
+      %label.control-label{:for => "work_unit_project_id"}= "#{t(:project)}:"
+      .controls
+        = collection_select("work_unit", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) }, :class => 'chzn-select')
 
-  .work_unit_field
-    %label{:for => "work_unit_ticket_id"}= "#{t(:ticket)}:"
-    = collection_select("work_unit", "ticket_id", @tickets, "id", "name", { :prompt => t(:select_a_ticket) })
+    .control-group
+      %label.control-label{:for => "work_unit_ticket_id"}= "#{t(:ticket)}:"
+      .controls
+        = collection_select("work_unit", "ticket_id", @tickets, "id", "name", { :prompt => t(:select_a_ticket) }, :class => 'chzn-select')
 
-  .work_unit_field
-    %label{:for => "work_unit_hours_type"}= "#{t(:type)}:"
-    = select_tag("hours_type", options_for_select(['Normal', 'Overtime', 'CTO', 'PTO']))
+    #on_demand_ticket
+      %hr
+      %legend On Demand Ticket
+      %br
+      .control-group
+        %label.control-label{:for => "on_demand_ticket_name"} Name:
+        .controls
+          = text_field_tag "ticket[name]", nil, :id => "on_demand_ticket_name"
+      .control-group
+        %label.control-label{:for => "on_demand_ticket_estimated_hours"} Estimated Hours:
+        .controls
+          = text_field_tag "ticket[estimated_hours]", "0", :id => "on_demand_ticket_estimated_hours"
+      .control-group
+        %label.control-label{:for => "on_demand_ticket_description"} Description
+        .controls
+          = text_area_tag "ticket[description]",nil,  {:id => "on_demand_ticket_description", :rows => 5 }
+      %hr
 
-  .work_unit_field
-    %label{:for => "work_unit_hours"}= "#{t(:hours).capitalize}:"
-    = f.text_field :hours, { :size => 10 }
+    .control-group
+      %label.control-label{:for => "hours_type"}= "#{t(:type)}:"
+      .controls
+        = select_tag("hours_type", options_for_select(['Normal', 'Overtime', 'CTO', 'PTO']), :class => 'chzn-select')
 
-  .work_unit_field
-    %label{:for => "work_unit_description"}= "#{t(:description)}:"
-    = f.text_area :description, { :rows => 10, :style => "resize: none;"}
+    .control-group
+      %label.control-label{:for => "work_unit_hours"}= "#{t(:hours).capitalize}:"
+      .controls
+        = f.text_field :hours, { :size => 10 }
 
-  .work_unit_field
-    = f.hidden_field :scheduled_at, :value => Date.current
+    .control-group
+      %label.control-label{:for => "work_unit_description"}= "#{t(:description)}:"
+      .controls
+        = f.text_area :description, { :rows => 5 }
 
-    = f.submit t(:create_work_unit), :class => 'add_new_button'
+    .form-actions
+      = f.hidden_field :scheduled_at, :value => Date.current
+      = f.submit t(:create_work_unit), :class => 'add_new_button btn primary'
+
+- content_for :javascripts do
+  :javascript
+    $(function() {
+      $('#on_demand_ticket').hide();
+    });

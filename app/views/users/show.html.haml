@@ -1,29 +1,13 @@
-- content_for :javascripts do
-  = javascript_include_tag "calendar"
+= render 'user_head', :user => @user
 
-.yui3-g
-  .yui3-u-1
-    %h2= @user
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %ul.subnav
-          %li= link_to t(:historical_time_report), historical_time_user_path
-          - if @user == current_user
-            %li= link_to "Edit User", edit_user_path(@user)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %p.gravatar
-          = "#{show_gravatar_for(@user)}".html_safe
-        %h3 
-          = "<span>#{@user.email}</span>".html_safe
-        %h3
-          - if @user.locked_at?
-            = t(:user_is_locked)
-        .clear    
-        = render :partial => 'shared/calendar', :locals => { :start_date => Date.current.beginning_of_week, :user => @user }
-        = render :partial => 'shared/calendar', :locals => { :start_date => Date.current.advance({:weeks => -1}).beginning_of_week, :user => @user }
+%ul.nav.nav-pills
+  %li= link_to t(:historical_time_report), historical_time_user_path
+  - if @user == current_user or current_user.admin?
+    %li= link_to "Edit User", edit_user_path(@user)
 
+%h3
+  - if @user.locked_at?
+    = t(:user_is_locked)
+.clear    
+- [Date.current.beginning_of_week, Date.current.advance({:weeks => -1}).beginning_of_week].each do |date|
+  = render 'shared/calendar', :start_date => date, :user => @user, :work_units => @user.work_units_between(date,  date + 6.days)

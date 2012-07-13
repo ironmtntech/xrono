@@ -1,5 +1,5 @@
 .calendar
-  %table
+  %table.table.table-striped
     %thead
       %tr.calendar_top
         - (0..6).map{|x| start_date + x.days }.each do |date|
@@ -10,26 +10,77 @@
     %tfoot
       %tr.calendar_foot
         - (0..6).map{|x| start_date + x.days }.each do |date|
-          %td= "#{t(:total)}: #{user.work_units_for_day(date).sum(:effective_hours)}"
-        %td= "#{t(:week)}: #{user.work_units_for_week(start_date).sum(:effective_hours)}"
+          %td.span2= "#{t(:total)}: #{work_units.select{|wu| wu.scheduled_at.to_date == date.to_date}.inject(BigDecimal("0")){|sum,x| sum + x.effective_hours}}"
+        %td.span2{ :colspan => 2 }= "#{t(:week)}: #{work_units.inject(BigDecimal("0")){|sum,x| sum + x.effective_hours}}"
     %tbody
       %tr
         - (start_date..(start_date + 6.days)).each do |date|
-          %td
-            - unless user.work_units_for_day(date).empty?
-              %ul
-                - user.work_units_for_day(date).each do |work_unit|
+          %td.span2
+            - unless work_units.select{|wu| wu.scheduled_at.to_date == date.to_date}.empty?
+              %ul.unstyled
+                - work_units.select{|wu| wu.scheduled_at.to_date == date.to_date}.each do |work_unit|
                   %li{:class => "work_unit " << work_unit.hours_type.downcase }
-                    = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description }
+                    - render_label_for(work_unit.hours_type)
+                    = link_to "#{work_unit.client.initials}: #{work_unit.effective_hours}", work_unit_path(work_unit), { :title => work_unit.description, :rel => 'tooltip' }
                     %span.description= '- ' + work_unit.description
 
-        %td
-          %ul
+        %td.span2
+          %ul.unstyled
             - if start_date == Date.current.beginning_of_week
               %li#current_hours= "#{t(:current)}: #{user.unpaid_work_units.sum(:effective_hours)}"
             - if @site_settings.total_yearly_pto_per_user
               %li#pto_left= "#{t(:pto_left)}: #{user.pto_hours_left(start_date.end_of_week)}"
             - if user.daily_target_hours
               %li#target_hours= "#{t(:target_hours_offset)}: #{user.target_hours_offset(last_effective_date(start_date))}"
-            - if @site_settings.client && user.work_units_for_week(start_date).present?
+            - if @site_settings.client && work_units.present?
               %li#external_percentage= "#{t(:external_percentage)}: #{external_work_percentage(user, start_date.beginning_of_week, start_date.end_of_week)}%"
+        %td.span2{:id => "#{user.id}_chart"}
+- if request.xhr?
+  :javascript
+    $('a[rel=twipsy]').tooltip({ placement: 'bottom'} );
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Day');
+    data.addColumn('number', 'External Hours');
+    data.addColumn('number', 'Internal Hours');
+    data.addRows(#{external_hours_for_chart(user, :date => start_date)});
+
+        // Set chart options
+    var options = {'title':'Weekly Hours',
+      'width':250,
+      'backgroundColor': "#f5f5f5",
+      'isStacked': true,
+      'legend': {position: 'none'},
+      'height':120};
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById("#{user.id}_chart"));
+    chart.draw(data, options);
+- else
+  - content_for :javascripts do
+    :javascript
+      $('a[rel=twipsy]').tooltip({ placement: 'bottom'} );
+
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        // Create the data table.
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Day');
+          data.addColumn('number', 'External Hours');
+          data.addColumn('number', 'Internal Hours');
+          data.addRows(#{external_hours_for_chart(user, :date => start_date)});
+
+              // Set chart options
+          var options = {'title':'Weekly Hours',
+            'width':250,
+            'backgroundColor': "#f5f5f5",
+            'isStacked': true,
+            'legend': {position: 'none'},
+            'height':120};
+
+          // Instantiate and draw our chart, passing in some options.
+          var chart = new google.visualization.ColumnChart(document.getElementById("#{user.id}_chart"));
+          chart.draw(data, options);
+      }

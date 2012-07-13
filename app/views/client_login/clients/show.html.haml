@@ -1,0 +1,32 @@
+%h2= "#{t(:client)}: #{@client}"
+
+%ul.nav.nav-pills
+  %li= link_to 'View Contacts', client_login_client_contacts_path(@client)
+
+#client
+  %table#client_details.table.table-striped
+    %thead
+      %tr
+        %th= t(:projects)
+        %th= t(:tickets)
+        %th Current Month's Hours
+        %th Current Week's Hours
+        %th= t(:uninvoiced_hours)
+        %th= t(:total_hours)
+    %tfoot
+      %tr
+        %th= t(:all_projects)
+        %th= @client.tickets.count
+        %th= @client.hours_this_month
+        %th= @client.hours_this_week
+        %th= @client.uninvoiced_hours
+        %th= @client.hours
+    %tbody
+      - @projects.each do |project|
+        %tr{ :class => cycle("odd", "even") }
+          %td= link_to project.name, client_login_project_path(project)
+          %td= project.tickets.count
+          %td= project.hours_this_month
+          %td= project.hours_this_week
+          %td= project.uninvoiced_hours
+          %td= project.hours

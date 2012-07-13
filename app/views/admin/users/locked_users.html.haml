@@ -1,0 +1,11 @@
+%h2= t(:all_users)
+
+= render 'admin/nav'
+
+= link_to t(:new_user), new_admin_user_path, :class => "add_new_button btn primary right"
+
+.btn-group
+  = link_to "Unlocked", admin_users_path, :class => 'btn'
+  = link_to "Locked", admin_locked_users_path, :class => 'btn active'
+
+= render "locked_users"

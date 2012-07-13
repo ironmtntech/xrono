@@ -1,0 +1,25 @@
+- unless @users.empty?
+  %h3= link_to t(:active_users), '#'
+  %div
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th
+          %th= t(:name)
+          %th= t(:email)
+          %th= t(:current)
+          %th= t(:target_hours_offset)
+          %th= t(:roles)
+          %th= t(:edit)
+          %th= t(:pto_left)
+      %tbody
+        - @users.each do |user|
+          %tr{ :class => cycle("odd", "even") }
+            %td.user_img= link_to show_gravatar_for(user), user_path(user)
+            %td= link_to "<span>#{user}</span>".html_safe, user_path(user) 
+            %td= user.email
+            %td= user.unpaid_work_units.sum(:hours)
+            %td= user.daily_target_hours ? user.target_hours_offset(Date.current).to_s : ''
+            %td= link_to t(:roles), projects_admin_user_path(user), :class => 'btn'
+            %td= link_to t(:edit), edit_admin_user_path(user), :class => 'btn'
+            %td= user.pto_hours_left(Date.current)

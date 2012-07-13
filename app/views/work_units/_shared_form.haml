@@ -7,29 +7,34 @@
       - @work_unit.errors.full_messages.each do |msg|
         %li= msg
 
-.work_unit_field
-  %label= "#{t(:scheduled_on)}:"
-  = link_to @work_unit.scheduled_at.to_date, "#", :id => "schedule_modal_link"
+.control-group
+  %label.control-label= t(:scheduled_on)
+  .controls
+    = link_to @work_unit.scheduled_at.to_date, "#", :id => "schedule_modal_link"
 
 #schedule_modal
   %p= t(:enter_work_units_on_completion_day)
-  .work_unit_field
-    %label= t(:scheduled_at)
-    = text_field_tag :scheduled_at, @work_unit.scheduled_at
+  .control-group
+    %label.control-label= t(:scheduled_at)
+    .controls
+      = text_field_tag :scheduled_at, @work_unit.scheduled_at
 
-.work_unit_field
-  = f.label :hours_type
-  = f.select :hours_type, ['Normal', 'Overtime', 'CTO', 'PTO']
+.control-group
+  = f.label :hours_type, :class => 'control-label'
+  .controls
+    = f.select :hours_type, ['Normal', 'Overtime', 'CTO', 'PTO']
 
-.work_unit_field
-  = f.label :hours
-  = f.text_field :hours
+.control-group
+  = f.label :hours, :class => 'control-label'
+  .controls
+    = f.text_field :hours
 
-.work_unit_field
-  = f.label :description
-  = f.text_area :description
+.control-group
+  = f.label :description, :class => 'control-label'
+  .controls
+    = f.text_area :description, :class => 'xxlarge', :rows => 5
 
-.actions
+.form-actions
   = f.hidden_field :scheduled_at, value: Date.current
   = f.hidden_field :ticket_id, value: @work_unit.ticket.id
-  = f.submit
+  = f.submit :class => 'btn primary'

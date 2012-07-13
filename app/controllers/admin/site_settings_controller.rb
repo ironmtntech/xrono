@@ -3,8 +3,6 @@ class Admin::SiteSettingsController < ApplicationController
   end
 
   def update
-    params[:admin_site_settings][:overtime_multiplier] = params[:admin_site_settings][:overtime_multiplier].to_d
-
     if @site_settings.update_attributes(params[:admin_site_settings])
       flash[:notice] = t(:site_settings_updated_successfully)
       redirect_to :back

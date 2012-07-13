@@ -1,9 +1,6 @@
-.yui3-g
-  .yui3-u-1
-    %h2= t(:new_work_unit)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %h1 #{@work_unit.client} > #{@work_unit.project} > #{@work_unit.ticket}
-      = render 'new_work_unit'
+= render 'breadcrumbs'
+= form_for @work_unit, :url => create_in_ticket_work_units_path do |f|
+  %fieldset
+    %legend= t(:new_work_unit)
+  
+    = render "shared_form", :f => f

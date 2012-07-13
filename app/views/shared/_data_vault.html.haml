@@ -1,0 +1,16 @@
+-if data_vault
+  .autogrow
+    :kramdown
+      #{data_vault.data}
+
+-content_for :javascripts do 
+  :javascript
+    $('.autogrow').editable('/data_vaults/#{data_vault.id}', {
+      type:    "textarea",
+      tooltip: "Double Click to edit",
+      loadurl: "#{data_vault_path(data_vault)}",
+      cancel: "Cancel",
+      onblur: "submit",
+      rows: 25,
+      event: "dblclick"
+    });

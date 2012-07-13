@@ -1,0 +1,6 @@
+.week_pagination
+  .date_pagination
+    .row
+      .span= link_to "&larr; #{t(:previous)}".html_safe, admin_unentered_time_report_path(@week_dates["Monday"] - 1.week)
+      .span2 &nbsp;
+      .span.last= link_to "#{t(:next)} &rarr;".html_safe, admin_unentered_time_report_path(@week_dates["Monday"] + 1.week)

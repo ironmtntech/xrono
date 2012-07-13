@@ -1,21 +1,28 @@
-.yui3-g
-  .yui3-u-1
-    %h2= "#{@ticket.client}: #{@ticket.project} - #{@ticket}"
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %ul.subnav
-          %li= link_to "#{t(:client)}: #{@ticket.client}", client_path(@ticket.project.client)
-          %li= link_to "#{t(:project)}: #{@ticket.project}", project_path(@ticket.project)
-          - if admin? || current_user.has_role?(:developer, @ticket.project)
-            %li= link_to "#{t(:edit)}: #{@ticket}", edit_ticket_path
-            %li= link_to t(:new_work_unit), new_ticket_work_unit_path(@ticket)
-    = render "shared/work_unit_index"
+= render 'breadcrumbs'
 
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        = render :partial => "shared/files_and_comments", :locals => {:items => @ticket.files_and_comments.reverse, :id => 'ticket'}
+- if admin? || current_user.has_role?(:developer, @ticket.project)
+  .btn-group
+    = link_to bootstrap_icon('edit') + t(:edit_ticket), edit_ticket_path, :class => 'btn'
+    = link_to bootstrap_icon('plus') + t(:new_work_unit), new_ticket_work_unit_path(@ticket), :class => 'btn'
 
+- if @ticket.description
+  %p.ticket_description
+    %h3 Ticket Description
+    :kramdown
+      #{@ticket.description}
+
+%br/
+
+%p.ticket_metrics
+  - if @ticket.estimated_hours && @ticket.percentage_complete
+    = progress_bar(@ticket.percentage_complete, :color => 'blue', :rounded => true)
+    %br/
+    %b Estimated Hours:
+    = @ticket.estimated_hours
+    %b Hours Worked:
+    = @ticket.hours
+
+= render "shared/work_unit_index"
+
+- unless current_user.client
+  = render "shared/files_and_comments", :items => @ticket.files_and_comments.reverse, :id => 'ticket'

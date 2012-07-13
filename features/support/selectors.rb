@@ -12,10 +12,16 @@ module HtmlSelectorsHelpers
       "html > body"
 
     when "the actions list"
-      ".actions"
+      ".form-actions"
+
+    when "the breadcrumbs"
+      "ul.breadcrumb"
 
     when "the subnav"
-      ".subnav"
+      ".btn-group"
+
+    when "the edit project link"
+      "a[rel=edit-project]"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

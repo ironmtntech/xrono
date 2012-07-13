@@ -1,18 +1,10 @@
-- if flash[:error]
-  .yui3-g
-    .yui3-u-1
-      .gradient_border_wrap
-        .gradient_border_content
-          %p#flash_error= flash[:error]
-- if flash[:notice]
-  .yui3-g
-    .yui3-u-1
-      .gradient_border_wrap
-        .gradient_border_content
-          %p#flash_notice= flash[:notice]
-- if flash[:alert]
-  .yui3-g
-    .yui3-u-1
-      .gradient_border_wrap
-        .gradient_border_content
-          %p#flash_notice= flash[:alert]
+- flash.each do |key, message|
+  %div{ :class => "alert, alert-message fade in #{key}", "data-alert" => "data-alert" }
+    %p= message
+- content_for :javascripts do
+  :javascript
+    $(document).ready(function() {
+      $('.notice').delay(3000).slideUp(300)
+      $('.error').delay(3000).slideUp(300)
+      $('.warning').delay(3000).slideUp(300)
+    });

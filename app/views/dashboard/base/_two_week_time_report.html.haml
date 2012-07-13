@@ -1,0 +1,13 @@
+- if @project_report_rows.any?
+  %table.table.table-striped.table-bordered
+    %thead
+      %th{:colspan => 2}
+        = "Project time report from #{(Time.zone.now - 2.weeks).to_date} to #{Time.zone.now.end_of_day.to_date}"
+    %tbody
+      %tr
+        %th Project
+        %th Hours
+      - @project_report_rows.each do |project_report|
+        %tr
+          %td= link_to(project_report.project_name, project_path(project_report.project_id))
+          %td= project_report.total_hours

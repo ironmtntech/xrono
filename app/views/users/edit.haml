@@ -1,24 +1,34 @@
-
-.yui3-g
-  .yui3-u-1
-    %h2= t(:edit_user)
-.yui3-g
-  .yui3-u-1-2
-    .gradient_border_wrap
-      .gradient_border_content
-        = form_for @user do |u|
-          %p
-            = u.label :full_width, t(:full_width)
-            = u.check_box(:full_width)
-          %p
-            = u.label :expanded_calendar, t(:expanded_calendar)
+.row-fluid
+  .span6
+    = form_for @user, :html => { :class => 'form-horizontal' } do |u|
+      %fieldset
+        %legend= t(:edit_user)
+        .control-group
+          = u.label :first_name, t(:first_name), :class => 'control-label'
+          .controls
+            = u.text_field(:first_name)
+        .control-group
+          = u.label :middle_initial, t(:middle_initial), :class => 'control-label'
+          .controls
+            = u.text_field(:middle_initial)
+        .control-group
+          = u.label :last_name, t(:last_name), :class => 'control-label'
+          .controls
+            = u.text_field(:last_name)
+        .control-group
+          = u.label :email, t(:email_address), :class => 'control-label'
+          .controls
+            = u.text_field(:email)
+        .control-group
+          = u.label :expanded_calendar, t(:expanded_calendar), :class => 'control-label'
+          .controls
             = u.check_box(:expanded_calendar)
-          %p
-            = u.label :daily_target_hours, t(:daily_target_hours) 
+        .control-group
+          = u.label :daily_target_hours, t(:daily_target_hours) , :class => 'control-label'
+          .controls
             = u.text_field(:daily_target_hours)
-          %p
-            = u.submit t(:update)
-  .yui3-u-1-2
-    .gradient_border_wrap
-      .gradient_border_content
-        = render :partial => "change_password_form", :locals => {:user => @user}
+        .form-actions
+          = u.submit t(:update), :class => 'btn primary'
+
+  .span6
+    = render "change_password_form", :user => @user

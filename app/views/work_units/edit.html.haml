@@ -1,10 +1,2 @@
-.yui3-g
-  .yui3-u-1
-    %h2= "#{@work_unit.ticket.project.client}: #{@work_unit.ticket.project} - #{@work_unit.ticket}"
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %h3= "#{t(:work_unit)} #{@work_unit.id}"
-        = render 'edit_work_unit'
-
+= render 'breadcrumbs'
+= render 'edit_work_unit'

@@ -1,0 +1,8 @@
+%ul.breadcrumb
+  %li
+    %li= link_to "#{t(:client)}: #{@ticket.client}", client_path(@ticket.project.client)
+    %span.divider /
+  %li
+    %li= link_to "#{t(:project)}: #{@ticket.project}", project_path(@ticket.project)
+    %span.divider /
+  %li= "#{t(:ticket)}: #{@ticket}"

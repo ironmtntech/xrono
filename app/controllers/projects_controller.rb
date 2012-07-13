@@ -1,13 +1,12 @@
 class ProjectsController < ApplicationController
+  include ControllerMixins::Authorization
+
   before_filter :load_new_project, :only => [:new, :create]
   before_filter :load_project, :only => [:show, :edit, :update]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
+  before_filter :handle_tags
 
-  access_control do
-    allow :admin
-    allow :developer, :of => :project
-    allow :client, :of => :project, :to => [:show]
-  end
+  authorize_owners_with_client_show(:project)
 
   # GET /projects/new
   def new
@@ -26,7 +25,11 @@ class ProjectsController < ApplicationController
 
   # GET /projects/:id
   def show
-    @tickets = Ticket.for_project(@project).sort_by_name
+    @bucket = Ticket.for_project(@project).sort_by_name
+
+    @incomplete_tickets = @bucket.incomplete
+    @complete_tickets = @bucket.complete
+    @work_units = Project.find(params[:id]).work_units
   end
 
   # GET /projects/:id/edit
@@ -35,7 +38,14 @@ class ProjectsController < ApplicationController
 
   # PUT /projects/:id
   def update
-    if @project.update_attributes(params[:project])
+    if params[:project]["completed"] == "1"
+      @project.update_attribute(:completed, true)
+    else
+      @project.update_attribute(:completed, false)
+    end
+
+    @project.update_attributes(params[:project])
+    if @project.save
       flash[:notice] = t(:project_updated_successfully)
       redirect_to [@project]
     else
@@ -57,6 +67,10 @@ class ProjectsController < ApplicationController
 
     def load_file_attachments
       @file_attachments = @project.file_attachments
+    end
+
+    def handle_tags
+      params[:project]['tag_list'] = get_tag_list_for(params[:tags]) if params[:tags]
     end
 
 end

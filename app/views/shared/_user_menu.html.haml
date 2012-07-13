@@ -1,8 +1,0 @@
-- if current_user
-  #user_menu
-    = link_to "#{t(:edit)} #{current_user}", edit_user_path(current_user)
-    |
-    = link_to t(:help), '#', id: 'help_modal_link'
-    |
-    = link_to t(:logout), destroy_user_session_path
-

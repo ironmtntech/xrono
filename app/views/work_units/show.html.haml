@@ -1,37 +1,25 @@
-.yui3-g
-  .yui3-u-1
-    %h2= "#{@work_unit.client}: #{@work_unit.project} - #{@work_unit.ticket}"
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %ul.subnav
-          %li #{link_to "#{t(:client)}: #{@work_unit.client}", client_path(@work_unit.client)}
-          %li #{link_to "#{t(:project)}: #{@work_unit.project}", project_path(@work_unit.project)}
-          %li= link_to "#{t(:ticket)}: #{@work_unit.ticket}", ticket_path(@work_unit.ticket) 
-          - if (@work_unit.user == current_user) || admin?
-            %li= link_to "#{t(:edit_work_unit)}", edit_work_unit_path
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        #work_unit
-          %h3= t(:creator)
-          %p= @work_unit.user
-          %h3= t(:hours)
-          %p= @work_unit.hours
-          %h3= t(:hours_type)
-          %p= @work_unit.hours_type
-          %h3= t(:description)
-          %p.description= @work_unit.description
-          %h3= t(:invoice)
-          - if current_user.admin?
-            %p= link_to @work_unit.invoiced, work_units_path(:invoiced => @work_unit.invoiced) unless @work_unit.invoiced.nil?
-          - else         
-            %p= @work_unit.invoiced
-          %h3= t(:payroll)
-          - if current_user.admin?
-            %p= link_to @work_unit.paid, work_units_path(:paid => @work_unit.paid) unless @work_unit.paid.nil?
-          - else
-            %p= @work_unit.paid
+= render 'breadcrumbs'
 
+- if (@work_unit.user == current_user) || admin?
+  %ul.nav.nav-pills
+    %li= link_to bootstrap_icon('edit') + t(:edit_work_unit), edit_work_unit_path, :class => 'btn'
+
+#work_unit
+  %h3= t(:creator)
+  %p= @work_unit.user
+  %h3= t(:hours)
+  %p= @work_unit.hours
+  %h3= t(:hours_type)
+  %p= @work_unit.hours_type
+  %h3= t(:description)
+  %p.description= @work_unit.description
+  %h3= t(:invoice)
+  - if current_user.admin?
+    %p= link_to @work_unit.invoiced, work_units_path(:invoiced => @work_unit.invoiced) unless @work_unit.invoiced.nil?
+  - else         
+    %p= @work_unit.invoiced
+  %h3= t(:payroll)
+  - if current_user.admin?
+    %p= link_to @work_unit.paid, work_units_path(:paid => @work_unit.paid) unless @work_unit.paid.nil?
+  - else
+    %p= @work_unit.paid

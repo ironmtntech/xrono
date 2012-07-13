@@ -1,0 +1,4 @@
+.module
+  %h2="Edit #{@contact.first_name} #{@contact.last_name}"
+  = form_for [:client_login, @contact], :url => client_login_client_contact_path do |f| 
+    = render 'form', :f => f

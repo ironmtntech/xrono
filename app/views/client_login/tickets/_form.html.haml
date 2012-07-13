@@ -1,0 +1,33 @@
+= form_for([:client_login, @ticket]) do |f|
+  - if @ticket.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@ticket.errors.count, "error")
+        = "#{t(:prohibited_this_ticket_from_being_saved)}:"
+
+      %ul
+      - @ticket.errors.full_messages.each do |msg|
+        %li= msg
+
+  %fieldset
+    %legend= legend
+    .control-group
+      = f.label :name, :class => 'control-label'
+      .controls
+        = f.text_field :name
+    .control-group
+      = f.label :description, :class => 'control-label'
+      .controls
+        = f.text_area :description, :class => 'xxlarge', :rows => 5
+    .control-group
+      = f.label :completed, :class => 'control-label'
+      .controls
+        = f.check_box :completed
+
+    = hidden_field_tag :project_id, @ticket.project.id
+    .actions
+      = f.submit :class => "add_new_button btn primary"
+      - if @ticket.new_record?
+        = link_to t(:cancel), client_login_project_path(@project), :class => "cancel_button btn"
+      - else
+        = link_to t(:cancel), client_login_ticket_path(@ticket), :class => "cancel_button btn"

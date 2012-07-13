@@ -1,0 +1,23 @@
+%h2= "#{@ticket.client}: #{@ticket.project} - #{@ticket}"
+
+%ul.nav.nav-pills
+  %li= link_to "#{t(:client)}: #{@ticket.client}", client_login_client_path(@ticket.project.client)
+  %li= link_to "#{t(:project)}: #{@ticket.project}", client_login_project_path(@ticket.project)
+
+%p.ticket_description
+  - if @ticket.description
+    %h3 Ticket Description
+    :kramdown
+      #{@ticket.description}
+
+%p.ticket_metrics
+  - if @ticket.estimated_hours && @ticket.percentage_complete
+    = image_tag Gchart.pie(:title => "Remaining Estimated Hours vs Hours Worked -- #{@ticket.percentage_complete}% complete",
+      :size => '450x230', :bar_color => "76959c,364447", :data => [100 - @ticket.percentage_complete, @ticket.percentage_complete], :labels => ["Remaining Estimated", "Hours Worked"])
+    %br/
+    %b Estimated Hours:
+    = @ticket.estimated_hours
+    %b Hours Worked:
+    = @ticket.hours
+
+= render "client_login/work_unit_index"

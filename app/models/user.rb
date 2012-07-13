@@ -1,16 +1,19 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :rememberable, :trackable, :validatable, :lockable
+  devise :database_authenticatable, :rememberable, :trackable, :validatable, :lockable, :token_authenticatable
+
   include Gravtastic
   gravtastic
   is_gravtastic!
-  acts_as_authorization_subject :association_name => :roles
+
+  acts_as_authorization_subject :association_name => :roles, :join_table_name => :roles_users
+  acts_as_tagger
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name, :last_name, :middle_initial, :full_width,
-                  :daily_target_hours, :expanded_calendar
+                  :daily_target_hours, :expanded_calendar, :client
 
   validates_presence_of :first_name, :last_name
   validates_length_of :middle_initial, :is => 1
@@ -19,14 +22,25 @@ class User < ActiveRecord::Base
   has_many :comments
 
   # Scopes
-  scope :with_unpaid_work_units, joins(:work_units).where(' work_units.paid IS NULL OR work_units.paid = "" ').group('users.id')
-  scope :unlocked, where('locked_at IS NULL')
-  scope :locked, where('locked_at IS NOT NULL')
+  def self.with_unpaid_work_units
+    select('distinct users.*').joins(:work_units).where(:work_units => {:paid => [nil, '']})
+  end
+
+  scope :unlocked, where(:locked_at => nil)
+  scope :locked,   where('locked_at IS NOT NULL')
   scope :sort_by_name, order('first_name ASC')
+  scope :developers, lambda { joins("INNER JOIN roles r on r.authorizable_type='Project'").joins("INNER JOIN roles_users ru ON ru.role_id = r.id").joins("INNER JOIN users u ON ru.user_id = u.id").where("r.name = 'developer'").where("ru.user_id = users.id") }
+  scope :for_project, lambda{|project|
+    joins("INNER JOIN roles r ON r.authorizable_type='Project' AND r.authorizable_id=#{project.id}").joins("INNER JOIN roles_users ru ON ru.role_id = r.id").joins("INNER JOIN users u ON ru.user_id = u.id").where("ru.user_id = users.id")
+  }
 
   # Return the initials of the User
   def initials
-    "#{first_name[0]}#{middle_initial}#{last_name[0]}".upcase
+    "#{first_name[0,1]}#{middle_initial}#{last_name[0,1]}".upcase
+  end
+
+  def work_units_between(start_time, end_time)
+    work_units.scheduled_between(start_time.beginning_of_day, end_time.end_of_day)
   end
 
   def work_units_for_day(time)
@@ -56,8 +70,16 @@ class User < ActiveRecord::Base
     "#{first_name.capitalize} #{middle_initial.capitalize} #{last_name.capitalize}"
   end
 
+  def client?
+    @client ||= has_role?(:client)
+  end
+
+  def developer?
+    @developer ||= has_role?(:developer)
+  end
+
   def admin?
-    has_role?(:admin)
+    @admin ||= has_role?(:admin)
   end
 
   def locked
@@ -102,6 +124,15 @@ class User < ActiveRecord::Base
     worked_hours - expected_hours(date)
   end
 
+  def entered_time_yesterday?
+    return true if !developer? || admin?
+    previous_work_days_work_units.any?
+  end
+
+  def previous_work_days_work_units
+    work_units_between(Date.current.prev_working_day.beginning_of_day, Date.current.prev_working_day.end_of_day)
+  end
+
   def percentage_work_for(client, start_date, end_date)
     raise "client must be a Client instance" unless client.is_a?(Client)
     raise "Date must be a date object" unless start_date.is_a?(Date) && end_date.is_a?(Date)
@@ -113,5 +144,4 @@ class User < ActiveRecord::Base
     # Dividing by 0 is bad, mkay?
     total_hours == 0 ? 0 : ((100 * client_hours)/total_hours).round
   end
-
 end

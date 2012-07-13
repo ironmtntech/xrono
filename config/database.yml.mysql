@@ -14,6 +14,7 @@ test: &test
   adapter: mysql2
   database: xrono_test
   username: root
+  password: 
 
 cucumber:
   <<: *test

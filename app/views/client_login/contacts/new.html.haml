@@ -1,0 +1,5 @@
+.module
+  %h2= t(:new_contact)
+
+  = form_for [:client_login, @contact], :url => client_login_client_contacts_path do |f| 
+    = render 'form', :f => f

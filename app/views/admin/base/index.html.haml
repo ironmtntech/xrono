@@ -1,14 +1,3 @@
-.yui3-g
-  .yui3-u-1
-    %h2= t(:admin)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %ul.subnav
-          %li= link_to t(:invoice), admin_invoices_path
-          %li= link_to t(:payroll), admin_payroll_index_path
-          %li= link_to t(:unentered_time_report), admin_unentered_time_report_index_path
-          %li= link_to t(:weekly_time_report), admin_weekly_time_report_index_path
-          %li= link_to t(:users), admin_users_path
-          %li= link_to t(:site_settings), edit_admin_site_settings_path
+%h2= t(:admin)
+
+= render 'admin/nav'

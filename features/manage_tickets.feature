@@ -17,9 +17,9 @@ Feature: Manage tickets
     And a project "test project" exists with name: "test project", client: client "test client"
     And a ticket exists with project: project "test project", name: "test ticket"
     When I am on the ticket's page
-    Then I should see a link with text "Project: test project" within the subnav
-    Then I should see a link with text "Client: test client" within the subnav
-    Then I should see a link with text "Edit: test ticket" within the subnav
+    Then I should see a link with text "Project: test project" within the breadcrumbs
+    Then I should see a link with text "Client: test client" within the breadcrumbs
+    Then I should see "Edit Ticket" within the subnav
 
   Scenario: Edit a ticket
     Given I am an authenticated user with an admin role
@@ -50,10 +50,11 @@ Feature: Manage tickets
     And I am on the project's page
     And I follow "New Ticket"
     When I fill in "Name" with "name 1"
+    And I fill in "Estimated hours" with "3"
     And I press "Create"
     Then I should see "name 1"
 
-  @javascript @wip
+  @wip
   Scenario: Register new ticket
     Given I am an authenticated user with an admin role
     And a client exists with name: "New client"
@@ -64,6 +65,10 @@ Feature: Manage tickets
     And I fill in "ticket_name" with "New ticket"
     And I fill in "ticket_description" with "New description"
     When I press "ticket_submit"
-    Then I should see "Ticket created successfully" within "#flash_notice"
+    Then I should see "Ticket created successfully" within ".alert-message"
     When I go to the project's page
     Then I should see "New ticket" within "table"
+
+  Scenario: Client can add a ticket to an existing project
+    Given I am an authenticated client on an existing project page
+    Then I should be able to create a new ticket

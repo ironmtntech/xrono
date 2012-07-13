@@ -8,17 +8,29 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
+    when /the clients client_login_client page/
+      client_login_client_path(Client.for_user(@current_user).first)
+
     when /the home\s?page/
       '/'
 
     when /^the contacts page$/
       client_contacts_path
 
+    when /^the new client page$/
+      new_client_path
+
     when /^the login page$/
       '/login'
 
     when /path "(.+)"/
       $1
+
+    when /the last work units edit page/
+      edit_work_unit_path(WorkUnit.last)
+
+    when /^my edit profile page$/
+      edit_user_path(@current_user)
 
     # the following are examples using path_to_pickle
     when /^the admin #{capture_model}(?:'s)? page$/

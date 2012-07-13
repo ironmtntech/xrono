@@ -1,47 +1,54 @@
-.yui3-g
-  .yui3-u-1
-    %h2= "#{@project.client}: #{@project}"
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %ul.subnav
-          %li= link_to "#{t(:client)}: #{@project.client}" , @project.client
-          - if admin? || current_user.has_role?(:developer, @project)
-            %li= link_to "#{t(:edit)}: #{@project}", edit_project_path
-            %li= link_to t(:new_ticket), new_ticket_path(:project_id => @project)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %h3= "#{t(:status)}: #{@project.client.status}"
-        %table.tickets
-          %thead
-            %tr
-              %th= t(:tickets)
-              %th= t(:work_units)
-              %th= t(:uninvoiced_hours)
-              %th= t(:total_hours)
-              - if admin? || current_user.has_role?(:developer, @project)
-                %th= t(:edit)
-          %tfoot
-            %tr
-              %th= t(:all_tickets)
-              %th= @project.work_units.count
-              %th= @project.uninvoiced_hours
-              %th= @project.hours
-              %th &nbsp;
-          %tbody
-            - @tickets.each do |ticket|
-              %tr
-                %td= link_to ticket, ticket
-                %td= ticket.work_units.count
-                %td= ticket.uninvoiced_hours
-                %td= ticket.hours
-                - if admin? || current_user.has_role?(:developer, @project)
-                  %td= link_to t(:edit), edit_ticket_path(ticket)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        = render :partial => "shared/files_and_comments", :locals => {:items => @project.files_and_comments.reverse, :id => 'project'}
+= render 'breadcrumbs'
+
+- if admin? || current_user.has_role?(:developer, @project)
+  .btn-group
+    = link_to bootstrap_icon('edit') + t(:edit_project), edit_project_path, :class => 'btn', :rel => 'edit-project'
+    = link_to bootstrap_icon('plus') + t(:new_ticket), new_ticket_path(:project_id => @project), :class => 'btn'
+  %br
+  %br
+
+- if current_user.admin?
+  %ul
+    %li= "Rate A: #{number_to_currency(@project.rate_a)}"
+    %li= "Rate B: #{number_to_currency(@project.rate_b)}"
+
+%ul.nav.nav-tabs{"data-tabs" => "tabs"}
+  -if !@project.xrono_notes.nil?
+    %li.active= link_to "Project Notes", "#project_notes"
+  -if !@project.release_notes.nil?
+    %li{:class => "#{@project.xrono_notes.nil? ? "active" : ""}"}= link_to "Release Notes", "#release_notes"
+  %li{:class => "#{@project.xrono_notes.nil? && @project.release_notes.nil? ? "active" : ""}"}= link_to "Incomplete Tickets", "#incomplete_tickets"
+  %li= link_to "Complete Tickets", "#complete_tickets"
+  %li= link_to "Data Vault", "#data_vault"
+  %li= link_to "Comments and Files", "#comments"
+
+.tab-content
+  -if !@project.xrono_notes.nil?
+    #project_notes.tab-pane.active
+      :kramdown
+        #{@project.xrono_notes}
+  -if !@project.release_notes.nil?
+    #release_notes.tab-pane{:class => "#{@project.xrono_notes.nil? ? "active" : ""}"}
+      :kramdown
+        #{@project.release_notes}
+  #incomplete_tickets.tab-pane{:class => "#{@project.xrono_notes.nil? && @project.release_notes.nil? ? "active" : ""}"}
+    - if project_completion_metric(@project) > 0
+      = progress_bar(project_completion_metric(@project), :color => 'blue', :rounded => true)
+    = render "ticket_table", :tickets => @incomplete_tickets
+  #complete_tickets.tab-pane
+    - if project_completion_metric(@project) > 0
+      = progress_bar(project_completion_metric(@project), :color => 'blue', :rounded => true)
+    = render "ticket_table", :tickets => @complete_tickets
+  #data_vault.tab-pane
+    = render "shared/data_vault", :data_vault => @project.data_vault
+  #comments.tab-pane
+    - unless current_user.client
+      = render "shared/files_and_comments", :items => @project.files_and_comments.reverse, :id => 'project'
+
+  - content_for :javascripts do
+    = javascript_include_tag "ticket_board"
+    = javascript_include_tag "bootstrap-tabs"
+    :javascript
+      $(function() {
+        $('.tabs').tabs();
+      });

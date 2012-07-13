@@ -1,64 +1,57 @@
-.yui3-g
-  .yui3-u-1
-    %h2= "#{t(:invoicing)}: #{@client}"
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %div
-          %input{:type => "text", :id => "global_invoiced"}
-        %div
-          = form_tag(admin_invoice_path, :method => 'put', :multipart => true) do
-            = submit_tag t(:submit), :class => 'invoice_submit'
-            .clear
-            - @tickets.each do |ticket|
-              %table.invoice
-                %thead
-                  %tr
-                    %td{:colspan => "3"}= ticket.long_name
-                    %td
-                    %td
-                    %td
-                      %input{:type => "text", :id => "ticket_invoiced_#{ticket.id}", :class => "ticket_invoiced"}
-                  %tr
-                    %th= t(:description)
-                    %th.assigned_to= t(:assigned_to)
-                    %th.scheduled_on= t(:scheduled_on)
-                    %th.hours= t(:hours).capitalize
-                    %th= t(:type)
-                    %th.invoice_th= t(:invoice)
-                %tbody
+%h2= "#{t(:invoicing)}: #{@client}"
+
+%div
+  %input{:type => "text", :id => "global_invoiced"}
+%div
+  = form_tag(admin_invoice_path, :method => 'put', :multipart => true) do
+    = submit_tag t(:submit), :class => 'invoice_submit btn primary'
+
+    .clear
+    - @tickets.each do |ticket|
+      %table.invoice.table.table-striped
+        %thead
+          %tr
+            %td{:colspan => "3"}= ticket.long_name
+            %td
+            %td
+            %td
+              %input{:type => "text", :id => "ticket_invoiced_#{ticket.id}", :class => "ticket_invoiced"}
+          %tr
+            %th= t(:description)
+            %th.assigned_to= t(:assigned_to)
+            %th.scheduled_on= t(:scheduled_on)
+            %th.hours= t(:hours).capitalize
+            %th= t(:type)
+            %th.invoice_th= t(:invoice)
+        %tbody
+          - @work_units.each do |wu|
+            - if wu.ticket == ticket
+              %tr{ :class => row_class(:hours_type => wu.hours_type, :scheduled_at => wu.scheduled_at) }
+                %td= wu.description.gsub(/\n/,"<br />&nbsp;&nbsp;").html_safe
+                %td= wu.user.first_name
+                %td= wu.scheduled_at.strftime("%F")
+                %td= wu.effective_hours
+                %td= wu.hours_type
+                %td
+                  = text_field_tag "work_units[#{wu.id}][invoiced]",nil, :class => "global ticket_invoiced_#{ticket.id}"
+                  = text_field_tag "work_units[#{wu.id}][invoiced_at]", Time.now.strftime("%F"), :class => "datepicker"
+        %tfoot
+          %tr
+            %td.totals{:colspan => "3"}= t(:totals)
+            %td.totals{:colspan => "3"}= ticket.uninvoiced_hours
+          %tr
+            %td.totals
+              = find_and_preserve do
+                %textarea{:cols => "100%", :rows => "10"}
+                  = "#{ticket.long_name}"
+                  = "=========================="
                   - @work_units.each do |wu|
                     - if wu.ticket == ticket
-                      %tr{ :class => row_class(:hours_type => wu.hours_type, :scheduled_at => wu.scheduled_at) }
-                        %td= wu.description.gsub(/\n/,"<br />&nbsp;&nbsp;").html_safe
-                        %td= wu.user.first_name
-                        %td= wu.scheduled_at.strftime("%F")
-                        %td= wu.effective_hours
-                        %td= wu.hours_type
-                        %td
-                          = text_field_tag "work_units[#{wu.id}][invoiced]",nil, :class => "global ticket_invoiced_#{ticket.id}"
-                          = text_field_tag "work_units[#{wu.id}][invoiced_at]", Time.now.strftime("%F"), :class => "datepicker"
-                %tfoot
-                  %tr
-                    %td.totals{:colspan => "3"}= t(:totals)
-                    %td.totals{:colspan => "3"}= ticket.uninvoiced_hours
-                  %tr
-                    %td{:colspan => "6"}
-                      = find_and_preserve do
-                        %textarea{:cols => "100%", :rows => "10"}
-                          = "#{ticket.long_name}"
-                          = "=========================="
-                          - @work_units.each do |wu|
-                            - if wu.ticket == ticket
-                              = "#{wu.scheduled_at.strftime("%Y/%m/%d")} - #{wu.user.to_s} - #{wu.effective_hours} Hours\n  #{wu.description.gsub(/[\n]/,'\0  ')}"
-                              = ""
-                              - if ticket.work_units.last == wu
-                                = "=========================="
-                                = "#{t(:total_hours)}: #{ticket.uninvoiced_hours}"
-            = form_tag(admin_invoice_path, :method => 'put', :multipart => true) do
-              = submit_tag t(:submit), :class => 'invoice_submit'
-            = t(:total_outstanding_hours).capitalize << ':' << @client.uninvoiced_hours.to_s << ' ' << t(:hours)
-
-        - content_for :javascripts do
-          = javascript_include_tag "admin_invoices"
+                      = "#{wu.scheduled_at.strftime("%Y/%m/%d")} - #{wu.user.to_s} - #{wu.effective_hours} Hours\n  #{wu.description.gsub(/[\n]/,'\0  ')}"
+                      = ""
+                      - if ticket.work_units.last == wu
+                        = "=========================="
+                        = "#{t(:total_hours)}: #{ticket.uninvoiced_hours}"
+    = form_tag(admin_invoice_path, :method => 'put', :multipart => true) do
+      = submit_tag t(:submit), :class => 'invoice_submit btn primary'
+    = t(:total_outstanding_hours).capitalize << ':' << @client.uninvoiced_hours.to_s << ' ' << t(:hours)

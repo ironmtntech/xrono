@@ -1,59 +1,56 @@
-.yui3-g
-  .yui3-u-1
-    %h2= "#{t(:payroll)}: #{@user}"
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %div.autofill
-          = text_field_tag "autofill_all"
-        = form_tag(admin_payroll_path, :method => 'put', :multipart => true) do
-          = submit_tag t(:submit), :class => 'invoice_submit'
-          .clear
-          - @clients.each do |client|
-            %table.invoice
-              %thead
-                %tr
-                  %th{:colspan => 4}= "#{t(:client)}: #{client}"
-                  %th= text_field_tag "autofill_client_#{client.id}", nil, :class => "autofill_client"
-                %tr
-                  %th= t(:description)
-                  %th= t(:work_date)
-                  %th.hours= t(:hours).capitalize
-                  %th= t(:type)
-                  %th.payroll_check= t(:check_number)
-              %tbody
-                - @work_units.each do |wu|
-                  - if wu.client == client
-                    %tr{ :class => row_class(:hours_type => wu.hours_type, :scheduled_at => wu.scheduled_at) }
-                      %td= wu.description
-                      %td= wu.scheduled_at.strftime("%Y/%m/%d")
-                      %td= wu.effective_hours
-                      %td= wu.hours_type
-                      %td= text_field_tag "work_unit[#{wu.id}]", nil, :class => "global autofill_client_#{client.id}"
-              %tfoot
-                %tr
-                  %td.totals{:colspan => 4}= t(:total)
-                  %td.totals= @work_units.select { |x| x.client == client }.sum(&:effective_hours)
-          = submit_tag t(:submit)
-        %h4= "#{t(:total_for_pay_period)}: #{@work_units.sum(:effective_hours)} #{t(:hours)}"
+%h2= "#{t(:payroll)}: #{@user}"
 
-        - content_for :javascripts do
-          :javascript
-            $(document).ready(function() {
+%div.autofill
+  = text_field_tag "autofill_all"
 
-              $("#autofill_all").keyup(function() {
-                value = $("#autofill_all").val();
-                $(".global").each(function() {
-                  this.value = value;
-                });
-              });
+= form_tag(admin_payroll_path, :method => 'put', :multipart => true) do
+  = submit_tag t(:submit), :class => 'invoice_submit btn primary'
+  .clear
+  - @clients.each do |client|
+    %table.invoice.table-striped.table
+      %thead
+        %tr
+          %th{:colspan => 4}= "#{t(:client)}: #{client}"
+          %th= text_field_tag "autofill_client_#{client.id}", nil, :class => "autofill_client"
+        %tr
+          %th= t(:description)
+          %th= t(:work_date)
+          %th.hours= t(:hours).capitalize
+          %th= t(:type)
+          %th.payroll_check= t(:check_number)
+      %tbody
+        - @work_units.each do |wu|
+          - if wu.client == client
+            %tr{ :class => row_class(:hours_type => wu.hours_type, :scheduled_at => wu.scheduled_at) }
+              %td= wu.description
+              %td= wu.scheduled_at.strftime("%Y/%m/%d")
+              %td= wu.effective_hours
+              %td= wu.hours_type
+              %td= text_field_tag "work_unit[#{wu.id}]", nil, :class => "global autofill_client_#{client.id}"
+      %tfoot
+        %tr
+          %td.totals{:colspan => 4}= t(:total)
+          %td.totals= @work_units.select { |x| x.client == client }.sum(&:effective_hours)
+  = submit_tag t(:submit), :class => 'btn primary'
 
-              $(".autofill_client").keyup(function() {
-                value = this.value
-                $("." + this.id).each(function() {
-                  this.value = value;
-                });
-              });
+%h4= "#{t(:total_for_pay_period)}: #{@work_units.sum(:effective_hours)} #{t(:hours)}"
 
-            });
+- content_for :javascripts do
+  :javascript
+    $(document).ready(function() {
+
+      $("#autofill_all").keyup(function() {
+        value = $("#autofill_all").val();
+        $(".global").each(function() {
+          this.value = value;
+        });
+      });
+
+      $(".autofill_client").keyup(function() {
+        value = this.value
+        $("." + this.id).each(function() {
+          this.value = value;
+        });
+      });
+
+    });

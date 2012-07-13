@@ -1,0 +1,303 @@
+/*
+ *= require bootstrap_and_overrides
+ *= require chosen
+ *= require _jquery-ui-1.8.16.custom
+ *= require css3-progress-bar
+*/
+@import "compass";
+@import "compass/css3";
+
+//** SCREEN STYLES **//
+a {
+  outline:none;
+}
+
+table {
+  font-size: 1em;
+  margin-top: 10px;
+}
+fieldset {
+  padding-top: 10px;
+}
+.calendar{
+  table{
+    td{
+      overflow: hidden;
+    }
+    tfoot{
+      td{
+      }
+    }
+    tbody {
+      tr {
+        td {
+          ul {
+             li {
+              a {
+                font-size: .9em;
+              }
+             }
+          }
+        }
+      }
+    }
+  }
+  .work_unit {
+    .description {
+      display: none;
+      font-size: .8em;
+    }
+  }
+}
+.btn-group {
+  display:inline-block;
+}
+#add_ticket, #new_work_unit {
+  .actions {
+    input {
+      float:right;
+      margin: 0 118px 0 0;
+    }
+  }
+  .field_row {
+    width: 100%;
+    margin: 0 0 10px 0;
+    label.hidden_clients {
+      width: auto;
+      margin: 0 0 0 10px;
+    }
+    label {
+      display: inline-block;
+      width: 115px;
+      margin: 0 5px 0 0;
+      text-align:right;
+      vertical-align: top;
+    }
+    .input.left {
+      margin-left:100px;
+    }
+    .input {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+}
+.work_unit{
+  &.overtime, &.overtime a {
+    color: #C43C35;
+  }
+  &.cto, &.cto a {
+    color: #F89406;
+  }
+  &.pto, &.pto a {
+    color: #46A546;
+  }
+}
+
+input {
+  height: 26px;
+  line-height: auto;
+}
+table.invoice {
+  td.totals {
+    width: 100%;
+    textarea {
+      width:100%;
+    }
+  }
+}
+body div.container-fluid div.row div.span16 div input#global_invoiced {
+  float:right;
+}
+
+body div.container-fluid div.row div.span16 div form table.invoice tfoot tr td textarea {
+  width:100%;
+}
+div.navbar div.fill div.container-fluid ul.nav {
+  margin: 10px 10px 0 0;
+  li {
+    a {
+      color:#fff;
+    }
+  }
+}
+
+.navbar{
+  @include box-shadow(0 0 5px #ccc);
+  .primary-nav{
+    li{
+      a{
+        @include border-radius(8px);
+        &:hover {
+          background-color: #75959d;
+        }
+        margin-left: 2px;
+        margin-right: 2px;
+      }
+    }
+    li.selected{
+      a{
+        background-color: #5d7a82;
+        color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.024) inset;
+      }
+    }
+  }
+  .fill .container-fluid {
+    ul.pull-right{
+      li.dropdown{
+        a.dropdown-toggle{
+          padding: 0 4px 0 0;
+        }
+        span{
+          position: relative;
+          top: -10px;
+          padding: 4px;
+        }
+        b.caret{
+          position: relative;
+          top: 4px;
+        }
+      }
+    }
+    li.dropdown{
+      ul.dropdown-menu{
+        li{
+          a{
+            color: #75959d;
+            &:hover {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.navbar-fixed-top{
+  a{
+    color: #ddd;
+  }
+  .fill{
+    padding: 6px 0;
+    @include linear-gradient(color-stops(#75959d, #698891 30%, #5d7a82 100%));
+  }
+}
+
+tfoot{
+  border-top: 2px solid #bbb;
+}
+
+h3 {
+  margin: 10px 0 5px 0;
+}
+.right {
+  float:right;
+}
+.topbar{
+  .brand{
+    padding: 0;
+  }
+}
+
+.week_pagination{
+  border-bottom:1px solid #eee;
+  .date_pagination{
+    .span.center{
+      text-align: center;
+    }
+    .span.first{
+      text-align: left;
+      float:left;
+    }
+    .span.last{
+      text-align: right;
+      float:right;
+    }
+    a{
+      display: inline-block;
+      padding: 1em;
+    }
+  }
+}
+
+.module{
+  background-color: #f9f9f9;
+  @include border-radius(8px);
+  padding: 8px;
+  form{
+    margin-bottom: 0;
+    fieldset{
+      margin-bottom: 0;
+      .actions{
+        margin-bottom: -8px;
+        margin-right: -8px;
+        margin-left: -8px;
+        @include border-radius(0 0 8px 8px);
+      }
+    }
+  }
+}
+
+#schedule_modal_link{
+  position: relative;
+  top: 0;
+}
+
+body div.container-fluid div.row div.span16 p.ticket_metrics {
+  text-align:center;
+}
+
+.normal {
+  color: #808080;
+}
+
+.pto {
+  color: #46A546;
+}
+
+.overtime {
+  color: #C43C35;
+}
+
+.cto {
+  color: #F89406;
+}
+legend {
+  -webkit-margin-top-collapse: separate;
+  
+}
+.form-actions {
+  background-color:#fff;
+  @include linear-gradient(#fafafa #fff);
+}
+.login_form {
+  display:block;
+  margin-top:10px;
+  label {
+    display:inline-block;
+    width: 65px;
+    text-align:right;
+    padding-right: 10px;
+    vertical-align:top;
+  }
+  .input {
+    display:inline-block;
+    vertical-align:middle;
+  }
+  .remember {
+    input {
+      margin: 0 4px 0 77px;
+    }
+    label {
+      width: auto;
+      padding-top: 2px;
+    }
+  }
+  .btn {
+    margin: 7px 0 0 77px;
+  }
+}
+
+@import "responsive";

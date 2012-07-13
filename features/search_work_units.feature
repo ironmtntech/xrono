@@ -3,7 +3,8 @@ Feature: Search Work Units
   In order to search work units
   User
   wants a nice search interface
-  
+
+    @wip  
   Scenario: Search for all work units containing a particular invoiced string
     Given I am an authenticated user with an admin role
     And a client "test client" exists with name: "test client", initials: "TTC"
@@ -15,7 +16,8 @@ Feature: Search Work Units
     And I follow "123"
     Then I should see "2010-01-01" within "td"
     And I should see "2010-02-01" within "td"
-
+    
+    @wip
   Scenario: Search for all work units containing a particular paid string
     Given I am an authenticated user with an admin role
     And a client "test client" exists with name: "test client", initials: "TTC"
@@ -29,6 +31,7 @@ Feature: Search Work Units
     Then I should see "2010-03-01" within "td"
     And I should see "2010-04-01" within "td"
     
+    @wip
   Scenario: Cannot search if I am not an admin
     Given I am an authenticated user with an developer role
     And I visit /work_units

@@ -1,0 +1,18 @@
+%h2= t(:all_clients)
+
+%table.clients.table.table-striped
+  %thead
+    %tr
+      %th= t(:name)
+      %th= t(:initials)
+      %th= t(:projects)
+      %th= t(:tickets)
+      %th= t(:status)
+  %tbody
+    - @clients.each do |client|
+      %tr{ :class => "#{cycle("odd", "even")} #{client.status.downcase}" }
+        %td= link_to client.name, client_login_client_path(client)
+        %td= client.initials
+        %td= client.projects.count
+        %td= client.tickets.count
+        %td= client.status

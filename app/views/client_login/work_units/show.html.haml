@@ -1,0 +1,18 @@
+%h2= "#{@work_unit.client}: #{@work_unit.project} - #{@work_unit.ticket}"
+
+%ul.nav.nav-pills
+  %li #{link_to "#{t(:client)}: #{@work_unit.client}", client_login_client_path(@work_unit.client)}
+  %li #{link_to "#{t(:project)}: #{@work_unit.project}", client_login_project_path(@work_unit.project)}
+  %li= link_to "#{t(:ticket)}: #{@work_unit.ticket}", client_login_ticket_path(@work_unit.ticket) 
+
+#work_unit
+  %h3= t(:creator)
+  %p= @work_unit.user
+  %h3= t(:hours)
+  %p= @work_unit.hours
+  %h3= t(:hours_type)
+  %p= @work_unit.hours_type
+  %h3= t(:description)
+  %p.description= @work_unit.description
+  %h3= t(:invoice)
+  %p= @work_unit.invoiced

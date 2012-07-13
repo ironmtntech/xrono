@@ -1,23 +1,27 @@
 #add_ticket
-  %h3.dashboard_title= t(:add_ticket)
-
-  = form_for Ticket.new(params[:ticket]) do |f|
-    #ticket-errors
-    .ticket_field
-      %label{:for => "ticket_client_id"}= "#{t(:client)}:"
-      = collection_select("ticket", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) })
-
-    .ticket_field
-      %label{:for => "ticket_project_id"}= "#{t(:project)}:"
-      = collection_select("ticket", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) })
-
-    .ticket_field
-      %label{:for => "ticket_name"}= "#{t(:name)}:"
-      = f.text_field :name, { :size => 10 }
-
-    .ticket_field
-      %label{:for => "ticket_description"}= "#{t(:description)}:"
-      = f.text_area :description, { :rows => 10, :style => "resize: none;"}
-
-    .ticket_field
-      = f.submit t(:create_ticket), :class => 'add_new_button'
+  = form_for Ticket.new(params[:ticket]), :html => { :class => 'form-horizontal' } do |f|
+    %fieldset
+      %legend= t(:add_ticket)
+      #ticket-errors
+      .control-group
+        %label.control-label{:for => "ticket_client_id"}= "#{t(:client)}:"
+        .controls
+          = collection_select("ticket", "client_id", @clients, "id", "name", { :prompt => t(:select_a_client) }, :class => 'chzn-select')
+      .control-group
+        %label.control-label{:for => "ticket_project_id"}= "#{t(:project)}:"
+        .controls
+          = collection_select("ticket", "project_id", @projects, "id", "name", { :prompt => t(:select_a_project) }, :class => 'chzn-select')
+      .control-group
+        %label.control-label{:for => "ticket_name"}= "#{t(:name)}:"
+        .controls
+          = f.text_field :name, { :size => 10 }
+      .control-group
+        %label.control-label{:for => "ticket_estimated_hours"}= "#{t(:estimated_hours)}:"
+        .controls
+          = f.text_field :estimated_hours, { :size => 10 }
+      .control-group
+        %label.control-label{:for => "ticket_description"}= "#{t(:description)}:"
+        .controls
+          = f.text_area :description, { :rows => 5 }
+      .form-actions
+        = f.submit t(:create_ticket), :class => 'add_new_button btn primary'

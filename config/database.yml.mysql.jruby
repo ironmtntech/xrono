@@ -1,0 +1,20 @@
+production:
+  adapter: jdbcmysql
+  database: xrono_production
+  username: root
+  password: 
+
+development:
+  adapter: jdbcmysql
+  database: xrono_development
+  username: root
+  password: 
+
+test: &test
+  adapter: jdbcmysql
+  database: xrono_test
+  username: root
+  password: 
+
+cucumber:
+  <<: *test

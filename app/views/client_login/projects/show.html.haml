@@ -1,0 +1,8 @@
+%h2= "#{@project.client}: #{@project}"
+
+%ul.nav.nav-pills
+  %li= link_to "#{t(:client)}: #{@project.client}" , client_login_client_path(@project.client)
+  - if current_user.has_role?(:client, @project)
+    %li= link_to t(:new_ticket), new_client_login_ticket_path(:project_id => @project)
+
+= render "tickets"

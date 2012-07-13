@@ -1,0 +1,96 @@
+%h3 Work Units Report
+.row-fluid
+  .span8
+    .module
+      =form_tag do
+        %fieldset
+          .clearfix
+            =label_tag :project
+            .input
+              =select_tag :project_id, options_from_collection_for_select(@projects, :id, :name, :selected => params[:project_id])
+          .clearfix
+            =label_tag :start_date
+            .input
+              = link_to params[:start_date_hidden], "#", :id => "start_date_modal_link"
+              = hidden_field_tag :start_date_hidden, params[:start_date_hidden]
+            #start_date_modal
+              %p Pick the start date
+              .clearfix
+                .input
+                  = text_field_tag :start_date, params[:start_date_hidden]
+            %br
+            =label_tag :end_date
+            .input
+              = link_to params[:end_date_hidden], "#", :id => "end_date_modal_link"
+              = hidden_field_tag :end_date_hidden, params[:end_date_hidden]
+            #end_date_modal
+              %p Pick the end date
+              .clearfix
+                .input
+                  = text_field_tag :end_date, params[:end_date_hidden]
+          .clearfix
+            .input
+              = submit_tag :Filter, :class => "btn"
+%table.table.table-striped
+  %thead
+    %tr
+      %th Date
+      %th User
+      %th Ticket Name
+      %th Hours
+  %tfoot
+    %tr
+      %th
+      %th
+      %th Total Hours:
+      %th= @work_units.sum(:effective_hours)
+  %tbody
+    - @work_units.each do |work_unit|
+      %tr{ :class => cycle("odd", "even"), :title => work_unit.description }
+        %td= work_unit.scheduled_at.to_date
+        %td= work_unit.user
+        %td= work_unit.ticket.name
+        %td= work_unit.effective_hours
+-content_for :javascripts do
+  :javascript
+    $("#start_date_modal").dialog({ 
+      modal: true,
+      autoOpen: false,
+      width: 500,
+      height: 500
+    });
+
+    $('#start_date_modal_link').click(function() {
+      $("#start_date_modal").dialog('open');
+      return false;
+    });
+
+    $("#start_date").datepicker( {
+      onSelect: function(dateText, inst) {
+        $("#start_date_hidden").val(dateText);
+        $("#start_date_modal").dialog('close');
+        $('#start_date_modal_link').text($('#start_date').val());
+      },
+      dateFormat: 'yy-mm-dd'
+    });
+
+    $("#end_date_modal").dialog({ 
+      modal: true,
+      autoOpen: false,
+      width: 500,
+      height: 500
+    });
+
+    $('#end_date_modal_link').click(function() {
+      $("#end_date_modal").dialog('open');
+      return false;
+    });
+
+    $("#end_date").datepicker( {
+      onSelect: function(dateText, inst) {
+        $("#end_date_hidden").val(dateText);
+        $("#end_date_modal").dialog('close');
+        $('#end_date_modal_link').text($('#end_date').val());
+      },
+      dateFormat: 'yy-mm-dd'
+    });

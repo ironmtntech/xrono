@@ -1,0 +1,307 @@
+// ---------- Work Unit Creation
+
+// When a developer needs to add work units
+// to a project he/she has not been assigned
+$("#checkbox").change(function(){
+  var me = $("#work_unit_client_id");
+  me.children().remove();
+  me.append( new Option("Select a client","") )
+  $("#work_unit_project_id").children().remove();
+  $("#work_unit_project_id").append( new Option("Select a project",""))
+  $("#work_unit_ticket_id").children().remove();
+  $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
+
+  params = {bucket: "Client"}
+  params["all"] = this.checked ? 'true' : 'false'
+  $.get("/dashboard/json_index", params, function(data){
+    $.each(data, function(i, client){
+      me.append( new Option(client.name, client.id) )
+    });
+    <% unless Rails.env.test? || Rails.env.cucumber? %>
+      <% # only use chosen in dev r prod - it breaks cukes %>
+      me.trigger("liszt:updated");
+    <% end %>
+  }, "json");
+});
+
+// when client is changed, populate the projects
+$("#work_unit_client_id").change(function(){
+  var me = $("#work_unit_project_id");
+  me.children().remove();
+  me.append( new Option("Select a project","") )
+  $("#work_unit_ticket_id").children().remove();
+  $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
+  if(this.value != '') {
+    params = {bucket: "Project", id: this.value}
+    params["all"] = document.getElementById("checkbox").checked ? 'true' : 'false'
+    $.get("/dashboard/json_index", params, function(data){
+      $.each(data, function(i, project){
+        me.append( new Option(project.name, project.id) )
+      });
+      <% unless Rails.env.test? || Rails.env.cucumber? %>
+        <% # only use chosen in dev r prod - it breaks cukes %>
+        me.trigger("liszt:updated");
+        $("#work_unit_ticket_id").trigger("liszt:updated");
+      <% end %>
+    }, "json");
+  }
+});
+
+// when project is changed, populate the tickets
+$("#work_unit_project_id").change(function(){
+  var me = $("#work_unit_ticket_id")
+  me.children().remove();
+  me.append( new Option("Select a ticket","") )
+  me.append( new Option("New Ticket", "-1") )
+  if(!this.value.blank) {
+    params = {bucket: "Ticket", id: this.value, all: "true"}
+    $.get("/dashboard/json_index", params, function(data){
+      $.each(data, function(i, ticket){
+        me.append( new Option(ticket.name, ticket.id) )
+      });
+      <% unless Rails.env.test? || Rails.env.cucumber? %>
+        <% # only use chosen in dev r prod - it breaks cukes %>
+        me.trigger("liszt:updated");
+      <% end %>
+    }, "json");
+  }
+});
+
+// When ticket is changed, test to see if is changed to "New Ticket"
+$('#work_unit_ticket_id').change(function() {
+  if (this.value == "-1") {
+    $('#on_demand_ticket').show();
+  } else {
+    $('#on_demand_ticket').hide();
+  }
+});
+
+
+// AJAX work unit creation
+
+$("#new_work_unit").submit(function() {
+  var me = $(this);
+  $("#work_unit_submit").attr('disabled', true);
+    data = {"work_unit[description]": me.find("#work_unit_description").val(),
+      "work_unit[scheduled_at]": me.find("#work_unit_scheduled_at").val(),
+      "work_unit[client_id]": me.find("#work_unit_client_id").val(),
+      "work_unit[project_id]": me.find("#work_unit_project_id").val(),
+      "work_unit[ticket_id]": me.find("#work_unit_ticket_id").val(),
+      "work_unit[hours]": me.find("#work_unit_hours").val(),
+      "work_unit[overtime]": me.find("#work_unit_overtime").val(),
+      "hours_type": me.find("#hours_type").val()
+       }
+    if ($("#on_demand_ticket").is(":visible")) {
+      data["ticket[name]"] = me.find("#on_demand_ticket_name").val()
+      data["ticket[description]"] = me.find("#on_demand_ticket_description").val()
+      data["ticket[estimated_hours]"] = me.find("#on_demand_ticket_estimated_hours").val()
+    }
+  $.ajax(
+  {
+    async: true,
+    global: false,
+    url: me.attr("action"),
+    type: "POST",
+    dataType: "json",
+    data: data,
+    success: function(result)
+    {
+      var notice = result.notice
+      me.trigger("reset");
+      me.effect("highlight");
+      $("#on_demand_ticket").hide();
+      $("#work_unit_client_id").children().remove();
+      $("#work_unit_client_id").append( new Option("Select a client","") );
+      $("#work_unit_project_id").children().remove();
+      $("#work_unit_project_id").append( new Option("Select a project","") );
+      $("#work_unit_ticket_id").children().remove();
+      $("#work_unit_ticket_id").append( new Option("Select a ticket","") );
+      document.getElementById("hours_type").options[0].selected = true; // May need to do this two ways (browser differences)
+      $("#hours_type").selectedIndex = 0;           // Reset hours_type to "normal"
+      $("#hours_type").trigger("liszt:updated");    // Chosen provides an overlay for the hours_type select box.  Here we tell chosen we've changed the selected item.
+      $.get("/dashboard/json_index", { bucket: "Client", id: this.value }, function(data){
+        $.each(data, function(i, client){
+         $("#work_unit_client_id").append( new Option(client.name, client.id) )
+        });
+        <% unless Rails.env.test? || Rails.env.cucumber? %>
+          <% # only use chosen in dev r prod - it breaks cukes %>
+          $("#work_unit_client_id").trigger("liszt:updated");
+          $("#work_unit_project_id").trigger("liszt:updated");
+          $("#work_unit_ticket_id").trigger("liszt:updated");
+        <% end %>
+      }, "json");
+      // Ask the calendar to update itself
+      update_calendar_block();
+      $('#scheduled_at').datepicker('setDate', new Date());
+      $('#work_unit_scheduled_at').val(new Date());
+      $('#schedule_modal_link').text($('#scheduled_at').val());
+      if(notice) {
+        $("#work_unit_errors").data('notice', notice);
+        $("#work_unit_errors").dialog('open');
+      };
+      $("#work_unit_submit").attr('disabled', false);
+    },
+    error: function(result)
+    {
+      var json_result = JSON.parse(result.responseText);
+      var errors = json_result.errors;
+      $("#work_unit_errors").data('errors', errors);
+      $("#work_unit_errors").dialog('open');
+      $("#work_unit_submit").attr('disabled', false);
+    }
+  });
+  return false;
+});
+
+// Error handling on failed AJAX work unit creation
+$("#work_unit_errors").dialog( {
+  autoOpen: false,
+  hide: true,
+  title: "Notice",
+  modal: true,
+  draggable: false,
+  open: function() {
+    var dialog = $("#work_unit_errors");
+    dialog.html("");
+    if(dialog.data('errors')) {
+      dialog.append("<p>" + dialog.data('errors') + "</p>");
+    };
+    if(dialog.data('notice')) {
+      dialog.append("<p>" + dialog.data('notice') + "</p>")
+    };
+  },
+  close: function() {
+    var dialog = $("#work_unit_errors")
+    dialog.html("");
+  }
+});
+
+// ---------- Ticket Creation
+
+// when client is changed, populate the projects
+$("#ticket_client_id").change(function(){
+  var me = $("#ticket_project_id");
+  me.children().remove();
+  me.append( new Option("Select a project","") )
+  $("#work_unit_ticket_id").children().remove();
+  $("#work_unit_ticket_id").append( new Option("Select a ticket",""))
+  if(this.value != "") {
+    $.get("/dashboard/client", { id: this.value }, function(data){
+      $.each(data, function(k, v){
+        me.append( new Option(v.name, v.id) )
+      });
+      <% unless Rails.env.test? || Rails.env.cucumber? %>
+        <% # only use chosen in dev r prod - it breaks cukes %>
+        me.trigger("liszt:updated");
+      <% end %>
+    }, "json");
+  }
+});
+
+// when project is changed, populate the tickets
+$("#ticket_project_id").change(function(){
+  var me = $("#ticket_ticket_id")
+  me.children().remove();
+  me.append( new Option("Select a ticket","") )
+  if(this.value != "") {
+    $.get("/dashboard/project", { id: this.value }, function(data){
+      $.each(data, function(k, v){
+        me.append( new Option(v.name, v.id) )
+      });
+      <% unless Rails.env.test? || Rails.env.cucumber? %>
+        <% # only use chosen in dev r prod - it breaks cukes %>
+        me.trigger("liszt:updated");
+      <% end %>
+    }, "json");
+  }
+});
+
+// AJAX ticket creation
+$("#new_ticket").submit(function() {
+  var me = $(this);
+  $("#ticket_submit").attr('disabled', true);
+  $.ajax(
+  {
+    async: true,
+    global: false,
+    url: me.attr("action"),
+    type: "POST",
+    dataType: "json",
+    data: {"ticket[project_id]": me.find("#ticket_project_id").val(),
+      "ticket[name]": me.find("#ticket_name").val(),
+      "ticket[estimated_hours]": me.find("#ticket_estimated_hours").val(),
+      "ticket[description]": me.find("#ticket_description").val() },
+    success: function(result)
+    {
+      var json = $.parseJSON( result.responseText )
+      me.trigger("reset");
+      me.effect("highlight");
+      $("#ticket_submit").attr('disabled', false);
+    },
+    error: function(result)
+    {
+      var json = $.parseJSON( result.responseText )
+      $("#ticket_errors").data('errors', json);
+      $("#ticket_errors").dialog('open');
+      $("#ticket_submit").attr('disabled', false);
+    }
+  });
+  return false;
+});
+
+// Error handling on failed AJAX ticket creation
+$("#ticket_errors").dialog( {
+  autoOpen: false,
+  hide: true,
+  title: "Error",
+  modal: true,
+  draggable: false,
+  open: function() {
+    var dialog = $("#ticket_errors")
+    dialog.html("")
+    $.each( dialog.data('errors'), function() {
+      dialog.append("<p>" + this + "</p>")
+    });
+  },
+  close: function() {
+    var dialog = $("#ticket_errors")
+    dialog.html("");
+  }
+});
+
+
+// ---------- Schedule Modal
+function update_calendar_block(){
+  $.ajax( {
+    async: true,
+    url: '/dashboard/calendar',
+    type: 'GET',
+    dataType: 'script'
+  });
+}
+
+// ---------- Calendar Javascript
+function get_week(week){
+  $.ajax( {
+    async: true,
+    url: '/dashboard/update_calendar?date=' + week,
+    type: 'GET',
+    dataType: 'json',
+    success: function(response){
+      $('.calendar').html(response.data);
+      $('.week_pagination').html(response.week_pagination);
+      // We have to reload the triggers since they are regenerated on each request
+      set_week_pagination_triggers();
+    }
+  });
+}
+
+function set_week_pagination_triggers(){
+  $('.get_week_calendar').click(function(e){
+    var week = /\d{4}-\d{2}-\d{2}/i.exec(this);
+    get_week(week);
+    return false;
+  });
+}
+
+set_week_pagination_triggers();

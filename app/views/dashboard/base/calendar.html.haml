@@ -1,4 +1,1 @@
-- content_for :javascripts do
-  = javascript_include_tag "calendar"
-
-= render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user }
+= render 'shared/calendar', :start_date => @start_date, :user => current_user, :work_units => @work_units

@@ -1,26 +1,18 @@
+.week_pagination
+  = render 'dashboard/base/week_pagination', :start_date => @start_date
+
+= render 'shared/calendar', :start_date => @start_date, :user => current_user, :work_units => @work_units
+
+.row-fluid
+  .span6
+    = render 'tickets/add_ticket'
+  .span6
+    = render 'work_units/add_work_unit'
+
+.dashboard_2week_time_report
+  = render 'two_week_time_report'
+
+= render_message(@message)
+
 - content_for :javascripts do
-  = javascript_include_tag "dashboard"
-  = javascript_include_tag "schedule_modal"
-  = javascript_include_tag "add_taxonomy"
-  = javascript_include_tag "calendar"
-
-- if @message
-  #message{:title => @message[:title], :style => "display: none;"}
-    %p= @message[:body]
-
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        = render :partial => 'shared/calendar', :locals => { :start_date => @start_date, :user => current_user }
-        %p.week_pagination
-          = render :partial => 'dashboard/base/week_pagination', :locals => { :start_date => @start_date }
-  .yui3-g
-    .yui3-u-1-2
-      .gradient_border_wrap
-        .gradient_border_content
-          = render :partial => 'tickets/add_ticket'
-    .yui3-u-1-2
-      .gradient_border_wrap
-        .gradient_border_content
-          = render :partial => 'work_units/add_work_unit'
+  = javascript_include_tag 'add_taxonomy'

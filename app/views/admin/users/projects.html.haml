@@ -1,36 +1,25 @@
-.yui3-g
-  .yui3-u-1
-    %h2
-      = @user
-      =t(:roles)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        = form_tag(projects_admin_user_path, :method => 'post') do
-          %table
-            %thead
-              %th 
-                =t(:client)
-                =link_to_function("[+/-]", nil, :id => "show_hide")
-              %th= t(:project)
-              %th= t(:developer_role)
-              %th= t(:client_role)
-              %th= t(:no_roles)
-            - Client.sort_by_name.each do |client|
-              - if client.status == "Active"
-                =render :partial => "shared/user_roles", :locals => { :user => @user, :client => client }
-            - Client.sort_by_name.each do |client|
-              - if client.status != "Active"
-                =render :partial => "shared/user_roles", :locals => { :user => @user, :client => client }
-          = submit_tag("Submit")
+%h1= t(:roles)
+
+= render '/users/user_head', :user => @user 
+
+.module
+  = form_tag(projects_admin_user_path, :method => 'post') do
+    %table.table.table-striped
+      %thead
+        %th 
+          = t(:client)
+          = link_to_function("[+/-]", nil, :id => "show_hide")
+        %th= t(:project)
+        %th= t(:developer_role)
+        %th= t(:client_role)
+        %th= t(:no_roles)
+      - Client.sort_by_name.each do |client|
+        - if client.status == "Active"
+          = render "shared/user_roles", :user => @user, :client => client
+    = submit_tag("Submit", :class => 'btn primary')
 
 - content_for :javascripts do
   :javascript
-    $(document).ready(ready_function());
-    function ready_function() {
-      $( "#show_hide" ).click(function(){
-        $(".suspended").toggle();
-      });
-    }
-
+    $( "#show_hide" ).click(function(){
+      $(".suspended").toggle();
+    });

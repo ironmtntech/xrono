@@ -1,27 +1,34 @@
-- if @contact.errors.any?
-  #error_explanation
-    %h2
-      = pluralize(@contact.errors.count, "error")
-      prohibited this contact from being saved:
-    %ul
-    - @contact.errors.full_messages.each do |msg|
-      %li= msg
-.field
-  = f.label :first_name
-  = f.text_field :first_name
-.field
-  = f.label :last_name
-  = f.text_field :last_name
-.field
-  = f.label :email_address
-  = f.text_field :email_address
-.field
-  = f.label :phone_number
-  = f.text_field :phone_number
-.field
-  = f.label :receives_email
-  = f.check_box(:receives_email)
-.actions
-  = f.submit :class => "add_new_button"
-  = link_to "Cancel", clients_path, :class => "cancel_button"
-.clear
+= form_for [@client, @contact] do |f| 
+  - if @contact.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@contact.errors.count, "error")
+        prohibited this contact from being saved:
+      %ul
+      - @contact.errors.full_messages.each do |msg|
+        %li= msg
+  %fieldset
+    %legend= legend
+    .control-group
+      = f.label :first_name, :class => 'control-label'
+      .controls
+        = f.text_field :first_name
+    .control-group
+      = f.label :last_name, :class => 'control-label'
+      .controls
+        = f.text_field :last_name
+    .control-group
+      = f.label :email_address, :class => 'control-label'
+      .controls
+        = f.text_field :email_address
+    .control-group
+      = f.label :phone_number, :class => 'control-label'
+      .controls
+        = f.text_field :phone_number
+    .control-group
+      = f.label :receives_email, :class => 'control-label'
+      .controls
+        = f.check_box :receives_email
+    .form-actions
+      = f.submit :class => "add_new_button btn primary"
+      = link_to "Cancel", client_path(@client), :class => "cancel_button btn"

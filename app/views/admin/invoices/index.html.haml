@@ -1,23 +1,19 @@
-.yui3-g
-  .yui3-u-1
-    %h2= t(:invoice_report)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %h3= "#{t(:clients_with_uninvoiced_work_units)}:"
-        %table
-          %thead
-            %th= t(:client)
-            %th= t(:uninvoiced_work_units)
-            %th= t(:uninvoiced_hours)
-          %tfoot
-            %th= t(:total)
-            %th= @work_units.count
-            %th= @work_units.sum(:effective_hours)
-          - @clients.each do |client|
-            %tr{ :class => cycle("odd", "even") }
-              %td= link_to client, admin_invoice_path(client)
-              %td= @work_units.for_client(client).count
-              %td= @work_units.for_client(client).sum(:effective_hours)
+%h2= t(:invoice_report)
 
+= render 'admin/nav'
+
+%h3= "#{t(:clients_with_uninvoiced_work_units)}:"
+%table.table.table-striped
+  %thead
+    %th= t(:client)
+    %th= t(:uninvoiced_work_units)
+    %th= t(:uninvoiced_hours)
+  %tfoot
+    %th= t(:total)
+    %th= @work_units.count
+    %th= @work_units.sum(:effective_hours)
+  - @clients.each do |client|
+    %tr{ :class => cycle("odd", "even") }
+      %td= link_to client, admin_invoice_path(client)
+      %td= @work_units.for_client(client).count
+      %td= @work_units.for_client(client).sum(:effective_hours)

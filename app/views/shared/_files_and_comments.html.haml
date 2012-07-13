@@ -1,6 +1,3 @@
-- content_for :javascripts do
-  = javascript_include_tag "comments"
-
 #files_and_comments
   %h3= "#{t(:files_and_comments)}:"
   = link_to "Hide/Show hidden", "#comments", :id => 'hide_show_comments'
@@ -8,17 +5,17 @@
   %hr  
   - items.each do |item|
     - if item.is_a? Comment
-      = render :partial => 'comments/comment', :locals => {:comment => item}
+      = render 'comments/comment', :comment => item
     - elsif item.is_a? FileAttachment
-      = render :partial => 'file_attachments/file_attachment_combined', :locals => {:file_attachment => item}
+      = render 'file_attachments/file_attachment_combined', :file_attachment => item
     %hr  
   %p
-  -if id == 'client'
-    = render :partial => "comments/comment_form", :locals => { :commentable_id => @client.id, :commentable_field => "client_id", :commentable_type => "Client", :refurl => client_path(@client), :comment_num => @client.id }
+  - if id == 'client'
+    = render "comments/comment_form",  :commentable_id => @client.id, :commentable_field => "client_id", :commentable_type => "Client", :refurl => client_path(@client), :comment_num => @client.id
     = link_to t(:add_file_attachment), new_file_attachment_path( :client_id => @client.id )
-  -elsif id == 'project'
-    = render :partial => "comments/comment_form", :locals => { :commentable_id => @project.id, :commentable_field => "project_id", :commentable_type => "Project", :refurl => project_path(@project), :comment_num => @project.id }
+  - elsif id == 'project'
+    = render "comments/comment_form", :commentable_id => @project.id, :commentable_field => "project_id", :commentable_type => "Project", :refurl => project_path(@project), :comment_num => @project.id
     = link_to t(:add_file_attachment), new_file_attachment_path( :project_id => @project.id )
-  -elsif id == 'ticket'
-    = render :partial => "comments/comment_form", :locals => { :commentable_id => @ticket.id, :commentable_field => "ticket_id", :commentable_type => "Ticket", :refurl => ticket_path(@ticket), :comment_num => @ticket.id }
+  - elsif id == 'ticket'
+    = render "comments/comment_form", :commentable_id => @ticket.id, :commentable_field => "ticket_id", :commentable_type => "Ticket", :refurl => ticket_path(@ticket), :comment_num => @ticket.id
     = link_to t(:add_file_attachment), new_file_attachment_path( :ticket_id => @ticket.id )

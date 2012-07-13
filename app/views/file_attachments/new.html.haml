@@ -1,16 +1,17 @@
-.yui3-g
-  .yui3-u-1
-    %h2= t(:add_file_attachment)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        = form_for :file_attachment, :url => file_attachments_path, :html => { :multipart => true } do |form|
+.module
+  %h2= t(:add_file_attachment)
+
+  = form_for :file_attachment, :url => file_attachments_path, :html => { :multipart => true } do |form|
+    %fieldset
+      .clearfix
+        %label File
+        .input
           = form.file_field :attachment_file
-          - if params[:ticket_id]
-            = hidden_field_tag :ticket_id, params[:ticket_id]
-          - if params[:client_id]
-            = hidden_field_tag :client_id, params[:client_id]
-          - if params[:project_id]
-            = hidden_field_tag :project_id, params[:project_id]
-          = form.submit t(:submit)
+      - if params[:ticket_id]
+        = hidden_field_tag :ticket_id, params[:ticket_id]
+      - if params[:client_id]
+        = hidden_field_tag :client_id, params[:client_id]
+      - if params[:project_id]
+        = hidden_field_tag :project_id, params[:project_id]
+      .actions
+        = form.submit t(:submit), :class => 'btn primary'

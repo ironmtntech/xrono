@@ -1,0 +1,9 @@
+%h2= "All Inactive Clients"
+= link_to bootstrap_icon('plus') + t(:new_client), new_client_path, :class => "add_new_button btn primary right" if admin?
+
+.btn-group
+  = link_to "Active", clients_path, :class => 'btn'
+  = link_to "Inactive", inactive_clients_path, :class => 'btn active'
+  = link_to "Suspended", suspended_clients_path, :class => 'btn'
+
+= render "clients_table"

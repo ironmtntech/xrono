@@ -1,7 +1,16 @@
 class ContactsController < ApplicationController
+  include ControllerMixins::Contacts
+
   before_filter :load_client
   before_filter :load_contact, :only => [:show, :edit, :update, :destroy]
   before_filter :require_admin, :only => [:destroy]
+
+  access_control do
+    allow :admin
+    allow :developer, :if => :current_user_has_client
+    allow :client, :to => [:new, :create, :edit, :update, :destroy, :show, :index], :if => :current_user_has_client
+  end
+
 
   protected
   def load_client
@@ -26,40 +35,23 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(params[:contact])
-    @contact.client = @client
-    if @contact.save
-      flash[:notice] = "Contact created successfully."
-      redirect_to client_contact_path(@contact.client, @contact)
-    else
-      flash.now[:error] = "There was a problem saving the new contact."
-      render :action => 'new'
-    end
+    create!(:client_contact_path)
   end
 
   def update
-    @contact = Contact.find(params[:id])
-    if @contact.update_attributes(params[:contact])
-      flash[:notice] = "Contact updated successfully."
-      redirect_to client_contact_path
-    else
-      flash.now[:error] = "There was a problem saving the contact."
-      render :action => 'edit'
-    end
+    update!(:client_contact_path)
   end
 
   def edit
   end
 
   def destroy
-    @contact = Contact.find(params[:id])
-    if @contact.destroy
-      flash[:notice] = "Contact was successfully deleted"
-      redirect_to client_contacts_path
-    else
-      flash.now[:error] = "There was a problem deleting the contact."
-      render :action => 'show'
-    end
+    destroy!(:client_contacts_path)
+  end
+
+private
+  def current_user_has_client
+    Client.for_user(current_user).include?(@client)
   end
 
 end

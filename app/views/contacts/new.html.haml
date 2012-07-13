@@ -1,11 +1,1 @@
-.yui3-g
-  .yui3-u-1
-    %h2= t(:new_contact)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        = form_for @contact, :url => client_contacts_path do |f| 
-          = render :partial => 'form', :locals => {:f => f}
-
-
+= render 'form', :legend => t(:new_contact)

@@ -1,44 +1,31 @@
-.yui3-g
-  .yui3-u-1
-    %h2= "#{t(:client)}: #{@client}"
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        %ul.subnav
-          %li= link_to 'View Contacts', client_contacts_path(@client)
-          - if admin?
-            %li= link_to t(:all_clients), clients_path
-            %li= link_to 'Edit Client', edit_client_path
-            %li= link_to 'New Project', new_project_path(:client => @client) 
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        #client
-          %h3= "#{t(:status)}: #{@client.status}"
-          %table#client_details
-            %thead
-              %tr
-                %th= t(:projects)
-                %th= t(:tickets)
-                %th= t(:uninvoiced_hours)
-                %th= t(:total_hours)
-            %tfoot
-              %tr
-                %th= t(:all_projects)
-                %th= @client.tickets.count
-                %th= @client.uninvoiced_hours
-                %th= @client.hours
-            %tbody
-              - @projects.each do |project|
-                %tr{ :class => cycle("odd", "even") }
-                  %td= link_to project, project
-                  %td= project.tickets.count
-                  %td= project.uninvoiced_hours
-                  %td= project.hours
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        = render :partial => "shared/files_and_comments", :locals => {:items => @client.files_and_comments.reverse, :id => 'client'}
+= render 'breadcrumbs'
+
+.btn-group
+  = link_to 'View Contacts', client_contacts_path(@client), :class => 'btn'
+  - if admin?
+    = link_to bootstrap_icon('edit') + 'Edit Client', edit_client_path, :class => 'btn'
+    = link_to bootstrap_icon('plus') + 'New Project', new_project_path(:client => @client), :class => 'btn'
+
+%ul.nav.nav-tabs{"data-tabs" => "tabs"}
+  %li.active= link_to "Incompleted Projects", "#incompleted_projects"
+  %li= link_to "Completed Projects", "#completed_projects"
+  %li= link_to "Data Vault", "#data_vault"
+  %li= link_to "Comments and Files", "#comments"
+
+.tab-content
+  #incompleted_projects.tab-pane.active
+    = render "projects", :projects => @incompleted_projects
+  #completed_projects.tab-pane
+    = render "projects", :projects => @completed_projects
+  #data_vault.tab-pane
+    = render "shared/data_vault", :data_vault => @client.data_vault
+  #comments.tab-pane
+    - unless current_user.client
+      = render "shared/files_and_comments", :items => @client.files_and_comments.reverse, :id => 'client'
+
+- content_for :javascripts do
+  = javascript_include_tag "bootstrap-tabs"
+  :javascript
+    $(function() {
+      $('.tabs').tabs();
+    });

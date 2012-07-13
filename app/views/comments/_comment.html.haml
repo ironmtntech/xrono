@@ -1,45 +1,46 @@
 - if comment.active?
   .comment_real_body
-    .yui3-g
-      .yui3-u-1-6
+    .row-fluid
+      .span2
         .comment_details
           = show_gravatar_for(comment.user)
           %p
           = form_for comment, :url => {:controller => 'comments', :action => "update", :id => comment.id} do |c|
-            = c.submit "Hide Comment"
-      .yui3-u-1-3
+            = c.submit "Hide Comment", :class => 'btn'
+      .span4
         .comment_real_body
           = " #{comment.user.first_name} #{comment.user.last_name} commented"
           %p
           = " #{distance_of_time_in_words_to_now(comment.created_at)} ago:"
           %p
           = "#{t(:posted)}: #{comment.created_at.strftime("%m-%d-%y")} at #{comment.created_at.strftime("%I:%M %p")}"
-      .yui3-u-1-3
+      .span8
         .comment_body
           %pre= comment.comment
-      .yui3-u-1-6
+      .span2
         - if comment.user == current_user
           = button_to "Delete", comment, :method => :delete, :confirm => "Are you sure?"
 
 - else 
-  .yui3-g
-    .yui3-u-1-6
+  .row-fluid
+    .span2
       .comment_real_body.hidden_comment{ :style => 'display: none;' }
         .comment_details
           = show_gravatar_for(comment.user)
       .comment_real_body
         .comment_details
           = form_for comment, :url => {:controller => 'comments', :action => "update", :id => comment.id} do |c|
-            = c.submit "Unhide Comment"
+            = c.submit "Unhide Comment", :class => 'btn'
           %p
-    .yui3-u-1-3
+    .span4
       .comment_real_body.hidden_comment{ :style => 'display: none;' }
         = " #{comment.user.first_name} #{comment.user.last_name} commented"
         %p
         = " #{distance_of_time_in_words_to_now(comment.created_at)} ago:"
         %p
         = "#{t(:posted)}: #{comment.created_at.strftime("%m-%d-%y")} at #{comment.created_at.strftime("%I:%M %p")}"
-    .yui3-u-1-3
+    .span8
       .comment_real_body.hidden_comment{ :style => 'display: none;' }
         .comment_body
           %pre= comment.comment
+    .span2

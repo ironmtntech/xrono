@@ -1,29 +1,32 @@
-.yui3-g
-  .yui3-u-1
-    %h2= t(:site_settings)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        .field_wrap
-          = t(:current_site_logo)
-          = image_tag @site_settings.site_logo.url
-          = button_to(t(:remove_site_logo), admin_site_settings_path, :method => :delete, :confirm => 'Are you sure?')
-        %p
-        = form_for @site_settings, :as => :admin_site_settings, :url => { :action => "update" }, :html => { :method => "put", :multipart => true } do |f|
-          .field_wrap
-            = f.label :site_logo
-            = f.file_field :site_logo
-          .field_wrap
-            = f.label :overtime_multiplier
-            = f.text_field :overtime_multiplier
-          .field_wrap
-            = f.label :total_yearly_pto_per_user
-            = f.text_field :total_yearly_pto_per_user
-          .field_wrap
-            = f.label :internal_client
-            = f.collection_select(:client_id, Client.all, :id, :to_s, :prompt => true)
-          .field_wrap
-            = f.submit 'Update', :class => 'add_new_button'
-            = link_to 'Cancel', admin_path, :class => 'cancel_button'
+%h2= t(:site_settings)
 
+= render 'admin/nav'
+
+.form-horizontal
+  .control-group
+    %label.control-label= t(:current_site_logo)
+    .controls
+      = image_tag @site_settings.site_logo.url
+      = button_to(t(:remove_site_logo), admin_site_settings_path, :method => :delete, :confirm => 'Are you sure?', :class => 'btn')
+
+= form_for @site_settings, :as => :admin_site_settings, :url => { :action => "update" }, :html => { :method => "put", :multipart => true, :class => 'form-horizontal' } do |f|
+  %fieldset
+    .control-group
+      = f.label :site_logo, :class => 'control-label'
+      .controls
+        = f.file_field :site_logo
+    .control-group
+      = f.label :overtime_multiplier, :class => 'control-label'
+      .controls
+        = f.text_field :overtime_multiplier
+    .control-group
+      = f.label :total_yearly_pto_per_user, :class => 'control-label'
+      .controls
+        = f.text_field :total_yearly_pto_per_user
+    .control-group
+      = f.label :internal_client, :class => 'control-label'
+      .controls
+        = f.collection_select(:client_id, Client.all, :id, :to_s, :prompt => true)
+    .form-actions
+      = f.submit 'Update', :class => 'add_new_button btn primary'
+      = link_to 'Cancel', admin_path, :class => 'cancel_button btn'

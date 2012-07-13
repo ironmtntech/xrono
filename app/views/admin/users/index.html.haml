@@ -1,76 +1,12 @@
-- content_for :javascripts do
-  :javascript
-    $(function() {
-      $( "#accordion" ).accordion({autoHeight: false});
-    })
-.yui3-g
-  .yui3-u-1
-    %h2= t(:all_users)
-.yui3-g
-  .yui3-u-1
-    .gradient_border_wrap
-      .gradient_border_content
-        #accordion
-          - unless @users[:unlocked].empty?
-            %h3= link_to t(:active_users), '#'
-            %div
-              %table.users
-                %thead
-                  %tr
-                    %th= t(:name)
-                    %th= t(:email)
-                    %th= t(:current)
-                    %th= t(:target_hours_offset)
-                    %th= t(:roles)
-                    %th= t(:edit)
-                    %th= t(:pto_left)
-                %tbody
-                  - @users[:unlocked].each do |user|
-                    %tr{ :class => cycle("odd", "even") }
-                      %td.user_img
-                        = link_to "#{show_gravatar_for(user)}".html_safe,
-                          user_path(user)
-                        = link_to "<span>#{user}</span>".html_safe, 
-                          user_path(user) 
-                      %td= user.email
-                      %td= user.unpaid_work_units.sum(:hours)
-                      %td= user.daily_target_hours ? user.target_hours_offset(Date.current).to_s : ''
-                      %td
-                        - if user.admin?
-                          = t(:admin)
-                        - else
-                          = link_to t(:roles), projects_admin_user_path(user)
-                      %td= link_to t(:edit), edit_admin_user_path(user)
-                      %td= user.pto_hours_left(Date.current)
-          - unless @users[:locked].empty?
-            %h3= link_to t(:inactive_users), '#'
-            %div
-              %table.users
-                %thead
-                  %tr
-                    %th= t(:name)
-                    %th= t(:email)
-                    %th= t(:current)
-                    %th= t(:target_hours_offset)
-                    %th= t(:roles)
-                    %th= t(:edit)
-                    %th= t(:pto_left)
-                %tbody
-                  - @users[:locked].each do |user|
-                    %tr{ :class => cycle("odd", "even") }
-                      %td.user_img
-                        = link_to "#{show_gravatar_for(user)}".html_safe,
-                          user_path(user)
-                        = link_to "<span>#{user}</span>".html_safe, 
-                          user_path(user) 
-                      %td= user.email
-                      %td= user.unpaid_work_units.sum(:hours)
-                      %td= user.daily_target_hours ? user.target_hours_offset(Date.current).to_s : ''
-                      %td
-                        - if user.admin?
-                          = t(:admin)
-                        - else
-                          = link_to t(:roles), projects_admin_user_path(user)
-                      %td= link_to t(:edit), edit_admin_user_path(user)
-                      %td= user.pto_hours_left(Date.current)
-        = link_to t(:new_user), new_admin_user_path, :class => "add_new_button"
+%h2= t(:all_users)
+
+= render 'admin/nav'
+
+.right
+  = link_to bootstrap_icon('plus') + t(:new_user), new_admin_user_path, :class => "add_new_button btn primary"
+
+.btn-group
+  = link_to "Unlocked", admin_users_path, :class => 'btn active'
+  = link_to "Locked", admin_locked_users_path, :class => 'btn'
+
+= render "unlocked_users"

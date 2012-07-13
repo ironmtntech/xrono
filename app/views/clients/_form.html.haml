@@ -5,22 +5,30 @@
         = pluralize(@client.errors.count, "error")
         = "#{t(:prohibited_this_client_from_being_saved)}:"
       %ul
-      - @client.errors.full_messages.each do |msg|
-        %li= msg
+        - @client.errors.full_messages.each do |msg|
+          %li= msg
 
-  .work_unit_field
-    = f.label :name
-    = f.text_field :name
-  .work_unit_field
-    = f.label :initials
-    = f.text_field :initials
-  .work_unit_field
-    = f.label :status
-    = f.select :status, client_status_select(@client.status)
-  .work_unit_field
-    = f.label :overtime_multiplier
-    = f.text_field :overtime_multiplier
-  .actions
-    = f.submit :class => "add_new_button"
-    = link_to t(:cancel), clients_path, :class => "cancel_button"
-  .clear
+  %fieldset
+    %legend= legend
+    .control-group
+      = f.label :name, :class => 'control-label'
+      .controls
+        = f.text_field :name
+    .control-group
+      = f.label :initials, :class => 'control-label'
+      .controls
+        = f.text_field :initials
+    .control-group
+      = f.label :status, :class => 'control-label'
+      .controls
+        = f.select :status, client_status_select(@client.status)
+    .control-group
+      = f.label :overtime_multiplier, :class => 'control-label'
+      .controls
+        = f.text_field :overtime_multiplier
+    .form-actions
+      = f.submit :class => "add_new_button btn primary"
+      - if @client.new_record?
+        = link_to t(:cancel), clients_path, :class => "cancel_button btn"
+      - else
+        = link_to t(:cancel), client_path(@client), :class => "cancel_button btn"

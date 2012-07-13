@@ -6,7 +6,7 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-unless RAILS_ENV == "production"
+unless Rails.env.production?
 
   require File.expand_path(File.dirname(__FILE__) + "../../spec/blueprints")
 
@@ -43,7 +43,6 @@ unless RAILS_ENV == "production"
 
   developers = [ admin_user, developer_user ]
   8.times { developers.push User.make }
-
 
   # Roles #
 

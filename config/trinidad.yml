@@ -1,0 +1,4 @@
+jruby_max_runtimes: 1
+ajp:
+  port: 8099
+

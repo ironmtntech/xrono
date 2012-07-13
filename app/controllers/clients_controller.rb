@@ -1,4 +1,6 @@
 class ClientsController < ApplicationController
+  include ControllerMixins::Generic
+
   before_filter :load_new_client, :only => [:new, :create]
   before_filter :load_client, :only => [:edit, :show, :update]
   before_filter :load_file_attachments, :only => [:show, :new, :create]
@@ -7,6 +9,19 @@ class ClientsController < ApplicationController
     allow :admin
 
     action :index do
+      allow :developer
+      allow :client
+    end
+
+    action :inactive_clients do
+      allow :developer
+    end
+
+    action :suspended_clients do
+      allow :developer
+    end
+
+    action :show_complete do
       allow :developer
       allow :client
     end
@@ -32,30 +47,39 @@ class ClientsController < ApplicationController
 
   public
   def index
-    @clients = Client.for_user(current_user).sort_by {|x| x.name}
+    @clients = authorized_clients.active
+    get_recent_users_for_clients
+  end
+
+  def inactive_clients
+    @clients = authorized_clients.inactive
+    get_recent_users_for_clients
+  end
+
+  def suspended_clients
+    @clients = authorized_clients.suspended
+    get_recent_users_for_clients
   end
 
   def show
-    @projects = Project.sort_by_name.for_client(@client).for_user(current_user)
+    @bucket = Project.order("name").for_client(@client)
+    @bucket = @bucket.for_user(current_user) unless admin?
+
+    @incompleted_projects = @bucket.incomplete
+    @completed_projects = @bucket.complete
   end
 
   def new
   end
 
   def create
-    if @client.save
-      flash[:notice] = t(:client_created_successfully)
-      redirect_to @client
-    else
-      flash.now[:error] = t(:client_created_unsuccessfully)
-      render :action => 'new'
-    end
+    generic_save_and_redirect(:client, :create)
   end
 
   def update
     if @client.update_attributes(params[:client])
       flash[:notice] = t(:client_updated_successfully)
-      redirect_to @client
+      redirect_to client_path(@client)
     else
       flash.now[:error] = t(:client_updated_unsuccessfully)
       render :action => 'edit'
@@ -71,4 +95,18 @@ class ClientsController < ApplicationController
     @client.allows_access? current_user
   end
 
+  def authorized_clients
+    if admin?
+      Client.order("name")
+    else
+      Client.order("name").for_user(current_user)
+    end
+  end
+
+  def get_recent_users_for_clients
+    @recent_users_for_clients = {}
+    @clients.each do |client|
+      @recent_users_for_clients[client.id] = WorkUnit.for_client(client).scheduled_between(2.weeks.ago, Time.zone.now).select("distinct user_id").includes(:user).map(&:user)
+    end
+  end
 end

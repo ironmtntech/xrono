@@ -1,4 +1,4 @@
-= form_for(@project) do |f|
+= form_for(@project, :html => { :class => 'form-horizontal' }) do |f|
   - if @project.errors.any?
     #error_explanation
       %h2
@@ -9,13 +9,86 @@
       - @project.errors.full_messages.each do |msg|
         %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :overtime_multiplier
-    = f.text_field :overtime_multiplier
+  %fieldset
+    %legend= legend
+    .control-group
+      = f.label :name, :class => 'control-label'
+      .controls
+        = f.text_field :name
+    - if current_user.admin?
+      .control-group
+        = f.label :rate_a, :class => 'control-label'
+        .controls
+          = f.text_field :rate_a
+      .control-group
+        = f.label :rate_b, :class => 'control-label'
+        .controls
+          = f.text_field :rate_b
+    .control-group
+      = f.label :git_repo_name, :class => 'control-label'
+      .controls
+        = f.text_field :git_repo_name
+    .control-group
+      = f.label :git_repo_url, :class => 'control-label'
+      .controls
+        = f.text_field :git_repo_url
+    .control-group
+      = f.label :overtime_multiplier, :class => 'control-label'
+      .controls
+        = f.text_field :overtime_multiplier
+    .control-group
+      = f.label :completed, :class => 'control-label'
+      .controls
+        = f.check_box :completed
+    .control-group
+      = f.label :tags, :class => 'control-label'
+      .controls
+        = f.text_field :tag_list, :class => "ui-autocomplete-controls"
     = hidden_field_tag :client, @project.client.id
-  .actions
-    = f.submit :class => "add_new_button"
-    = link_to t(:cancel), client_path(@project.client)
+    .form-actions
+      = f.submit :class => "add_new_button btn primary"
+      = link_to t(:cancel), client_path(@project.client), :class => 'btn'
+
+- content_for :javascripts do
+  :javascript
+    $(function() {
+      var availableTags = #{ActsAsTaggableOn::Tag.all.map(&:name).sort};
+      function split( val ) {
+        return val.split( /,\s*/ );
+      }
+      function extractLast( term ) {
+        return split( term ).pop();
+      }
+
+      $( ".ui-autocomplete-input" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+          if ( event.keyCode === $.ui.keyCode.TAB &&
+              $( this ).data( "autocomplete" ).menu.active ) {
+            event.preventDefault();
+          }
+        })
+        .autocomplete({
+          minLength: 0,
+          source: function( request, response ) {
+            // delegate back to autocomplete, but extract the last term
+            response( $.ui.autocomplete.filter(
+              availableTags, extractLast( request.term ) ) );
+          },
+          focus: function() {
+            // prevent value inserted on focus
+            return false;
+          },
+          select: function( event, ui ) {
+            var terms = split( this.value );
+            // remove the current input
+            terms.pop();
+            // add the selected item
+            terms.push( ui.item.value );
+            // add placeholder to get the comma-and-space at the end
+            terms.push( "" );
+            this.value = terms.join( ", " );
+            return false;
+          }
+        });
+      });
