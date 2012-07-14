@@ -7,4 +7,8 @@ class Api::BaseController < ApplicationController
   def verify_api_login
     render :json => {:success => false} unless current_user && params[:auth_token]
   end
+
+  def current_resource_owner
+    User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+  end
 end

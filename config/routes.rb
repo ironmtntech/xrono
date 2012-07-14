@@ -103,6 +103,7 @@ AssetTrackerTutorial::Application.routes.draw do
       resources :projects, :only => [:index, :create]
       resources :tickets, :only => [:index, :show, :create]
       resources :work_units, :only => [:index, :create]
+      get '/me' => "credentials#me"
     end
   end
 end
