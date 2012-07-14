@@ -25,6 +25,7 @@ gem 'acts_as_commentable', '~> 3.0.1'
 gem 'dynamic_form', '~> 1.0.0'
 gem 'kramdown'
 gem 'doorkeeper', '~> 0.4.2'
+gem 'oauth2'
 
 gem 'simple-navigation-bootstrap'
 gem 'sass-rails',   '~> 3.2.0'
