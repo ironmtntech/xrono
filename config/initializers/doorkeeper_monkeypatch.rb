@@ -1,4 +1,8 @@
-class Doorkeeper::TokensController < ActionController::Base#::Doorkeeper::ApplicationController
+class Doorkeeper::TokensController < Doorkeeper::ApplicationController
+  skip_before_filter :initialize_site_settings
+  skip_before_filter :redirect_clients
+  skip_before_filter :authenticate_user!
+
   def create
     response.headers.merge!({
       'Pragma'        => 'no-cache',
