@@ -3,7 +3,8 @@
     %tr
       %th= t(:name)
       %th= t(:initials)
-      %th= t(:projects)
+      %th= t(:hours)
+      %th= t(:uninvoiced)
       %th= t(:tickets)
       %th= t(:status)
       %th= t(:recent_users)
@@ -14,8 +15,8 @@
       %tr{ :class => "#{cycle("odd", "even")} #{client.status.downcase}" }
         %td= link_to client, "/client/#{client.id}"
         %td= client.initials
-        %td= client.projects.count
-        %td= client.tickets.count
+        %td= client.hours
+        %td= client.uninvoiced_hours
         %td= client.status
         %td
           - @recent_users_for_clients[client.id].each do |user|
