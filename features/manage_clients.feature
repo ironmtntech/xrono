@@ -22,12 +22,13 @@ Feature: Client Management
       |name 3|Active|
       |name 4|Active|
     When I go to the clients page
+    Then show me the page
     Then I should see the following clients:
-      |Name|Initials|Projects|Tickets|Status|Edit|
-      |name 1||0|0|Active|Edit|
-      |name 2||0|0|Active|Edit|
-      |name 3||0|0|Active|Edit|
-      |name 4||0|0|Active|Edit|
+      |Name  |Initials       |Hours|Uninvoiced|Status|Recent Users|Edit|
+      |name 1|               |0.0    |0.0         |Active|            |Edit|
+      |name 2|               |0.0    |0.0         |Active|            |Edit|
+      |name 3|               |0.0    |0.0        |Active|            |Edit|
+      |name 4|               |0.0    |0.0         |Active|            |Edit|
     And I should see a link with text "New Client"
 
   Scenario: View a client as a non admin

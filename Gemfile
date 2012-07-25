@@ -29,6 +29,8 @@ gem 'oauth2'
 
 gem 'simple-navigation-bootstrap'
 gem 'sass-rails',   '~> 3.2.0'
+gem 'database_cleaner', '~>0.7.1'
+gem 'ruby-debug19', :require => 'ruby-debug'
 
 #gem 'fnordmetric', '~> 0.6.6'
 
@@ -82,3 +84,4 @@ group :test, :development do
   # and rake tasks without having to type `RAILS_ENV=test`
   gem 'rspec-rails'
 end
+
