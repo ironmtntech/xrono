@@ -29,10 +29,6 @@ gem 'oauth2'
 
 gem 'simple-navigation-bootstrap'
 gem 'sass-rails',   '~> 3.2.0'
-# gem 'database_cleaner', '~>0.7.1'
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
-#gem 'fnordmetric', '~> 0.6.6'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -40,7 +36,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '0.12.alpha.0'
-  gem 'bootstrap-sass'
+  gem 'bootstrap-sass', '2.0.1'
 end
 
 group :development do

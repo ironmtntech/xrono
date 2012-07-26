@@ -313,7 +313,7 @@ DEPENDENCIES
   acts_as_commentable (~> 3.0.1)
   attr_encrypted (~> 1.2.0)
   awesome_print (~> 0.4.0)
-  bootstrap-sass
+  bootstrap-sass (= 2.0.1)
   capistrano (~> 2.8.0)
   capybara (~> 1.1.1)
   ci_reporter
