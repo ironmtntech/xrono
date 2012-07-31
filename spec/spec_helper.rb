@@ -18,7 +18,8 @@ require File.expand_path(File.dirname(__FILE__) + "/blueprints")
 require 'rspec/rails'
 require 'devise/test_helpers'
 
-require 'sidekiq/testing/inline'
+require 'sidekiq/testing'
+require 'shoulda-matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

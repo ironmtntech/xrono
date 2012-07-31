@@ -228,7 +228,7 @@ describe WorkUnit do
       end
 
       it 'sends the email' do
-        lambda { work_unit.send_email! }.should change(ActionMailer::Base.deliveries, :count).by(1)
+        lambda { work_unit.send_email! }.should change(WorkUnitNotifierWorker.jobs, :count).by(1)
       end
     end
   end

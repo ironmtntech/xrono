@@ -22,7 +22,6 @@ Feature: Client Management
       |name 3|Active|
       |name 4|Active|
     When I go to the clients page
-    Then show me the page
     Then I should see the following clients:
       |Name  |Initials       |Hours|Uninvoiced|Status|Recent Users|Edit|
       |name 1|               |0.0    |0.0         |Active|            |Edit|
