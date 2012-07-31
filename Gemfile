@@ -23,7 +23,7 @@ gem 'dynamic_form', '~> 1.0.0'
 gem 'kramdown'
 gem 'doorkeeper', '~> 0.4.2'
 gem 'oauth2'
-gem 'sidekiq', '~> 2.1.0'
+gem 'sidekiq', '2.0.3'
 
 gem 'simple-navigation-bootstrap'
 gem 'sass-rails',   '~> 3.2.0'
