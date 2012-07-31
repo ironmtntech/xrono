@@ -1,6 +1,5 @@
 # Bundler bootstrap
 require 'bundler/capistrano'
-require 'sidekiq/capistrano'
 
 # main details
 set :application, "xrono.isotope11.com"
