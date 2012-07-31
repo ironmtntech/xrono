@@ -88,7 +88,7 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def send_email!
-    Notifier.work_unit_notification(self.id, email_list).deliver if email_list.length > 0
+    WorkUnitNotifierWorker.perform_async(id, email_list) if email_list.any?
   end
 
   def email_list

@@ -1,5 +1,6 @@
 Feature: Send Daily Email Report
 
+  @foo
   Scenario: A client receives a daily email of their hours
     Given all emails have been delivered
     And a client exists with name: "Test Client"

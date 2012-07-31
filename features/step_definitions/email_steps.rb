@@ -22,7 +22,7 @@ end
 
 When(/^the daily email goes out to #{capture_model}$/) do |name|
   client = find_model!(name)
-  Notifier.daily(client).deliver
+  DailyNotifierWorker.perform_async(client.id)
 end
 
 When(/^(?:I|they) follow "([^"]*?)" in #{capture_email}$/) do |link, email_ref|

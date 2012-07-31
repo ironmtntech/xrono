@@ -9,11 +9,8 @@ gem 'haml', '~> 3.1.3'
 gem 'paperclip', '~> 2.3'
 gem 'uuid', '~> 2.3.1'
 gem 'jquery-rails', '~> 1.0.17'
-gem 'rake', '0.9.2'
+gem 'rake', '~> 0.9.2'
 gem 'state_machine', '~> 1.0.2'
-gem 'resque', '~> 1.19.0'
-gem 'resque_mailer', '~> 2.0.2'
-gem 'resque-scheduler', '~> 1.9.9'
 gem 'googlecharts', '~> 1.6.8'
 gem 'github_concern', '~> 0.1'
 gem 'css3-progress-bar-rails', '~> 0.2.2'
@@ -26,6 +23,7 @@ gem 'dynamic_form', '~> 1.0.0'
 gem 'kramdown'
 gem 'doorkeeper', '~> 0.4.2'
 gem 'oauth2'
+gem 'sidekiq', '~> 2.1.0'
 
 gem 'simple-navigation-bootstrap'
 gem 'sass-rails',   '~> 3.2.0'
@@ -79,5 +77,6 @@ group :test, :development do
   # rspec-rails needs to be in the development group to expose generators
   # and rake tasks without having to type `RAILS_ENV=test`
   gem 'rspec-rails'
+  gem 'pry-rails'
 end
 
