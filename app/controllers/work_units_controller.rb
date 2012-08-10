@@ -55,7 +55,6 @@ class WorkUnitsController < ApplicationController
   # PUT /work_units/:id
   def update
     if @work_unit.update_attributes(params[:work_unit])
-      @work_unit.send_email!
       flash[:notice] = t(:work_unit_updated_successfully)
       redirect_to @work_unit
     else
