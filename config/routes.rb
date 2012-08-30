@@ -11,7 +11,9 @@ AssetTrackerTutorial::Application.routes.draw do
   namespace :admin do
     resources :invoices
     resources :payroll
-    get :locked_users, :controller => :users, :action => :locked_users
+    get :locked_users,     :controller => :users, :action => :locked_users
+    get :unlocked_clients, :controller => :users, :action => :unlocked_clients
+    get :locked_clients,   :controller => :users, :action => :locked_clients
     resources :users do
       member do
         get :projects

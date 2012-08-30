@@ -6,8 +6,8 @@
 
 .btn-group
   = link_to "Unlocked", admin_users_path, :class => 'btn'
-  = link_to "Locked", admin_locked_users_path, :class => 'btn active'
-  = link_to "Unlocked Clients", admin_unlocked_clients_path, :class => 'btn'
+  = link_to "Locked", admin_locked_users_path, :class => 'btn'
+  = link_to "Unlocked Clients", admin_unlocked_clients_path, :class => 'btn active'
   = link_to "Locked Clients", admin_locked_clients_path, :class => 'btn'
 
 = render "users_table", users: @users

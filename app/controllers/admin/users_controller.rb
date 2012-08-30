@@ -4,11 +4,21 @@ class Admin::UsersController < Admin::BaseController
   before_filter :filter_blank_password, :only => [:update]
 
   def index
-    @users = User.unlocked.sort_by_name
+    # This is extremely inefficient but we won't have enough users for this
+    # in-memory sort to matter
+    @users = User.unlocked.sort_by_name.select{|u| !u.client? }
   end
 
   def locked_users
-    @users = User.locked.sort_by_name
+    @users = User.locked.sort_by_name.select{|u| !u.client? }
+  end
+
+  def unlocked_clients
+    @users = User.unlocked.sort_by_name.select{|u| u.client? }
+  end
+
+  def locked_clients
+    @users = User.locked.sort_by_name.select{|u| u.client? }
   end
 
   def new
