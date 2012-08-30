@@ -1,3 +1,9 @@
+08/30/2012
+
+  - Separete clients from normal users in admin report
+  - fix issue where ticket show page was not rendering work units in descending
+    order of scheduled date.
+
 03/23/2012
 
   - Add totals to weekly time report

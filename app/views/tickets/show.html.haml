@@ -22,7 +22,7 @@
     %b Hours Worked:
     = @ticket.hours
 
-= render "shared/work_unit_index"
+= render "shared/work_unit_index", work_units: @work_units
 
 - unless current_user.client
   = render "shared/files_and_comments", :items => @ticket.files_and_comments.reverse, :id => 'ticket'
