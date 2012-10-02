@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def build_week_hash_for(date, hash={})
-    until date.saturday?
+    until date.wday == 0 #Sunday
       day = date.strftime("%A")
       hash[day] = date
       date = date.tomorrow
@@ -32,7 +32,6 @@ class ApplicationController < ActionController::Base
 
     final_array = []
     (start_date..end_date).each do |i_date|
-      next if [6,7].include? i_date.cwday
       _beg, _end = i_date.beginning_of_day, i_date.end_of_day
       hours = WorkUnit.for_users(users).scheduled_between(_beg,_end).all
       final_array << [i_date.strftime("%a"), sum_hours(:external?, hours).to_f, sum_hours(:internal?, hours).to_f]
@@ -47,13 +46,13 @@ class ApplicationController < ActionController::Base
 
   def redirect_unless_monday(path_prefix, date)
     @start_date = date ? Date.parse(date) : Date.current
-    unless @start_date.monday?
+    unless @start_date.wday == 1 #Monday
       redirect_to(path_prefix + @start_date.beginning_of_week.strftime("%F"))
     end
   end
 
   def require_admin
-    unless current_user && current_user.admin?
+    unless admin?
       flash[:error] = t(:you_must_be_an_admin_to_do_that)
       redirect_to root_path
     end
@@ -77,7 +76,7 @@ class ApplicationController < ActionController::Base
   end
 
   def initialize_site_settings
-    @site_settings = SiteSettings.first ? SiteSettings.first : SiteSettings.create(:total_yearly_pto_per_user => 40, :overtime_multiplier => 1.5)
+    @site_settings = SiteSettings.first ? SiteSettings.first : SiteSettings.create(:total_yearly_pto_per_user => BigDecimal('40'), :overtime_multiplier => BigDecimal('1.5'))
   end
 
   def redirect_clients

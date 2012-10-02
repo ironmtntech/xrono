@@ -1,4 +1,6 @@
 AssetTrackerTutorial::Application.routes.draw do
+  mount Doorkeeper::Engine => '/oauth'
+
   root :to => "dashboard/base#index"
 
   devise_for :users, :path => '/', :path_names => { :sign_in => 'login', :sign_out => 'logout' }
@@ -9,7 +11,9 @@ AssetTrackerTutorial::Application.routes.draw do
   namespace :admin do
     resources :invoices
     resources :payroll
-    get :locked_users, :controller => :users, :action => :locked_users
+    get :locked_users,     :controller => :users, :action => :locked_users
+    get :unlocked_clients, :controller => :users, :action => :unlocked_clients
+    get :locked_clients,   :controller => :users, :action => :locked_clients
     resources :users do
       member do
         get :projects
@@ -101,6 +105,7 @@ AssetTrackerTutorial::Application.routes.draw do
       resources :projects, :only => [:index, :create]
       resources :tickets, :only => [:index, :show, :create]
       resources :work_units, :only => [:index, :create]
+      get '/me' => "credentials#me"
     end
   end
 end

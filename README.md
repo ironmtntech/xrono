@@ -1,3 +1,4 @@
+
 ## Xrono
 [![Travis CI Build Status](http://travis-ci.org/isotope11/xrono.png)](http://travis-ci.org/isotope11/xrono)
 
@@ -12,8 +13,10 @@ active development, so feel free to check out our
 [website](http://www.xrono.org/) if you have any questions.
 
 ### Demo site
-[See it in action here.](http://demo.xrono.org)  You can log in as any of the
-following email addresses.  All have the password '123456'
+[See it in action here.](http://demo.xrono.org)
+
+You can log in as any of the following email addresses.  All have the password
+'123456'
 
 admin@xrono.org
 dev@xrono.org
@@ -22,29 +25,31 @@ client@xrono.org
 ### Screenshots
 Here are some screenshots of what it looks like:
 
+#### The developer dashboard
 ![Dashboard](https://raw.github.com/isotope11/xrono/master/doc/xrono_dash.png)
 
+#### A ticket view
 ![Ticket Details](https://raw.github.com/isotope11/xrono/master/doc/xrono_ticket.png)
 
 ### Continuous Integration Trends
 
 #### Test Result Trend
-![Test Result Trend](http://isotope11.selfip.com:3026/job/Xrono/test/trend)
+![Test Result Trend](http://isotope11.selfip.com:8080/job/Xrono/test/trend)
 #### Rcov coverage
-![Rcov coverage](http://isotope11.selfip.com:3026/job/Xrono/rcov/graph)
+![Rcov coverage](http://isotope11.selfip.com:8080/job/Xrono/rcov/graph)
+
+### OAuth provider
+
+Xrono is now an OAuth2 provider.  [Details on how you can totes verify this here.](https://github.com/applicake/doorkeeper/wiki/Testing-your-provider-with-OAuth2-gem)
 
 ### Development Installation
-* Fork, then clone the repository to your development environment
-* If you are using rvm, create a .rvmrc
-* gem install bundler
-* bundle install
-* If you get errors involving linecache19, you may need to do something like: "gem install ruby-debug19 -- --with-ruby-include=<path to your ruby install>" then re-run "bundle install"
-* cp config/database.yml.example config/database.yml
-* Change config/database.yml as you see fit to match your development environment needs
-* rake db:reset
-* rake db:test:clone
-* rake spec
-* rake cucumber
+Fork, then clone the repository to your development environment
+
+    gem install bundler
+    bundle install
+    cp config/database.yml.example config/database.yml
+    # Change config/database.yml as you see fit to match your development environment needs
+    rake db:reset db:test:clone spec cucumber
 
 ### Support
 For support, please do one of the following:

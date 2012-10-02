@@ -1,9 +1,11 @@
 # Simplecov Setup
-require 'simplecov'
-require 'simplecov-rcov'
-SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-SimpleCov.start 'rails' do
-  add_filter '/vendor/'
+if RUBY_VERSION >= '1.9.2'
+  require 'simplecov'
+  require 'simplecov-rcov'
+  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+  SimpleCov.start 'rails' do
+    add_filter '/vendor/'
+  end
 end
 
 # Loading more in this block will cause your tests to run faster. However,
@@ -15,6 +17,9 @@ require File.expand_path("../../config/environment", __FILE__)
 require File.expand_path(File.dirname(__FILE__) + "/blueprints")
 require 'rspec/rails'
 require 'devise/test_helpers'
+
+require 'sidekiq/testing'
+require 'shoulda-matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

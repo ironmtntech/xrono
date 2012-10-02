@@ -9,7 +9,8 @@
     %h3= "#{weekday}, #{date.to_formatted_s(:long_ordinal)}" 
     %b= hours_entered_for_day(date).to_s + " hours entered."
     - if date.past?
-      %ul
-        - for user in @users do
+      %table.table.table-striped.table-bordered
+        - @users.each do |user|
           - unless user.work_units_for_day(date).any?
-            %li= link_to user, user_path(user)
+            %tr
+              %td= link_to user, user_path(user)

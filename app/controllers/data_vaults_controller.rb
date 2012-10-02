@@ -8,6 +8,6 @@ class DataVaultsController < ApplicationController
   def update
     @data_vault = DataVault.find(params[:id])
     @data_vault.update_attribute(:data, params[:value])
-    render :text => RDiscount.new(@data_vault.data).to_html
+    render :text => ::Kramdown::Document.new(@data_vault.data).to_html
   end
 end

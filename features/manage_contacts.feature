@@ -6,7 +6,6 @@ Feature: Contact Management                                                     
     And a client "test client" exists
     And a contact "test contact" exists with first_name: "first1", last_name: "last1", email_address: "first1@example.com", phone_number: "555-555-5555", client: client "test client"
     When I am on the client's contacts page
-    Then show me the page
     Then I should see a link with text "New Contact"
     And I should see a link with text "first1" within ".clients"
     And I should see "last1" within ".clients"

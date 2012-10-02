@@ -2,7 +2,7 @@
   %head
     %title= yield(:title) + t(:app_name)
     %meta{"content" => "text/html;charset=UTF-8", "http-equiv" => "content-type"}
-    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0" }
     %link{:rel => "shortcut icon", :href => "/favicon.ico"}
     = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
     = csrf_meta_tag

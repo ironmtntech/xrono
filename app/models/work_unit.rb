@@ -18,11 +18,11 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def self.unpaid
-    where('paid IS NULL or paid = ""')
+    where(:paid => [nil, ''])
   end
 
   def self.not_invoiced
-    where('invoiced IS NULL OR invoiced = ""')
+    where(:invoiced => [nil, ''])
   end
 
   def self.for_client(client)
@@ -88,7 +88,7 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def send_email!
-    Notifier.work_unit_notification(self.id, email_list).deliver if email_list.length > 0
+    WorkUnitNotifierWorker.perform_async(id, email_list) if email_list.any?
   end
 
   def email_list

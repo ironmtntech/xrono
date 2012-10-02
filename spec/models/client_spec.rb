@@ -80,7 +80,7 @@ describe Client do
       let(:ticket2) { Ticket.make(:project => project) }
 
       it 'returns the collection of tickets that belong to the client' do
-        should == [ticket, ticket2]
+        should =~ [ticket, ticket2]
       end
     end
   end
@@ -142,18 +142,33 @@ describe Client do
       ticket    = project.tickets.make
       ticket_2  = project.tickets.make
       ticket_3  = Ticket.make
-      client.tickets.should == [ticket,ticket_2]
+      client.tickets.should =~ [ticket,ticket_2]
     end
   end
 
   describe 'file_and_comments' do
-    before do
-      @file_attachment = FileAttachment.create! :client_id => client.id, :ticket_id => ticket.id, :project_id => project.id, :attachment_file_file_name => "file.file", :created_at => 2.days.ago
-      @comment = Comment.create! :title => "Test", :comment => "Herro", :commentable_id => client.id, :created_at => 1.hours.ago, :commentable_type => "Client"
-    end
+    let!(:file_attachment) {
+      FileAttachment.create!({
+        :client_id => client.id,
+        :ticket_id => ticket.id,
+        :project_id => project.id,
+        :attachment_file_file_name => "file.file",
+        :created_at => 2.days.ago
+      })
+    }
 
-    it 'should add file attachments and comments in the correct order' do
-      client.files_and_comments.should == [@file_attachment, @comment]
+    let!(:comment) {
+      Comment.create!({
+        :title => "Test",
+        :comment => "Herro",
+        :commentable_id => client.id,
+        :created_at => 1.hours.ago,
+        :commentable_type => "Client"
+      })
+    }
+
+    it 'adds file attachments and comments in the correct order' do
+      client.files_and_comments.should == [file_attachment, comment]
     end
   end
 

@@ -4,17 +4,20 @@
  *= require _jquery-ui-1.8.16.custom
  *= require css3-progress-bar
 */
-
 @import "compass";
 @import "compass/css3";
 
 //** SCREEN STYLES **//
-body {
-  padding-top: 90px;
+a {
+  outline:none;
 }
+
 table {
   font-size: 1em;
   margin-top: 10px;
+}
+fieldset {
+  padding-top: 10px;
 }
 .calendar{
   table{
@@ -23,7 +26,6 @@ table {
     }
     tfoot{
       td{
-        border-bottom: 1px solid #eee;
       }
     }
     tbody {
@@ -121,7 +123,7 @@ div.navbar div.fill div.container-fluid ul.nav {
 }
 
 .navbar{
-  @include single-box-shadow;
+  @include box-shadow(0 0 5px #ccc);
   .primary-nav{
     li{
       a{
@@ -141,25 +143,31 @@ div.navbar div.fill div.container-fluid ul.nav {
       }
     }
   }
-  .fill .container-fluid li.dropdown{
-    a.dropdown-toggle{
-      padding: 0 4px 0 0;
+  .fill .container-fluid {
+    ul.pull-right{
+      li.dropdown{
+        a.dropdown-toggle{
+          padding: 0 4px 0 0;
+        }
+        span{
+          position: relative;
+          top: -10px;
+          padding: 4px;
+        }
+        b.caret{
+          position: relative;
+          top: 4px;
+        }
+      }
     }
-    span{
-      position: relative;
-      top: -10px;
-      padding: 4px;
-    }
-    b.caret{
-      position: relative;
-      top: 4px;
-    }
-    ul.dropdown-menu{
-      li{
-        a{
-          color: #75959d;
-          &:hover {
-            color: white;
+    li.dropdown{
+      ul.dropdown-menu{
+        li{
+          a{
+            color: #75959d;
+            &:hover {
+              color: white;
+            }
           }
         }
       }
@@ -181,15 +189,6 @@ tfoot{
   border-top: 2px solid #bbb;
 }
 
-footer.footer{
-  text-shadow: 0 1px 0 #ffffff;
-  width: auto;
-  .container-fluid p {
-    margin: 10px 0 0 0;
-    padding: 10px 0 0 0;
-    border-top: 1px solid #e5e5e5;
-  }
-}
 h3 {
   margin: 10px 0 5px 0;
 }
@@ -203,14 +202,14 @@ h3 {
 }
 
 .week_pagination{
-  background-color: #f9f9f9;
-  border-width: 1px;
-  border-color: #ddd;
-  border-style: solid;
-  @include border-radius(5px);
+  border-bottom:1px solid #eee;
   .date_pagination{
     .span.center{
       text-align: center;
+    }
+    .span.first{
+      text-align: left;
+      float:left;
     }
     .span.last{
       text-align: right;
@@ -265,3 +264,40 @@ body div.container-fluid div.row div.span16 p.ticket_metrics {
 .cto {
   color: #F89406;
 }
+legend {
+  -webkit-margin-top-collapse: separate;
+  
+}
+.form-actions {
+  background-color:#fff;
+  @include linear-gradient(#fafafa #fff);
+}
+.login_form {
+  display:block;
+  margin-top:10px;
+  label {
+    display:inline-block;
+    width: 65px;
+    text-align:right;
+    padding-right: 10px;
+    vertical-align:top;
+  }
+  .input {
+    display:inline-block;
+    vertical-align:middle;
+  }
+  .remember {
+    input {
+      margin: 0 4px 0 77px;
+    }
+    label {
+      width: auto;
+      padding-top: 2px;
+    }
+  }
+  .btn {
+    margin: 7px 0 0 77px;
+  }
+}
+
+@import "responsive";

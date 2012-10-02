@@ -5,8 +5,8 @@
         = pluralize(@client.errors.count, "error")
         = "#{t(:prohibited_this_client_from_being_saved)}:"
       %ul
-      - @client.errors.full_messages.each do |msg|
-        %li= msg
+        - @client.errors.full_messages.each do |msg|
+          %li= msg
 
   %fieldset
     %legend= legend

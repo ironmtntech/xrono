@@ -1,5 +1,5 @@
 - if !current_user or !current_user.client
-  = render_navigation(:level => 1)
+  = render_navigation(:level => :all, :expand_all => true, :renderer => :bootstrap)
 - elsif current_user and current_user.client
   = render_navigation(:level => 1, :context => 'client')
 
