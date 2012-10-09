@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
 
     @incomplete_tickets = @bucket.incomplete
     @complete_tickets = @bucket.complete
-    @work_units = Project.find(params[:id]).work_units
+    @work_units = WorkUnit.for_project(@project)
   end
 
   # GET /projects/:id/edit
