@@ -14,7 +14,7 @@ end
 # files.
 
 require 'cucumber/rails'
-
+require 'sidekiq/testing/inline'
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
@@ -24,7 +24,7 @@ Capybara.default_selector = :css
 
 # Poltergeist web stack...
 #require 'capybara/poltergeist'
-#Capybara.javascript_driver = :chrome
+#Capybara.javascript_driver = :poltergeist
 
 # Chrome webdriver...
 #Capybara.register_driver :chrome do |app|
