@@ -20,6 +20,7 @@
   %li{:class => "#{@project.xrono_notes.nil? && @project.release_notes.nil? ? "active" : ""}"}= link_to "Incomplete Tickets", "#incomplete_tickets"
   %li= link_to "Complete Tickets", "#complete_tickets"
   %li= link_to "Data Vault", "#data_vault"
+  %li= link_to "Work Units", "#work_unit_index"
   %li= link_to "Comments and Files", "#comments"
 
 .tab-content
@@ -41,6 +42,8 @@
     = render "ticket_table", :tickets => @complete_tickets
   #data_vault.tab-pane
     = render "shared/data_vault", :data_vault => @project.data_vault
+  #work_unit_index.tab-pane
+    = render "shared/work_unit_index", :work_units => @work_units, show_ticket: true
   #comments.tab-pane
     - unless current_user.client
       = render "shared/files_and_comments", :items => @project.files_and_comments.reverse, :id => 'project'

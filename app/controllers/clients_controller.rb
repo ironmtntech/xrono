@@ -65,6 +65,8 @@ class ClientsController < ApplicationController
     @bucket = Project.order("name").for_client(@client)
     @bucket = @bucket.for_user(current_user) unless admin?
 
+    @work_units = WorkUnit.for_client(@client)
+
     @incompleted_projects = @bucket.incomplete
     @completed_projects = @bucket.complete
   end
