@@ -170,7 +170,7 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
-    pg (0.14.0)
+    pg (0.14.1)
     pickle (0.4.8)
       cucumber (>= 0.8)
       rake

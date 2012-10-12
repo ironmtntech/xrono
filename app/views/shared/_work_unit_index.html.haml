@@ -4,6 +4,10 @@
       %th #
       %th= t(:work_units)
       %th= t(:creator)
+      - if local_assigns.has_key?(:show_ticket)
+        %th= t(:ticket) 
+      - if local_assigns.has_key?(:show_project)
+        %th= t(:project) 
       %th= t(:scheduled_at)
       %th= t(:hours_type)
       %th= t(:hours)            
@@ -13,6 +17,10 @@
         %td= work_unit.id
         %td= link_to work_unit.description, work_unit_path(work_unit)
         %td= work_unit.user.first_name
+        - if local_assigns.has_key?(:show_ticket) 
+          %td= link_to work_unit.ticket, ticket_path(work_unit.ticket)
+        - if local_assigns.has_key?(:show_project) 
+          %td= link_to work_unit.project, project_path(work_unit.project)
         %td= work_unit.scheduled_at
         %td= work_unit.hours_type
         %td= work_unit.hours              
