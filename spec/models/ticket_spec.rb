@@ -124,17 +124,17 @@ describe Ticket do
 
     let!(:ticket) do
       _ticket = project.tickets.make
-      _ticket.update_attribute(:git_branch, 'feature/test')
+      _ticket.update_attributes(git_branch: 'feature/test')
       _ticket
     end
 
     it ".for_repo_and_branch" do
-      project.update_attribute(:git_repo_name, 'test')
+      project.update_attributes(git_repo_name: 'test')
       Ticket.for_repo_and_branch("test", "feature/test").should include(ticket)
     end
 
     it ".for_repo_url_and_branch" do
-      project.update_attribute(:git_repo_url, 'test')
+      project.update_attributes(git_repo_url: 'test')
       Ticket.for_repo_url_and_branch("test", "feature/test").should include(ticket)
     end
   end
@@ -142,20 +142,20 @@ describe Ticket do
   describe '' do
     let(:ticket) do
       _ticket = Ticket.make
-      _ticket.update_attribute(:estimated_hours, 10)
+      _ticket.update_attributes(estimated_hours: 10)
       _ticket
     end
 
     let(:work_unit_is_under) do
       wu = ticket.work_units.make
-      wu.update_attribute(:effective_hours, 5)
+      wu.update_column(:effective_hours, 5)
       wu
     end
 
     describe '#remaining_hours' do
       let(:work_unit_is_over) do
         wu = ticket.work_units.make
-        wu.update_attribute(:effective_hours, 11)
+        wu.update_column(:effective_hours, 11)
         wu
       end
 

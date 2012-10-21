@@ -9,11 +9,11 @@ describe Api::V1::TicketsController do
   authenticate_user!
 
   before(:each) do
-    ticket.project.update_attribute(:git_repo_url, "test_2")
-    ticket.update_attribute(:git_branch, "test_branch")
+    ticket.project.update_attributes(git_repo_url: "test_2")
+    ticket.update_attributes(git_branch: "test_branch")
 
-    ticket_2.project.update_attribute(:git_repo_url, "test")
-    ticket_2.update_attribute(:git_branch, "test_branch")
+    ticket_2.project.update_attributes(git_repo_url: "test")
+    ticket_2.update_attributes(git_branch: "test_branch")
   end
 
   describe "when I hit create" do

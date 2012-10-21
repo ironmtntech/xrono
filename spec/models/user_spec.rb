@@ -36,8 +36,8 @@ describe User do
     subject { User.sort_by_name }
 
     before do
-      user.update_attribute(:first_name, 'Aaron')
-      user_2.update_attribute(:first_name, 'Zed')
+      user.update_attributes(first_name: 'Aaron')
+      user_2.update_attributes(first_name: 'Zed')
     end
 
     it 'returns a collection of users sorted by first name' do

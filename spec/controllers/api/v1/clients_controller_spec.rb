@@ -3,8 +3,10 @@ require 'spec_helper'
 describe Api::V1::ClientsController do
 
   let(:user) { User.make }
-  let(:project) { Project.make }
-  let(:project_2) { Project.make }
+  let(:client)    { Client.make initials: 'FC1' }
+  let(:client_2)  { Client.make initials: 'FC2' }
+  let(:project)   { Project.make client: client }
+  let(:project_2) { Project.make client: client_2 }
 
   authenticate_user!
 
@@ -30,8 +32,8 @@ describe Api::V1::ClientsController do
 
     describe "with initials" do
       it "returns all clients I have a role for that have the intials I sent" do
-        response = get :index, :initials => project.client.initials, :auth_token => user.authentication_token
-        response.body.should == [project.client].to_json
+        response = get :index, :initials => client.initials, :auth_token => user.authentication_token
+        response.body.should == [client].to_json
       end
     end
   end
