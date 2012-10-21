@@ -56,7 +56,6 @@ group :test do
   gem 'shoulda-matchers', '~> 1.0'
   gem 'simplecov', '~> 0.5.0'
   gem 'simplecov-rcov'
-  gem 'rcov', '0.9.11'
   gem 'spork', '0.9.0.rc9'
   gem 'ci_reporter'
 end
