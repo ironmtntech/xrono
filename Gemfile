@@ -39,6 +39,7 @@ end
 
 group :development do
   gem 'awesome_print', '~> 0.4.0', :require => 'ap'
+  gem 'rails_best_practices'
 end
 
 group :test do

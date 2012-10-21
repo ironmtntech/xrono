@@ -9,12 +9,12 @@ AssetTrackerTutorial::Application.routes.draw do
   resources :data_vaults, :only => [:show]
 
   namespace :admin do
-    resources :invoices
+    resources :invoices, only: [:show, :update, :index]
     resources :payroll
     get :locked_users,     :controller => :users, :action => :locked_users
     get :unlocked_clients, :controller => :users, :action => :unlocked_clients
     get :locked_clients,   :controller => :users, :action => :locked_clients
-    resources :users do
+    resources :users, except: [:destroy] do
       member do
         get :projects
         post :projects
@@ -23,7 +23,7 @@ AssetTrackerTutorial::Application.routes.draw do
     resources :projects
     resources :unentered_time_report
     resources :weekly_time_report
-    resource :site_settings
+    resource :site_settings, only: [:edit, :update, :destroy]
   end
   get '/admin', :controller => "admin/base", :action => "index"
   get '/admin/reports', :controller => "admin/base", :action => "reports"
@@ -35,23 +35,25 @@ AssetTrackerTutorial::Application.routes.draw do
         match :work_units
       end
     end
-    resources :clients do
+    resources :clients, only: [:show, :index] do
       resources :contacts
     end
-    resources :projects, :tickets, :work_units
+    resources :projects, only: [:show]
+    resources :tickets
+    resources :work_units
   end
 
   match '/client/:id' => 'clients#show'
   get :inactive_clients, :controller => :clients, :action => :inactive_clients
   get :suspended_clients, :controller => :clients, :action => :suspended_clients
-  resources :clients do
-    resources :comments
+  resources :clients, except: [:destroy] do
+    resources :comments, except: [:index]
     resources :contacts
     get :show_complete, :controller => :clients, :action => :show_complete
   end
 
   resources :projects, :except => [:index, :destroy] do
-    resources :comments
+    resources :comments, except: [:index]
     get "show_complete", :controller => :projects, :action => "show_complete"
   end
 
@@ -60,20 +62,20 @@ AssetTrackerTutorial::Application.routes.draw do
     post 'reverse_state', :controller => :tickets, :action => :reverse_state
     get 'ticket_detail', :controller => :tickets, :action => :ticket_detail
     put 'toggle_complete', :controller => :tickets, :action => :toggle_complete
-    resources :comments
-    resources :work_units
+    resources :comments, except: [:index]
+    resources :work_units, only: [:show, :new, :edit, :update]
   end
 
-  resources :work_units, :except => [:destroy, :create] do
-    collection do 
+  resources :work_units, :only => [:show, :new, :edit, :update] do
+    collection do
       post :create_in_ticket
       post :create_in_dashboard
     end
 
-    resources :comments
+    resources :comments, except: [:index]
   end
 
-  resources :users do
+  resources :users, only: [:show, :edit, :update, :index] do
     member do
       put :change_password
       get :historical_time
@@ -82,7 +84,7 @@ AssetTrackerTutorial::Application.routes.draw do
 
   resources :comments
 
-  resources :file_attachments
+  resources :file_attachments, only: [:show, :new, :create]
 
   namespace :dashboard do
     get :json_index, :controller => "base", :action => :json_index
@@ -100,7 +102,7 @@ AssetTrackerTutorial::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :tokens, :only => [:create, :destroy]
+      resources :tokens, :only => [:create]
       resources :clients, :only => [:index]
       resources :projects, :only => [:index, :create]
       resources :tickets, :only => [:index, :show, :create]

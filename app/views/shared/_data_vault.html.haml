@@ -1,9 +1,9 @@
--if data_vault
+- if data_vault
   .autogrow
     :kramdown
       #{data_vault.data}
 
--content_for :javascripts do 
+- content_for :javascripts do
   :javascript
     $('.autogrow').editable('/data_vaults/#{data_vault.id}', {
       type:    "textarea",

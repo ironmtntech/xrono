@@ -7,7 +7,7 @@ class CreateFileAttachments < ActiveRecord::Migration
       t.string :attachment_file_file_name
       t.string :attachment_file_file_content_type
       t.integer :attachment_file_file_size
-      
+
       t.timestamps
     end
   end

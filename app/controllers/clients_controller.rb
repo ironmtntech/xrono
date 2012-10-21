@@ -84,7 +84,7 @@ class ClientsController < ApplicationController
       redirect_to client_path(@client)
     else
       flash.now[:error] = t(:client_updated_unsuccessfully)
-      render :action => 'edit'
+      render :edit
     end
   end
 

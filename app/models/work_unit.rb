@@ -12,6 +12,9 @@ class WorkUnit < ActiveRecord::Base
   after_validation :validate_client_status
   after_create :send_email!
 
+  def self.hours_types
+    ['Normal', 'Overtime', 'CTO', 'PTO']
+  end
 
   def self.scheduled_between(start_time, end_time)
     where('scheduled_at BETWEEN ? AND ?', start_time, end_time)

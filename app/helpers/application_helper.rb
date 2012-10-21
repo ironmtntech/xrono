@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def last_effective_date(start_date)
-    if start_date.end_of_week > Date.current 
+    if start_date.end_of_week > Date.current
       Date.current
     else
       start_date.end_of_week

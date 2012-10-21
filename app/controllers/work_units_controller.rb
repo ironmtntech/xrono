@@ -40,7 +40,7 @@ class WorkUnitsController < ApplicationController
       redirect_to ticket_path(@work_unit.ticket)
     else
       flash[:error] = "There was a problem creating the work unit."
-      render :template => 'work_units/new'
+      render 'work_units/new'
     end
   end
 

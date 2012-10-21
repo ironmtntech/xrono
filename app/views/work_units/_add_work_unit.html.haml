@@ -9,7 +9,7 @@
         Show hidden clients and projects
       .controls
         %input{:id => "checkbox", :type => "checkbox", :name => "checkbox", :value => true, :checked => false}
-        
+
     .control-group
       %label.control-label= "#{t(:scheduled_on)}:"
       .controls
@@ -58,7 +58,7 @@
     .control-group
       %label.control-label{:for => "hours_type"}= "#{t(:type)}:"
       .controls
-        = select_tag("hours_type", options_for_select(['Normal', 'Overtime', 'CTO', 'PTO']), :class => 'chzn-select')
+        = select_tag("hours_type", options_for_select(WorkUnit.hours_types), :class => 'chzn-select')
 
     .control-group
       %label.control-label{:for => "work_unit_hours"}= "#{t(:hours).capitalize}:"

@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
       redirect_to @project
     else
       flash.now[:error] = t(:project_created_unsuccessfully)
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
       redirect_to [@project]
     else
       flash.now[:error] = t(:project_updated_unsuccessfully)
-      render :action => 'edit'
+      render :edit
     end
   end
 
