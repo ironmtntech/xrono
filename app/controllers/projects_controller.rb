@@ -39,9 +39,9 @@ class ProjectsController < ApplicationController
   # PUT /projects/:id
   def update
     if params[:project]["completed"] == "1"
-      @project.update_attribute(:completed, true)
+      @project.update_attributes(completed: true)
     else
-      @project.update_attribute(:completed, false)
+      @project.update_attributes(completed: false)
     end
 
     @project.update_attributes(params[:project])

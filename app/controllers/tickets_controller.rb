@@ -37,11 +37,10 @@ class TicketsController < ApplicationController
 
   # PUT /tickets/:id
   def update
-
     if params[:ticket]["complete"] == "1"
-      @ticket.update_attribute(:completed, true)
+      @ticket.update_attributes(completed: true)
     else
-      @ticket.update_attribute(:completed, false)
+      @ticket.update_attributes(completed: false)
     end
 
     @ticket.update_attributes(params[:ticket])

@@ -19,7 +19,7 @@
           %pre= comment.comment
       .span2
         - if comment.user == current_user
-          = button_to "Delete", comment, :method => :delete, :confirm => "Are you sure?"
+          = button_to "Delete", comment, :method => :delete, :data => { :confirm => "Are you sure?" }
 
 - else
   .row-fluid
