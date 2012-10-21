@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2.2'
+gem 'rails', '~> 3.2.8'
 gem 'acl9', '~> 0.12.0'
 gem 'capistrano', '~> 2.8.0'
 gem 'devise', '~> 1.4.9'
