@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   acts_as_authorization_subject :association_name => :roles, :join_table_name => :roles_users
   acts_as_tagger
 
+  after_create :ensure_accounts
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name, :last_name, :middle_initial, :full_width,
@@ -144,4 +146,63 @@ class User < ActiveRecord::Base
     # Dividing by 0 is bad, mkay?
     total_hours == 0 ? 0 : ((100 * client_hours)/total_hours).round
   end
+
+  # PLUTUS ACCOUNTS
+
+  def per_diem_account
+    Plutus::Asset.find_by_name per_diem_account_name
+  end
+
+  def demerit_account
+    Plutus::Asset.find_by_name demerit_account_name
+  end
+  
+  def remote_day_account
+    Plutus::Asset.find_by_name remote_day_account_name
+  end
+
+  def pto_account
+    Plutus::Asset.find_by_name pto_account_name
+  end
+
+  def per_diem_account_name
+    "USER#{id} PER DIEM"
+  end
+
+  def demerit_account_name
+    "USER#{id} DEMERIT"
+  end
+
+  def remote_day_account_name
+    "USER#{id} REMOTE"
+  end
+
+  def pto_account_name
+    "USER#{id} PTO"
+  end
+
+  def per_diem_balance
+    per_diem_account.balance
+  end
+
+  def demerit_balance
+    demerit_account.balance
+  end
+
+  def remote_day_balance
+    remote_day_account.balance
+  end
+
+  def pto_balance
+    pto_account.balance
+  end 
+  private
+
+  def ensure_accounts
+    per_diem_account    || Plutus::Asset.create(name: per_diem_account_name)
+    demerit_account     || Plutus::Asset.create(name: demerit_account_name)
+    remote_day_account  || Plutus::Asset.create(name: remote_day_account_name)
+    pto_account         || Plutus::Asset.create(name: pto_account_name)
+  end 
+
 end

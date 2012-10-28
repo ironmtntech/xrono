@@ -177,6 +177,8 @@ GEM
     pickle (0.4.8)
       cucumber (>= 0.8)
       rake
+    plutus (0.7.2)
+      rails (~> 3.1)
     polyglot (0.3.3)
     progressbar (0.11.0)
     pry (0.9.10)
@@ -332,6 +334,7 @@ DEPENDENCIES
   paperclip (~> 2.3)
   pg
   pickle (= 0.4.8)
+  plutus
   pry-rails
   rails (~> 3.2.8)
   rails_best_practices
