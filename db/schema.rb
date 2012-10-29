@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121026162002) do
+ActiveRecord::Schema.define(:version => 20121029164549) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -66,6 +66,14 @@ ActiveRecord::Schema.define(:version => 20121026162002) do
   end
 
   add_index "data_vaults", ["data_vaultable_id", "data_vaultable_type"], :name => "dv_poly_vaultable"
+
+  create_table "demerits", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "description"
+    t.boolean  "resolved"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "file_attachments", :force => true do |t|
     t.integer  "client_id"

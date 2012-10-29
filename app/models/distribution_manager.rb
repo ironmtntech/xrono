@@ -1,8 +1,8 @@
 class DistributionManager
 
- def initialize options={}
-   @transaction_class = options[:transaction_class] || Plutus::Transaction
- end 
+  def initialize options={}
+    @transaction_class = options[:transaction_class] || Plutus::Transaction
+  end 
 
   # TODO: What do we call this account?
   def main_account_name
@@ -34,4 +34,11 @@ class DistributionManager
     transfer_credits "Issue Remote Day to User", main_account_name, user.remote_day_account_name, amount
   end
 
+  def issue_time_to_offset user, amount
+    transfer_credits "Issue Time to Offset", main_account_name, user.offset_account_name, amount
+  end
+
+  def deduct_time_from_offset user, amount
+    transfer_credits "Deduct Time From Offset", user.offset_account_name, main_account_name, amount
+  end
 end

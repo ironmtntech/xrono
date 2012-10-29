@@ -165,6 +165,10 @@ class User < ActiveRecord::Base
     Plutus::Asset.find_by_name pto_account_name
   end
 
+  def offset_account
+    Plutus::Asset.find_by_name offset_account_name
+  end
+
   def per_diem_account_name
     "USER#{id} PER DIEM"
   end
@@ -179,6 +183,10 @@ class User < ActiveRecord::Base
 
   def pto_account_name
     "USER#{id} PTO"
+  end
+
+  def offset_account_name
+    "USER#{id} OFFSET"
   end
 
   def per_diem_balance
@@ -196,13 +204,17 @@ class User < ActiveRecord::Base
   def pto_balance
     pto_account.balance
   end 
-  private
+
+  def offset_balance
+    offset_account.balance
+  end
 
   def ensure_accounts
     per_diem_account    || Plutus::Asset.create(name: per_diem_account_name)
     demerit_account     || Plutus::Asset.create(name: demerit_account_name)
     remote_day_account  || Plutus::Asset.create(name: remote_day_account_name)
     pto_account         || Plutus::Asset.create(name: pto_account_name)
+    offset_account      || Plutus::Asset.create(name: offset_account_name)
   end 
 
 end
