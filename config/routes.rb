@@ -66,7 +66,7 @@ AssetTrackerTutorial::Application.routes.draw do
     resources :work_units, only: [:show, :new, :edit, :update]
   end
 
-  resources :work_units, :only => [:show, :new, :edit, :update] do
+  resources :work_units, :only => [:show, :new, :edit, :update, :index] do
     collection do
       post :create_in_ticket
       post :create_in_dashboard
