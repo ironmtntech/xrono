@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!, :except => [:payload]
   protect_from_forgery
   layout 'application'
-  helper_method :redirect_to_ref_url, :admin?, :external_hours_for_chart, :client?
+  helper_method :redirect_to_ref_url, :admin?, :client?, :external_hours_for_chart
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
   def get_calendar_details
@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
 
   def access_denied
     flash[:notice] = 'Access denied.'
-    if current_user && current_user.client?
+    if client?
       redirect_to client_login_clients_path
     else
       redirect_to root_path
@@ -67,17 +67,22 @@ class ApplicationController < ActionController::Base
   end
 
   def initialize_site_settings
-    @site_settings = SiteSettings.first ? SiteSettings.first : SiteSettings.create(:total_yearly_pto_per_user => BigDecimal('40'), :overtime_multiplier => BigDecimal('1.5'))
+    @site_settings = SiteSettings.first || SiteSettings.create(site_settings_defaults)
   end
 
   def redirect_clients
     return if params[:controller] == "devise/sessions"
-    if current_user && current_user.client?
-      redirect_to client_login_clients_path unless current_user.admin?
+    if client?
+      redirect_to client_login_clients_path unless admin?
     end
   end
 
   def get_tag_list_for(array)
     array.join(",")
+  end
+
+  protected
+  def site_settings_defaults
+    { :total_yearly_pto_per_user => BigDecimal('40'), :overtime_multiplier => BigDecimal('1.5') }
   end
 end
