@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
   include RefurlHelper
+  protect_from_forgery
+  layout 'application'
+
   before_filter :initialize_site_settings
   before_filter :redirect_clients
   before_filter :authenticate_user!, :except => [:payload]
-  protect_from_forgery
-  layout 'application'
   helper_method :redirect_to_ref_url, :admin?, :client?, :external_hours_for_chart
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
@@ -16,25 +17,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def external_hours_for_chart(users, options = {})
-    users                 = Array(users)
-    date                  = options.fetch(:date, Time.zone.now)
-    start_date, end_date  = date.beginning_of_week.to_date, date.end_of_week.to_date
-
-    final_array = []
-    (start_date..end_date).each do |i_date|
-      _beg, _end = i_date.beginning_of_day, i_date.end_of_day
-      hours = WorkUnit.for_users(users).scheduled_between(_beg,_end).all
-      final_array << [i_date.strftime("%a"), sum_hours(:external?, hours).to_f, sum_hours(:internal?, hours).to_f]
-    end
-    final_array
-  end
-
   private
-  def sum_hours(method, hours)
-    hours.select{|wu| wu.send(method) }.sum(&:hours)
-  end
-
   def require_admin
     unless admin?
       flash[:error] = t(:you_must_be_an_admin_to_do_that)
