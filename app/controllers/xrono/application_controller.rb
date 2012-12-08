@@ -1,5 +1,7 @@
-class ApplicationController < ActionController::Base
+class Xrono::ApplicationController < ActionController::Base
   include RefurlHelper
+  helper Xrono.helpers
+
   before_filter :initialize_site_settings
   before_filter :redirect_clients
   before_filter :authenticate_user!, :except => [:payload]

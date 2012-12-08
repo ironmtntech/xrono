@@ -1,12 +1,10 @@
-require File.expand_path('../lib/xrono/version', __FILE__)
-
 Gem::Specification.new do |s|
   s.name = 'xrono'
   s.authors = ['Josh Adams', 'Adam Dill', 'Adam Gamble']
   s.summary = 'An asset and time tracking application for consultants and consulting companies.'
   s.description = 'Xrono is an asset and time tracking application for consultants and consulting companies.'
   s.files = `git ls-files`.split("\n")
-  s.version = ::Xrono.version
+  s.version = %q(1.0.0)
 
   s.add_dependency 'rails', '~> 3.2.8'
   s.add_dependency 'acl9', '~> 0.12.0'
@@ -16,7 +14,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'paperclip', '~> 2.3'
   s.add_dependency 'uuid', '~> 2.3.1'
   s.add_dependency 'jquery-rails', '~> 1.0.17'
-  s.add_dependency 'rake', '~> 0.9.2'
+  s.add_dependency 'rake', '~> 10.0'
   s.add_dependency 'state_machine', '~> 1.0.2'
   s.add_dependency 'googlecharts', '~> 1.6.8'
   s.add_dependency 'github_concern', '~> 0.1'

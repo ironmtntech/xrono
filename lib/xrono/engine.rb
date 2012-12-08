@@ -24,18 +24,17 @@ require 'sidekiq'
 require 'simple-navigation-bootstrap'
 require 'sass-rails'
 
-module ::Xrono
-  class Engine < Rails::Engine
-    class << self
-      attr_accessor :root
-      def root
-        @root ||= Pathname.new(File.expand_path('../../', __FILE__))
-      end
+class Xrono < Rails::Engine
+  class << self
+    attr_accessor :root
+    def root
+      @root ||= Pathname.new(File.expand_path('../../', __FILE__))
     end
+  end
 
-    config.to_prepare do
-      # add xrono helpers to main application
-      ::ApplicationController.send :helper, Xrono::Engine.helpers
-    end
+  config.to_prepare do
+    # add xrono helpers to main application
+    require File.join(Xrono.root.to_s, '..', 'app', 'controllers', 'xrono', 'application_controller')
+    ::ApplicationController.send :helper, Xrono.helpers
   end
 end

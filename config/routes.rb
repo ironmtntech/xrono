@@ -1,4 +1,4 @@
-AssetTrackerTutorial::Application.routes.draw do
+Rails.application.routes.draw do
   mount Doorkeeper::Engine => '/oauth'
 
   root :to => "dashboard/base#index"

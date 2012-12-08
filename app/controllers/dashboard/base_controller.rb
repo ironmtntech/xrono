@@ -1,4 +1,4 @@
-class Dashboard::BaseController < ApplicationController
+class Dashboard::BaseController < Xrono::ApplicationController
   include ActionView::Helpers::SanitizeHelper
   before_filter :get_calendar_details, :only => [:index, :calendar, :update_calendar]
   before_filter :load_work_units, :only => [:index, :calendar, :update_calendar]
