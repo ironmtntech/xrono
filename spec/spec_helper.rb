@@ -13,8 +13,13 @@ end
 # need to restart spork for it take effect.
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
+
+require 'xrono'
+require 'combustion'
+Combustion.initialize!
+
 require File.expand_path(File.dirname(__FILE__) + "/blueprints")
+
 require 'rspec/rails'
 require 'devise/test_helpers'
 

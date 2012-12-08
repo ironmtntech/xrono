@@ -1,4 +1,7 @@
-# This file is used by Rack-based servers to start the application.
+require 'rubygems'
+require 'bundler'
 
-require ::File.expand_path('../config/environment',  __FILE__)
-run AssetTrackerTutorial::Application
+Bundler.require :default, :development
+
+Combustion.initialize!
+run Combustion::Application
