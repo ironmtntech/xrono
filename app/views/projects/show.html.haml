@@ -7,7 +7,7 @@
   %br
   %br
 
-- if current_user.admin?
+- if admin?
   %ul
     %li= "Rate A: #{number_to_currency(@project.rate_a)}"
     %li= "Rate B: #{number_to_currency(@project.rate_b)}"
