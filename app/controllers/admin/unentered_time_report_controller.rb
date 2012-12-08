@@ -14,4 +14,13 @@ class Admin::UnenteredTimeReportController < ApplicationController
     @work_units = current_user.work_units_between(@start_date, @start_date + 6.days)
   end
 
+  protected
+  def build_week_hash_for(date, hash={})
+    until date.wday == 0 #Sunday
+      day = date.strftime("%A")
+      hash[day] = date
+      date = date.tomorrow
+    end
+    return hash
+  end
 end

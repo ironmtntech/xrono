@@ -16,15 +16,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def build_week_hash_for(date, hash={})
-    until date.wday == 0 #Sunday
-      day = date.strftime("%A")
-      hash[day] = date
-      date = date.tomorrow
-    end
-    return hash
-  end
-
   def external_hours_for_chart(users, options = {})
     users                 = Array(users)
     date                  = options.fetch(:date, Time.zone.now)
