@@ -1,5 +1,4 @@
-class Admin::WeeklyTimeReportController < ApplicationController
-
+class Admin::WeeklyTimeReportController < Admin::BaseController
   def index
     redirect_to('/admin/weekly_time_report/' + Date.current.beginning_of_week.strftime("%F"))
   end
@@ -9,5 +8,4 @@ class Admin::WeeklyTimeReportController < ApplicationController
     @users = User.sort_by_name.select{|u| u.has_role?(:developer) && !u.locked }
     @weekly_hours_sum = external_hours_for_chart(@users, :date => @start_date)
   end
-
 end

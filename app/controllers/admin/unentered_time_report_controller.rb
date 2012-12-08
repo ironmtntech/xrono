@@ -1,4 +1,4 @@
-class Admin::UnenteredTimeReportController < ApplicationController
+class Admin::UnenteredTimeReportController < Admin::BaseController
 
   def index
     redirect_to("/admin/unentered_time_report/#{Date.current.beginning_of_week.to_s}")
