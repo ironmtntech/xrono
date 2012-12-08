@@ -18,11 +18,11 @@ class WorkUnitsController < ApplicationController
       if @work_unit.save
         suspended = @work_unit.client.status == "Suspended"
         if suspended
-          render :json => "{\"success\": true, \"notice\": \"This client is suspended. Please contact an Administrator.\"}",
-          :layout => false,
-          :status => 200 and return
+          render :json   => {success: true, notice: "This client is suspended. Please contact an Administrator."},
+                 :layout => false,
+                 :status => 200 and return
         else
-          render :json => "{\"success\": true}", :layout => false, :status => 200 and return
+          render :json   => {success: true}, :layout => false, :status => 200 and return
         end
       else
         render :json => @work_unit.errors.full_messages.to_json, :layout => false, :status => 406 and return
