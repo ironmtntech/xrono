@@ -127,14 +127,6 @@ describe Client do
     end
   end
 
-  describe 'while being created' do
-    it 'should create a new client from the blueprint' do
-      lambda do
-        Client.make
-      end.should change(Client, :count).by(1)
-    end
-  end
-
   describe 'tickets' do
     it 'should return the tickets for the client' do
       client    = Client.make
@@ -171,7 +163,5 @@ describe Client do
       client.files_and_comments.should == [file_attachment, comment]
     end
   end
-
-
 end
 
