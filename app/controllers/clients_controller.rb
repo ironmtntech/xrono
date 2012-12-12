@@ -48,17 +48,14 @@ class ClientsController < ApplicationController
   public
   def index
     @clients = authorized_clients.active
-    get_recent_users_for_clients
   end
 
   def inactive_clients
     @clients = authorized_clients.inactive
-    get_recent_users_for_clients
   end
 
   def suspended_clients
     @clients = authorized_clients.suspended
-    get_recent_users_for_clients
   end
 
   def show
@@ -92,7 +89,6 @@ class ClientsController < ApplicationController
   end
 
   private
-
   def user_is_authorized
     @client.allows_access? current_user
   end
@@ -102,13 +98,6 @@ class ClientsController < ApplicationController
       Client.order("name")
     else
       Client.order("name").for_user(current_user)
-    end
-  end
-
-  def get_recent_users_for_clients
-    @recent_users_for_clients = {}
-    @clients.each do |client|
-      @recent_users_for_clients[client.id] = WorkUnit.for_client(client).scheduled_between(2.weeks.ago, Time.zone.now).select("distinct user_id").includes(:user).map(&:user)
     end
   end
 end

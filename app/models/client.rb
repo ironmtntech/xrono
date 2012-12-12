@@ -22,6 +22,24 @@ class Client < ActiveRecord::Base
    joins("INNER JOIN projects p ON p.client_id=clients.id").joins("INNER JOIN roles r ON r.authorizable_type='Project' AND r.authorizable_id=p.id").joins("INNER JOIN roles_users ru ON ru.role_id = r.id").where("ru.user_id = ?", user.id).select("distinct clients.*")
   }
 
+  class << self
+    def statuses
+      {
+        "10" => "Active",
+        "20" => "Suspended",
+        "30" => "Inactive",
+      }
+    end
+
+    def for(projects_or_tickets_or_work_units)
+      projects_or_tickets_or_work_units.collect{ |resource| resource.client }.uniq
+    end
+  end
+
+  def recent_users
+    work_units.scheduled_between(2.weeks.ago, Time.zone.now).select("distinct user_id").includes(:user).map(&:user)
+  end
+
   def tickets
     Ticket.for_client(self)
   end
@@ -71,26 +89,6 @@ class Client < ActiveRecord::Base
     ary << comments
     ary << file_attachments
     ary.flatten.sort_by {|x| x.created_at}
-  end
-
-  class << self
-    def statuses
-      {
-        "10" => "Active",
-        "20" => "Suspended",
-        "30" => "Inactive",
-      }
-    end
-
-    def for(projects_or_tickets_or_work_units)
-      projects_or_tickets_or_work_units.collect{ |resource| resource.client }.uniq
-    end
-
-=begin
-    def for_user(user)
-      select {|c| c.allows_access?(user) }
-    end
-=end
   end
 
   private

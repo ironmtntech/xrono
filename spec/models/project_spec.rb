@@ -65,14 +65,6 @@ describe Project do
     end
   end
 
-  describe 'while being created' do
-    it 'creates a new project from the blueprint' do
-      lambda do
-        Project.make
-      end.should change(Project, :count).by(1)
-    end
-  end
-
   describe "#allows_access?" do
     let(:project) { Project.make }
     let(:user_admin) {

@@ -63,7 +63,6 @@ class CommentsController < ApplicationController
     redirect_to(:back)
   end
 
-
   private
 
   def find_commentable

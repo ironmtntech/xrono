@@ -1,4 +1,4 @@
-class Admin::UnenteredTimeReportController < ApplicationController
+class Admin::UnenteredTimeReportController < Admin::BaseController
 
   def index
     redirect_to("/admin/unentered_time_report/#{Date.current.beginning_of_week.to_s}")
@@ -14,4 +14,13 @@ class Admin::UnenteredTimeReportController < ApplicationController
     @work_units = current_user.work_units_between(@start_date, @start_date + 6.days)
   end
 
+  protected
+  def build_week_hash_for(date, hash={})
+    until date.wday == 0 #Sunday
+      day = date.strftime("%A")
+      hash[day] = date
+      date = date.tomorrow
+    end
+    return hash
+  end
 end

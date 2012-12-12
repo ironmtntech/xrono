@@ -17,6 +17,7 @@ class Dashboard::BaseController < ApplicationController
     @projects = []
     @tickets = []
 
+    # NOTE: The following line is shameful
     @project_report_rows = WorkUnit.for_user(current_user).scheduled_between(Time.zone.now - 2.weeks, Time.zone.now.end_of_day).joins(:ticket => :project).select("projects.name as project_name, projects.id as project_id, SUM(work_units.effective_hours) as total_hours").group("projects.name, projects.id").sort_by{|r| r.total_hours}.reverse # Sort in ruby because I ran into sql problems - should be sorting like 5 rows max so no worries
   end
 
@@ -30,9 +31,6 @@ class Dashboard::BaseController < ApplicationController
 
   def project
     @tickets = Ticket.order("name").incomplete.where("project_id = ?", params[:id])
-    #unless admin?
-    #  @tickets = @tickets.for_user_and_role(current_user, :developer)
-    #end
     respond_with @tickets
   end
 
@@ -68,7 +66,6 @@ class Dashboard::BaseController < ApplicationController
   end
 
   private
-
   def decide_bucket
     case params["bucket"]
     when "Client"

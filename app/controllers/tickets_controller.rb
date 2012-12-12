@@ -10,16 +10,13 @@ class TicketsController < ApplicationController
 
   authorize_owners_with_client_show(:project)
 
-  # GET /tickets/new
   def new
   end
 
-  # POST /tickets
   def create
     create!(:ticket_path) # In ControllerMixins::Tickets module
   end
 
-  # GET /tickets/:id
   def show
     @work_units = WorkUnit.for_ticket(@ticket).sort_by_scheduled_at
     unless @ticket.estimated_hours
@@ -31,18 +28,10 @@ class TicketsController < ApplicationController
     end
   end
 
-  # GET /tickets/:id/edit
   def edit
   end
 
-  # PUT /tickets/:id
   def update
-    if params[:ticket]["complete"] == "1"
-      @ticket.update_attributes(completed: true)
-    else
-      @ticket.update_attributes(completed: false)
-    end
-
     @ticket.update_attributes(params[:ticket])
     generic_save_and_redirect(:ticket, :update)
   end

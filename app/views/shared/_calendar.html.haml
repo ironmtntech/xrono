@@ -43,7 +43,7 @@
     data.addColumn('string', 'Day');
     data.addColumn('number', 'External Hours');
     data.addColumn('number', 'Internal Hours');
-    data.addRows(#{external_hours_for_chart(user, :date => start_date)});
+    data.addRows(#{ChartData.external_hours_for_chart(user, :date => start_date)});
 
         // Set chart options
     var options = {'title':'Weekly Hours',
@@ -70,7 +70,7 @@
           data.addColumn('string', 'Day');
           data.addColumn('number', 'External Hours');
           data.addColumn('number', 'Internal Hours');
-          data.addRows(#{external_hours_for_chart(user, :date => start_date)});
+          data.addRows(#{ChartData.external_hours_for_chart(user, :date => start_date)});
 
               // Set chart options
           var options = {'title':'Weekly Hours',
