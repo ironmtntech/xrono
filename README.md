@@ -1,6 +1,6 @@
 
 ## Xrono
-[![Travis CI Build Status](http://travis-ci.org/isotope11/xrono.png)](http://travis-ci.org/isotope11/xrono)
+[![Build Status](https://travis-ci.org/isotope11/xrono.png?branch=master)](https://travis-ci.org/isotope11/xrono)
 
 Xrono is a mature, open source, time tracking solution for your business.
 Developed by Isotope11, Xrono is intended to be a core technology for smooth
