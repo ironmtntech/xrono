@@ -1,6 +1,9 @@
 require 'rails'
 require 'devise'
 require 'acl9'
+require 'acl9/model_extensions'
+require 'acl9/controller_extensions'
+require 'acl9/helpers'
 require 'gravtastic'
 require 'haml'
 require 'paperclip'
@@ -37,4 +40,6 @@ class Xrono < Rails::Engine
     require File.join(Xrono.root.to_s, '..', 'app', 'controllers', 'xrono', 'application_controller')
     ::ApplicationController.send :helper, Xrono.helpers
   end
+  ActiveRecord::Base.send(:include, Acl9::ModelExtensions)
+  ActionController::Base.send(:include, Acl9::ControllerExtensions)
 end
