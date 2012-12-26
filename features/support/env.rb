@@ -1,4 +1,3 @@
-require 'pry'
 # Simplecov Setup
 if RUBY_VERSION >= '1.9.2'
   require 'simplecov'
@@ -17,7 +16,7 @@ end
 ENV["RAILS_ENV"] ||= 'test'
 
 require 'bundler'
-Bundler.require :default, :development
+Bundler.require :default, :development, :assets
 $:.push(File.expand_path('../../../lib', __FILE__))
 require 'xrono'
 require 'combustion'
@@ -73,3 +72,9 @@ Capybara.default_selector = :css
 #
 #ActionController::Base.allow_rescue = false
 Capybara.app = Rails.application
+Before("@javascript") do
+  Capybara.current_driver = :selenium
+end
+After("@javascript") do
+  Capybara.current_driver = Capybara.default_driver
+end
