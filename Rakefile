@@ -7,8 +7,7 @@ require 'rake'
 
 require 'rubygems'
 require 'bundler/setup'
-Bundler.require :default, :development, :assets
-Combustion.initialize!
+Bundler.require :default, :development
 Combustion::Application.load_tasks
 begin
   require 'ci/reporter/rake/rspec'     # use this if you're using RSpec
