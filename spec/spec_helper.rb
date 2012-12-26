@@ -10,11 +10,6 @@ end
 
 ENV["RAILS_ENV"] ||= 'test'
 
-require 'rubygems'
-require 'bundler'
-
-Bundler.require :default, :development
-
 require 'xrono'
 require 'combustion'
 Combustion.initialize!
