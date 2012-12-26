@@ -1,13 +1,13 @@
 production:
-  adapter: postgresql
+  adapter: mysql2
   database: xrono_production
 
 development:
-  adapter: postgresql
+  adapter: mysql2
   database: xrono_development
 
 test: &test
-  adapter: postgresql
+  adapter: mysql2
   database: xrono_test
 
 cucumber:
