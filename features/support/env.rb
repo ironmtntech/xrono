@@ -1,3 +1,4 @@
+require 'pry'
 # Simplecov Setup
 if RUBY_VERSION >= '1.9.2'
   require 'simplecov'
@@ -13,9 +14,42 @@ end
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-require 'cucumber/rails'
+ENV["RAILS_ENV"] ||= 'test'
+
+require 'bundler'
+Bundler.require :default, :development
+$:.push(File.expand_path('../../../lib', __FILE__))
+require 'xrono'
+require 'combustion'
+Combustion.initialize!
+
+require 'cucumber'
+require 'capybara'
+require 'capybara/dsl'
+require 'capybara/rspec/matchers'
 require 'sidekiq/testing/inline'
 
+World(Capybara::RSpecMatchers)
+World(Capybara::DSL)
+module RouteProxy
+  # didn't find a cleaner way to get route helpers into my steps
+  def method_missing(sym, *args)
+    if route_helpers.respond_to?(sym)
+      route_helpers.send(sym, *args)
+    else
+      super
+    end
+  end
+
+  def route_helpers
+    Rails.application.routes.url_helpers
+  end
+end
+
+World(RouteProxy)
+Before do
+    Rails.application.routes.default_url_options[:host] = 'test.host'
+end
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
@@ -37,24 +71,5 @@ Capybara.default_selector = :css
 # 2) Set the value below to true. Beware that doing this globally is not
 # recommended as it will mask a lot of errors for you!
 #
-ActionController::Base.allow_rescue = false
-
-# Remove/comment out the lines below if your app doesn't have a database.
-# For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
-begin
-  DatabaseCleaner.strategy = :transaction
-rescue NameError
-  raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
-end
-
-# You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.
-# See the DatabaseCleaner documentation for details. Example:
-#
-#   Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
-#     DatabaseCleaner.strategy = :truncation, {:except => %w[widgets]}
-#   end
-#
-#   Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
-#     DatabaseCleaner.strategy = :transaction
-#   end
-#
+#ActionController::Base.allow_rescue = false
+Capybara.app = Rails.application

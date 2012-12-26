@@ -35,7 +35,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'capistrano', '~> 2.8.0'
   s.add_development_dependency 'capybara', '~> 1.1.1'
   s.add_development_dependency 'cucumber', '~> 1.1.4'
-  s.add_development_dependency 'cucumber-rails', '~> 1.2.1'
   s.add_development_dependency 'database_cleaner', '~> 0.7.1'
   s.add_development_dependency 'faker', '~> 0.9.5'
   s.add_development_dependency 'forgery', '= 0.3.10'
