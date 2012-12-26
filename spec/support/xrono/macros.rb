@@ -1,4 +1,4 @@
-module Xrono
+module XronoTestHelper
   module Macros
     def authenticate_user!
       before(:each) do
@@ -11,5 +11,5 @@ module Xrono
 end
 
 RSpec.configure do |config|
-  config.extend Xrono::Macros, :type => :controller
+  config.extend XronoTestHelper::Macros, :type => :controller
 end
