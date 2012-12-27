@@ -47,5 +47,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'spork', '0.9.0.rc9'
   s.add_development_dependency 'ci_reporter'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'pry-rails'
 end
