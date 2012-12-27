@@ -12,8 +12,6 @@ group :assets do
 end
 
 group :development do
-  gem 'awesome_print', '~> 0.4.0', :require => 'ap'
-  gem 'rails_best_practices'
   # Use combustion for testing the engine
   gem 'combustion', '~> 0.3.1'
 end
