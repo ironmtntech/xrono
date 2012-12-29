@@ -15,7 +15,7 @@
       = f.label :name, :class => 'control-label'
       .controls
         = f.text_field :name
-    - if current_user.admin?
+    - if admin?
       .control-group
         = f.label :rate_a, :class => 'control-label'
         .controls

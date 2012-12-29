@@ -1,5 +1,4 @@
 class DataVaultsController < ApplicationController
-
   def show
     @data_vault = DataVault.find(params[:id])
     render :text => @data_vault.data

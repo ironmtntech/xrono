@@ -7,7 +7,7 @@
   %br
   %br
 
-- if current_user.admin?
+- if admin?
   %ul
     %li= "Rate A: #{number_to_currency(@project.rate_a)}"
     %li= "Rate B: #{number_to_currency(@project.rate_b)}"
@@ -21,7 +21,7 @@
   %li= link_to "Complete Tickets", "#complete_tickets"
   %li= link_to "Data Vault", "#data_vault"
   %li= link_to "Work Units", "#work_unit_index"
-  %li= link_to "Comments and Files", "#comments"
+  %li= link_to "Comments and Files", "#comments" unless client?
 
 .tab-content
   -if !@project.xrono_notes.nil?
@@ -44,8 +44,8 @@
     = render "shared/data_vault", :data_vault => @project.data_vault
   #work_unit_index.tab-pane
     = render "shared/work_unit_index", :work_units => @work_units, show_ticket: true
-  #comments.tab-pane
-    - unless current_user.client
+  - unless client?
+    #comments.tab-pane
       = render "shared/files_and_comments", :items => @project.files_and_comments.reverse, :id => 'project'
 
   - content_for :javascripts do

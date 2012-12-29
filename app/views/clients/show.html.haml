@@ -11,7 +11,7 @@
   %li= link_to "Completed Projects", "#completed_projects"
   %li= link_to "Data Vault", "#data_vault"
   %li= link_to "Work Units", "#work_unit_index"
-  %li= link_to "Comments and Files", "#comments"
+  %li= link_to "Comments and Files", "#comments" unless client?
 
 .tab-content
   #incompleted_projects.tab-pane.active
@@ -22,8 +22,8 @@
     = render "shared/data_vault", :data_vault => @client.data_vault
   #work_unit_index.tab-pane
     = render "shared/work_unit_index", :work_units => @work_units, show_ticket: true, show_project:true
-  #comments.tab-pane
-    - unless current_user.client
+  - unless client?
+    #comments.tab-pane
       = render "shared/files_and_comments", :items => @client.files_and_comments.reverse, :id => 'client'
 
 - content_for :javascripts do
