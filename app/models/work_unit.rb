@@ -13,8 +13,6 @@ class WorkUnit < ActiveRecord::Base
   after_validation :validate_client_status
   after_create :send_email!
 
-  attr_accessible :description, :scheduled_at, :ticket_id, :hours
-
   def validate_client_status
     if client && client.status == "Inactive"
       self.errors.add(:base, "Cannot create work units on inactive clients.")
