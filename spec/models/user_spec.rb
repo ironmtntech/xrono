@@ -169,13 +169,13 @@ describe User do
 
     before do
       site_settings.update_attributes(:total_yearly_pto_per_user => 40)
-      work_unit1.update_attributes(:hours => 2, :hours_type => 'PTO', :scheduled_at => Date.today)
-      work_unit2.update_attributes(:hours => 3, :hours_type => 'PTO', :scheduled_at => 1.days.from_now)
+      work_unit1.update_attributes(:hours => 2, :hours_type => 'PTO', :scheduled_at => Date.today.beginning_of_year + 1.day)
+      work_unit2.update_attributes(:hours => 3, :hours_type => 'PTO', :scheduled_at => Date.today.beginning_of_year + 2.days)
       work_unit3.update_attributes(:hours => 5, :hours_type => 'PTO', :scheduled_at => '2010-12-31')
     end
 
     it 'returns the number of PTO hours left for the given year as of the passed date' do
-      should == 35
+      should == BigDecimal("35")
     end
   end
 
