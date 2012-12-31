@@ -2,21 +2,21 @@ class DistributionManager
 
   def initialize options={}
     @transaction_class = options[:transaction_class] || Plutus::Transaction
-  end 
+  end
 
   # TODO: What do we call this account?
   def main_account_name
     'MAIN_ACCOUNT'
-  end 
+  end
 
   def transfer_credits description, from_account, to_account, amount
     transaction = @transaction_class.build({
       description: description,
-      debits:      [{ account: to_account, amount: amount }], 
+      debits:      [{ account: to_account, amount: amount }],
       credits:     [{ account: from_account,   amount: amount }]
-    })  
+    })
     transaction.save
-  end 
+  end
 
   def issue_per_diem_to_user user, amount
     transfer_credits "Issue Per Diem to User", main_account_name, user.per_diem_account_name, amount
