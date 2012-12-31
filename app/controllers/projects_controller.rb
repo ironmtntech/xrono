@@ -8,11 +8,9 @@ class ProjectsController < ApplicationController
 
   authorize_owners_with_client_show(:project)
 
-  # GET /projects/new
   def new
   end
 
-  # POST /projects
   def create
     if @project.save
       flash[:notice] = t(:project_created_successfully)
@@ -23,7 +21,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/:id
   def show
     @bucket = Ticket.for_project(@project).sort_by_name
 
@@ -32,22 +29,13 @@ class ProjectsController < ApplicationController
     @work_units = WorkUnit.for_project(@project).order("work_units.created_at DESC")
   end
 
-  # GET /projects/:id/edit
   def edit
   end
 
-  # PUT /projects/:id
   def update
-    if params[:project]["completed"] == "1"
-      @project.update_attributes(completed: true)
-    else
-      @project.update_attributes(completed: false)
-    end
-
-    @project.update_attributes(params[:project])
-    if @project.save
+    if @project.update_attributes(params[:project])
       flash[:notice] = t(:project_updated_successfully)
-      redirect_to [@project]
+      redirect_to @project
     else
       flash.now[:error] = t(:project_updated_unsuccessfully)
       render :edit
@@ -55,22 +43,20 @@ class ProjectsController < ApplicationController
   end
 
   private
+  def load_new_project
+    @project = Project.new(params[:project])
+    @project.client = Client.find(params[:client])
+  end
 
-    def load_new_project
-      @project = Project.new(params[:project])
-      @project.client = Client.find(params[:client])
-    end
+  def load_project
+    @project = Project.find(params[:id])
+  end
 
-    def load_project
-      @project = Project.find(params[:id])
-    end
+  def load_file_attachments
+    @file_attachments = @project.file_attachments
+  end
 
-    def load_file_attachments
-      @file_attachments = @project.file_attachments
-    end
-
-    def handle_tags
-      params[:project]['tag_list'] = get_tag_list_for(params[:tags]) if params[:tags]
-    end
-
+  def handle_tags
+    params[:project]['tag_list'] = get_tag_list_for(params[:tags]) if params[:tags]
+  end
 end

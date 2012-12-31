@@ -11,7 +11,6 @@ class ContactsController < ApplicationController
     allow :client, :to => [:new, :create, :edit, :update, :destroy, :show, :index], :if => :current_user_has_client
   end
 
-
   protected
   def load_client
     @client = Client.find(params[:client_id])
@@ -20,7 +19,6 @@ class ContactsController < ApplicationController
   def load_contact
     @contact = Contact.find(params[:id])
   end
-
 
   public
   def index
@@ -49,9 +47,8 @@ class ContactsController < ApplicationController
     destroy!(:client_contacts_path)
   end
 
-private
+  private
   def current_user_has_client
     Client.for_user(current_user).include?(@client)
   end
-
 end

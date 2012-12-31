@@ -5,8 +5,6 @@ class Ticket < ActiveRecord::Base
   has_many :work_units
   has_many :file_attachments
 
-  #github_concern :class_method => :for_repo_and_branch
-
   validates_presence_of :project_id
   validates_presence_of :name
 
@@ -34,7 +32,6 @@ class Ticket < ActiveRecord::Base
   scope :for_repo_url_and_branch, lambda{|repo,branch|
     joins("INNER JOIN projects p ON p.id=tickets.project_id").where("p.git_repo_url = '#{repo}' and tickets.git_branch = '#{branch}'")
   }
-
 
   def client
     project.client
@@ -81,7 +78,7 @@ class Ticket < ActiveRecord::Base
   def allows_access?(user)
     project.accepts_roles_by?(user) || user.admin?
   end
-#### Comment out to look at bug in ticket show page
+
   def files_and_comments
     [comments, file_attachments].flatten.sort_by {|x| x.created_at}
   end
