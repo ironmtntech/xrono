@@ -38,8 +38,6 @@ describe BalanceTransfer do
       @balance_transfer.should_receive(:award_per_diem).with(@user_1).once
       @balance_transfer.should_receive(:add_time_to_offset).with(@user_1).once
       @balance_transfer.should_not_receive(:issue_demerit)
-      @balance_transfer.check_daily_time(@user_1)
-    end
 
     it "should add a demerit if the dates hours were less than 8" do
       @user_1.should_receive(:hours_entered_for_day).with(@balance_transfer.date).and_return(7.9)
@@ -47,6 +45,12 @@ describe BalanceTransfer do
       @balance_transfer.should_receive(:add_time_to_offset).with(@user_1).once
       @balance_transfer.should_receive(:issue_demerit).with(@user_1).once
       @balance_transfer.check_daily_time(@user_1)
+    end
+  end
+
+  describe "ten_day_assesment" do
+    it "should award a remote work day if you've worked more than 70 external hours in the last 10 days" do
+      #@balance_transfer.ten_day_assesment(@user_1)
     end
   end
 end
