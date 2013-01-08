@@ -34,6 +34,10 @@
       .controls
         = f.text_field(:daily_target_hours)
     .control-group
+      = f.label :start_date, :class => 'control-label'
+      .controls
+        = f.text_field :start_date, :id => "datepicker"
+    .control-group
       = f.label :locked, :class => 'control-label'
       .controls
         = f.check_box :locked
@@ -46,3 +50,4 @@
       = f.submit :class => 'add_new_button btn primary'
 
       = link_to t(:cancel), admin_users_path, :class => 'cancel_button btn'
+

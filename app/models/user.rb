@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name, :last_name, :middle_initial, :full_width,
-                  :daily_target_hours, :expanded_calendar, :client
+                  :daily_target_hours, :expanded_calendar, :client, :start_date
 
   validates_presence_of :first_name, :last_name
   validates_length_of :middle_initial, :is => 1
@@ -100,7 +100,8 @@ class User < ActiveRecord::Base
     # no expected hours if the user has never worked
     return 0 unless work_units.present?
     # set the user's first day by the first work unit
-    first_day = work_units.first.scheduled_at.to_date
+    # first_day = work_units.first.scheduled_at.to_date
+    first_day = start_date.to_date
     # no expected hours if their first day is in the future
     return 0 if first_day > date
     if first_day.year == date.year

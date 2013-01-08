@@ -36,12 +36,14 @@ unless Rails.env.production?
 
   # Users #
 
+  dev            = User.make :email => 'sexy@xrono.org'
+
   admin_user     = User.make :email => 'admin@xrono.org'
   developer_user = User.make :email => 'dev@xrono.org'
   locked_user    = User.make :email => 'locked@xrono.org'
   client_user    = User.make :email => 'client@xrono.org'
 
-  developers = [ admin_user, developer_user ]
+  developers = [ admin_user, developer_user, dev ]
   8.times { developers.push User.make }
 
   # Roles #
@@ -64,6 +66,7 @@ unless Rails.env.production?
   four_weeks_ago = two_weeks_ago.advance(weeks: -2)
 
   (four_weeks_ago..friday).each do |date|
+    developers.delete(dev)
     developers.each do |user|
       tickets = Ticket.for_user user
 
