@@ -102,8 +102,11 @@ class User < ActiveRecord::Base
     # no expected hours if the user has never worked
     return 0 unless work_units.present?
     # set the user's first day by the first work unit
-    # first_day = work_units.first.scheduled_at.to_date
-    first_day = start_date.to_date
+    if start_date
+      first_day = start_date.to_date
+    else
+      first_day = work_units.first.scheduled_at.to_date
+    end
     # no expected hours if their first day is in the future
     return 0 if first_day > date
     if first_day.year == date.year
@@ -224,16 +227,16 @@ class User < ActiveRecord::Base
     offset_account      || Plutus::Asset.create(name: offset_account_name)
   end
 
-  def text!
+  def notify!
     account_sid = ENV["TWILIO_SID"]
     auth_token = ENV["TWILIO_AUTH_TOKEN"]
     client = Twilio::REST::Client.new(account_sid, auth_token)
     account = client.account
     message = account.sms.messages.create({:from => '+12054534942', :to => phone, :body => "Enter your time!"})
-    return "Message Sent"
+    return "Text Message Sent"
   rescue
     EnterTimeNotifierWorker.perform_async(self.id)
-    return "There is no phone number for this user"
+    return "Email Sent"
   end
 
 end

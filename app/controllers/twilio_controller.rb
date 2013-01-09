@@ -4,7 +4,7 @@ class TwilioController < ApplicationController
   def send_text
     @user = User.find(params[:id])
     if @user.phone
-      @user.text!
+      @user.notify!
       flash[:notice] = "Your message has been sent"
     else
       flash[:alert] = "You do not have a phone number listed"

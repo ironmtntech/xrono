@@ -24,6 +24,7 @@ gem 'doorkeeper', '~> 0.4.2'
 gem 'oauth2'
 gem 'sidekiq', '2.0.3'
 gem 'plutus'
+gem 'whenever', :require => false
 
 gem 'simple-navigation-bootstrap'
 gem 'sass-rails',   '~> 3.2.0'
