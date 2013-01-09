@@ -30,3 +30,7 @@ end
 every 1.day, :at => '11:00 pm' do
   runner "TimeChecker.new"
 end
+
+every 1.day, :at => '1:00 am' do
+  runner "BalanceTransfer.new.run!"
+end
