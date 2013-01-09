@@ -17,3 +17,4 @@ tags
 node_modules
 .sass-cache/*
 spec/reports
+*.gem
