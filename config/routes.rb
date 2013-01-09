@@ -8,6 +8,8 @@ AssetTrackerTutorial::Application.routes.draw do
   post "/data_vaults/:id", :to => "data_vaults#update"
   resources :data_vaults, :only => [:show]
 
+  match "text_user" => "twilio#send_text"
+
   namespace :admin do
     resources :invoices, only: [:show, :update, :index]
     resources :payroll

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  require 'twilio-ruby'
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :lockable, :token_authenticatable
@@ -15,7 +16,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name, :last_name, :middle_initial, :full_width,
-                  :daily_target_hours, :expanded_calendar, :client, :start_date
+                  :daily_target_hours, :expanded_calendar, :client, :start_date, :phone
 
   validates_presence_of :first_name, :last_name
   validates_length_of :middle_initial, :is => 1
@@ -217,5 +218,17 @@ class User < ActiveRecord::Base
     pto_account         || Plutus::Asset.create(name: pto_account_name)
     offset_account      || Plutus::Asset.create(name: offset_account_name)
   end 
+
+  def text
+    number = phone
+    account_sid = ENV["TWILIO_SID"]
+    auth_token = ENV["TWILIO_AUTH_TOKEN"]
+    client = Twilio::REST::Client.new(account_sid, auth_token)
+    account = client.account
+    message = account.sms.messages.create({:from => '+12054534942', :to => number, :body => "Enter your time!"})
+    return "Message Sent"
+  rescue
+    return "There is no phone number for this user"
+  end
 
 end
