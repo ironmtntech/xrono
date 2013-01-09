@@ -15,4 +15,10 @@ class Notifier < ActionMailer::Base
     @work_unit = WorkUnit.find work_unit_id
     mail(:bcc => addresses, :subject => "[Xrono] Work Unit: #{@work_unit.guid}") {|f| f.text}
   end
+
+  def enter_time_notification(user_id)
+    user = User.find(user_id)
+    mail(:to => user.email, :subject => "[Xrono] You have not yet entered time for today, please do it now.")
+  end
+
 end

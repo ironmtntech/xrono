@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
-  require 'twilio-ruby'
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :lockable, :token_authenticatable
+
+  require 'twilio-ruby'
 
   include Gravtastic
   gravtastic
@@ -205,10 +206,14 @@ class User < ActiveRecord::Base
 
   def pto_balance
     pto_account.balance
-  end 
+  end
 
   def offset_balance
     offset_account.balance
+  end
+
+  def external_hours
+#    return 50
   end
 
   def ensure_accounts
@@ -217,17 +222,17 @@ class User < ActiveRecord::Base
     remote_day_account  || Plutus::Asset.create(name: remote_day_account_name)
     pto_account         || Plutus::Asset.create(name: pto_account_name)
     offset_account      || Plutus::Asset.create(name: offset_account_name)
-  end 
+  end
 
-  def text
-    number = phone
+  def text!
     account_sid = ENV["TWILIO_SID"]
     auth_token = ENV["TWILIO_AUTH_TOKEN"]
     client = Twilio::REST::Client.new(account_sid, auth_token)
     account = client.account
-    message = account.sms.messages.create({:from => '+12054534942', :to => number, :body => "Enter your time!"})
+    message = account.sms.messages.create({:from => '+12054534942', :to => phone, :body => "Enter your time!"})
     return "Message Sent"
   rescue
+    EnterTimeNotifierWorker.perform_async(self.id)
     return "There is no phone number for this user"
   end
 

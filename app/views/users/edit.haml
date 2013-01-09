@@ -24,6 +24,11 @@
           .controls
             = u.check_box(:expanded_calendar)
         .control-group
+          = u.label :phone, t(:phone), :class => 'control-label'
+          .controls
+            = u.text_field(:phone)
+            = link_to "Send me a test reminder!", text_user_path(id: current_user.id) if current_user.phone.present?
+        .control-group
           = u.label :daily_target_hours, t(:daily_target_hours) , :class => 'control-label'
           .controls
             = u.text_field(:daily_target_hours)
