@@ -6,6 +6,7 @@ class BalanceTransfer
     @distribution_manager   = options.fetch(:distribution_manager) { DistributionManager.new }
     @users                  = options.fetch(:users) { User.all }
     @date                   = options.fetch(:date) { 1.day.ago }
+    Plutus::Account.find_by_name('MAIN_ACCOUNT')  || Plutus::Asset.create(name: 'MAIN_ACCOUNT')
   end
 
   def run!
@@ -34,24 +35,9 @@ class BalanceTransfer
     # sliding window of 10 days:
     # if 70+ external hours are billed: +1 Remote work day (RWD)
     window = (@date - 10.days)
-    if user.external_hours > 70
+    if user.external_hours(10) > 70
       award_remote_day(user)
     end
-  end
-
-  def sum_hours(method, hours)
-    hours.select{|wu| wu.send(method) }.sum(&:hours)
-  end
-
-  def external_hours_for_user(user, options = {})
-    end_date, start_date  = Date.today, (Date.today - 10.days)
-    final_array = []
-    (start_date..end_date).each do |i_date|
-      _beg, _end = i_date.beginning_of_day, i_date.end_of_day
-      hours = WorkUnit.for_user(user).scheduled_between(_beg,_end).all
-      final_array << [sum_hours(:external?, hours).to_f]
-    end
-    final_array.flatten.sum
   end
 
   def award_per_diem(user)

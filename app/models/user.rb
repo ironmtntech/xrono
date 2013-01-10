@@ -215,10 +215,6 @@ class User < ActiveRecord::Base
     offset_account.balance
   end
 
-  def external_hours
-#    return 50
-  end
-
   def ensure_accounts
     per_diem_account    || Plutus::Asset.create(name: per_diem_account_name)
     demerit_account     || Plutus::Asset.create(name: demerit_account_name)
@@ -237,6 +233,21 @@ class User < ActiveRecord::Base
   rescue
     EnterTimeNotifierWorker.perform_async(self.id)
     return "Email Sent"
+  end
+
+  def external_hours(number_of_days)
+    end_date, start_date  = Date.today, (Date.today - number_of_days.days)
+    final_array = []
+    (start_date..end_date).each do |i_date|
+      _beg, _end = i_date.beginning_of_day, i_date.end_of_day
+      hours = WorkUnit.for_user(self).scheduled_between(_beg,_end).all
+      final_array << [sum_hours(:external?, hours).to_f]
+    end
+    final_array.flatten.sum
+  end
+
+  def sum_hours(method, hours)
+    hours.select{|wu| wu.send(method) }.sum(&:hours)
   end
 
 end
