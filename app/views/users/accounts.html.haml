@@ -1,4 +1,12 @@
-%h3 What up what up?
+%h2 My Accounts
 
-- @user.accounts.each do |acct|
-  = acct.name
+%table.table.table-bordered.table-striped
+  %tr
+    %th Account Name
+    %th Last Issued
+    %th Balance
+  - @user.accounts.each do |acct|
+    %tr
+      %td= acct.name.gsub(/USER\d* /, "").capitalize
+      %td= acct.last_transaction
+      %td= acct.balance

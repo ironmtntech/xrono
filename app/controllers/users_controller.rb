@@ -47,7 +47,6 @@ class UsersController < ApplicationController
   end
 
   def accounts
-    binding.pry
   end
 
   private

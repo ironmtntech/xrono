@@ -56,6 +56,25 @@ module Plutus
       end
     end
 
+    def transactions
+      transactions = []
+      debit_transactions.each do |t|
+        transactions.push(t)
+      end
+      credit_transactions.each do |t|
+        transactions.push(t)
+      end
+      transactions
+    rescue
+      "n/a"
+    end
+
+    def last_transaction
+      transactions.collect{|s| s.created_at}.max.to_date.strftime("%d/%m/%Y")
+    rescue
+      "n/a"
+    end
+
   end
 end
 
