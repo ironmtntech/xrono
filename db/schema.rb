@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130108222222) do
+ActiveRecord::Schema.define(:version => 20130110201251) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20130108222222) do
     t.boolean  "contra"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   add_index "plutus_accounts", ["name", "type"], :name => "index_plutus_accounts_on_name_and_type"

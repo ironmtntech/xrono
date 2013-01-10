@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :load_user, :only => [:show, :edit, :change_password, :historical_time, :update]
+  before_filter :load_user, :only => [:show, :edit, :change_password, :historical_time, :update, :accounts]
   skip_before_filter :redirect_clients
 
   access_control do
@@ -44,6 +44,10 @@ class UsersController < ApplicationController
       flash.now[:error] = t(:user_updated_unsuccessfully)
       render :action => 'edit'
     end
+  end
+
+  def accounts
+    binding.pry
   end
 
   private

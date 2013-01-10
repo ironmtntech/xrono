@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     joins("INNER JOIN roles r ON r.authorizable_type='Project' AND r.authorizable_id=#{project.id}").joins("INNER JOIN roles_users ru ON ru.role_id = r.id").joins("INNER JOIN users u ON ru.user_id = u.id").where("ru.user_id = users.id")
   }
 
+  def accounts
+    Plutus::Account.where("user_id = ?", id)
+  end
+
   # Return the initials of the User
   def initials
     "#{first_name[0,1]}#{middle_initial}#{last_name[0,1]}".upcase
@@ -162,7 +166,7 @@ class User < ActiveRecord::Base
   def demerit_account
     Plutus::Asset.find_by_name demerit_account_name
   end
-  
+
   def remote_day_account
     Plutus::Asset.find_by_name remote_day_account_name
   end
@@ -216,11 +220,11 @@ class User < ActiveRecord::Base
   end
 
   def ensure_accounts
-    per_diem_account    || Plutus::Asset.create(name: per_diem_account_name)
-    demerit_account     || Plutus::Asset.create(name: demerit_account_name)
-    remote_day_account  || Plutus::Asset.create(name: remote_day_account_name)
-    pto_account         || Plutus::Asset.create(name: pto_account_name)
-    offset_account      || Plutus::Asset.create(name: offset_account_name)
+    per_diem_account    || Plutus::Asset.create(name: per_diem_account_name, user_id: id)
+    demerit_account     || Plutus::Asset.create(name: demerit_account_name, user_id: id)
+    remote_day_account  || Plutus::Asset.create(name: remote_day_account_name, user_id: id)
+    pto_account         || Plutus::Asset.create(name: pto_account_name, user_id: id)
+    offset_account      || Plutus::Asset.create(name: offset_account_name, user_id: id)
   end
 
   def notify!
