@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110201251) do
+ActiveRecord::Schema.define(:version => 20130111165057) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -298,6 +298,7 @@ ActiveRecord::Schema.define(:version => 20130110201251) do
     t.string   "authentication_token"
     t.date     "start_date"
     t.string   "phone"
+    t.boolean  "remote_day_available"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

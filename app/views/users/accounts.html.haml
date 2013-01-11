@@ -2,11 +2,35 @@
 
 %table.table.table-bordered.table-striped
   %tr
-    %th Account Name
-    %th Last Issued
-    %th Balance
+    %th
+      %h3 Account Name
+    %th
+      %h3 Last Issued
+    %th
+      %h3 Balance
   - @user.accounts.each do |acct|
-    %tr
-      %td= acct.name.gsub(/USER\d* /, "").capitalize
-      %td= acct.last_transaction
-      %td= acct.balance
+    %tr{:id => "acct_#{acct.id}"}
+      %td
+        %h5= acct.name.gsub(/USER\d* /, "").capitalize
+      %td
+        %h5= acct.last_transaction
+      %td
+        %h5= acct.balance
+    - acct.transactions.each do |transaction|
+      %tr{:class => "trans_#{acct.id}"}
+        %td
+          .indent= transaction.description
+        %td
+          .indent= transaction.description
+        %td
+          .indent= transaction.description
+
+    - content_for :javascripts do
+      :javascript
+        $(document).ready(function(){
+          $(".trans_#{acct.id}").hide();
+          $("#acct_#{acct.id}").click(function() {
+            $(".trans_#{acct.id}").slideToggle();
+          });
+        });
+

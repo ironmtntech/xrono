@@ -136,6 +136,10 @@ class User < ActiveRecord::Base
     worked_hours - expected_hours(date)
   end
 
+  def current_offset
+    target_hours_offset(Date.current)
+  end
+
   def entered_time_yesterday?
     return true if !developer? || admin?
     previous_work_days_work_units.any?
@@ -252,6 +256,15 @@ class User < ActiveRecord::Base
 
   def sum_hours(method, hours)
     hours.select{|wu| wu.send(method) }.sum(&:hours)
+  end
+
+  def redeem_remote_work_day!
+    if remote_day_available?
+      @distribution_manager = DistributionManager.new
+      @distribution_manager.redeem_remote_day_from_user(self, 1)
+    else
+      return "You currently have no remote work days available to redeem, go work a bit and try again later."
+    end
   end
 
 end

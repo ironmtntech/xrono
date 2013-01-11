@@ -42,12 +42,16 @@ class BalanceTransfer
 
   def award_per_diem(user)
     # per diem bonus is incremented + $10
-    @distribution_manager.issue_per_diem_to_user user, 10
+    @distribution_manager.issue_per_diem_to_user(user, 10) unless user.per_diem_account.credited_today?
   end
 
   def add_time_to_offset(user)
-    if user.hours_entered_for_day(Time.now) > 8
-      @time = user.hours_entered_for_day(Time.now) - 8
+    if user.offset_account.balance == 0
+      @time = user.current_offset
+    else
+      if user.hours_entered_for_day(Time.now) > 8
+        @time = user.hours_entered_for_day(Time.now) - 8
+      end
     end
     @distribution_manager.issue_time_to_offset user, @time
   end
@@ -63,11 +67,11 @@ class BalanceTransfer
   end
 
   def award_remote_day(user)
-    @distribution_manager.issue_remote_day_to_user user, 1
+    @distribution_manager.issue_remote_day_to_user(user, 1) unless user.remote_day_available?
   end
 
   def issue_demerit(user)
-    @distribution_manager.issue_demerit_fee_to_user user, 25
+    @distribution_manager.issue_demerit_fee_to_user(user, 25) unless user.demerit_account.credited_today?
   end
 
   # show total per diem bonus earned

@@ -70,9 +70,15 @@ module Plutus
     end
 
     def last_transaction
-      transactions.collect{|s| s.created_at}.max.to_date.strftime("%d/%m/%Y")
+      transactions.collect{|s| s.created_at}.max.to_date
     rescue
       "n/a"
+    end
+
+    def credited_today?
+      last_transaction.to_date >= Date.today
+    rescue
+      false
     end
 
   end
