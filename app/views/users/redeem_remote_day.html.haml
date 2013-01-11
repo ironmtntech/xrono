@@ -1,0 +1,19 @@
+.hero-unit
+  %h2 Redeem Remote Day
+  %h3 Click below to select a date to request for remote work.
+  %p
+  %h5 A request will be sent to the admins, then a response will be sent to your email with an approval or denial.
+  %p
+  %h5.yellow You may only retain one remote work day at a time, so you must use your current day before being issued another.
+  %p
+
+  = form_tag submit_remote_day_path do
+    .control-group
+      = label_tag :date
+      .controls
+        = text_field_tag :date, nil , :id => "datepicker"
+    .control-group
+      .controls
+        = hidden_field_tag :id, current_user.id
+
+    = submit_tag "Make Request"

@@ -49,6 +49,16 @@ class UsersController < ApplicationController
   def accounts
   end
 
+  def redeem_remote_day
+  end
+
+  def submit_remote_day
+    date = params[:date]
+    user_id = current_user.id
+    # RemoteDayRequest.new(date: date, user_id: user_id)
+    redirect_to :back
+  end
+
   private
   def load_user
     @user = User.find(params[:id])

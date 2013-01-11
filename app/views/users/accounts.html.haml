@@ -15,7 +15,11 @@
       %td
         %h5= acct.last_transaction.created_at.strftime("%m/%d/%y") rescue ""
       %td
-        %h5= acct.balance
+        - if acct.name == current_user.remote_day_account.name && acct.balance > 0
+          %h5= link_to "Redeem", redeem_remote_day_user_path, :class => "btn"
+        - else
+          %h5= acct.balance
+
     - acct.transactions.each do |transaction|
       %tr{:class => "trans_#{acct.id}"}
         %td
