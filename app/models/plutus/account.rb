@@ -70,7 +70,7 @@ module Plutus
     end
 
     def last_transaction
-      transactions.collect{|s| s.created_at}.max.to_date
+      transactions.sort_by{|s| s.created_at }.last
     rescue
       "n/a"
     end

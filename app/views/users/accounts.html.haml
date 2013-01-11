@@ -13,17 +13,20 @@
       %td
         %h5= acct.name.gsub(/USER\d* /, "").capitalize
       %td
-        %h5= acct.last_transaction
+        %h5= acct.last_transaction.created_at.strftime("%m/%d/%y") rescue ""
       %td
         %h5= acct.balance
     - acct.transactions.each do |transaction|
       %tr{:class => "trans_#{acct.id}"}
         %td
-          .indent= transaction.description
+          - if is_a_debit?(transaction)
+            .indent.debit= transaction.description
+          - else
+            .indent.credit= transaction.description
         %td
-          .indent= transaction.description
+          .indent= transaction.created_at.strftime("%m/%d/%y")
         %td
-          .indent= transaction.description
+          |
 
     - content_for :javascripts do
       :javascript

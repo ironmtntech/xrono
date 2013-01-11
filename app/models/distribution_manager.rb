@@ -37,7 +37,7 @@ class DistributionManager
   end
 
   def redeem_remote_day_from_user user, amount
-    transfer_credits "User Redeem Remote Day", user.remote_day_account_name, main_account_name, amount
+    transfer_credits "User Redeem Remote Day Deduct", user.remote_day_account_name, main_account_name, amount
     user.remote_day_available = false
     user.save
   end
