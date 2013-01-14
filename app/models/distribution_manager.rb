@@ -32,14 +32,10 @@ class DistributionManager
 
   def issue_remote_day_to_user user, amount
     transfer_credits "Issue Remote Day to User", main_account_name, user.remote_day_account_name, amount
-    user.remote_day_available = true
-    user.save
   end
 
   def redeem_remote_day_from_user user, amount
     transfer_credits "User Redeem Remote Day Deduct", user.remote_day_account_name, main_account_name, amount
-    user.remote_day_available = false
-    user.save
   end
 
   def issue_time_to_offset user, amount
