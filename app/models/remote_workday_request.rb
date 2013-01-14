@@ -6,7 +6,7 @@ class RemoteWorkdayRequest < ActiveRecord::Base
   after_create :remote_workday_request
 
   state_machine :state, :initial => :incomplete do
-    after_transition :pending => :approved, :do => :remote_workday_response
+    after_transition :pending => :approved, :do => :deduct_from_user_account
     after_transition :pending => :denied, :do => :remote_workday_response
 #    after_transition :pending => [:approved, :denied], :do => :remote_workday_response
     #
@@ -26,6 +26,11 @@ class RemoteWorkdayRequest < ActiveRecord::Base
     state :pending
     state :approved
     state :denied
+  end
+
+  def deduct_from_user_account
+    user.redeem_remote_work_day!
+    remote_workday_response
   end
 
   def remote_workday_request
