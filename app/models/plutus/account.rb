@@ -76,7 +76,7 @@ module Plutus
     end
 
     def credited_today?
-      last_transaction.to_date >= Date.today
+      last_transaction.created_at >= Date.today
     rescue
       false
     end

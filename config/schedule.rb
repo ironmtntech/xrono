@@ -32,5 +32,7 @@ every 1.day, :at => '11:00 pm' do
 end
 
 every 1.day, :at => '1:00 am' do
-  runner "BalanceTransfer.new.run!"
+  unless Date.today.wday == 0 || Date.today.wday == 1
+    runner "BalanceTransfer.new.run!"
+  end
 end

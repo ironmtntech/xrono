@@ -21,4 +21,19 @@ class Notifier < ActionMailer::Base
     mail(:to => user.email, :subject => "[Xrono] You have not yet entered time for today, please do it now.")
   end
 
+  def remote_workday_request(request_id)
+    request = RemoteWorkdayRequest.find(request_id)
+    @user = request.user.name
+    @url = "xrono.isotope11.com"
+    @date = request.date_requested
+    mail(:bcc => ["laird@isotope11.com", "josh@isotope11.com"], :subject => "[Xrono] #{@user} is requesting approval for a remote work day")
+  end
+
+  def remote_workday_response(request_id)
+    request = RemoteWorkdayRequest.find(request_id)
+    @response = request.state
+    @date = request.date_requested
+    mail(:to => request.user.email, :subject => "[Xrono] Remote Work Day Request.")
+  end
+
 end

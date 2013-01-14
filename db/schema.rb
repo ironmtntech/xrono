@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130111165057) do
+ActiveRecord::Schema.define(:version => 20130114200730) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -209,6 +209,15 @@ ActiveRecord::Schema.define(:version => 20130111165057) do
 
   add_index "projects", ["client_id"], :name => "index_projects_on_client_id"
 
+  create_table "remote_workday_requests", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "description"
+    t.date     "date_requested"
+    t.string   "state"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "roles", :force => true do |t|
     t.string   "name",              :limit => 40
     t.string   "authorizable_type", :limit => 40
@@ -298,7 +307,6 @@ ActiveRecord::Schema.define(:version => 20130111165057) do
     t.string   "authentication_token"
     t.date     "start_date"
     t.string   "phone"
-    t.boolean  "remote_day_available"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

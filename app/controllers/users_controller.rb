@@ -53,9 +53,12 @@ class UsersController < ApplicationController
   end
 
   def submit_remote_day
-    date = params[:date]
-    user_id = current_user.id
-    # RemoteDayRequest.new(date: date, user_id: user_id)
+    remote_workday_request = RemoteWorkdayRequest.new(date_requested: params[:date], user_id: current_user.id, state: "incomplete")
+    if remote_workday_request.save
+      flash[:notice] = "Your request has been submitted"
+    else
+      flash[:error] = "There was an error processing your request, please try again or contact an admin"
+    end
     redirect_to :back
   end
 

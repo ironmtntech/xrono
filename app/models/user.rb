@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
 
   has_many :work_units
   has_many :comments
+  has_many :remote_workday_requests
 
   # Scopes
   def self.with_unpaid_work_units
@@ -258,12 +259,24 @@ class User < ActiveRecord::Base
     hours.select{|wu| wu.send(method) }.sum(&:hours)
   end
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
   def redeem_remote_work_day!
     if remote_day_available?
       @distribution_manager = DistributionManager.new
       @distribution_manager.redeem_remote_day_from_user(self, 1)
     else
       return "You currently have no remote work days available to redeem, go work a bit and try again later."
+    end
+  end
+
+  def remote_day_available?
+    if remote_day_balance > 0
+      true
+    else
+      false
     end
   end
 

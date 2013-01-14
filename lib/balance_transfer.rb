@@ -34,7 +34,6 @@ class BalanceTransfer
   def ten_day_assessment(user)
     # sliding window of 10 days:
     # if 70+ external hours are billed: +1 Remote work day (RWD)
-    window = (@date - 10.days)
     if user.external_hours(10) > 70
       award_remote_day(user)
     end
