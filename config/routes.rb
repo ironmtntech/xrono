@@ -83,6 +83,7 @@ AssetTrackerTutorial::Application.routes.draw do
       put :change_password
       get :historical_time
       get :accounts
+      post :submit_remote_day
       get :redeem_remote_day
     end
   end
@@ -117,6 +118,5 @@ AssetTrackerTutorial::Application.routes.draw do
   end
 
   match "text_user"          => "twilio#send_text"
-  match "submit_remote_day"  => "users#submit_remote_day"
 
 end
