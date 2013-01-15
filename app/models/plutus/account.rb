@@ -71,8 +71,10 @@ module Plutus
 
     def last_transaction
       transactions.sort_by{|s| s.created_at }.last
-    rescue
-      "n/a"
+    end
+
+    def last_transaction_time
+      created_at.strftime("%m/%d/%y")
     end
 
     def credited_today?
