@@ -200,3 +200,15 @@ en:
   file_created_on: 'File created on'
   delete: 'Delete'
   accounts: 'Accounts'
+  requests: "Requests"
+  remote_workday_requests: "Remote Workday Requests"
+  date_requested: "Date Requested"
+  created_at: "Created At"
+  state: "State"
+  description: "Description"
+  actions: "Actions"
+  filters: "Filters" 
+
+
+
+
