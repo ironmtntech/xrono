@@ -5,6 +5,10 @@ class RemoteWorkdayRequest < ActiveRecord::Base
 
   after_create :remote_workday_request
 
+  scope :pending, where(:state => "pending")
+  scope :approved, where(:state => "approved")
+  scope :denied, where(:state => "denied")
+
   state_machine :state, :initial => :incomplete do
     after_transition :pending => :approved, :do => :deduct_from_user_account
     after_transition :pending => :denied, :do => :remote_workday_response
