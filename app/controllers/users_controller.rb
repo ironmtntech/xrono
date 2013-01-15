@@ -4,8 +4,8 @@ class UsersController < ApplicationController
 
   access_control do
     allow :admin
-    allow :developer, :to => [:edit, :change_password, :update], :if => :user_is_current_user?
-    allow :developer, :to => [:index, :show, :historical_time]
+    allow :developer, :to => [:edit, :change_password, :update, :accounts], :if => :user_is_current_user?
+    allow :developer, :to => [:index, :show, :historical_time, :redeem_remote_day, :submit_remote_day]
     allow :client, :to => [:edit, :show, :change_password], :if => :user_is_current_user?
   end
 
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     else
       flash[:error] = "There was an error processing your request, please try again or contact an admin"
     end
-    redirect_to :back
+    redirect_to accounts_user_path(current_user)
   end
 
   private
