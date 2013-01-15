@@ -1,0 +1,41 @@
+%h2= t(:remote_workday_requests)
+= render 'admin/nav'
+
+%h3= "#{t(:filters)}:"
+= link_to "Pending", admin_remote_workday_requests_path(view: "pending")
+|
+= link_to "Approved", admin_remote_workday_requests_path(view: "approved")
+|
+= link_to "Denied", admin_remote_workday_requests_path(view: "denied")
+
+%table.table-striped.table
+  %thead
+    %th= t(:user).capitalize
+    %th= t(:date_requested)
+    %th= t(:created_at)
+    %th= t(:state)
+    %th= t(:description)
+    %th= t(:actions)
+  - @requests.each do |workday_request|
+    %tr
+      %td= link_to workday_request.user, "#"
+      %td= workday_request.date_requested
+      %td= workday_request.created_at
+      %td= workday_request.state
+      - if workday_request.state == "pending"
+        %td.description
+          = text_area_tag :description
+        %td
+          %a{href: admin_approve_remote_request_path(id: workday_request), :onclick => "append_description(this.parentNode.parentNode, this)", :class => "btn btn-success"} Approve
+          %a{href: admin_deny_remote_request_path(id: workday_request), :onclick => "append_description(this.parentNode.parentNode, this)", :class => "btn btn-danger"} Deny
+      - else
+        %td= workday_request.description
+        %td= workday_request.state
+
+- content_for :javascripts do
+  :javascript
+    function append_description(row, link) {
+      var description = $(row).children(".description").children().val();
+      link.href = link.href + "&desc=" + description;
+    }
+
