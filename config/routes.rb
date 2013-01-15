@@ -11,6 +11,9 @@ AssetTrackerTutorial::Application.routes.draw do
   namespace :admin do
     resources :invoices, only: [:show, :update, :index]
     resources :payroll
+    resources :remote_workday_requests, :only => [:index]
+    match "approve_remote_request" => "remote_workday_requests#approve"
+    match "deny_remote_request"    => "remote_workday_requests#deny"
     get :locked_users,     :controller => :users, :action => :locked_users
     get :unlocked_clients, :controller => :users, :action => :unlocked_clients
     get :locked_clients,   :controller => :users, :action => :locked_clients
