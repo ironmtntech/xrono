@@ -3,8 +3,6 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :lockable, :token_authenticatable
 
-  require 'twilio-ruby'
-
   include Gravtastic
   gravtastic
   is_gravtastic!
