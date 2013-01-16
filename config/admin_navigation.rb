@@ -57,6 +57,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :users, t(:users), admin_users_path
     primary.item :site_settings, t(:site_settings), edit_admin_site_settings_path
     primary.item :requests, t(:requests), admin_remote_workday_requests_path
+    primary.item :demerits, t(:demerits), admin_demerits_path
 
     primary.dom_class = 'nav-pills nav'
     #primary.selected_class = 'active'

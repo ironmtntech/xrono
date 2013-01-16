@@ -24,6 +24,11 @@ class DistributionManager
 
   def issue_demerit_fee_to_user user, amount
     transfer_credits "Issue Demerit Fee to User", main_account_name, user.demerit_account_name, amount
+    user.demerits.create
+  end
+
+  def reverse_demerit_fee_for_user user, amount
+    transfer_credits "Reverse Demerit Fee for User", user.demerit_account_name, main_account_name, amount
   end
 
   def issue_pto_to_user user, amount

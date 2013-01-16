@@ -70,9 +70,9 @@ ActiveRecord::Schema.define(:version => 20130114200730) do
   create_table "demerits", :force => true do |t|
     t.integer  "user_id"
     t.text     "description"
-    t.boolean  "resolved"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.boolean  "resolved",    :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "file_attachments", :force => true do |t|

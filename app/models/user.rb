@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :work_units
   has_many :comments
   has_many :remote_workday_requests
+  has_many :demerits
 
   # Scopes
   def self.with_unpaid_work_units

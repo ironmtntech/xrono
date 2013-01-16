@@ -3,7 +3,7 @@ class CreateDemerits < ActiveRecord::Migration
     create_table :demerits do |t|
       t.integer :user_id
       t.text :description
-      t.boolean :resolved
+      t.boolean :resolved, :default => false
       t.timestamps
     end
   end

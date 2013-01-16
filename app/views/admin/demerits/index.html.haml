@@ -1,0 +1,15 @@
+%h2= t(:demerits)
+= render 'admin/nav'
+
+%table.table-striped.table
+  %thead
+    %th= t(:user).capitalize
+    %th= t(:created_at)
+    %th= t(:actions)
+  - @demerits.each do |demerit|
+    %tr
+      %td= link_to demerit.user, "#"
+      %td= demerit.created_at.strftime("%A, %m/%d/%y")
+      %td
+        = link_to "Remove", admin_remove_demerit_path(user_id: demerit.user_id, demerit_id: demerit), class: "btn"
+
