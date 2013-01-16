@@ -278,4 +278,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_pending_request?
+    remote_workday_requests.select{|r| r.state == "pending" }.present?
+  end
+
 end

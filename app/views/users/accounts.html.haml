@@ -18,7 +18,7 @@
       %td
         %h5= acct.last_transaction_time if acct.last_transaction
       %td
-        - if acct.name == current_user.remote_day_account.name && acct.balance > 0
+        - if remote_day_available_for(acct)
           %h5= link_to "Redeem", redeem_remote_day_user_path, :class => "btn"
         - else
           %h5= acct.balance
@@ -26,7 +26,7 @@
     - acct.transactions.last(25).each do |transaction|
       %tr.transaction
         %td
-          - if is_a_debit?(transaction)
+          - if transaction.is_a_debit?
             .indent.debit= transaction.description
           - else
             .indent.credit= transaction.description
