@@ -1,4 +1,7 @@
 Plutus::Account.class_eval do
+
+  attr_accessible :user_id
+
   def transactions
     transactions = []
     debit_transactions.each do |t|
@@ -25,4 +28,9 @@ Plutus::Account.class_eval do
   rescue
     false
   end
+
+  def user
+    User.find(user_id)
+  end
+
 end
