@@ -11,5 +11,5 @@
       %td= link_to demerit.user, "#"
       %td= demerit.created_at.strftime("%A, %m/%d/%y")
       %td
-        = link_to "Remove", admin_remove_demerit_path(user_id: demerit.user_id, demerit_id: demerit), class: "btn"
+        = link_to "Remove", admin_remove_demerit_path(user_id: demerit.user_id, demerit_id: demerit), class: "btn", :confirm => "You are about to reverse a demerit fee. Press OK to continue."
 
