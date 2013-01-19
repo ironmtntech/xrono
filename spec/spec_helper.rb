@@ -1,8 +1,6 @@
 # Simplecov Setup
 if RUBY_VERSION >= '1.9.2'
   require 'simplecov'
-  require 'simplecov-rcov'
-  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
   SimpleCov.start 'rails' do
     add_filter '/vendor/'
   end
@@ -37,7 +35,6 @@ RSpec.configure do |config|
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
-  config.mock_with :rspec
   config.include Devise::TestHelpers, :type => :controller
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

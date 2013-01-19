@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121021122002) do
+ActiveRecord::Schema.define(:version => 20121029164549) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -66,6 +66,14 @@ ActiveRecord::Schema.define(:version => 20121021122002) do
   end
 
   add_index "data_vaults", ["data_vaultable_id", "data_vaultable_type"], :name => "dv_poly_vaultable"
+
+  create_table "demerits", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "description"
+    t.boolean  "resolved"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "file_attachments", :force => true do |t|
     t.integer  "client_id"
@@ -150,6 +158,37 @@ ActiveRecord::Schema.define(:version => 20121021122002) do
   end
 
   add_index "oauth_applications", ["uid"], :name => "index_oauth_applications_on_uid", :unique => true
+
+  create_table "plutus_accounts", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.boolean  "contra"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "plutus_accounts", ["name", "type"], :name => "index_plutus_accounts_on_name_and_type"
+
+  create_table "plutus_amounts", :force => true do |t|
+    t.string  "type"
+    t.integer "account_id"
+    t.integer "transaction_id"
+    t.decimal "amount",         :precision => 20, :scale => 10
+  end
+
+  add_index "plutus_amounts", ["account_id", "transaction_id"], :name => "index_plutus_amounts_on_account_id_and_transaction_id"
+  add_index "plutus_amounts", ["transaction_id", "account_id"], :name => "index_plutus_amounts_on_transaction_id_and_account_id"
+  add_index "plutus_amounts", ["type"], :name => "index_plutus_amounts_on_type"
+
+  create_table "plutus_transactions", :force => true do |t|
+    t.string   "description"
+    t.integer  "commercial_document_id"
+    t.string   "commercial_document_type"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "plutus_transactions", ["commercial_document_id", "commercial_document_type"], :name => "index_transactions_on_commercial_doc"
 
   create_table "projects", :force => true do |t|
     t.string   "name"
