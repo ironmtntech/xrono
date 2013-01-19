@@ -38,6 +38,7 @@ describe BalanceTransfer do
       @balance_transfer.should_receive(:award_per_diem).with(@user_1).once
       @balance_transfer.should_receive(:add_time_to_offset).with(@user_1).once
       @balance_transfer.should_not_receive(:issue_demerit)
+      @balance_transfer.check_daily_time(@user_1)
     end
 
     it "should add a demerit if the dates hours were less than 8" do
