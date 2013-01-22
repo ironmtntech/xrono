@@ -9,6 +9,14 @@ class DistributionManager
     'MAIN_ACCOUNT'
   end
 
+  def short_day_account_name
+    'SHORT_DAY_ACCOUNT'
+  end
+
+  def short_day_account
+    Plutus::Asset.find_by_name short_day_account_name
+  end
+
   def transfer_credits description, from_account, to_account, amount
     transaction = @transaction_class.build({
       description: description,
@@ -16,6 +24,12 @@ class DistributionManager
       credits:     [{ account: from_account,   amount: amount }]
     })
     transaction.save
+  end
+
+  # This is to account for shorter offset time with half days given for the
+  # entire company
+  def issue_hours_for_short_days amount
+    transfer_credits "Issue Hours For Short Days", main_account_name, short_day_account_name, amount
   end
 
   def issue_per_diem_to_user user, amount

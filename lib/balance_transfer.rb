@@ -48,8 +48,14 @@ class BalanceTransfer
     if user.offset_account.balance == 0
       @time = user.current_offset
     else
-      if user.hours_entered_for_day(Time.now) > 8
-        @time = user.hours_entered_for_day(Time.now) - 8
+      # check for 8 hours a day or if there is a special amount set for the day
+      if short_day = ShortDay.find_by_date(Date.yesterday)
+        hours = short_day.hours
+      else
+        hours = 8
+      end
+      if user.hours_entered_for_day(Time.now) > hours
+        @time = user.hours_entered_for_day(Time.now) - hours
       end
     end
     @distribution_manager.issue_time_to_offset user, @time

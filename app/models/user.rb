@@ -94,6 +94,10 @@ class User < ActiveRecord::Base
     locked_at?
   end
 
+  def short_day_account_balance
+    Plutus::Asset.find_by_name('SHORT_DAY_ACCOUNT').balance
+  end
+
   def pto_hours_left(date)
     raise "Date must be a date object" unless date.is_a?(Date)
     time = date.to_time_in_current_zone
@@ -127,7 +131,9 @@ class User < ActiveRecord::Base
       days_from_cur_week = [date.cwday, 5].min
     end
     # calculate expected hours off of total expected days
-    (days_from_prev_weeks + days_from_cur_week) * daily_target_hours
+    #short_days = ShortDay.all.select{|x| x.within_year(Date.today.year.to_s)}
+    
+    (days_from_prev_weeks + days_from_cur_week) * daily_target_hours - short_day_account_balance
   end
 
   def target_hours_offset(date)
