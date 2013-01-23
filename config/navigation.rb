@@ -64,6 +64,8 @@ SimpleNavigation::Configuration.run do |navigation|
       admin.item :site_settings, t(:site_settings), edit_admin_site_settings_path
       admin.item :requests, t(:requests), admin_remote_workday_requests_path
       admin.item :demerits, t(:demerits), admin_demerits_path
+      admin.item :short_days, t(:short_days), admin_short_days_path
+
     end
     primary.item :users, t(:users), users_path, :unless => lambda{ admin? || client? }
 
