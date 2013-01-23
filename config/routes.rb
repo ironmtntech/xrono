@@ -15,6 +15,7 @@ AssetTrackerTutorial::Application.routes.draw do
     match "approve_remote_request" => "remote_workday_requests#approve"
     match "deny_remote_request"    => "remote_workday_requests#deny"
     resources :demerits, :only     => [:index]
+    resources :short_days
     match "remove_demerit"         => "demerits#remove"
     get :locked_users,     :controller => :users, :action => :locked_users
     get :unlocked_clients, :controller => :users, :action => :unlocked_clients

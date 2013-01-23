@@ -27,26 +27,7 @@
       = f.label :internal_client, :class => 'control-label'
       .controls
         = f.collection_select(:client_id, Client.all, :id, :to_s, :prompt => true)
-    .control-group
-      = f.label :short_day_date, :class => 'control-label'
-      .controls
-        = text_field_tag :short_day_date, nil, :id => 'datepicker'
-    .control-group
-      = f.label :short_day_hours, :class => 'control-label'
-      .controls
-        = text_field_tag :short_day_hours
     .form-actions
       = f.submit 'Update', :class => 'add_new_button btn primary'
       = link_to 'Cancel', admin_path, :class => 'cancel_button btn'
 
-%h2= t(:short_days)
-
-%table.table.table-striped
-  %thead
-    %th Date
-    %th Hours
-  %tbody
-    - @short_days.each do |short_day|
-      %tr{ :class => cycle("odd", "even") }
-        %td= short_day.date
-        %td= short_day.hours

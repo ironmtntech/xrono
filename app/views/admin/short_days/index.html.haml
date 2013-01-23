@@ -1,1 +1,16 @@
-%h1 Short Days
+%h2= t(:short_days)
+
+= render 'admin/nav'
+
+= link_to 'New Short Day', new_admin_short_day_path
+
+%table.table.table-striped
+  %thead
+    %th Date
+    %th Hours
+  %tbody
+    - @short_days.each do |short_day|
+      %tr{ :class => cycle("odd", "even") }
+        %td= short_day.date
+        %td= short_day.hours
+
