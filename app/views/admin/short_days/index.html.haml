@@ -6,11 +6,46 @@
 
 %table.table.table-striped
   %thead
-    %th Date
+    %th
+    %th User
     %th Hours
   %tbody
-    - @short_days.each do |short_day|
-      %tr{ :class => cycle("odd", "even") }
-        %td= short_day.date
-        %td= short_day.hours
+    %td= check_box_tag "users", '1', false, :id => 'toggle', :onclick => "toggleAll(this)"
+    = form_for [:admin, @short_day] do |f|
+      - @users.each do |user|
+        %tr{ :class => cycle("odd", "even") }
+          %td= check_box_tag "user_#{user.id}", user.id, false, :id => "user_#{user.id}", :onclick => "fieldEnable(this)"
+          %td= user.to_s
+          %td= text_field_tag "hours[#{user.id}]", '', :disabled => true
+      = f.submit 'Submit'
+:plain
+  <script type="text/javascript">
 
+    function toggleAll(name) {
+      if(name.checked) {
+        $("input:checkbox").each(function(){
+          $(this).attr('checked', true);
+          $("input:text").each(function(){
+            $(this).attr('disabled', false);
+          });
+        });
+      }
+      else {
+        $("input:checkbox").each(function(){
+          $(this).attr('checked', false);
+          $("input:text").each(function(){
+            $(this).attr('disabled', true);
+          });
+        });
+      }
+    }
+
+    function fieldEnable(name) {
+      if(name.checked) {
+        name.parentElement.parentElement.children[2].children[0].disabled = false;
+      }
+      else {
+        name.parentElement.parentElement.children[2].children[0].disabled = true;
+      }
+    }
+  </script>

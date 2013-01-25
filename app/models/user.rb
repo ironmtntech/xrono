@@ -94,10 +94,6 @@ class User < ActiveRecord::Base
     locked_at?
   end
 
-  def short_day_account_balance
-    Plutus::Asset.find_by_name('SHORT_DAY_ACCOUNT').balance
-  end
-
   def pto_hours_left(date)
     raise "Date must be a date object" unless date.is_a?(Date)
     time = date.to_time_in_current_zone
@@ -133,7 +129,7 @@ class User < ActiveRecord::Base
     # calculate expected hours off of total expected days
     #short_days = ShortDay.all.select{|x| x.within_year(Date.today.year.to_s)}
     
-    (days_from_prev_weeks + days_from_cur_week) * daily_target_hours - short_day_account_balance
+    (days_from_prev_weeks + days_from_cur_week) * daily_target_hours
   end
 
   def target_hours_offset(date)
@@ -189,6 +185,10 @@ class User < ActiveRecord::Base
     Plutus::Asset.find_by_name offset_account_name
   end
 
+  def expected_hours_account
+    Plutus::Asset.find_by_name expected_hours_account_name
+  end
+
   def per_diem_account_name
     "USER#{id} PER DIEM"
   end
@@ -207,6 +207,10 @@ class User < ActiveRecord::Base
 
   def offset_account_name
     "USER#{id} OFFSET"
+  end
+
+  def expected_hours_account_name
+    "USER#{id} EXPECTED HOURS"
   end
 
   def per_diem_balance
@@ -229,12 +233,17 @@ class User < ActiveRecord::Base
     offset_account.balance
   end
 
+  def expected_hours_balance
+    expected_hours_account.balance
+  end
+
   def ensure_accounts
     per_diem_account    || Plutus::Asset.create(name: per_diem_account_name, user_id: id)
     demerit_account     || Plutus::Asset.create(name: demerit_account_name, user_id: id)
     remote_day_account  || Plutus::Asset.create(name: remote_day_account_name, user_id: id)
     pto_account         || Plutus::Asset.create(name: pto_account_name, user_id: id)
     offset_account      || Plutus::Asset.create(name: offset_account_name, user_id: id)
+    expected_hours_account   || Plutus::Asset.create(name: expected_hours_account_name, user_id:id)
   end
 
   def notify!

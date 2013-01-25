@@ -14,6 +14,7 @@ class BalanceTransfer
       check_daily_time(user)
       ten_day_assessment(user)
       award_pto(user)
+      handle_expected_hours(user)
     end
   end
 
@@ -48,17 +49,30 @@ class BalanceTransfer
     if user.offset_account.balance == 0
       @time = user.current_offset
     else
-      # check for 8 hours a day or if there is a special amount set for the day
-      if short_day = ShortDay.find_by_date(Date.yesterday)
-        hours = short_day.hours
-      else
-        hours = 8
-      end
-      if user.hours_entered_for_day(Time.now) > hours
-        @time = user.hours_entered_for_day(Time.now) - hours
+      if user.hours_entered_for_day(Time.now) > 8
+        @time = user.hours_entered_for_day(Time.now) - 8
       end
     end
     @distribution_manager.issue_time_to_offset user, @time
+  end
+ 
+  def business_days_between(date1, date2)
+    business_days = 0
+    date = date2
+    while date > date1
+      business_days = business_days + 1 unless date.saturday? or date.sunday?
+      date = date - 1.day
+    end
+    business_days
+  end
+
+  def handle_expected_hours(user)
+    # Doesn't include todays business day in the count
+    previous_business_hours = business_days_between(Date.new(2013, 1,1), Date.today) * 8
+
+    if (1..5).include?(Date.today.wday)
+      @distribution_manager.issue_hours_for_expected_hours user, 8
+    end
   end
 
   def award_pto(user)

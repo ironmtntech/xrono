@@ -1,7 +1,8 @@
 class Admin::ShortDaysController < ApplicationController
 
   def index
-    @short_days = ShortDay.all
+    @short_day = ShortDay.new
+    @users = User.all
   end
 
   def new
@@ -9,14 +10,12 @@ class Admin::ShortDaysController < ApplicationController
   end
 
   def create
-    @short_day = ShortDay.new(params[:short_day])
-    if @short_day.save
-      @distribution_manager = DistributionManager.new
-      @distribution_manager.issue_hours_for_short_days(8 - params[:short_day_hours].to_i)
-      redirect_to admin_short_days_path
-    else
-      render :new
+    @distribution_manager = DistributionManager.new
+    # need to build up the user with worked hours
+    params[:hours].keys.each do |user_id|
+      user = User.find user_id
+      @distribution_manager.remove_hours_for_expected_hours(user, params[:hours][user_id])
     end
- 
+    redirect_to admin_short_days_path
   end
 end
