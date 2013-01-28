@@ -4,7 +4,9 @@ Gem::Specification.new do |s|
   s.summary = 'An asset and time tracking application for consultants and consulting companies.'
   s.description = 'Xrono is an asset and time tracking application for consultants and consulting companies.'
   s.files = `git ls-files`.split("\n")
-  s.version = %q(1.0.2)
+  s.email = "josh@isotope11.com"
+  s.homepage = "http://www.xrono.org"
+  s.version = %q(1.0.3)
 
   s.add_dependency 'rails', '~> 3.2.11'
   s.add_dependency 'acl9', '~> 0.12.0'
