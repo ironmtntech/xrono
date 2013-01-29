@@ -25,15 +25,22 @@
 
     - acct.transactions.last(25).each do |transaction|
       %tr.transaction
-        %td
-          - if transaction.is_a_debit?
-            .indent.debit= transaction.description
-          - else
+        - if transaction.is_a_credit?
+          %td
             .indent.credit= transaction.description
-        %td
-          .indent= transaction.created_at.strftime("%m/%d/%y")
-        %td
-          |
+          %td
+            .indent= transaction.created_at.strftime("%m/%d/%y")
+          %td
+            .indent.credit= transaction.credit_amounts.first.amount
+
+        - else
+          %td
+            .indent.debit= transaction.description
+          %td
+            .indent= transaction.created_at.strftime("%m/%d/%y")
+          %td
+            .indent.debit= transaction.debit_amounts.first.amount
+
 
 - content_for :javascripts do
   :javascript

@@ -6,8 +6,8 @@ Plutus::Transaction.class_eval do
     end
   end
 
-  def is_a_debit?
-    /Issue/.match(description) || /Deduct/.match(description)
+  def is_a_credit?
+    debit_accounts.select{|s| s.name == "MAIN_ACCOUNT" }.present?
   end
 
 end
