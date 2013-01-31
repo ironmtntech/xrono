@@ -1,0 +1,23 @@
+.row-fluid
+  .span6
+    %h3 Time Off and Bonus Programs
+    .benefit_box
+      %center
+        .benefit_display
+          %h4.title= "CTO"
+          .value= "2500"
+        = link_to "Enter", "#", :class => "btn"
+    .benefit_box
+      %center
+        .benefit_display
+          %h4.title= "PTO"
+          .value= "25"
+        = link_to "Request", "#", :class => "btn"
+    .benefit_box
+      %center
+        .benefit_display
+          %h4.title= "Remote"
+          .value= "25"
+        = link_to "Schedule", redeem_remote_day_user_path, :class => "btn"
+  .span6
+    = render 'graph'

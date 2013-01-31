@@ -1,0 +1,18 @@
+<div id="graph"></div>
+<%= content_for :javascripts do %>
+  <script>
+    $(function () {
+      new Highcharts.Chart({
+        chart: { renderTo: 'graph' },
+        title: { text: 'Orders by Day' },
+        xAxis: { type: 'datetime' },
+        yAxis: {
+        title: { text: 'Dollars' }
+      },
+      series: [{
+        data: [1,2,3,4,5,6,7,8]
+        }]
+      });
+    });
+  </script>
+<% end %>

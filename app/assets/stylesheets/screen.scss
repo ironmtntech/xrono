@@ -317,5 +317,37 @@ legend {
   color: #C09853;
 }
 
+.benefit_box{
+  display: inline-block;
+  margin: 20px;
+  color: white;
+  background: white;
+  width: 100px;
+  .benefit_display{
+    border: gray 1px solid;
+    .title{
+      padding: 5px 0px;
+      background: #246e7d;
+      color: white;
+      margin: 2px 2px 0px 2px;
+    }
+    .value{
+      padding: 30px 0px;
+      font-size: 25px;
+      background: #2CAAC3;
+      margin: 0px 2px;
+      border-bottom: 2px white solid;
+    }
+  }
+}
+
+#graph{
+  border-bottom: 1px black solid;
+  min-width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
 @import "responsive";
+
 

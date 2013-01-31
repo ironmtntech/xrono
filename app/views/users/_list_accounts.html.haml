@@ -1,0 +1,43 @@
+.row-fluid
+  %table.table.table-bordered.table-striped
+    %tr
+      %th
+        %h3
+          Account Name
+          %span{:onclick => "toggle()"} ( show/hide )
+      %th
+        %h3 Last Issued
+      %th
+        %h3 Balance
+    - @user.accounts.each do |acct|
+      %tr
+        %td
+          %h5
+            = acct.name.gsub(/USER\d* /, "").capitalize
+        %td
+          %h5= acct.last_transaction_time if acct.last_transaction
+        %td
+          - if remote_day_available_for(acct)
+            %h5= link_to "Redeem", redeem_remote_day_user_path, :class => "btn"
+          - else
+            %h5= acct.balance
+
+      - acct.transactions.last(25).each do |transaction|
+        %tr.transaction
+          %td
+            .indent= transaction.description
+          %td
+            .indent= transaction.created_at.strftime("%m/%d/%y")
+          %td
+            .indent= transaction.credit_amounts.first.amount
+
+
+- content_for :javascripts do
+  :javascript
+    $(document).ready(function(){
+      $(".transaction").hide();
+    });
+    function toggle() {
+      $(".transaction").toggle();
+    }
+

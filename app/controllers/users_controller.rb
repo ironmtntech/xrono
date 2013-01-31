@@ -47,6 +47,11 @@ class UsersController < ApplicationController
   end
 
   def accounts
+    days = (Date.today.end_of_month.day - Date.today.beginning_of_month.day) + 1
+    @dates = []
+    (1..days).each do |s|
+       @dates.push(s)
+    end
   end
 
   def redeem_remote_day

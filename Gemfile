@@ -26,6 +26,8 @@ gem 'sidekiq', '2.0.3'
 gem 'plutus'
 gem 'whenever', :require => false
 gem 'decorators'
+gem 'gruff'
+gem 'rmagick'
 
 gem 'simple-navigation-bootstrap'
 gem 'sass-rails',   '~> 3.2.0'
