@@ -81,7 +81,7 @@ class Client < ActiveRecord::Base
   end
 
   def allows_access?(user)
-    projects.any? {|p| p.accepts_roles_by?(user)} || user.admin?
+    user.admin? || projects.any? {|p| p.accepts_roles_by?(user)}
   end
 
   def files_and_comments

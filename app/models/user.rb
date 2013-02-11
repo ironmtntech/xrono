@@ -58,12 +58,9 @@ class User < ActiveRecord::Base
   end
 
   def hours_entered_for_day(time)
-    hours = 0
-    work_units_for_day(time).each do |w|
-      hours += w.hours
-    end
-    hours
+    work_units_for_day(time).sum(:hours)
   end
+
   def unpaid_work_units
     work_units.unpaid
   end
@@ -127,7 +124,7 @@ class User < ActiveRecord::Base
   end
 
   def entered_time_yesterday?
-    return true if !developer? || admin?
+    return true unless developer?
     previous_work_days_work_units.any?
   end
 

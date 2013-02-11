@@ -33,11 +33,11 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def email_list
-    Contact.for_client(self.client).receives_email.map(&:email_address)
+   Contact.for_client(self.client).receives_email.pluck(:email_address)
   end
 
   def client
-    (ticket && ticket.client) ? ticket.project.client : nil
+    ticket.try(:client)
   end
 
   def project
@@ -69,7 +69,7 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def allows_access?(user)
-    project.accepts_roles_by?(user) || user.has_role?(:admin)
+    user.has_role?(:admin) || project.accepts_roles_by?(user)
   end
 
   def overtime_multiplier

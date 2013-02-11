@@ -25,7 +25,7 @@ Feature: Self administration
     And I press "Update"
     Then I should see "Error changing password"
 
-  @javascript  
+  @wip @javascript  
   Scenario: Change expanded calendar default preference
     Given I am an authenticated user with an admin role
     And a client "test client" exists with name: "test client", initials: "TTC"
