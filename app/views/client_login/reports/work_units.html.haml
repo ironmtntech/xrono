@@ -49,11 +49,11 @@
       %tr{ :class => cycle("odd", "even"), :title => work_unit.description }
         %td= work_unit.scheduled_at.to_date
         %td= work_unit.user
-        %td= work_unit.ticket.name
+        %td= work_unit.ticket
         %td= work_unit.effective_hours
 -content_for :javascripts do
   :javascript
-    $("#start_date_modal").dialog({ 
+    $("#start_date_modal").dialog({
       modal: true,
       autoOpen: false,
       width: 500,

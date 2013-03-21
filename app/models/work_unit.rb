@@ -1,5 +1,6 @@
 class WorkUnit < ActiveRecord::Base
   include GuidReferenced
+  extend WorkUnit::Finders
   acts_as_commentable
 
   has_many :comments, :as => :commentable
@@ -12,66 +13,6 @@ class WorkUnit < ActiveRecord::Base
   after_validation :validate_client_status
   after_create :send_email!
 
-
-  def self.scheduled_between(start_time, end_time)
-    where('scheduled_at BETWEEN ? AND ?', start_time, end_time)
-  end
-
-  def self.unpaid
-    where(:paid => [nil, ''])
-  end
-
-  def self.not_invoiced
-    where(:invoiced => [nil, ''])
-  end
-
-  def self.for_client(client)
-    joins({:ticket => {:project => [:client]}}).where("clients.id = ?", client.id)
-  end
-
-  def self.except_client(client)
-    joins({:ticket => {:project => [:client]}}).where("clients.id <> ?", client.id)
-  end
-
-  def self.for_project(project)
-    joins({:ticket => [:project]}).where("projects.id = ?", project.id)
-  end
-
-  def self.for_ticket(ticket)
-    where(:ticket_id => ticket.id)
-  end
-
-  def self.for_user(user)
-    where(:user_id => user.id)
-  end
-
-  def self.for_users(users)
-    where("user_id IN (?)", users.map{|user| user.id})
-  end
-
-  def self.sort_by_scheduled_at
-    order('scheduled_at DESC')
-  end
-
-  def self.pto
-    where(:hours_type => 'PTO')
-  end
-
-  def self.cto
-    where(:hours_type => 'CTO')
-  end
-
-  def self.overtime
-    where(:hours_type => 'Overtime')
-  end
-
-  def self.normal
-    where(:hours_type => 'Normal')
-  end
-
-  def self.on_estimated_ticket
-     joins(:ticket).where("tickets.estimated_hours IS NOT NULL AND tickets.estimated_hours > 0")
-  end
 
   def validate_client_status
     if client && client.status == "Inactive"

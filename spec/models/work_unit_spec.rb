@@ -22,8 +22,8 @@ describe WorkUnit do
     subject { WorkUnit.scheduled_between(1.days.ago.beginning_of_day, Time.now.end_of_day)  }
 
     before do
-      work_unit1.update_attribute(:scheduled_at, 1.days.ago)
-      work_unit2.update_attribute(:scheduled_at, Time.now)
+      work_unit1.update_attributes(scheduled_at: 1.days.ago)
+      work_unit2.update_attributes(scheduled_at: Time.now)
     end
 
     it 'returns a collection of work units scheduled between the two given dates' do
@@ -64,8 +64,8 @@ describe WorkUnit do
     let(:client) { ticket.client }
 
     before do
-      work_unit1.update_attribute(:ticket, ticket)
-      work_unit2.update_attribute(:ticket, ticket)
+      work_unit1.update_attributes(ticket: ticket)
+      work_unit2.update_attributes(ticket: ticket)
     end
 
     it 'returns a collection of work units that belong to the given client' do
@@ -80,8 +80,8 @@ describe WorkUnit do
     let(:project) { ticket.project }
 
     before do
-      work_unit1.update_attribute(:ticket, ticket)
-      work_unit2.update_attribute(:ticket, ticket)
+      work_unit1.update_attributes(ticket: ticket)
+      work_unit2.update_attributes(ticket: ticket)
     end
 
     it 'returns a collection of work units that belong to the given project' do
@@ -95,8 +95,8 @@ describe WorkUnit do
     let(:ticket) { Ticket.make }
 
     before do
-      work_unit1.update_attribute(:ticket, ticket)
-      work_unit2.update_attribute(:ticket, ticket)
+      work_unit1.update_attributes(ticket: ticket)
+      work_unit2.update_attributes(ticket: ticket)
     end
 
     it 'returns a collection of work units that belong to the given ticket' do
@@ -110,8 +110,8 @@ describe WorkUnit do
     let(:user) { User.make }
 
     before do
-      work_unit1.update_attribute(:user, user)
-      work_unit2.update_attribute(:user, user)
+      work_unit1.update_attributes(user: user)
+      work_unit2.update_attributes(user: user)
     end
 
     it 'returns a collection of work units that belong to the given user' do
@@ -123,8 +123,8 @@ describe WorkUnit do
     subject { WorkUnit.sort_by_scheduled_at }
 
     before do
-      work_unit1.update_attribute(:scheduled_at, Date.yesterday)
-      work_unit2.update_attribute(:scheduled_at, Date.current)
+      work_unit1.update_attributes(scheduled_at: Date.yesterday)
+      work_unit2.update_attributes(scheduled_at: Date.current)
     end
 
     it 'returns a collection of work units sorted by scheduled time, descending' do
@@ -136,12 +136,12 @@ describe WorkUnit do
     subject { WorkUnit.hours}
 
     it "rejects negative numbers" do
-      work_unit1.update_attribute(:hours, -1)
+      work_unit1.update_attributes(hours: -1)
       work_unit1.should_not be_valid
     end
 
     it "rejects characters" do
-      work_unit1.update_attribute(:hours, "asdf#")
+      work_unit1.update_attributes(hours: "asdf#")
       work_unit1.should_not be_valid
     end
   end
@@ -151,8 +151,8 @@ describe WorkUnit do
     subject { WorkUnit.pto }
 
     before do
-      work_unit1.update_attribute(:hours_type, 'PTO')
-      work_unit2.update_attribute(:hours_type, 'Normal')
+      work_unit1.update_attributes(hours_type: 'PTO')
+      work_unit2.update_attributes(hours_type: 'Normal')
     end
 
     it 'returns a collection of work units with hours type "PTO"' do
@@ -164,8 +164,8 @@ describe WorkUnit do
     subject { WorkUnit.cto }
 
     before do
-      work_unit1.update_attribute(:hours_type, 'CTO')
-      work_unit2.update_attribute(:hours_type, 'Normal')
+      work_unit1.update_attributes(hours_type: 'CTO')
+      work_unit2.update_attributes(hours_type: 'Normal')
     end
 
     it 'returns a collection of work units with hours type "CTO"' do
@@ -177,8 +177,8 @@ describe WorkUnit do
     subject { WorkUnit.overtime }
 
     before do
-      work_unit1.update_attribute(:hours_type, 'Overtime')
-      work_unit2.update_attribute(:hours_type, 'Normal')
+      work_unit1.update_attributes(hours_type: 'Overtime')
+      work_unit2.update_attributes(hours_type: 'Normal')
     end
 
     it 'returns a collection of work units with hours type "Overtime"' do
@@ -196,8 +196,8 @@ describe WorkUnit do
     subject { WorkUnit.normal }
 
     before do
-      work_unit1.update_attribute(:hours_type, 'Overtime')
-      work_unit2.update_attribute(:hours_type, 'Normal')
+      work_unit1.update_attributes(hours_type: 'Overtime')
+      work_unit2.update_attributes(hours_type: 'Normal')
     end
 
     it 'returns a collection of work units with hours type "Normal"' do
@@ -223,8 +223,8 @@ describe WorkUnit do
       let(:contact2) { Contact.make(:client => work_unit.client) }
 
       before do
-        contact1.update_attribute(:receives_email, true)
-        contact2.update_attribute(:receives_email, false)
+        contact1.update_attributes(receives_email: true)
+        contact2.update_attributes(receives_email: false)
       end
 
       it 'sends the email' do
@@ -250,8 +250,8 @@ describe WorkUnit do
       let(:contact2) { Contact.make(:client => work_unit.client) }
 
       before do
-        contact1.update_attribute(:receives_email, true)
-        contact2.update_attribute(:receives_email, false)
+        contact1.update_attributes(receives_email: true)
+        contact2.update_attributes(receives_email: false)
       end
 
       it 'returns a collection of email addresses for those contacts' do
@@ -335,7 +335,7 @@ describe WorkUnit do
   describe '#to_s' do
     subject { work_unit.to_s }
 
-    before { work_unit.update_attribute(:description, 'New description') }
+    before { work_unit.update_attributes(description: 'New description') }
 
     it 'returns the description' do
       should == 'New description'
@@ -372,9 +372,9 @@ describe WorkUnit do
 
     context 'when the project and client have an overtime multiplier' do
       before do
-        project.update_attribute(:overtime_multiplier, 3.0)
-        client.update_attribute(:overtime_multiplier, 2.5)
-        site_settings.update_attribute(:overtime_multiplier, 2.0)
+        project.update_attributes(overtime_multiplier: 3.0)
+        client.update_attributes(overtime_multiplier: 2.5)
+        site_settings.update_attributes(overtime_multiplier: 2.0)
       end
 
       it 'returns the project overtime multiplier' do
@@ -384,9 +384,9 @@ describe WorkUnit do
 
     context 'when the client has an overtime multiplier' do
       before do
-        project.update_attribute(:overtime_multiplier, nil)
-        client.update_attribute(:overtime_multiplier, 2.5)
-        site_settings.update_attribute(:overtime_multiplier, 2.0)
+        project.update_attributes(overtime_multiplier: nil)
+        client.update_attributes(overtime_multiplier: 2.5)
+        site_settings.update_attributes(overtime_multiplier: 2.0)
       end
 
       it 'returns the client overtime multiplier' do
@@ -396,9 +396,9 @@ describe WorkUnit do
 
     context 'when neither the project nor the client have an overtime multiplier' do
       before do
-        project.update_attribute(:overtime_multiplier, nil)
-        client.update_attribute(:overtime_multiplier, nil)
-        site_settings.update_attribute(:overtime_multiplier, 2.0)
+        project.update_attributes(overtime_multiplier: nil)
+        client.update_attributes(overtime_multiplier: nil)
+        site_settings.update_attributes(overtime_multiplier: 2.0)
       end
 
       it 'returns the site settings overtime multiplier' do
@@ -422,13 +422,13 @@ describe WorkUnit do
   describe '#overtime?' do
     it 'correctly reports if it is overtime' do
       work_unit = WorkUnit.make
-      work_unit.update_attribute(:hours_type, "Overtime")
+      work_unit.update_attributes(hours_type: "Overtime")
       work_unit.overtime?.should be_true
     end
 
     it 'correctly reports if it is not overtime' do
       work_unit = WorkUnit.make
-      work_unit.update_attribute(:hours_type, "PTO")
+      work_unit.update_attributes(hours_type: "PTO")
       work_unit.overtime?.should be_false
     end
   end
@@ -436,7 +436,7 @@ describe WorkUnit do
   describe '#set_effective_hours!' do
     context 'when saving an overtime work unit' do
       before do
-        work_unit.project.update_attribute(:overtime_multiplier, 1.5)
+        work_unit.project.update_attributes(overtime_multiplier: 1.5)
         work_unit.update_attributes(:hours => 2, :hours_type => 'Overtime')
       end
 
@@ -454,7 +454,7 @@ describe WorkUnit do
 
     context 'when saving a normal work_unit' do
       before do
-        work_unit.project.update_attribute(:overtime_multiplier, 1.5)
+        work_unit.project.update_attributes(overtime_multiplier: 1.5)
         work_unit.update_attributes(:hours => 2, :hours_type => 'Normal')
       end
 

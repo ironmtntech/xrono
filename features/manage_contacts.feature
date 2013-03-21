@@ -1,4 +1,5 @@
-Feature: Contact Management                                                                                                                                                                                                                As a user
+Feature: Contact Management
+  As a user
   I should be able to manage contacts
 
   Scenario: List contacts as admin

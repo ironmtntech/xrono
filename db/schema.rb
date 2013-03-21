@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120710034831) do
+ActiveRecord::Schema.define(:version => 20121021122002) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(:version => 20120710034831) do
     t.string   "country"
   end
 
+  add_index "contacts", ["client_id"], :name => "index_contacts_on_client_id"
+
   create_table "data_vaults", :force => true do |t|
     t.integer  "data_vaultable_id"
     t.string   "data_vaultable_type"
@@ -62,6 +64,8 @@ ActiveRecord::Schema.define(:version => 20120710034831) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
+
+  add_index "data_vaults", ["data_vaultable_id", "data_vaultable_type"], :name => "dv_poly_vaultable"
 
   create_table "file_attachments", :force => true do |t|
     t.integer  "client_id"
@@ -75,12 +79,18 @@ ActiveRecord::Schema.define(:version => 20120710034831) do
     t.boolean  "not_valid"
   end
 
+  add_index "file_attachments", ["client_id"], :name => "index_file_attachments_on_client_id"
+  add_index "file_attachments", ["project_id"], :name => "index_file_attachments_on_project_id"
+  add_index "file_attachments", ["ticket_id"], :name => "index_file_attachments_on_ticket_id"
+
   create_table "git_commits", :force => true do |t|
     t.text     "payload"
     t.integer  "git_push_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "git_commits", ["git_push_id"], :name => "index_git_commits_on_git_push_id"
 
   create_table "git_pushes", :force => true do |t|
     t.text     "payload"
@@ -89,6 +99,8 @@ ActiveRecord::Schema.define(:version => 20120710034831) do
     t.integer  "user_id"
   end
 
+  add_index "git_pushes", ["user_id"], :name => "index_git_pushes_on_user_id"
+
   create_table "github_concernable_git_pushes", :force => true do |t|
     t.string   "github_concernable_type"
     t.integer  "github_concernable_id"
@@ -96,6 +108,9 @@ ActiveRecord::Schema.define(:version => 20120710034831) do
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end
+
+  add_index "github_concernable_git_pushes", ["git_push_id"], :name => "gh_concern_push_id"
+  add_index "github_concernable_git_pushes", ["github_concernable_id", "github_concernable_type"], :name => "gh_concern_poly"
 
   create_table "oauth_access_grants", :force => true do |t|
     t.integer  "resource_owner_id", :null => false
@@ -152,6 +167,8 @@ ActiveRecord::Schema.define(:version => 20120710034831) do
     t.string   "rate_b"
   end
 
+  add_index "projects", ["client_id"], :name => "index_projects_on_client_id"
+
   create_table "roles", :force => true do |t|
     t.string   "name",              :limit => 40
     t.string   "authorizable_type", :limit => 40
@@ -160,10 +177,15 @@ ActiveRecord::Schema.define(:version => 20120710034831) do
     t.datetime "updated_at",                      :null => false
   end
 
+  add_index "roles", ["authorizable_id", "authorizable_type"], :name => "roles_auth"
+
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "user_id"
     t.integer "role_id"
   end
+
+  add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
+  add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
   create_table "site_settings", :force => true do |t|
     t.decimal  "overtime_multiplier",       :precision => 10, :scale => 2
@@ -174,6 +196,8 @@ ActiveRecord::Schema.define(:version => 20120710034831) do
     t.decimal  "total_yearly_pto_per_user", :precision => 10, :scale => 2
     t.integer  "client_id"
   end
+
+  add_index "site_settings", ["client_id"], :name => "index_site_settings_on_client_id"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
@@ -187,6 +211,7 @@ ActiveRecord::Schema.define(:version => 20120710034831) do
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
   add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "taggings", ["tagger_id", "tagger_type"], :name => "taggings_tagger"
 
   create_table "tags", :force => true do |t|
     t.string "name"
@@ -205,6 +230,8 @@ ActiveRecord::Schema.define(:version => 20120710034831) do
     t.string   "git_branch"
     t.boolean  "completed",                                      :default => false
   end
+
+  add_index "tickets", ["project_id"], :name => "index_tickets_on_project_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "",    :null => false
@@ -263,6 +290,7 @@ ActiveRecord::Schema.define(:version => 20120710034831) do
     t.decimal  "effective_hours", :precision => 10, :scale => 2
   end
 
+  add_index "work_units", ["ticket_id"], :name => "index_work_units_on_ticket_id"
   add_index "work_units", ["user_id"], :name => "index_work_units_on_user_id"
 
 end

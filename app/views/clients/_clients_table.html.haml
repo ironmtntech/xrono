@@ -18,7 +18,7 @@
         %td= client.uninvoiced_hours
         %td= client.status
         %td
-          - @recent_users_for_clients[client.id].each do |user|
+          - client.recent_users.each do |user|
             = show_gravatar_for(user, 30)
         - if admin?
           %td= link_to t(:edit), edit_client_path(client), :class => 'btn'

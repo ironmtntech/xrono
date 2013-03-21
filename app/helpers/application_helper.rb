@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def last_effective_date(start_date)
-    if start_date.end_of_week > Date.current 
+    if start_date.end_of_week > Date.current
       Date.current
     else
       start_date.end_of_week
@@ -21,20 +21,20 @@ module ApplicationHelper
   end
 
   def render_label_for(hour_type)
-    label_type = nil
-    case hour_type
-    when 'Overtime'
-      label_type = 'important'
-    when 'PTO'
-      label_type = 'success'
-    when 'CTO'
-      label_type = 'warning'
-    end
+    label_type = label_type_for(hour_type)
     if label_type
       haml_tag(:div, :class => 'label ' << label_type) do
         haml_concat hour_type
       end
     end
+  end
+
+  def label_type_for(hour_type)
+    {
+      'Overtime' => 'important',
+      'PTO'      => 'success',
+      'CTO'      => 'warning'
+    }[hour_type]
   end
 
   def project_completion_metric(project)

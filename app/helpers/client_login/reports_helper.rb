@@ -1,2 +1,0 @@
-module ClientLogin::ReportsHelper
-end

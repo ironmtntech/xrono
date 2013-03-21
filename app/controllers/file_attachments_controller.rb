@@ -54,7 +54,7 @@ class FileAttachmentsController < ApplicationController
       redirect_to @referrer_path
     else
       flash.now[:error] = t(:file_attachment_created_unsuccessfully)
-      render :action => :new
+      render :new
     end
   end
 end

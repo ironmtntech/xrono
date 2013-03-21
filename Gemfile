@@ -1,8 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2.2'
+gem 'rails', '~> 3.2.8'
 gem 'acl9', '~> 0.12.0'
-gem 'capistrano', '~> 2.8.0'
 gem 'devise', '~> 1.4.9'
 gem 'gravtastic', '~> 3.2.6'
 gem 'haml', '~> 3.1.3'
@@ -47,6 +46,7 @@ end
 
 group :development do
   gem 'awesome_print', '~> 0.4.0', :require => 'ap'
+  gem 'rails_best_practices'
 end
 
 group :test do
@@ -63,9 +63,7 @@ group :test do
   gem 'shoulda-matchers', '~> 1.0'
   gem 'simplecov', '~> 0.5.0'
   gem 'simplecov-rcov'
-  gem 'rcov', '0.9.11'
   gem 'spork', '0.9.0.rc9'
-  gem 'yajl-ruby', '~> 0.7.8'
   gem 'ci_reporter'
 end
 

@@ -5,8 +5,6 @@ class Ticket < ActiveRecord::Base
   has_many :work_units
   has_many :file_attachments
 
-  #github_concern :class_method => :for_repo_and_branch
-
   validates_presence_of :project_id
   validates_presence_of :name
 
@@ -35,7 +33,6 @@ class Ticket < ActiveRecord::Base
     joins("INNER JOIN projects p ON p.id=tickets.project_id").where("p.git_repo_url = '#{repo}' and tickets.git_branch = '#{branch}'")
   }
 
-
   def client
     project.client
   end
@@ -57,6 +54,7 @@ class Ticket < ActiveRecord::Base
   end
 
   def percentage_complete
+    return 100 unless self.estimated_hours
     begin
       percent = (((self.hours / self.estimated_hours)).to_f * 100.00).round(2)
       [percent, 100].min
@@ -80,7 +78,7 @@ class Ticket < ActiveRecord::Base
   def allows_access?(user)
     project.accepts_roles_by?(user) || user.admin?
   end
-#### Comment out to look at bug in ticket show page
+
   def files_and_comments
     [comments, file_attachments].flatten.sort_by {|x| x.created_at}
   end

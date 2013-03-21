@@ -2,13 +2,13 @@
   %h3= "#{t(:files_and_comments)}:"
   = link_to "Hide/Show hidden", "#comments", :id => 'hide_show_comments'
   %p
-  %hr  
+  %hr
   - items.each do |item|
     - if item.is_a? Comment
       = render 'comments/comment', :comment => item
     - elsif item.is_a? FileAttachment
       = render 'file_attachments/file_attachment_combined', :file_attachment => item
-    %hr  
+    %hr
   %p
   - if id == 'client'
     = render "comments/comment_form",  :commentable_id => @client.id, :commentable_field => "client_id", :commentable_type => "Client", :refurl => client_path(@client), :comment_num => @client.id

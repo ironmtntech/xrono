@@ -2,12 +2,12 @@
 
 %ul.nav.nav-pills
   %li= link_to t(:historical_time_report), historical_time_user_path
-  - if @user == current_user or current_user.admin?
+  - if @user == current_user or admin?
     %li= link_to "Edit User", edit_user_path(@user)
 
 %h3
   - if @user.locked_at?
     = t(:user_is_locked)
-.clear    
+.clear
 - [Date.current.beginning_of_week, Date.current.advance({:weeks => -1}).beginning_of_week].each do |date|
   = render 'shared/calendar', :start_date => date, :user => @user, :work_units => @user.work_units_between(date,  date + 6.days)

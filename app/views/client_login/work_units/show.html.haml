@@ -3,7 +3,7 @@
 %ul.nav.nav-pills
   %li #{link_to "#{t(:client)}: #{@work_unit.client}", client_login_client_path(@work_unit.client)}
   %li #{link_to "#{t(:project)}: #{@work_unit.project}", client_login_project_path(@work_unit.project)}
-  %li= link_to "#{t(:ticket)}: #{@work_unit.ticket}", client_login_ticket_path(@work_unit.ticket) 
+  %li= link_to "#{t(:ticket)}: #{@work_unit.ticket}", client_login_ticket_path(@work_unit.ticket)
 
 #work_unit
   %h3= t(:creator)

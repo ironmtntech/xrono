@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Api::V1::ProjectsController do
-
   let(:user) { User.make }
   let(:project) { Project.make }
   let(:project_2) { Project.make }
@@ -37,10 +36,10 @@ describe Api::V1::ProjectsController do
     end
 
     it "filters by git repo url" do
-      project_2.update_attribute(:git_repo_url, "test")
+      project_2.update_attributes(git_repo_url: "test")
       response = get :index, :auth_token => user.authentication_token, :git_repo_url => "test"
       response.body.should == [project_2].to_json
-      project_2.update_attribute(:git_repo_url, nil)
+      project_2.update_attributes(git_repo_url: nil)
     end
   end
 

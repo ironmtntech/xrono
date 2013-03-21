@@ -9,7 +9,7 @@
             = c.submit "Hide Comment", :class => 'btn'
       .span4
         .comment_real_body
-          = " #{comment.user.first_name} #{comment.user.last_name} commented"
+          = " #{comment.user} commented"
           %p
           = " #{distance_of_time_in_words_to_now(comment.created_at)} ago:"
           %p
@@ -19,9 +19,9 @@
           %pre= comment.comment
       .span2
         - if comment.user == current_user
-          = button_to "Delete", comment, :method => :delete, :confirm => "Are you sure?"
+          = button_to "Delete", comment, :method => :delete, :data => { :confirm => "Are you sure?" }
 
-- else 
+- else
   .row-fluid
     .span2
       .comment_real_body.hidden_comment{ :style => 'display: none;' }
@@ -34,7 +34,7 @@
           %p
     .span4
       .comment_real_body.hidden_comment{ :style => 'display: none;' }
-        = " #{comment.user.first_name} #{comment.user.last_name} commented"
+        = " #{comment.user} commented"
         %p
         = " #{distance_of_time_in_words_to_now(comment.created_at)} ago:"
         %p

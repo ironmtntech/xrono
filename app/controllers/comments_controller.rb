@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :load_comment, :only => [:show, :edit, :update, :destroy]
-  before_filter :load_new_comment, :only => [:new, :create] 
+  before_filter :load_new_comment, :only => [:new, :create]
 
   protected
   def load_new_comment
@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
       redirect_to_ref_url
     else
       flash.now[:error] = t(:comment_created_unsuccessfully)
-      render :action => :new
+      render :new
     end
   end
 
@@ -33,8 +33,10 @@ class CommentsController < ApplicationController
   def new
   end
 
-  def update
+  def edit
+  end
 
+  def update
     if @comment.active == false
       @comment.update_attributes(:active => true)
       @hide = 'Hide Comment'
@@ -51,7 +53,6 @@ class CommentsController < ApplicationController
       end
     end
     redirect_to(:back)
-
   end
 
   def destroy
@@ -61,7 +62,6 @@ class CommentsController < ApplicationController
     end
     redirect_to(:back)
   end
-
 
   private
 

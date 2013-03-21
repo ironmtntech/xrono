@@ -15,19 +15,12 @@ class ClientLogin::ClientsController < ClientLogin::BaseController
 
 public
   def index
-    bucket = Client.order("name")
-    if admin?
-      bucket = bucket.all
-    else
-      bucket = bucket.for_user(current_user)
-    end
-    @clients = bucket.all
+    @clients = Client.order('name').for_user(current_user)
     redirect_to client_login_client_path(@clients.first) if @clients.count == 1
   end
 
   def show
-    bucket = Project.sort_by_name.for_client(@client)
-    bucket = bucket.for_user(current_user) unless admin?
+    bucket = Project.sort_by_name.for_client(@client).for_user(current_user)
     @projects = bucket.all
   end
 

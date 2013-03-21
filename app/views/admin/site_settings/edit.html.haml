@@ -7,7 +7,7 @@
     %label.control-label= t(:current_site_logo)
     .controls
       = image_tag @site_settings.site_logo.url
-      = button_to(t(:remove_site_logo), admin_site_settings_path, :method => :delete, :confirm => 'Are you sure?', :class => 'btn')
+      = button_to(t(:remove_site_logo), admin_site_settings_path, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn')
 
 = form_for @site_settings, :as => :admin_site_settings, :url => { :action => "update" }, :html => { :method => "put", :multipart => true, :class => 'form-horizontal' } do |f|
   %fieldset

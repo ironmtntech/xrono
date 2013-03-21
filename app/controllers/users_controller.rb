@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     else
       params[:user][:password] = params[:user][:password_confirmation] = ''
       flash.now[:error] = t(:password_updated_unsuccessfully)
-      render :action => :edit
+      render :edit
     end
   end
 
@@ -40,22 +40,18 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       flash[:notice] = t(:user_updated_successfully)
       redirect_to @user
-# zulu   
-#    else
-#      flash.now[:error] = t(:user_updated_unsuccessfully)
-#      render :action => 'edit'
-#      debugger
+    else
+      flash.now[:error] = t(:user_updated_unsuccessfully)
+      render :action => 'edit'
     end
   end
 
   private
+  def load_user
+    @user = User.find(params[:id])
+  end
 
-    def load_user
-      @user = User.find(params[:id])
-    end
-
-    def user_is_current_user?
-      @user == current_user
-    end
-
+  def user_is_current_user?
+    @user == current_user
+  end
 end
