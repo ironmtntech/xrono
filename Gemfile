@@ -58,6 +58,7 @@ group :test do
   gem 'simplecov-rcov'
   gem 'spork', '0.9.0.rc9'
   gem 'ci_reporter'
+  gem "selenium-webdriver", "~> 2.31.0"
 end
 
 platforms :jruby do
