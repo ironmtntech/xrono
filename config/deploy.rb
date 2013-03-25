@@ -1,5 +1,6 @@
 # Bundler bootstrap
- require 'bundler/capistrano'
+require 'bundler/capistrano'
+load 'deploy/assets'
 
 # main details
 set :application, "demo.xrono.org"
