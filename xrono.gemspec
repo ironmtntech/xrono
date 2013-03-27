@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://www.xrono.org"
   s.version = %q(1.0.3)
 
-  s.add_dependency 'rails', '~> 3.2.11'
+  s.add_dependency 'rails', '~> 3.2.13'
   s.add_dependency 'acl9', '~> 0.12.0'
   s.add_dependency 'devise', '~> 2.2.2'
   s.add_dependency 'gravtastic', '~> 3.2.6'
