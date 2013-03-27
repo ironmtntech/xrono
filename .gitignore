@@ -18,3 +18,5 @@ node_modules
 .sass-cache/*
 spec/reports
 *.gem
+
+spec/internal/public/system
