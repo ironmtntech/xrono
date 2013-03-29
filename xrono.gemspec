@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 3.2.13'
   s.add_dependency 'acl9', '~> 0.12.0'
   s.add_dependency 'devise', '~> 2.2.2'
+  s.add_dependency 'devise-encryptable', '~> 0.1.1'
   s.add_dependency 'gravtastic', '~> 3.2.6'
   s.add_dependency 'haml', '~> 3.1.3'
   s.add_dependency 'paperclip', '~> 2.3'
