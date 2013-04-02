@@ -5,7 +5,7 @@
       %th= t(:tickets)
       %th= t(:work_units)
       %th= t(:uninvoiced_hours)
-      %th= t(:total_hours)
+      %th= t(:total_effective_hours)
       %th= t(:percent_complete)
       - if admin? || current_user.has_role?(:developer, @project)
         %th= t(:edit)

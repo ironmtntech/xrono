@@ -10,6 +10,7 @@
       %th= t(:scheduled_at)
       %th= t(:hours_type)
       %th= t(:hours)            
+      %th= t(:effective_hours)            
   %tbody
     - work_units.each do |work_unit|
       %tr{ :class => cycle("odd", "even") }
@@ -21,4 +22,5 @@
           %td= link_to work_unit.project, project_path(work_unit.project)
         %td= work_unit.scheduled_at
         %td= work_unit.hours_type
-        %td= work_unit.hours              
+        %td= work_unit.hours
+        %td= work_unit.effective_hours
