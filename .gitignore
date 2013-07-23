@@ -20,3 +20,5 @@ spec/reports
 *.gem
 
 spec/internal/public/system
+spec/internal/config/database.yml
+spec/internal/tmp/

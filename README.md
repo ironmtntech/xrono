@@ -47,9 +47,10 @@ Fork, then clone the repository to your development environment
 
     gem install bundler
     bundle install
-    cp config/database.yml.example config/database.yml
-    # Change config/database.yml as you see fit to match your development environment needs
-    rake db:reset db:test:clone spec cucumber
+    # Copy one of the example database configurations.
+    cp spec/internal/config/database.yml.mysql spec/internal/config/database.yml
+    bundle exec rspec spec
+    bundle exec cucumber --require features
 
 ### Support
 For support, please do one of the following:
