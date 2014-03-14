@@ -58,6 +58,7 @@ class User < ActiveRecord::Base
   def hours_entered_for_day(time)
     work_units_for_day(time).inject(0) {|hours, unit| hours + unit.hours }
   end
+
   def unpaid_work_units
     work_units.unpaid
   end
@@ -88,35 +89,32 @@ class User < ActiveRecord::Base
     SiteSettings.first.total_yearly_pto_per_user - work_units.pto.scheduled_between(time.beginning_of_year, time).sum(:hours)
   end
 
-  # TODO: refactor this mess
   def expected_hours(date)
     raise "Date must be a date object" unless date.is_a?(Date)
-    # no expected hours if the user has never worked
-    return 0 unless work_units.present?
-    # set the user's first day by the first work unit
-    first_day = work_units.first.scheduled_at.to_date
-    # no expected hours if their first day is in the future
-    return 0 if first_day > date
-    if first_day.year == date.year
-      # if their first day was in the same year as the date
-      # calculate the offset of the first week, incase they dont start on monday
-      first_week_offset = first_day.cwday - 1
-      # caculate total days from previous week, subtracting the first week offset
-      days_from_prev_weeks = ((date.cweek - first_day.cweek) * 5) - first_week_offset
-      # get the number of work days in the targeted week that have passed
-      days_from_cur_week = [date.cwday, 5].min
-    else
-      # user has been here all year, count total work days in year
-      days_from_prev_weeks = (date.cweek - 1) * 5
-      days_from_cur_week = [date.cwday, 5].min
-    end
-    # calculate expected hours off of total expected days
-    (days_from_prev_weeks + days_from_cur_week) * daily_target_hours
+    return 0 if never_worked? || first_scheduled_date_in_future?(date)
+    work_days_between_dates(date, first_scheduled_date) * daily_target_hours
+  end
+
+  def work_days_between_dates(start,finish)
+    start = finish.beginning_of_year if finish.cwyear != start.cwyear
+    (start..finish).count {|day| !(day.saturday? || day.sunday?)}
+  end
+
+  def first_scheduled_date_in_future?(date)
+    first_scheduled_date > date
+  end
+
+  def never_worked?
+    work_units.blank?
+  end
+
+  def first_scheduled_date
+    @first_scheduled_date ||= work_units.first.scheduled_at.to_date
   end
 
   def target_hours_offset(date)
     raise "Date must be a date object" unless date.is_a?(Date)
-    worked_hours = WorkUnit.for_user(self).scheduled_between(date.beginning_of_year, date.end_of_day).sum(:hours)
+    worked_hours = work_units.scheduled_between(date.beginning_of_year, date.end_of_day).sum(:hours)
     worked_hours - expected_hours(date)
   end
 

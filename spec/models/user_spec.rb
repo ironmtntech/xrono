@@ -3,9 +3,11 @@ require 'spec_helper'
 describe User do
   let(:user) { User.make }
   let(:user_2) { User.make }
+  let(:user_3) { User.make }
   let(:work_unit1) { WorkUnit.make(:user => user) }
   let(:work_unit2) { WorkUnit.make(:user => user) }
   let(:work_unit3) { WorkUnit.make(:user => user) }
+  let(:work_unit4) { WorkUnit.make(:user => user_3, :scheduled_at => 1.year.from_now) }
 
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }
@@ -221,6 +223,84 @@ describe User do
         work_unit1.update_attributes(:hours => 2, :hours_type => 'Normal', :scheduled_at => Date.current.years_ago(1))
       end
       it { should =~ /\d+/}
+    end
+
+    context 'no workers are present' do
+      subject { user_2.expected_hours(Date.current) }
+      it 'returns 0' do
+        should == 0
+      end
+    end
+
+    context 'their first day is in the future' do
+      subject { user_3.expected_hours(Date.current) }
+      it 'returns 0' do
+        should == 0
+      end
+    end
+  end
+
+  describe 'work_days_between_dates' do
+    context 'start date is in same year' do
+      it 'calculates the work days' do
+        start = Date.new(2014,1,1)
+        finish = Date.new(2014,2,1)
+        work_days = User.new.work_days_between_dates(start, finish)
+        work_days.should == 23
+      end
+    end
+
+    context 'start date is in different year' do
+      it 'calculates the work days in end year' do
+        start = Date.new(2013,1,1)
+        finish = Date.new(2014,2,1)
+        work_days = User.new.work_days_between_dates(start, finish)
+        work_days.should == 23
+      end
+    end
+  end
+
+  describe 'first_scheduled_date_in_future?' do
+    context "first scheduled date is in the future" do
+      before do
+        work_unit4.update_attribute(:scheduled_at, 1.year.from_now)
+      end
+
+      it 'returns true' do
+        user_3.first_scheduled_date_in_future?(Date.current).should == true
+      end
+    end
+
+    context 'first scheduled date is in the past' do
+      before do
+        work_unit4.update_attribute(:scheduled_at, 1.year.ago)
+      end
+
+      it 'returns false' do
+        user_3.first_scheduled_date_in_future?(Date.current).should == false
+      end
+    end
+  end
+
+  describe 'never_worked?' do
+    context "No work units" do
+      it 'returns true' do
+        User.new.never_worked?.should == true
+      end
+    end
+
+    context 'has work units' do
+      it 'returns false' do
+        work_unit4 #bring into scope
+        user_3.never_worked?.should == false
+      end
+    end
+  end
+
+  describe 'first_scheduled_date' do
+    it 'returns the scheduled_at date for the first work unit' do
+      work_unit1 #bring into scope
+      user.first_scheduled_date.should == work_unit1.scheduled_at.to_date
     end
   end
 
