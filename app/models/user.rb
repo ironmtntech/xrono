@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
   def expected_hours(date)
     raise "Date must be a date object" unless date.is_a?(Date)
     return 0 if never_worked? || first_scheduled_date_in_future?(date)
-    work_days_between_dates(date, first_scheduled_date) * daily_target_hours
+    work_days_between_dates(first_scheduled_date, date) * daily_target_hours
   end
 
   def work_days_between_dates(start,finish)
