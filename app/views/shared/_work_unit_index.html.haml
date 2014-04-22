@@ -1,26 +1,48 @@
-%table.work_units.table.table-striped
-  %thead
-    %tr
-      %th #
-      %th= t(:work_units)
-      - if local_assigns.has_key?(:show_ticket)
-        %th= t(:ticket) 
-      - if local_assigns.has_key?(:show_project)
-        %th= t(:project) 
-      %th= t(:scheduled_at)
-      %th= t(:hours_type)
-      %th= t(:hours)            
-      %th= t(:effective_hours)            
-  %tbody
-    - work_units.each do |work_unit|
-      %tr{ :class => cycle("odd", "even") }
-        %td= work_unit.id
-        %td= link_to work_unit.description, work_unit_path(work_unit)
-        - if local_assigns.has_key?(:show_ticket) 
-          %td= link_to work_unit.ticket, ticket_path(work_unit.ticket)
-        - if local_assigns.has_key?(:show_project) 
-          %td= link_to work_unit.project, project_path(work_unit.project)
-        %td= work_unit.scheduled_at
-        %td= work_unit.hours_type
-        %td= work_unit.hours
-        %td= work_unit.effective_hours
+= search_form_for @q, url: search_work_units_path do |f|
+  = f.label :Sort
+  = select_tag :filter, options_for_select(['Invoiced', 'Paid']), :include_blank => true
+
+  = f.submit
+
+  %table.work_units.table.table-striped
+    %thead
+      %tr
+        %th #
+        %th= t(:work_units)
+        - if local_assigns.has_key?(:show_ticket)
+          %th= t(:ticket) 
+        - if local_assigns.has_key?(:show_project)
+          %th= t(:project) 
+        %th
+          = t(:invoice_number)
+        %th= t(:paid)
+        %th= t(:scheduled_at)
+        %th= t(:hours_type)
+        %th= t(:hours)            
+        %th= t(:effective_hours)            
+    %tbody
+      %tr
+        %td
+        %td= f.text_field :description_cont
+        - if local_assigns.has_key?(:show_ticket) || local_assigns.has_key?(:show_project)
+          %td
+        %td= f.text_field :invoiced_cont
+        %td
+        %td
+        %td
+        %td
+        %td
+      - work_units.each do |work_unit|
+        %tr{ :class => cycle("odd", "even") }
+          %td= link_to work_unit.id, work_unit_path(work_unit)
+          %td= link_to work_unit.description, work_unit_path(work_unit)
+          - if local_assigns.has_key?(:show_ticket) 
+            %td= link_to work_unit.ticket, ticket_path(work_unit.ticket)
+          - if local_assigns.has_key?(:show_project) 
+            %td= link_to work_unit.project, project_path(work_unit.project)
+          %td= work_unit.invoiced
+          %td= work_unit.paid
+          %td= work_unit.scheduled_at
+          %td= work_unit.hours_type
+          %td= work_unit.hours
+          %td= work_unit.effective_hours

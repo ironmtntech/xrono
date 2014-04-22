@@ -26,6 +26,8 @@ require 'oauth2'
 require 'sidekiq'
 require 'simple-navigation-bootstrap'
 require 'sass-rails'
+require 'kaminari'
+require 'ransack'
 
 class Xrono < Rails::Engine
   class << self

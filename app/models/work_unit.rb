@@ -1,8 +1,8 @@
 class WorkUnit < ActiveRecord::Base
   include GuidReferenced
   extend WorkUnit::Finders
+  paginates_per 20
   acts_as_commentable
-
   has_many :comments, :as => :commentable
   belongs_to :ticket
   belongs_to :user
@@ -12,6 +12,11 @@ class WorkUnit < ActiveRecord::Base
   before_validation :set_effective_hours!
   after_validation :validate_client_status
   after_create :send_email!
+
+  scope :is_invoiced, lambda {where("invoiced IS NOT NULL")}
+  scope :is_not_invoiced, lambda{where("invoiced IS NULL")}
+  scope :is_paid, lambda{where("paid IS NOT NULL")}
+  scope :is_not_paid, lambda{where("paid IS NULL")}
 
   def validate_client_status
     if client && client.status == "Inactive"
@@ -52,11 +57,11 @@ class WorkUnit < ActiveRecord::Base
   end
 
   def invoiced?
-    !not_invoiced?
+    invoiced.present?
   end
 
   def not_invoiced?
-    invoiced.blank?
+    !invoiced.present?
   end
 
   def to_s

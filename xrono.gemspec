@@ -34,6 +34,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'sidekiq', '2.0.3'
   s.add_dependency 'simple-navigation-bootstrap'
   s.add_dependency 'sass-rails',   '~> 3.2.0'
+  s.add_dependency 'kaminari'
+  s.add_dependency 'ransack'
 
   s.add_development_dependency 'capistrano', '~> 2.8.0'
   s.add_development_dependency 'capybara', '~> 1.1.1'

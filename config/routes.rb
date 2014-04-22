@@ -72,6 +72,10 @@ Rails.application.routes.draw do
       post :create_in_dashboard
     end
 
+    collection do
+      match 'search' => 'work_units#search', via: [:get, :post], as: :search
+    end
+
     resources :comments, except: [:index]
   end
 

@@ -26,6 +26,10 @@ class Admin::InvoicesController < ApplicationController
     redirect_to admin_invoices_path
   end
 
+  def search
+    binding.pry
+  end
+
   private
 
   def load_unpaid_work_units

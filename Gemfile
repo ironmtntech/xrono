@@ -24,7 +24,9 @@ platforms :jruby do
 end
 
 platforms :ruby do
+  gem 'kaminari'
   gem 'pg'
   gem 'mysql2', '~> 0.3.0'
+  gem "ransack"
 end
 

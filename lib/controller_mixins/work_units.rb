@@ -1,12 +1,23 @@
+require 'kaminari'
 module ControllerMixins
   module WorkUnits
+
+    def search
+      index
+      render :index
+    end
+
     def index
-      if params[:invoiced] != nil
-        @work_units = WorkUnit.find_all_by_invoiced(params[:invoiced])
-        @search = "Invoiced: " + params[:invoiced]
+      @q = WorkUnit.search(params[:q])
+      @work_units = @q.result(distinct: true)
+
+      case params[:filter]
+      when 'Invoiced'
+        @work_units = @work_units.is_invoiced.reverse_order.page(params[:page])
+      when 'Paid'
+        @work_units = @work_units.is_paid.reverse_order.page(params[:page])
       else
-        @work_units = WorkUnit.find_all_by_paid(params[:paid])
-        @search = "Paid: " + params[:paid]
+        @work_units = @work_units.reverse_order.page(params[:page])
       end
     end
   end
