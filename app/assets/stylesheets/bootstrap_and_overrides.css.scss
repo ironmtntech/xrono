@@ -1,8 +1,10 @@
 $blue:     #75959d;
 $blueDark: #5d7a82;
 $linkColor: $blue;
+$lightFrames: #ddd;
 
 @import "bootstrap";
+@import "work_units";
 
 .icon-edit, .icon-plus {
   padding: 0 4px 0 0;

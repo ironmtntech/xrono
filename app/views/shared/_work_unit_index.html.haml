@@ -1,8 +1,13 @@
 = search_form_for @q, url: search_work_units_path do |f|
-  = f.label :Sort
-  = select_tag :filter, options_for_select(['Invoiced', 'Paid']), :include_blank => true
+  .search-box
+    = f.label :Sort
+    %label Search Work Order Description
+    %label Search Invoice Number
+    = select_tag :filter, options_for_select(['Invoiced', 'Paid']), :include_blank => true
+    = f.text_field :description_cont
+    = f.text_field :invoiced_cont
 
-  = f.submit
+    = f.submit class: 'form-button'
 
   %table.work_units.table.table-striped
     %thead
@@ -23,10 +28,10 @@
     %tbody
       %tr
         %td
-        %td= f.text_field :description_cont
+        %td
         - if local_assigns.has_key?(:show_ticket) || local_assigns.has_key?(:show_project)
           %td
-        %td= f.text_field :invoiced_cont
+        %td
         %td
         %td
         %td
