@@ -3,8 +3,20 @@ $blueDark: #5d7a82;
 $linkColor: $blue;
 $lightFrames: #ddd;
 
+/* vendor prefix mixin */
+@mixin vendor-prefix($name, $argument) {
+  -webkit-#{$name}: #{$argument};
+  -ms-#{$name}: #{$argument};
+  -moz-#{$name}: #{$argument};
+  -o-#{$name}: #{$argument};
+  #{$name}: #{$argument};
+}
+
+
+/* imports - must be after mixins and variables */
 @import "bootstrap";
 @import "work_units";
+
 
 .icon-edit, .icon-plus {
   padding: 0 4px 0 0;
