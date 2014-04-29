@@ -1,56 +1,80 @@
-.search-box{
+#search-box{
   @include vendor-prefix(box-sizing, border-box);
   background-color: lighten($lightFrames, 10%);
-  width: 80%;
+  width: 59%;
   min-width: 300px;
   border: 1px solid $lightFrames;
-  border-radius: 20px 0 20px 20px;
-  margin: 1em auto;
+  border-radius: 0 0 20px;
+  margin-top: -15.5em;
+  margin-bottom: 2em;
   padding: 1em;
-  position: absolute;
+  @include vendor-prefix(transition, ease all 1s);
+  position: relative;
+  &.open{
+    @include vendor-prefix(transition, ease all 1s);
+    margin-top: -0.9em;
+    h2:after{
+      @include vendor-prefix(transform, rotate(180deg));
+      @include vendor-prefix(transition, ease all 1s);
+    }
+  }
   h2{
     background-color: lighten($lightFrames, 10%);
-    border-width: 1px 1px 0;
-    border-style: solid; 
+    border-radius: 0 0 20px 20px;
+    border-style: solid;
     border-color: $lightFrames;
-    border-radius: 10px 10px 0 0;
-    color: #FFFFFF;
-    padding: 5px;
+    border-width: 0 1px 1px;
+    cursor: pointer;
+    width: auto;
     position: absolute;
-    right: -63px;
-    text-shadow: 0 0 5px #BBBBBB;
-    top: 19px;
-    transform: rotate(90deg);
-  }
+    bottom: -45px; 
+    left: -1px;
+    color: $linkColor;
+    padding: 0.2em 0.5em;
+    font-size: 1.5em;
+    font-weight: lighter;
+    &:after{
+      content: " ";
+      display: inline-block;
+      border-right: 5px solid rgba(0, 0, 0, 0);
+      border-left: 5px solid rgba(0, 0, 0, 0);
+      border-top: 10px solid $linkColor;
+      height: 0;
+      margin: 17px 5px 0px 10px;
+      width: 0;
+      @include vendor-prefix(transform, rotate(0deg));
+      @include vendor-prefix(transition, ease all 1s);
+    }
+  } 
   label, input, select{
     display: inline-block;
-    width: 33%;
     background-color: transparent;
   }
   label{
-    color: #fff;
-    font-size: 2em;
-    font-weight: 600;
-    text-shadow: 0 0 5px #bbb;
+    width: 35%;
+    color: $linkColor;
+    font-size: 1.5em;
+    text-align: right;
+    text-shadow: 0 0 5px #fff;
+    padding-right: 1%;
   }
   input, select{
+    width: 63%;
     border: 1px solid $linkColor;
     border-radius: 10px;
     }
   .form-button{
     font-size: 2em;
-    float: right;
+    margin-left: 36.5%;
+    background-color: $contrastColor;
+    color: lighten($contrastColor, 90%);
+    text-shadow: 0 0 5px darken($contrastColor, 90%);
     @include vendor-prefix(transition, ease all 1s);
     &:hover{
-      background-color: $lightFrames;
+      background-color: darken($contrastColor, 10%);
       @include vendor-prefix(transition, ease all 1s);
     }
   }
-  &:after{
-    content: " ";
-    display: block;
-    clear: both;
-  }  
 }
 #work_unit_search{
   margin-bottom: 0;
@@ -97,4 +121,3 @@
     }
   }
 }
-
