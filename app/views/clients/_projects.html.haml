@@ -3,6 +3,8 @@
     %thead
       %tr
         %th= t(:projects)
+        - if current_user.has_role?(:developer)
+          %th= t(:subscription)
         %th= t(:tickets)
         %th This week's hours
         %th This months's hours
@@ -21,6 +23,11 @@
         - projects.each do |project|
           %tr{ :class => cycle("odd", "even") }
             %td= link_to project, project
+            - if current_user.has_role?(:developer)
+              - if project.allows_access?(current_user)
+                %td= link_to bootstrap_icon('minus') + 'Unsubscribe', project_unsubscribe_path(:project_id => project.id), :class => 'btn'
+              - else
+                %td= link_to bootstrap_icon('plus') + 'Subscribe', project_subscribe_path(:project_id => project.id), :class => 'btn'
             %td= project.tickets.count
             %td= project.hours_this_week
             %td= project.hours_this_month

@@ -30,6 +30,14 @@ class ClientsController < ApplicationController
       allow :developer, :if => :user_is_authorized
       allow :client, :if => :user_is_authorized
     end
+
+    action :project_subscribe do
+      allow :developer
+    end
+    
+    action :project_unsubscribe do
+      allow :developer
+    end
   end
 
   protected
@@ -60,7 +68,7 @@ class ClientsController < ApplicationController
 
   def show
     @bucket = Project.order("name").for_client(@client)
-    @bucket = @bucket.for_user(current_user) unless admin?
+    #@bucket = @bucket.for_user(current_user) unless admin?
 
     @work_units = WorkUnit.for_client(@client).order("work_units.created_at DESC").limit(100)
 
@@ -86,6 +94,18 @@ class ClientsController < ApplicationController
   end
 
   def edit
+  end
+
+  def project_subscribe
+    project = Project.find(params[:project_id])
+    current_user.has_role!(:developer, project)
+    redirect_to client_path project.client
+  end
+
+  def project_unsubscribe
+    project = Project.find(params[:project_id])
+    current_user.has_no_roles_for!(project)
+    redirect_to client_path project.client
   end
 
   private

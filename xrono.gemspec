@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'kramdown'
   s.add_dependency 'doorkeeper', '~> 0.4.2'
   s.add_dependency 'oauth2'
-  s.add_dependency 'sidekiq', '2.0.3'
+  s.add_dependency 'sidekiq', '3.1.3'
   s.add_dependency 'simple-navigation-bootstrap'
   s.add_dependency 'sass-rails',   '~> 3.2.0'
 

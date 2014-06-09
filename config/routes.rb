@@ -43,6 +43,8 @@ Rails.application.routes.draw do
     resources :work_units
   end
 
+  get :project_subscribe, :controller => :clients, :action => :project_subscribe
+  get :project_unsubscribe, :controller => :clients, :action => :project_unsubscribe
   match '/client/:id' => 'clients#show'
   get :inactive_clients, :controller => :clients, :action => :inactive_clients
   get :suspended_clients, :controller => :clients, :action => :suspended_clients
