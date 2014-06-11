@@ -4,6 +4,12 @@
   .btn-group
     = link_to bootstrap_icon('edit') + t(:edit_project), edit_project_path, :class => 'btn', :rel => 'edit-project'
     = link_to bootstrap_icon('plus') + t(:new_ticket), new_ticket_path(:project_id => @project), :class => 'btn'
+    = link_to bootstrap_icon('plus') + t(:new_work_unit), new_work_unit_path(:client_id => @project.client, :project_id => @project), :class => 'btn'
+    - if current_user.has_role?(:developer)
+      - if @project.allows_access?(current_user)
+        = link_to bootstrap_icon('minus') + 'Unsubscribe', project_unsubscribe_path(:project_id => @project.id), :class => 'btn'
+      - else
+        = link_to bootstrap_icon('plus') + 'Subscribe', project_subscribe_path(:project_id => @project.id), :class => 'btn'
   %br
   %br
 
