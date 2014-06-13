@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :data_vaults, :only => [:show]
 
   namespace :admin do
+    resources :surveys
     resources :invoices, only: [:show, :update, :index]
     resources :payroll
     get :locked_users,     :controller => :users, :action => :locked_users
@@ -24,6 +25,8 @@ Rails.application.routes.draw do
     resources :unentered_time_report
     resources :weekly_time_report
     resource :site_settings, only: [:edit, :update, :destroy]
+    get '/add_question' => 'surveys#add_question', :as => 'add_question'
+    get '/delete_question' => 'surveys#delete_question', :as => 'delete_question'
   end
   get '/admin', :controller => "admin/base", :action => "index"
   get '/admin/reports', :controller => "admin/base", :action => "reports"
