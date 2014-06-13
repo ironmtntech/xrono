@@ -1,0 +1,18 @@
+%h1 Survey
+
+%h1 Questions
+.question-form
+  %table.question-table
+    %thead
+      %tr
+        %th Question
+        %th Min
+        %th Max
+    %tbody
+      %tr{ :class => cycle("odd", "even") }
+        - @survey.survey_questions.each do |question|
+          %td= question.question 
+          %td= question.min
+          %td= question.max
+
+

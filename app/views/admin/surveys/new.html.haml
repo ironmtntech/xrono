@@ -1,0 +1,30 @@
+= form_for [:admin, @survey] do |f|
+  %td= select_tag :project_id, options_for_select(Project.all.collect{|x| [x.name, x.id]}), include_blank: true, class: 'chzn-select'
+  .question-form
+    %table.question-table
+      %thead
+        %tr
+          %th Question
+          %th Min
+          %th Max
+      %tbody
+        %tr{ :class => cycle("odd", "even") }
+          %td= text_field_tag "questions[][question]"
+          %td= text_field_tag "questions[][min]"
+          %td= text_field_tag "questions[][max]"
+
+  %a#add_question Add Question
+
+  .form-actions
+    = f.submit :class => 'add_new_button btn primary'
+    = link_to t(:cancel), admin_surveys_path, :class => 'cancel_button btn'
+
+:coffee
+  $('#add_question').click (event) ->
+    $.ajax 
+      type: 'GET'
+      dataType: 'html'
+      url: "/admin/add_question"
+      success: (data, status, xhr) ->
+        $(".question-table").append(xhr.responseText)
+    return false

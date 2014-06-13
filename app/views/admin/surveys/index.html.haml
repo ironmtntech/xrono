@@ -1,0 +1,17 @@
+%h2= t(:surveys)
+
+= render 'admin/nav'
+
+= link_to 'New Survey', new_admin_survey_path
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Survey
+      %th= 'Actions'
+  %tbody
+    - @surveys.each do |survey|
+      %tr{ :class => cycle("odd", "even") }
+        %td= link_to 'Survey', admin_survey_path(survey)
+        %td= link_to 'Edit', edit_admin_survey_path(survey)
+        %td= link_to 'Delete', admin_survey_path(survey), :method => 'delete'
