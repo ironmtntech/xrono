@@ -12,7 +12,7 @@ class Dashboard::BaseController < Xrono::ApplicationController
   end
 
   def index
-    @project_list = current_user.roles.map{|x| x.authorizable if x.authorizable.present?}.sort
+    @project_list = current_user.roles.map{|x| x.authorizable if x.authorizable.present?}.compact.sort
     @message = {:title => t(:management), :body => t(:enter_time_for_previous_day)} unless current_user.entered_time_yesterday?
     @clients = Client.order("name").active.for_user(current_user)
     @projects = []

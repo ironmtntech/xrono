@@ -1,20 +1,23 @@
-.nav-header Active Project List
-%ul.nav.nav-list
-  - @project_list.each do |project|
-    %li= link_to project.name, project_path(project)
-    /%td= progress_bar(project_completion_metric(project))
-.week_pagination
-  = render 'dashboard/base/week_pagination', :start_date => @start_date
+.span1.progress_container
+  .week_pagination
+    %h4 Active Project List
+  %ul.progress_notifier
+    - @project_list.each do |project|
+      %li.progress_notifier
+        = link_to project.name, project_path(project)
+        = progress_bar(project_completion_metric(project))
 
-= render 'shared/calendar', :start_date => @start_date, :user => current_user, :work_units => @work_units
+.span11.calendar_container
+  .week_pagination
+    = render 'dashboard/base/week_pagination', :start_date => @start_date
+  = render 'shared/calendar', :start_date => @start_date, :user => current_user, :work_units => @work_units
+  .row-fluid
+    .span6
+      = render 'tickets/add_ticket'
+    .span6
+      = render 'work_units/add_work_unit'
 
-.row-fluid
-  .span6
-    = render 'tickets/add_ticket'
-  .span6
-    = render 'work_units/add_work_unit'
+  = render_message(@message)
 
-= render_message(@message)
-
-- content_for :javascripts do
-  = javascript_include_tag 'add_taxonomy'
+  - content_for :javascripts do
+    = javascript_include_tag 'add_taxonomy'

@@ -1,3 +1,11 @@
+/*
+ *= require bootstrap_and_overrides
+ *= require chosen
+ *= require _jquery-ui-1.8.16.custom
+ *= require css3-progress-bar
+*/
+@import "compass";
+@import "compass/css3";
 
 //** SCREEN STYLES **//
 a {
@@ -173,7 +181,7 @@ div.navbar div.fill div.container-fluid ul.nav {
   }
   .fill{
     padding: 6px 0;
-    @include background-image(linear-gradient (#75959d, #698891 30%, #5d7a82 100%));
+    @include linear-gradient(color-stops(#75959d, #698891 30%, #5d7a82 100%));
   }
 }
 
@@ -262,7 +270,7 @@ legend {
 }
 .form-actions {
   background-color:#fff;
-  @include background-image(linear-gradient(#fafafa #fff));
+  @include linear-gradient(#fafafa #fff);
 }
 .login_form {
   display:block;
@@ -301,7 +309,7 @@ legend {
 }
 .span1.progress_container{
   margin-left: 0;
-  @include background-image(linear-gradient(#fafafa #fff));
+  background-image: linear-gradient(#fafafa, #ffffff);
   .week_pagination{
     margin-bottom: .6em;
   }
