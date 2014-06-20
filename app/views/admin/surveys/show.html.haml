@@ -1,4 +1,5 @@
 %h1 Survey
+= link_to 'Edit', edit_admin_survey_path(@survey)
 
 %h1 Questions
 .question-form
@@ -8,11 +9,13 @@
         %th Question
         %th Min
         %th Max
+        %th Actions
     %tbody
-      %tr{ :class => cycle("odd", "even") }
-        - @survey.survey_questions.each do |question|
+      - @survey.survey_questions.each do |question|
+        %tr{ :class => cycle("odd", "even") }
           %td= question.question 
           %td= question.min
           %td= question.max
+          %td= link_to 'Delete', admin_delete_question_path(question), :method => 'delete'
 
 
