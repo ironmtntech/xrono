@@ -56,6 +56,9 @@ Rails.application.routes.draw do
     resources :contacts
     get :show_complete, :controller => :clients, :action => :show_complete
   end
+  
+  resources :surveys
+  resources :survey_answers
 
   resources :projects, :except => [:index, :destroy] do
     resources :comments, except: [:index]

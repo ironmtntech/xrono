@@ -15,4 +15,10 @@ class Notifier < ActionMailer::Base
     @work_unit = WorkUnit.find work_unit_id
     mail(:bcc => addresses, :subject => "[Xrono] Work Unit: #{@work_unit.guid}") {|f| f.text}
   end
+
+  def project_survey(user, projects)
+    @projects = projects
+    @user = user
+    mail(to: @user.email, :subject => "Weekly Surveys")
+  end
 end

@@ -1,7 +1,12 @@
 %h1 Survey
 = link_to 'Edit', edit_admin_survey_path(@survey)
 
-%h1 Questions
+%h4 Projects
+- @survey.projects.each do |project|
+  %ul
+    %li= link_to project.name, project_path(project)
+
+%h3 Questions
 .question-form
   %table.question-table
     %thead
@@ -17,5 +22,19 @@
           %td= question.min
           %td= question.max
           %td= link_to 'Delete', admin_delete_question_path(question), :method => 'delete'
-
+%h3 Answers
+%table.answer-table
+  - @survey.survey_questions.each do |question|
+    %h4= question.question
+    %thead
+      %tr
+        %th Answer
+        %th Developer
+        %th Date
+    %tbody
+      - question.survey_answers.each do |answer|
+        %tr{ :class => cycle("odd", "even") }
+          %td= answer.answer
+          %td= answer.user.name
+          %td= answer.created_at.strftime("%m/%d/%Y")
 

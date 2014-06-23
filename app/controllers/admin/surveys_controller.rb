@@ -9,18 +9,21 @@ class Admin::SurveysController < Admin::BaseController
   end
 
   def create
-    @survey = Survey.new(params[:survey])
-    if @survey.save
-      if params[:questions].present?
+    if params[:questions].present? && params[:project_id].present?
+      @survey = Survey.new(params[:survey])
+      if @survey.save
         params[:questions].each do |question|
           @survey.survey_questions.create(
             question: question[:question],
             min: question[:min],
             max: question[:max])
         end
+        params[:project_id].each do |project_id|
+          ProjectSurveyLink.create(project_id: project_id, survey_id: @survey.id)
+        end
+        flash[:notice] = 'Survey created!'
       end
     end
-    flash[:notice] = 'Survey created'
     redirect_to admin_survey_path(@survey)
   end
 
@@ -29,15 +32,19 @@ class Admin::SurveysController < Admin::BaseController
   end
   
   def update
-    @survey = Survey.find params[:id]
-    if @survey.update_attributes(params[:survey])
-      if params[:questions].present?
+    if params[:questions].present? && params[:project_id].present?
+      @survey = Survey.find params[:id]
+      if @survey.update_attributes(params[:survey])
         params[:questions].each do |question|
           @survey.survey_questions.create(
             question: question[:question],
             min: question[:min],
             max: question[:max])
         end
+        params[:project_id].each do |project_id|
+          ProjectSurveyLink.create(project_id: project_id, survey_id: @survey.id)
+        end
+        flash[:notice] = 'Survey updated!'
       end
     end
     redirect_to admin_survey_path(@survey) 
