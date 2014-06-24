@@ -181,7 +181,8 @@ div.navbar div.fill div.container-fluid ul.nav {
   }
   .fill{
     padding: 6px 0;
-    @include linear-gradient(color-stops(#75959d, #698891 30%, #5d7a82 100%));
+    @include background-image(linear-gradient(color-stops(#75959d, #698891 30%,
+    #5d7a82 100%)));
   }
 }
 
@@ -270,7 +271,7 @@ legend {
 }
 .form-actions {
   background-color:#fff;
-  @include linear-gradient(#fafafa #fff);
+  @include background-image(linear-gradient(#fafafa #fff));
 }
 .login_form {
   display:block;
