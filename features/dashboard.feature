@@ -9,6 +9,7 @@ Feature: Dashboard
     Then I should see "Week: 6.0" within ".calendar_foot"
     Then I should see "Current: 6.0" within "#current_hours"
 
+ @javascript @test
  Scenario: Non-entered time warning
     Given I am an authenticated user with a developer role
     And I have no work units for the previous day
