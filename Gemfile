@@ -11,6 +11,7 @@ group :assets do
   gem 'bootstrap-sass', '2.0.1'
 end
 
+gem 'activerecord-jdbcmysql-adapter'
 group :development do
   # Use combustion for testing the engine
   gem 'combustion', '~> 0.3.1'
@@ -23,7 +24,6 @@ end
 
 platforms :jruby do
   gem 'activerecord-jdbcpostgresql-adapter'
-  gem 'activerecord-jdbcmysql-adapter'
   gem 'jruby-openssl'
   gem 'trinidad'
 end
