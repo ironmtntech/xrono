@@ -45,7 +45,7 @@ Feature: Manage projects
     And I fill in "project_tag_list" with "the_tag"
     And I press "Update"
     And I follow the edit project link
-    Then I should see "the_tag"
+    Then I should see "the_tag" in the "project_tag_list" input
 
   Scenario: Edit a project - invalid
     Given I am an authenticated user with an admin role

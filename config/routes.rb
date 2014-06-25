@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   match '/client/:id' => 'clients#show'
   get :inactive_clients, :controller => :clients, :action => :inactive_clients
   get :suspended_clients, :controller => :clients, :action => :suspended_clients
+  get :all_clients, :controller => :clients, :action => :all_clients
   resources :clients, except: [:destroy] do
     resources :comments, except: [:index]
     resources :contacts

@@ -66,6 +66,10 @@ class ClientsController < ApplicationController
     @clients = authorized_clients.suspended
   end
 
+  def all_clients
+    @clients = authorized_clients
+  end
+
   def show
     @bucket = Project.order("name").for_client(@client)
     #@bucket = @bucket.for_user(current_user) unless admin?
