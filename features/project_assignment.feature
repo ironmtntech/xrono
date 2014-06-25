@@ -58,12 +58,12 @@ Feature: Project Assignment
     When I visit /
     Then I should not see "test client"
 
-  Scenario: User shouldn't see projects they aren't assigned to on the client show page
-    Given I am an authenticated user
-    And a client "test client" exists with name: "test client", initials: "TTC"
-    And a project "test project" exists with name: "test project", client: client "test client"
-    And a project "assigned project" exists with name: "assigned project", client: client "test client"
-    And I am assigned to the project
-    When I go to the client's page
-    Then I should not see "test project"
-    And I should see "assigned project"
+  #Scenario: User shouldn't see projects they aren't assigned to on the client show page
+  #  Given I am an authenticated user
+  #  And a client "test client" exists with name: "test client", initials: "TTC"
+  #  And a project "test project" exists with name: "test project", client: client "test client"
+  #  And a project "assigned project" exists with name: "assigned project", client: client "test client"
+  #  And I am assigned to the project
+  #  When I go to the client's page
+  #  Then I should not see "test project"
+  #  And I should see "assigned project"
