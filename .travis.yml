@@ -12,7 +12,6 @@ notifications:
     - rclements@isotope11.com
 rvm:
   - 1.9.3
-  - jruby-19mode
   - ruby-2.0.0
 
 env:
