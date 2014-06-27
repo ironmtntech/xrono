@@ -78,6 +78,7 @@ class WorkUnitsController < ApplicationController
   end
 
   def load_new_work_unit
+    @project = Project.find(params[:project_id]) if params[:project_id].present?
     _params = (params[:work_unit] || {}).dup
     _params.delete :client_id
     _params.delete :project_id

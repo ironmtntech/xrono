@@ -1,9 +1,7 @@
-/*
- *= require bootstrap_and_overrides
- *= require chosen
- *= require _jquery-ui-1.8.16.custom
- *= require css3-progress-bar
-*/
+@import "bootstrap_and_overrides";
+@import "chosen";
+@import "_jquery-ui-1.8.16.custom";
+@import "css3-progress-bar";
 @import "compass";
 @import "compass/css3";
 
@@ -181,8 +179,7 @@ div.navbar div.fill div.container-fluid ul.nav {
   }
   .fill{
     padding: 6px 0;
-    @include background-image(linear-gradient(color-stops(#75959d, #698891 30%,
-    #5d7a82 100%)));
+    @include background-image(linear-gradient(color-stops(#75959d, #698891 30%,#5d7a82 100%)));
   }
 }
 
@@ -301,4 +298,108 @@ legend {
   }
 }
 
+.indent{
+  margin-left: 20px;
+  color: #3A87AD;
+}
+
+.credit{
+  color: #638847;
+}
+
+.debit{
+  color: #B94A48;
+}
+
+.yellow{
+  color: #C09853;
+}
+
+
+.benefit_box, .benefit_box2{
+  display: inline-block;
+  margin: 20px;
+  color: white;
+  background: white;
+  width: 100px;
+  vertical-align: top;
+  .benefit_display{
+    border: gray 1px solid;
+    .title{
+      padding: 5px 0px;
+      background: #246e7d;
+      color: white;
+      margin: 2px 2px 0px 2px;
+    }
+    .value{
+      padding: 30px 0px;
+      font-size: 25px;
+      background: #2CAAC3;
+      margin: 0px 2px;
+      border-bottom: 2px white solid;
+    }
+  }
+}
+
+.benefit_box2{
+  width: 200px;
+}
+
+.date{
+  margin-top: 50px;
+}
+
+#graph{
+  border-bottom: 1px black solid;
+  min-width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+/**************************************************************************************************************************************/
+/*                                             Active Project List Styles on the Home Page                                            */
+/**************************************************************************************************************************************/
+.span11.calendar_container{
+  margin-left: 0;
+  padding-left: 30px;
+  border-left: 1px solid #eee;
+}
+.span1.progress_container{
+  margin-left: 0;
+  @include background-image(linear-gradient(#fafafa #fff));
+  .week_pagination{
+    margin-bottom: .6em;
+  }
+  h4{
+    font-weight: 300;
+    font-size: .95em;
+    margin-bottom: .6em;
+  }
+}
+ul.progress_notifier{
+  margin: 0;
+  padding: o;
+  list-style-type: none;
+  li{
+    &:after{
+      display: block;
+      content: "";
+      clear: both;
+    }
+  }
+}
+
+.bar_container{
+  height: 5px !important;
+  padding: 2px;
+  .bar_mortice{
+    height: 5px;
+    .progress{
+      height: 4px;
+    }
+  }
+}
+
+
+
 @import "responsive";
+
