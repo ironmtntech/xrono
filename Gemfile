@@ -16,6 +16,11 @@ group :development do
   gem 'combustion', '~> 0.3.1'
 end
 
+group :development, :test do
+  gem 'selenium-webdriver'
+  gem 'pry'
+end
+
 platforms :jruby do
   gem 'activerecord-jdbcpostgresql-adapter'
   gem 'activerecord-jdbcmysql-adapter'

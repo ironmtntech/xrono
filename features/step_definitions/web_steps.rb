@@ -269,6 +269,10 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   end
 end
 
+Then /^I should see "([^"]*)" in the "([^"]*)" input$/ do |content, labeltext|
+  find_field("#{labeltext}").value.should == content
+end
+
 Then /^show me the page$/ do
   save_and_open_page
 end

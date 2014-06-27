@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'xrono'
-  s.authors = ['Josh Adams', 'Adam Dill', 'Adam Gamble']
+  s.authors = ['Josh Adams', 'Adam Dill', 'Adam Gamble', 'Robby Clements']
   s.summary = 'An asset and time tracking application for consultants and consulting companies.'
   s.description = 'Xrono is an asset and time tracking application for consultants and consulting companies.'
   s.files = `git ls-files`.split("\n")
@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails',   '~> 3.2.0'
 
   s.add_development_dependency 'capistrano', '~> 2.8.0'
-  s.add_development_dependency 'capybara', '~> 1.1.1'
+  s.add_development_dependency 'capybara', '~> 2.2.0'
   s.add_development_dependency 'cucumber', '~> 1.1.4'
   s.add_development_dependency 'database_cleaner', '~> 0.7.1'
   s.add_development_dependency 'faker', '~> 0.9.5'

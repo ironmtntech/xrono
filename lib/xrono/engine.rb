@@ -1,4 +1,6 @@
 require 'rails'
+require 'active_record'
+require 'action_controller'
 require 'devise'
 require 'acl9'
 require 'acl9/model_extensions'
