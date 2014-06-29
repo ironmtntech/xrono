@@ -40,9 +40,9 @@ Feature: Self administration
     And I fill in "work_unit_hours" with "2"
     And I fill in "work_unit_description" with "New description"
     And I press "Create Work Unit"
-    Then I should see description
+    Then I should not see "New description"
     When I am on my edit profile page
     Then the "Expanded Calendar" checkbox should not be checked
     When I check "Expanded Calendar"
     And I press "Update"
-    Then I should see description.expand    
+    Then I should see "New description"

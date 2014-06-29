@@ -19,6 +19,13 @@
     .controls
       = text_field_tag :scheduled_at, @work_unit.scheduled_at
 
+- unless @work_unit.ticket.present?
+  .control-group
+    %label.control-label= t(:ticket)
+    .controls
+      = f.select :ticket_id, options_from_collection_for_select(@project.tickets.incomplete, :id, :name)
+
+
 .control-group
   = f.label :hours_type, :class => 'control-label'
   .controls
@@ -36,5 +43,6 @@
 
 .form-actions
   = f.hidden_field :scheduled_at, value: Date.current
-  = f.hidden_field :ticket_id, value: @work_unit.ticket.id
+  -if @work_unit.ticket.present?
+    = f.hidden_field :ticket_id, value: @work_unit.ticket.id
   = f.submit :class => 'btn primary'

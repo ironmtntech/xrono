@@ -37,14 +37,14 @@ Feature: Client Management
     And I am assigned to the project
     When I am on the client's page
     Then I should see "Projects"
-    And I should not see a link with text "Edit" within "#client_details"
+    And I should not see a link with text "Edit" within ".btn-group"
 
   Scenario: View a client as an admin
     Given I am an authenticated user with an admin role
     And a client "test client" exists
     When I am on the client's page
     Then I should see "Projects"
-    And I should see a link with text "Edit"
+    And I should see a link with text "Edit" within ".btn-group"
 
   Scenario: View inactive clients as a non admin
     Given I am an authenticated user

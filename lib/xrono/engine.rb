@@ -1,4 +1,6 @@
 require 'rails'
+require 'active_record'
+require 'action_controller'
 require 'devise'
 require 'active_record'
 require 'action_controller'
