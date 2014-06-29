@@ -1,0 +1,28 @@
+%h1 Survey
+
+%h4 Projects
+- @survey.projects.each do |project|
+  %ul
+    %li= link_to project.name, project_path(project)
+
+%h1 Questions
+.question-form
+  = form_for :survey_answer, url: surveys_path do |f|
+    = f.hidden_field :survey_id, value: @survey.id
+    %table.question-table
+      %thead
+        %tr
+          %th Question
+          %th Min
+          %th Max
+          %th Answer
+      %tbody
+        - @survey.survey_questions.each do |question|
+          %tr{ :class => cycle("odd", "even") }
+            %td= question.question 
+            %td= question.min
+            %td= question.max
+            %td= text_field_tag "questions[#{question.id}]"
+    = f.submit 'Submit'
+
+

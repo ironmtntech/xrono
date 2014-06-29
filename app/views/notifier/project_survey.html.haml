@@ -1,0 +1,13 @@
+- @projects.each do |project|
+  %h1= @project.name
+  - @project.surveys.each do |survey|
+    - survey.questions.each do |question|
+      %table
+        %thead
+          %th Question
+          %th Min
+          %th Max
+        %tbody
+          %td= question.question
+          %td= question.min
+          %td= question.max

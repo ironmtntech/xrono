@@ -1,5 +1,5 @@
 = form_for [:admin, @survey] do |f|
-  %td= select_tag :project_id, options_for_select(Project.all.collect{|x| [x.name, x.id]}), include_blank: true, class: 'chzn-select'
+  %td= select_tag :project_id, options_for_select(Project.all.collect{|x| [x.name, x.id]}), include_blank: true, class: 'chzn-select', :multiple => true
   .question-form
     %table.question-table
       %thead

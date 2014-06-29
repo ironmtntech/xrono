@@ -29,7 +29,7 @@
           %td= question.question 
           %td= question.min
           %td= question.max
-          %td= link_to 'Delete' admin_delete_question_path(question) :method => :delete
+          %td= link_to 'Delete', admin_delete_question_path(question), :method => 'delete'
 
 
 

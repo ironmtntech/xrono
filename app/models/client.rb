@@ -36,6 +36,10 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def active?
+    status == 'Active'
+  end
+
   def recent_users
     work_units.scheduled_between(2.weeks.ago, Time.zone.now).select("distinct user_id").includes(:user).map(&:user)
   end

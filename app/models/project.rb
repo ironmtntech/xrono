@@ -11,6 +11,8 @@ class Project < ActiveRecord::Base
   has_many :comments, :as => :commentable
   has_many :file_attachments
   has_one :data_vault, :as => :data_vaultable
+  has_many :project_survey_links
+  has_many :surveys, :through => :project_survey_links
 
   validates_presence_of :name
   validates_presence_of :client_id
@@ -63,6 +65,10 @@ class Project < ActiveRecord::Base
 
   def allows_access?(user)
     accepts_roles_by?(user) || user.admin?
+  end
+
+  def allows_non_admin_access?(user)
+    accepts_roles_by?(user)
   end
 
   def files_and_comments
