@@ -6,7 +6,7 @@ gemspec
 gem 'rails4_upgrade'
 group :development do
   # Use combustion for testing the engine
-  gem 'combustion', '0.3.3'
+  gem 'combustion', '0.3.1'
 end
 
 group :development, :test do
@@ -23,7 +23,7 @@ end
 
 platforms :ruby do
   gem 'pg'
-  gem 'mysql2', '~> 0.3.0'
+  gem 'mysql2'
 end
 
 #gem 'actionpack-action_caching', '~>1.0.0'

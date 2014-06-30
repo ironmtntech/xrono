@@ -34,11 +34,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'oauth2'
   s.add_dependency 'sidekiq', '3.1.3'
   s.add_dependency 'simple-navigation-bootstrap'
-  s.add_dependency 'coffee-rails'#, '~> 3.2.2'
+  s.add_dependency 'coffee-rails', '~> 4.0.0'
   s.add_dependency 'uglifier', '>= 1.3.0'
   s.add_dependency 'compass', '0.12.alpha.0'
   s.add_dependency 'bootstrap-sass', '2.0.1'
   s.add_dependency 'sass-rails', '~> 4.0.0'
+  s.add_dependency 'protected_attributes'
 
   s.add_development_dependency 'capistrano', '~> 2.8.0'
   s.add_development_dependency 'capybara', '~> 2.2.0'

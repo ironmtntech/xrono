@@ -14,8 +14,8 @@ class Ticket < ActiveRecord::Base
   scope :for_project_id, lambda{|project_id| where :project_id => project_id }
   scope :sort_by_name,   order('name ASC')
   scope :for_state, lambda { |state| where(:state => state) }
-  scope :incomplete, :conditions => ["completed = ?", false]
-  scope :complete, :conditions => ["completed = ?", true]
+  scope :incomplete, lambda {where(completed: false)}
+  scope :complete, lambda {where(completed: true)}
 
   scope :for_user, lambda{|user|
     joins("INNER JOIN projects p ON p.id=tickets.project_id").joins("INNER JOIN roles r ON r.authorizable_type='Project' AND r.authorizable_id=p.id").joins("INNER JOIN roles_users ru ON ru.role_id = r.id").where("ru.user_id = ?", user.id)

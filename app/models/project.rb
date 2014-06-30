@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
   acts_as_authorization_object
   acts_as_taggable
 
-  github_concern :repo => :git_repo_name
+  #github_concern :repo => :git_repo_name
 
   belongs_to :client
   has_many :tickets
@@ -21,8 +21,8 @@ class Project < ActiveRecord::Base
   scope :sort_by_name, order('name ASC')
   scope :for_client,    lambda {|client|    where :client_id => client.id }
   scope :for_client_id, lambda {|client_id| where :client_id => client_id }
-  scope :incomplete, where(:completed => false)
-  scope :complete, where(:completed => true)
+  scope :incomplete, lambda {where(:completed => false)}
+  scope :complete, lambda {where(:completed => true)}
   scope :with_git_repos, where(arel_table[:git_repo_url].not_eq(nil))
 
   scope :for_user, lambda{|user|

@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     root :to => "clients#index"
     resources :reports, :only => [:index] do
       collection do
-        match :work_units
+        get :work_units
       end
     end
     resources :clients, only: [:show, :index] do
@@ -45,7 +45,7 @@ Rails.application.routes.draw do
 
   get :project_subscribe, :controller => :clients, :action => :project_subscribe
   get :project_unsubscribe, :controller => :clients, :action => :project_unsubscribe
-  match '/client/:id' => 'clients#show'
+  get '/client/:id' => 'clients#show'
   get :inactive_clients, :controller => :clients, :action => :inactive_clients
   get :suspended_clients, :controller => :clients, :action => :suspended_clients
   get :all_clients, :controller => :clients, :action => :all_clients
