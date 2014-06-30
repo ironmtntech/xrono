@@ -27,6 +27,7 @@ require 'database_cleaner'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 load 'spec/support/xrono/macros.rb'
+include XronoTestHelper::Macros
 
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
@@ -41,4 +42,5 @@ RSpec.configure do |config|
   config.before(:each)   { Sham.reset(:before_each) }
 
   config.use_transactional_fixtures = true
+  config.extend XronoTestHelper::Macros, :type => :controller
 end

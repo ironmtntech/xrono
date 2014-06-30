@@ -34,6 +34,7 @@ Devise.setup do |config|
 
   # The realm used in Http Basic Authentication
   # config.http_authentication_realm = "Application"
+  config.secret_key = '6ddb97e26b66fcbbd0a282ecadb5b25fbcb5a18341355661d76a5a19844a303de95130a9103e9110a3deae4eee2741e1d0733a96e563b629e9db71fa2e521e0f'
 
   # ==> Configuration for :database_authenticatable
   # For bcrypt, this is the cost for hashing the password and defaults to 10. If
