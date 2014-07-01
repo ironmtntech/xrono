@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   scope :unlocked, lambda {where(:locked_at => nil)}
   scope :locked,   lambda {where('locked_at IS NOT NULL')}
-  scope :sort_by_name, order('first_name ASC')
+  scope :sort_by_name, -> {order('first_name ASC')}
   scope :developers, lambda { joins("INNER JOIN roles r on r.authorizable_type='Project'").joins("INNER JOIN roles_users ru ON ru.role_id = r.id").joins("INNER JOIN users u ON ru.user_id = u.id").where("r.name = 'developer'").where("ru.user_id = users.id") }
   scope :for_project, lambda{|project|
     joins("INNER JOIN roles r ON r.authorizable_type='Project' AND r.authorizable_id=#{project.id}").joins("INNER JOIN roles_users ru ON ru.role_id = r.id").joins("INNER JOIN users u ON ru.user_id = u.id").where("ru.user_id = users.id")

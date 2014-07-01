@@ -14,7 +14,7 @@ class Client < ActiveRecord::Base
 
   after_create :create_data_vault
 
-  scope :sort_by_name, order('name ASC')
+  scope :sort_by_name, -> {order('name ASC')}
   scope :active, lambda {where(:status => '10')}
   scope :suspended, lambda {where(:status => '20')}
   scope :inactive, lambda {where(:status => '30')}
