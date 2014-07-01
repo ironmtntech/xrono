@@ -1,6 +1,6 @@
 //= require jquery
 //= require jquery_ujs
-// require jquery-ui-1.8.16.custom.min.js
+//= require jquery.ui.all
 //= require admin_invoices
 //= require calendar
 //= require comments

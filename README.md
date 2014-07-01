@@ -63,3 +63,9 @@ For support, please do one of the following:
 We love contributions! please fork the project, make your changes in a branch,
 test them properly - rspec for model/lib/helpers) and cucumber for integration
 testing - then send us a pull request.
+
+## Dependencies
+Be sure to add these to your gemfile, for some reason they aren't being picked
+up properly from the engine.
+gem 'jquery-ui-rails'
+gem 'chosen-rails'

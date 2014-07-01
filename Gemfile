@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gemspec
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'rails4_upgrade'
+gem 'jquery-ui-rails'
 group :development do
   # Use combustion for testing the engine
   gem 'combustion', '0.3.1'

@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'paperclip', '~> 2.3'
   s.add_dependency 'uuid', '~> 2.3.1'
   s.add_dependency 'jquery-rails'
+  s.add_dependency 'jquery-ui-rails'
   s.add_dependency 'rake', '~> 10.0'
   s.add_dependency 'state_machine', '~> 1.0.2'
   s.add_dependency 'googlecharts', '~> 1.6.8'
