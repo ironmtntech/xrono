@@ -8,7 +8,7 @@ function ticket_board_ready_function() {
     });
   }
 
-  $('.bucket ul li').live('dblclick', function(){
+  $('.bucket ul li').on('dblclick', function(){
     $.ajax({
       url: '/tickets/'+this.id+'/ticket_detail',
       success: function(data) {

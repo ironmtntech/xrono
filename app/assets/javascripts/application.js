@@ -1,6 +1,6 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui-1.8.16.custom.min.js
+// require jquery-ui-1.8.16.custom.min.js
 //= require admin_invoices
 //= require calendar
 //= require comments
@@ -9,7 +9,7 @@
 //= require dashboard
 //= require file_attachments
 //= require schedule_modal
-//= require chosen.jquery.js
+//= require chosen-jquery
 //= require jquery.jeditable.js
 //= require bootstrap-tooltip
 //= require bootstrap-dropdown
@@ -19,8 +19,8 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 $(function() {
-  <% unless Rails.env.test? || Rails.env.cucumber? %>
-    <% # only use chosen in dev r prod - it breaks cukes %>
-    $(".chzn-select").chosen();
-  <% end %>
+  //<% unless Rails.env.test? || Rails.env.cucumber? %>
+  //  <% # only use chosen in dev r prod - it breaks cukes %>
+  $(".chzn-select").chosen();
+  //<% end %>
 });

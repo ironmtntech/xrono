@@ -1,5 +1,5 @@
 //hide/show work unit description
-$('tr.calendar_top .expand').live('click', function() {
+$('tr.calendar_top .expand').on('click', function() {
   $(this).parents('.calendar').find('a').siblings('.description').each(function() {
     $(this).toggle('fast');
     $(this).toggleClass("expand");

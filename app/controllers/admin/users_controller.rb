@@ -25,6 +25,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def create
+    params[:user].delete(:locked) if params[:user][:locked].present?
     @user.update_attributes(params[:user])
     if params[:user]["client"] == "1"
       @user.client = true
@@ -43,6 +44,7 @@ class Admin::UsersController < Admin::BaseController
 
   def update
     params[:user]["locked"] == "1" ? @user.lock_access! : @user.unlock_access!
+    params[:user].delete(:locked) if params[:user][:locked].present?
 
     @user.update_attributes(params[:user])
     if @user.save
