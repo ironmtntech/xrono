@@ -33,12 +33,12 @@ describe Client do
 
     context 'when the user has access to one or more of its projects' do
       before { user.has_role!(:developer, project) }
-      it { should be_true }
+      it { should eq(true) }
     end
 
     context 'when the user has access to none of its projects' do
       before { user.has_no_roles_for!(project) }
-      it { should be_false }
+      it { should eq(false) }
     end
   end
 
