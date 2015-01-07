@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'googlecharts', '~> 1.6.8'
   s.add_dependency 'css3-progress-bar-rails', '~> 0.2.2'
   s.add_dependency 'grit', '~> 2.4.0'
-  s.add_dependency 'paper_trail', '~> 3.0.0'
+  #s.add_dependency 'paper_trail', '~> 3.0.0'
   s.add_dependency 'attr_encrypted', '~> 1.2.0'
   s.add_dependency 'acts-as-taggable-on'
   s.add_dependency 'acts_as_commentable'
