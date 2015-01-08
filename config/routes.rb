@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  mount Doorkeeper::Engine => '/oauth'
+  use_doorkeeper
 
   root :to => "dashboard/base#index"
 
