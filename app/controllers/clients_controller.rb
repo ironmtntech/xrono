@@ -68,7 +68,7 @@ class ClientsController < ApplicationController
   end
 
   def all_clients
-    @clients = authorized_clients
+    @clients = Client.order("name")
   end
 
   def show
