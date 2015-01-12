@@ -7,7 +7,7 @@ class ClientsController < ApplicationController
 
   access_control do
     allow :admin
-    allow :developer, :to => [:index, :inactive_clients, :suspended_clients, :show_complete, :project_subscribe, :project_unsubscribe, :show, :historical_time]
+    allow :developer, :to => [:index, :inactive_clients, :suspended_clients, :show_complete, :project_subscribe, :project_unsubscribe, :show, :historical_time, :all_clients]
 
     action :index do
       allow :developer
