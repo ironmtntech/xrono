@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    xrono (1.0.6)
+    xrono (1.0.7)
       acl9
       acts-as-taggable-on
       acts_as_commentable
