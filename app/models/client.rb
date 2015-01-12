@@ -76,6 +76,10 @@ class Client < ActiveRecord::Base
     Client.statuses[attributes["status"]]
   end
 
+  def active?
+    status == 'Active'
+  end
+
   def status=(val)
     write_attribute(:status, Client.statuses.invert[val])
   end

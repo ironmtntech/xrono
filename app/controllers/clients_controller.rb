@@ -7,7 +7,7 @@ class ClientsController < ApplicationController
 
   access_control do
     allow :admin
-    allow :developer, :to => [:index, :inactive_clients, :suspended_clients, :show_complete, :project_subscribe, :project_unsubscribe, :show, :historical_time, :all_clients]
+    allow :developer, :to => [:index, :inactive_clients, :suspended_clients, :show_complete, :project_subscribe, :project_unsubscribe, :show, :historical_time, :all_clients, :active_clients]
 
     action :index do
       allow :developer
@@ -58,13 +58,17 @@ class ClientsController < ApplicationController
   def index
     @clients = authorized_clients.active
   end
+ 
+  def active_clients
+    @clients = Client.order("name").active
+  end 
 
   def inactive_clients
-    @clients = authorized_clients.inactive
+    @clients = Client.order("name").inactive
   end
 
   def suspended_clients
-    @clients = authorized_clients.suspended
+    @clients = Client.order("name").suspended
   end
 
   def all_clients
@@ -104,12 +108,14 @@ class ClientsController < ApplicationController
   def project_subscribe
     project = Project.find(params[:project_id])
     current_user.has_role!(:developer, project)
+    current_user.has_role!(:developer, project.client)
     redirect_to client_path project.client
   end
 
   def project_unsubscribe
     project = Project.find(params[:project_id])
     current_user.has_no_roles_for!(project)
+    current_user.has_role!(:developer, project.client)
     redirect_to client_path project.client
   end
 

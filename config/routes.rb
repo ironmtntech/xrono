@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   get :project_unsubscribe, :controller => :clients, :action => :project_unsubscribe
   get '/client/:id' => 'clients#show'
   get :inactive_clients, :controller => :clients, :action => :inactive_clients
+  get :active_clients, :controller => :clients, :action => :active_clients
   get :suspended_clients, :controller => :clients, :action => :suspended_clients
   get :all_clients, :controller => :clients, :action => :all_clients
   resources :clients, except: [:destroy] do

@@ -19,6 +19,7 @@ class Project < ActiveRecord::Base
   after_create :create_data_vault
 
   scope :sort_by_name, -> {order('name ASC')}
+  scope :active, lambda{ joins(:client).where('clients.status = ?', '10')}
   scope :for_client,    lambda {|client|    where :client_id => client.id }
   scope :for_client_id, lambda {|client_id| where :client_id => client_id }
   scope :incomplete, lambda {where(:completed => false)}
@@ -32,6 +33,10 @@ class Project < ActiveRecord::Base
   scope :for_user_and_role, lambda{|user, role|
     joins("INNER JOIN roles r ON r.authorizable_type='#{model_name}' AND r.authorizable_id=projects.id").joins("INNER JOIN roles_users ru ON ru.role_id = r.id").joins("INNER JOIN users u ON ru.user_id = u.id").where("ru.user_id = #{user.id} AND r.name = '#{role}'")
   }
+
+  #def self.active
+  #  Project.joins(:client).where('clients.status =?', 10)
+  #end
 
   def uninvoiced_hours
     WorkUnit.for_project(self).not_invoiced.sum(:effective_hours)
