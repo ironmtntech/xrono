@@ -2,7 +2,7 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - "if [[ `eval ruby -v` =~ 'jruby' ]]; then database_yml=spec/internal/config/database.yml.$db.jruby; else database_yml=spec/internal/config/database.yml.$db; fi;echo $database_yml;cp $database_yml config/database.yml;cp $database_yml spec/internal/config/database.yml;"
 script:
-  - "RAILS_ENV=test rake db:create"
+  - "RAILS_ENV=test bundle exec rake db:create"
   - "bundle exec rake db:create db:migrate db:test:clone"
   - "DISPLAY=:99.0 bundle exec rspec ./spec/"
   - "DISPLAY=:99.0 bundle exec cucumber"
