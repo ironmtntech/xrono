@@ -10,7 +10,7 @@ development:
   username: root
   password: 
 
-test:
+test: &test
   adapter: mysql2
   database: xrono_test
   username: root

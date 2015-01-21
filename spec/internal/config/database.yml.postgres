@@ -10,7 +10,7 @@ development:
   username: postgres
   min_messages: WARNING
 
-test:
+test: &test
   adapter: postgresql
   database: xrono_test
   username: postgres
