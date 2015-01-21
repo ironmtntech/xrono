@@ -186,7 +186,7 @@ describe WorkUnit do
     end
 
     it 'returns true if hours type is overtime' do
-      expect(work_unit1.overtime?).to eq(true)
+      work_unit1.overtime?.should == true
     end
   end
 
@@ -204,21 +204,19 @@ describe WorkUnit do
       should == [work_unit2]
     end
   end
-
+=begin
   describe '#validate_client_status' do
-    subject { work_unit }
+    subject { work_unit.validate_client_status }
 
     let(:client) { work_unit.client }
 
     context 'when the client status is "Inactive"' do
       before { client.status = "Inactive" }
 
-      it "makes work unit invalid" do
-        expect(work_unit.valid?).to eq(false)
-      end
+      it { should raise_error }
     end
   end
-
+=end
   describe '#send_email!' do
     context 'when there are contacts for the parent client who receive email' do
       let(:contact1) { Contact.make(:client => work_unit.client) }
@@ -283,12 +281,12 @@ describe WorkUnit do
 
     context 'when the work unit is unpaid' do
       before { work_unit.update_attributes(:paid => nil, :paid_at => nil) }
-      it { should eq(true) }
+      it { should == true }
     end
 
     context 'when the work unit is paid' do
       before { work_unit.update_attributes(:paid => 'Paid', :paid_at => Date.current) }
-      it { should eq(false) }
+      it { should == false }
     end
   end
 
@@ -297,12 +295,12 @@ describe WorkUnit do
 
     context 'when the work unit is unpaid' do
       before { work_unit.update_attributes(:paid => nil, :paid_at => nil) }
-      it { should eq(false) }
+      it { should == false }
     end
 
     context 'when the work unit is paid' do
       before { work_unit.update_attributes(:paid => 'Paid', :paid_at => Date.current) }
-      it { should eq(true) }
+      it { should == true }
     end
   end
 
@@ -311,12 +309,12 @@ describe WorkUnit do
 
     context 'when the work unit is invoiced' do
       before { work_unit.update_attributes(:invoiced => 'Invoiced', :invoiced_at => Date.current) }
-      it { should eq(true) }
+      it { should == true }
     end
 
     context 'when the work unit is not invoiced' do
       before { work_unit.update_attributes(:invoiced => nil, :invoiced_at => nil) }
-      it { should eq(false) }
+      it { should == false }
     end
   end
 
@@ -325,12 +323,12 @@ describe WorkUnit do
 
     context 'when the work unit is invoiced' do
       before { work_unit.update_attributes(:invoiced => 'Invoiced', :invoiced_at => Date.current) }
-      it { should eq(false) }
+      it { should == false }
     end
 
     context 'when the work unit is not invoiced' do
       before { work_unit.update_attributes(:invoiced => nil, :invoiced_at => nil) }
-      it { should eq(true) }
+      it { should == true }
     end
   end
 
@@ -351,17 +349,17 @@ describe WorkUnit do
 
     context 'when the user has a role on the parent project' do
       before { user.has_role!(:developer, work_unit.project) }
-      it { should eq(true) }
+      it { should == true }
     end
 
     context 'when the user has an admin role' do
       before { user.has_role!(:admin) }
-      it { should eq(true) }
+      it { should == true }
     end
 
     context 'when the user has no role on the parent project' do
       before { user.has_no_roles_for!(work_unit.project) }
-      it { should eq(false) }
+      it { should == false }
     end
   end
 
@@ -425,13 +423,13 @@ describe WorkUnit do
     it 'correctly reports if it is overtime' do
       work_unit = WorkUnit.make
       work_unit.update_attributes(hours_type: "Overtime")
-      expect(work_unit.overtime?).to eq(true)
+      work_unit.overtime?.should == true
     end
 
     it 'correctly reports if it is not overtime' do
       work_unit = WorkUnit.make
       work_unit.update_attributes(hours_type: "PTO")
-      expect(work_unit.overtime?).to eq(false)
+      work_unit.overtime?.should == false
     end
   end
 
@@ -443,14 +441,14 @@ describe WorkUnit do
       end
 
       it 'applies the overtime_multiplier' do
-        expect(work_unit.effective_hours).to eq(3)
+        work_unit.effective_hours.should == 3
       end
     end
 
     describe '#to_s' do
       it 'equals the truncated description' do
         work_unit = WorkUnit.make
-        expect(work_unit.to_s).to eq(work_unit.description[0..80])
+        work_unit.to_s.should == work_unit.description[0..80]
       end
     end
 
@@ -461,7 +459,7 @@ describe WorkUnit do
       end
 
       it 'does not apply the overtime multiplier' do
-        expect(work_unit.effective_hours).to eq(2)
+        work_unit.effective_hours.should == 2
       end
     end
   end

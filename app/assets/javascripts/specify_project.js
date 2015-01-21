@@ -1,5 +1,6 @@
 // when client is changed, populate the projects
 $("#specify_client_id").change(function(){
+  debugger;
   var me = $("#specify_project_id");
   me.children().remove();
   me.append( new Option("Select a project","") )

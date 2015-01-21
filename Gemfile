@@ -4,6 +4,7 @@ gemspec
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'jquery-ui-rails'
+#gem 'paper_trail'
 group :development do
   # Use combustion for testing the engine
   gem 'combustion', '0.3.1'

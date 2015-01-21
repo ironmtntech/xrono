@@ -20,7 +20,6 @@ describe Client do
   it { should validate_presence_of :name }
   it { should validate_presence_of :status }
   it { should validate_uniqueness_of :name }
-
   describe '#to_s' do
     subject { client.to_s }
     it 'returns the client name' do
@@ -33,12 +32,12 @@ describe Client do
 
     context 'when the user has access to one or more of its projects' do
       before { user.has_role!(:developer, project) }
-      it { should eq(true) }
+      it { should == true }
     end
 
     context 'when the user has access to none of its projects' do
       before { user.has_no_roles_for!(project) }
-      it { should eq(false) }
+      it { should == false }
     end
   end
 

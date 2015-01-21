@@ -1,3 +1,5 @@
+require 'rubygems'
+require 'bundler'
 # Simplecov Setup
 if RUBY_VERSION >= '1.9.2'
   require 'simplecov'
@@ -17,6 +19,7 @@ Combustion.initialize!
 require File.expand_path(File.dirname(__FILE__) + "/blueprints")
 
 require 'rspec/rails'
+require 'devise'
 require 'devise/test_helpers'
 
 require 'sidekiq/testing'
@@ -43,5 +46,5 @@ RSpec.configure do |config|
   config.before(:each)   { Sham.reset(:before_each) }
 
   config.use_transactional_fixtures = true
-  config.extend XronoTestHelper::Macros, :type => :controller
+  config.include XronoTestHelper::Macros, :type => :controller
 end

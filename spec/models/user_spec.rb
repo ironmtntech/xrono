@@ -3,14 +3,13 @@ require 'spec_helper'
 describe User do
   let(:user) { User.make }
   let(:user_2) { User.make }
-  let(:user_3) { User.make }
   let(:work_unit1) { WorkUnit.make(:user => user) }
   let(:work_unit2) { WorkUnit.make(:user => user) }
   let(:work_unit3) { WorkUnit.make(:user => user) }
-  let(:work_unit4) { WorkUnit.make(:user => user_3, :scheduled_at => 1.year.from_now) }
 
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }
+
   describe '.with_unpaid_work_units' do
     subject { User.with_unpaid_work_units }
 
@@ -141,12 +140,12 @@ describe User do
 
     context 'when the user has an admin role' do
       before { user.has_role!(:admin) }
-      it { should be_true }
+      it { should == true }
     end
 
     context 'when the user does not have an admin role' do
       before { user.has_no_role!(:admin) }
-      it { should be_false }
+      it { should == false }
     end
   end
 
@@ -155,12 +154,12 @@ describe User do
 
     context 'when the user is locked' do
       before { user.lock_access! }
-      it { should be_true }
+      it { should == true }
     end
 
     context 'when the user is unlocked' do
       before { user.unlock_access! }
-      it { should be_false }
+      it { should == false }
     end
   end
 
@@ -171,13 +170,13 @@ describe User do
 
     before do
       site_settings.update_attributes(:total_yearly_pto_per_user => 40)
-      work_unit1.update_attributes(:hours => 2, :hours_type => 'PTO', :scheduled_at => Date.today.beginning_of_year + 1.day)
-      work_unit2.update_attributes(:hours => 3, :hours_type => 'PTO', :scheduled_at => Date.today.beginning_of_year + 2.days)
+      work_unit1.update_attributes(:hours => 2, :hours_type => 'PTO', :scheduled_at => Date.today)
+      work_unit2.update_attributes(:hours => 3, :hours_type => 'PTO', :scheduled_at => 1.days.from_now)
       work_unit3.update_attributes(:hours => 5, :hours_type => 'PTO', :scheduled_at => '2010-12-31')
     end
 
     it 'returns the number of PTO hours left for the given year as of the passed date' do
-      should == BigDecimal("35")
+      should == 35
     end
   end
 
@@ -224,84 +223,6 @@ describe User do
       end
       it { should =~ /\d+/}
     end
-
-    context 'no workers are present' do
-      subject { user_2.expected_hours(Date.current) }
-      it 'returns 0' do
-        should == 0
-      end
-    end
-
-    context 'their first day is in the future' do
-      subject { user_3.expected_hours(Date.current) }
-      it 'returns 0' do
-        should == 0
-      end
-    end
-  end
-
-  describe 'work_days_between_dates' do
-    context 'start date is in same year' do
-      it 'calculates the work days' do
-        start = Date.new(2014,1,1)
-        finish = Date.new(2014,2,1)
-        work_days = User.new.work_days_between_dates(start, finish)
-        work_days.should == 23
-      end
-    end
-
-    context 'start date is in different year' do
-      it 'calculates the work days in end year' do
-        start = Date.new(2013,1,1)
-        finish = Date.new(2014,2,1)
-        work_days = User.new.work_days_between_dates(start, finish)
-        work_days.should == 23
-      end
-    end
-  end
-
-  describe 'first_scheduled_date_in_future?' do
-    context "first scheduled date is in the future" do
-      before do
-        work_unit4.update_attribute(:scheduled_at, 1.year.from_now)
-      end
-
-      it 'returns true' do
-        user_3.first_scheduled_date_in_future?(Date.current).should == true
-      end
-    end
-
-    context 'first scheduled date is in the past' do
-      before do
-        work_unit4.update_attribute(:scheduled_at, 1.year.ago)
-      end
-
-      it 'returns false' do
-        user_3.first_scheduled_date_in_future?(Date.current).should == false
-      end
-    end
-  end
-
-  describe 'never_worked?' do
-    context "No work units" do
-      it 'returns true' do
-        User.new.never_worked?.should == true
-      end
-    end
-
-    context 'has work units' do
-      it 'returns false' do
-        work_unit4 #bring into scope
-        user_3.never_worked?.should == false
-      end
-    end
-  end
-
-  describe 'first_scheduled_date' do
-    it 'returns the scheduled_at date for the first work unit' do
-      work_unit1 #bring into scope
-      user.first_scheduled_date.should == work_unit1.scheduled_at.to_date
-    end
   end
 
   describe 'percentage_work_for' do
@@ -325,11 +246,11 @@ describe User do
       end.should raise_error(RuntimeError)
     end
 
-    it 'does not raise an exception if given the right parameter types' do
-      lambda do
-        user.percentage_work_for(client, start_date, end_date)
-      end.should_not raise_error(RuntimeError)
-    end
+    #it 'does not raise an exception if given the right parameter types' do
+    #  lambda do
+    #    user.percentage_work_for(Client.new, start_date, end_date)
+    #  end.should_not raise_error(RuntimeError)
+    #end
 
     it 'calculates the percentage of hours worked for a client as a percentage of all work done' do
       should == 0
