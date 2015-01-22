@@ -1,4 +1,4 @@
-.span1.progress_container
+#progress_container.progress_container
   .week_pagination
     %h4 Active Project List
   %ul.progress_notifier
@@ -7,7 +7,9 @@
         = link_to project.name, project_path(project)
         = progress_bar(project_completion_metric(project))
 
-.span11.calendar_container
+.calendar_container
+  %button#progress_trigger
+    View Active Projects
   .week_pagination
     = render 'dashboard/base/week_pagination', :start_date => @start_date
   = render 'shared/calendar', :start_date => @start_date, :user => current_user, :work_units => @work_units
@@ -21,3 +23,4 @@
 
   - content_for :javascripts do
     = javascript_include_tag 'add_taxonomy'
+= javascript_include_tag 'project_progress'
