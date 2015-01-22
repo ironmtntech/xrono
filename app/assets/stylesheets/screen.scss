@@ -263,7 +263,7 @@ body div.container-fluid div.row div.span16 p.ticket_metrics {
 }
 legend {
   -webkit-margin-top-collapse: separate;
-  
+
 }
 .form-actions {
   background-color:#fff;
@@ -357,14 +357,16 @@ legend {
 /**************************************************************************************************************************************/
 /*                                             Active Project List Styles on the Home Page                                            */
 /**************************************************************************************************************************************/
-.span11.calendar_container{
+.span12.calendar_container{
   margin-left: 0;
   padding-left: 30px;
   border-left: 1px solid #eee;
 }
-.span1.progress_container{
+.progress_container{
   margin-left: 0;
-  @include background-image(linear-gradient(#fafafa #fff));
+  //@include background-image(linear-gradient(#fafafa #fff));
+  background-color: #f00;
+
   .week_pagination{
     margin-bottom: .6em;
   }

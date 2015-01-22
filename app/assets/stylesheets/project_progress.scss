@@ -1,0 +1,33 @@
+.progress_container{
+  background: linear-gradient(#fafafa, #fff);
+  position: absolute;
+  left: -175px;
+  top: 60px;
+  transition: all .5s;
+  padding: 1em;
+  border-right: #ccc;
+  box-shadow: 2px 2px 2px #bbb;
+  &.active, &.open{
+    left: 0;
+    transition: all .5s;
+  }
+}
+#progress_trigger{
+  position: relative;
+  transition: all .5s;
+  border: 1px solid #aaa;
+  padding: 1em;
+  font-size: 1.15em;
+  color: #666;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  font-weight: 600;
+  left: 0px;
+  &.active{
+    left: 175px;
+    transition: all .5s;
+  }
+  &:hover{
+    background-color: #ddd;
+  }
+}
