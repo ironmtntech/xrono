@@ -8,7 +8,7 @@ class WorkUnitsController < ApplicationController
   before_filter :load_work_unit, :only => [:show, :edit, :update]
   before_filter :require_admin, :only => [:index]
 
-  authorize_owners_with_client_show(:project)
+  #FIXME this is causing access denied issues     #authorize_owners_with_client_show(:project)
 
   def new
   end
