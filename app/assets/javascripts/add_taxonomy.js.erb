@@ -123,12 +123,12 @@ $("#new_work_unit").submit(function() {
         $.each(data, function(i, client){
          $("#work_unit_client_id").append( new Option(client.name, client.id) )
         });
-       // <% unless Rails.env.test? || Rails.env.cucumber? %>
-       //   <% # only use chosen in dev r prod - it breaks cukes %>
+        <% unless Rails.env.test? || Rails.env.cucumber? %>
+          <% # only use chosen in dev r prod - it breaks cukes %>
           $("#work_unit_client_id").trigger("liszt:updated");
           $("#work_unit_project_id").trigger("liszt:updated");
           $("#work_unit_ticket_id").trigger("liszt:updated");
-       // <% end %>
+        <% end %>
       }, "json");
       // Ask the calendar to update itself
       update_calendar_block();
