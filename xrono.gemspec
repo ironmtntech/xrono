@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.email = "josh@isotope11.com"
   s.homepage = "http://www.xrono.org"
-  s.version = %q(1.0.10)
+  s.version = %q(1.0.11)
 
   s.add_dependency 'rails', '4.0.6'
   s.add_dependency 'railties', '4.0.6'
