@@ -1,7 +1,7 @@
 .progress_container{
   background: linear-gradient(#fafafa, #fff);
   position: absolute;
-  left: -175px;
+  left: -335px;
   top: 60px;
   transition: all .5s;
   padding: 1em;
@@ -12,6 +12,21 @@
     left: 0;
     transition: all .5s;
   }
+  .date_pagination{
+    .row-fluid{
+      margin: 1em 0;
+      div.span{
+        display: inline;
+        float: none;
+        margin: 0;
+        a{
+          display: inline;
+          padding: .5em;
+        }
+      }
+    }
+  }
+
 }
 #progress_trigger{
   position: relative;
@@ -25,7 +40,7 @@
   font-weight: 600;
   left: 0px;
   &.active{
-    left: 175px;
+    left: 335px;
     transition: all .5s;
   }
   &:hover{
