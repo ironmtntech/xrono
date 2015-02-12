@@ -1,0 +1,5 @@
+%h2= "#{t(:historical_time_entered_for)} #{@user.to_s}"
+- (0..5).each do |x|
+  - start_date = Date.current.beginning_of_week - x.weeks
+  %h3= "#{t(:week_of)} #{start_date} #{t(:to)} #{start_date + 1.week}"
+  = render 'shared/calendar', :start_date => start_date, :user => @user, :work_units => @user.work_units_between(start_date, start_date + 6.days)

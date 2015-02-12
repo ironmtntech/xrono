@@ -83,6 +83,7 @@ Rails.application.routes.draw do
     member do
       put :change_password
       get :historical_time
+      get :hours_by_date_range
     end
   end
 

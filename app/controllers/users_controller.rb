@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
-  before_filter :load_user, :only => [:show, :edit, :change_password, :historical_time, :update]
+  before_filter :load_user, :only => [:show, :edit, :change_password, :historical_time, :update, :hours_by_date_range]
   skip_before_filter :redirect_clients
 
   access_control do
     allow :admin
     allow :developer, :to => [:edit, :change_password, :update], :if => :user_is_current_user?
-    allow :developer, :to => [:index, :show, :historical_time]
+    allow :developer, :to => [:index, :show, :historical_time, :hours_by_date_range]
     allow :client, :to => [:edit, :show, :change_password], :if => :user_is_current_user?
   end
 
@@ -34,6 +34,9 @@ class UsersController < ApplicationController
   end
 
   def historical_time
+  end
+
+  def hours_by_date_range
   end
 
   def update
