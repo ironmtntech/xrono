@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require jquery.dataTables.min
+//= require jquery.dataTables.columnFilter
 //= require admin_invoices
 //= require calendar
 //= require comments

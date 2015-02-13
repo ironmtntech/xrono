@@ -2,25 +2,47 @@
   %thead
     %tr
       %th
+        &nbsp;
+      %th.description
+        &nbsp;
+      %th
+        &nbsp;
+      %th
+        Date
+      %th
+        All
+      %th
+        &nbsp;
+    %tr
+      %th
         Hours
       %th.description
         Description
       %th
+        Client
+      %th
         Date
       %th
-        Paid?
+        Paid
       %th
-        Invoiced?
+        Invoiced
   %tbody
     -@user.work_units.each do |unit|
       %tr
-        %td
+        %td.hours
           = unit.hours
         %td.description
           = unit.description
         %td
-          = unit.created_at
+          = unit.client
         %td
-          = unit.paid? ? "Paid" : "Unpaid"
+          = unit.created_at.strftime("%m/%d/%Y")
         %td
-          = unit.invoiced
+          = unit.paid? ? unit.paid : "Unpaid"
+        %td
+          = unit.invoiced? ? unit.invoiced : "Not Invoiced"
+  %tfoot
+    %tr
+      %td#totalHours{ colspan: 6 }
+        Total:
+
