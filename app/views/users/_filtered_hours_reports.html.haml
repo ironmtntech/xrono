@@ -1,0 +1,26 @@
+%table#work-unit-table.table.table-striped.work-hours-table{ width: '100%', }
+  %thead
+    %tr
+      %th
+        Hours
+      %th.description
+        Description
+      %th
+        Date
+      %th
+        Paid?
+      %th
+        Invoiced?
+  %tbody
+    -@user.work_units.each do |unit|
+      %tr
+        %td
+          = unit.hours
+        %td.description
+          = unit.description
+        %td
+          = unit.created_at
+        %td
+          = unit.paid? ? "Paid" : "Unpaid"
+        %td
+          = unit.invoiced

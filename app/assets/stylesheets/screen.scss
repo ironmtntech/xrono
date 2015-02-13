@@ -2,6 +2,7 @@
 @import "chosen";
 @import "css3-progress-bar";
 @import "compass";
+@import "jquery.dataTables";
 @import "compass/css3";
 
 //** SCREEN STYLES **//
@@ -399,7 +400,15 @@ ul.progress_notifier{
     }
   }
 }
-
+table.work-hours-table{
+  overflow: hidden;
+  th{
+    cursor: pointer;
+  }
+  .description{
+    max-width: 300px;
+  }
+}
 
 
 @import "responsive";
