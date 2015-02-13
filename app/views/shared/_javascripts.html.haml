@@ -8,6 +8,8 @@
   $(document).ready(function(){
     $('.dropdown-toggle').dropdown()
     $('#work-unit-table').DataTable({
+      "order": [[ 2, "asc" ]],
+      "iDisplayLength" : 100,
       "footerCallback": function ( row, data, start, end, display ) {
         var api = this.api(), data;
         // Remove the formatting to get integer data for summation
