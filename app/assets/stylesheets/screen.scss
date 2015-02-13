@@ -2,6 +2,7 @@
 @import "chosen";
 @import "css3-progress-bar";
 @import "compass";
+@import "jquery.dataTables";
 @import "compass/css3";
 
 //** SCREEN STYLES **//
@@ -400,6 +401,36 @@ ul.progress_notifier{
   }
 }
 
+.work-unit-table_wrapper{
+  label, label > select{
+    display: inline;
+  }
+}
+table.work-hours-table{
+  overflow: hidden;
+  th{
+    cursor: pointer;
+    .filter_column.filter_date_range, .filter_column.filter_date_range > *{
+      display: inline;
+      text-transform: capitalize;
+    }
+    .filter_date_range{
+      position: absolute;
+      left: 0;
+      top:57px;
+      @media(max-width:767px) {
+        position: static;
+      }
+    }
+    &:before{
+      display: block;
+      content: " ";
+    }
+  }
+  .description{
+    max-width: 300px;
+  }
+}
 
 
 @import "responsive";

@@ -2,6 +2,7 @@
 
 %ul.nav.nav-pills
   %li= link_to t(:historical_time_report), historical_time_user_path
+  %li= link_to t(:hours_by_date_range), hours_by_date_range_user_path
   - if @user == current_user or admin?
     %li= link_to "Edit User", edit_user_path(@user)
 

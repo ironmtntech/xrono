@@ -1,0 +1,48 @@
+%table#work-unit-table.table.table-striped.work-hours-table{ width: '100%', }
+  %thead
+    %tr
+      %th
+        &nbsp;
+      %th.description
+        &nbsp;
+      %th
+        &nbsp;
+      %th
+        Date
+      %th
+        All
+      %th
+        &nbsp;
+    %tr
+      %th
+        Hours
+      %th.description
+        Description
+      %th
+        Client
+      %th
+        Date
+      %th
+        Paid
+      %th
+        Invoiced
+  %tbody
+    -@user.work_units.each do |unit|
+      %tr
+        %td.hours
+          = unit.hours
+        %td.description
+          = unit.description
+        %td
+          = unit.client
+        %td
+          = unit.created_at.strftime("%m/%d/%Y")
+        %td
+          = unit.paid? ? unit.paid : "Unpaid"
+        %td
+          = unit.invoiced? ? unit.invoiced : "Not Invoiced"
+  %tfoot
+    %tr
+      %td#totalHours{ colspan: 6 }
+        Total:
+

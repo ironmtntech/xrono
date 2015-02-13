@@ -5,5 +5,52 @@
 = javascript_include_tag "https://www.google.com/jsapi"
 = yield :javascripts
 :javascript
-  $('.dropdown-toggle').dropdown()
+  $(document).ready(function(){
+    $('.dropdown-toggle').dropdown()
+    $('#work-unit-table').DataTable({
+      "order": [[ 2, "asc" ]],
+      "iDisplayLength" : 100,
+      "footerCallback": function ( row, data, start, end, display ) {
+        var api = this.api(), data;
+        // Remove the formatting to get integer data for summation
+        var intVal = function ( i ) {
+          return typeof i === 'string' ?
+            i.replace(/[\$,]/g, '')*1 :
+            typeof i === 'number' ?
+              i : 0;
+        };
+
+        // Total over all pages
+        total = api
+          .column( 0 )
+          .data()
+          .reduce( function (a, b) {
+            return intVal(a) + intVal(b);
+          } );
+
+        // Total over this page
+        pageTotal = api
+          .column( 0, { page: 'current'} )
+          .data()
+          .reduce( function (a, b) {
+            return intVal(a) + intVal(b);
+          }, 0 );
+
+        // Update footer
+        $( api.column( 0 ).footer() ).html(
+          pageTotal +' Hours - ('+ total +' Total Hours)'
+        );
+      }
+    });
+    $('#work-unit-table').dataTable().columnFilter({
+      sPlaceHolder: "head:before", aoColumns: [
+        null,
+        null,
+        null,
+        { type: "date-range" },
+        { type: "select", values: [ 'Unpaid']  },
+        null
+      ]
+    });
+  });
 

@@ -44,12 +44,17 @@
               = find_and_preserve do
                 %textarea{:cols => "100%", :rows => "10"}
                   = "#{ticket.long_name}"
+                  &#13;
                   = "=========================="
+                  &#13;
                   - @work_units.each do |wu|
                     - if wu.ticket == ticket
+                      &#10;
                       = "#{wu.scheduled_at.strftime("%Y/%m/%d")} - #{wu.user.to_s} - #{wu.effective_hours} Hours\n  #{wu.description.gsub(/[\n]/,'\0  ')}"
-                      = ""
+                      &#10;
                       - if ticket.work_units.last == wu
                         = "=========================="
+                        &#10;
                         = "#{t(:total_hours)}: #{ticket.uninvoiced_hours}"
+                        &#10;
     = t(:total_outstanding_hours).capitalize << ':' << @client.uninvoiced_hours.to_s << ' ' << t(:hours)
