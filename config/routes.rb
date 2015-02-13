@@ -84,7 +84,6 @@ Rails.application.routes.draw do
       put :change_password
       get :historical_time
       get :hours_by_date_range
-      get "/fetch_hours" => 'users#fetch_hours', as: 'fetch_hours'
     end
   end
 
