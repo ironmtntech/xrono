@@ -6,6 +6,9 @@
 @import "compass/css3";
 
 //** SCREEN STYLES **//
+body{
+  position: relative;
+}
 a {
   outline:none;
 }
@@ -431,7 +434,15 @@ table.work-hours-table{
     max-width: 300px;
   }
 }
-
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-resizable{
+  position: fixed !important;
+  top: 45% !important;
+  .ui-dialog .ui-dialog-titlebar-close span{
+    top: 0;
+    margin: 0;
+    left: 0;
+  }
+}
 
 @import "responsive";
 
