@@ -24,6 +24,18 @@
           = text_field_tag :scheduled_at, @work_unit.scheduled_at
 
     .control-group
+      %label.control-label{:for => "work_unit_client_id"}= "#{t(:client)}:"
+      = @work_unit.client
+    .control-group
+      %label.control-label{:for => "work_unit_project_id"}= "#{t(:project)}:"
+      .controls
+        = f.fields_for(:ticket, :include_id => false) do |b|
+          = b.select :project_id, options_from_collection_for_select(@projects, "id", "name", @work_unit.project.id)
+    .control-group
+      %label.control-label{:for => "work_unit_ticket_id"}= "#{t(:ticket)}:"
+      .controls
+        = f.select :ticket_id, options_from_collection_for_select(@tickets, "id", "name", @work_unit.ticket.id)
+    .control-group
       = f.label :hours_type, :class => 'control-label'
       .controls
         = f.select :hours_type, ['Normal', 'Overtime', 'CTO', 'PTO']
@@ -40,5 +52,7 @@
 
     .form-actions
       = f.hidden_field :scheduled_at, :value => @work_unit.scheduled_at
-      = f.hidden_field :ticket_id, :value => @work_unit.ticket.id
       = f.submit :class => 'btn primary'
+
+- content_for :javascripts do
+  = javascript_include_tag 'edit_work_unit'

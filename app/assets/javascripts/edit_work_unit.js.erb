@@ -1,0 +1,22 @@
+
+// when project is changed, populate the tickets
+$("#work_unit_ticket_attributes_project_id").change(function(){
+  var me = $("#work_unit_ticket_id")
+  me.children().remove();
+  me.append( new Option("Select a ticket","") )
+  if(!this.value.blank) {
+    params = {bucket: "Ticket", id: this.value, all: "true"}
+    $.get("/dashboard/json_index", params, function(data){
+      $.each(data, function(i, ticket){
+        me.append( new Option(ticket.name, ticket.id) )
+      });
+      <% unless Rails.env.test? || Rails.env.cucumber? %>
+        <% # only use chosen in dev r prod - it breaks cukes %>
+        me.trigger("liszt:updated");
+      <% end %>
+    }, "json");
+  }
+});
+
+$(document).ready(function() {
+});

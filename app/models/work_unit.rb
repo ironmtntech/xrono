@@ -7,6 +7,8 @@ class WorkUnit < ActiveRecord::Base
   belongs_to :ticket
   belongs_to :user
 
+  accepts_nested_attributes_for :ticket
+
   validates_presence_of :ticket_id, :user_id, :description, :hours, :scheduled_at, :effective_hours, :hours_type
   validates_numericality_of :hours, :greater_than => -1
   before_validation :set_effective_hours!

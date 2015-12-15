@@ -47,9 +47,16 @@ class WorkUnitsController < ApplicationController
   end
 
   def edit
+    @clients = Client.order("name").active.for_user(current_user)
+    @projects = Project.active.for_user current_user
+    @tickets = Ticket.for_project(@work_unit.project)
   end
 
   def update
+    # using client_id, project_id, or ticket_id as attriute on UI inputs
+    # caused 500s, using the method on the model works, but isn't an attribute,
+    #- so we delete them from params list and use hidden field ids
+    params[:work_unit][:ticket_attributes][:id] = params[:work_unit][:ticket_id]
     if @work_unit.update_attributes(params[:work_unit])
       flash[:notice] = t(:work_unit_updated_successfully)
       redirect_to @work_unit
