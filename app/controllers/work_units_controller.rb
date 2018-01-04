@@ -50,6 +50,7 @@ class WorkUnitsController < ApplicationController
   end
 
   def update
+    params[:work_unit][:ticket_attributes][:id] = params[:work_unit][:ticket_id]
     if @work_unit.update_attributes(params[:work_unit])
       flash[:notice] = t(:work_unit_updated_successfully)
       redirect_to @work_unit

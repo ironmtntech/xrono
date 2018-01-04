@@ -1,3 +1,4 @@
+require 'csv'
 class WorkUnit < ActiveRecord::Base
   include GuidReferenced
   extend WorkUnit::Finders
@@ -95,5 +96,16 @@ class WorkUnit < ActiveRecord::Base
 
   def overtime?
     hours_type == "Overtime"
+  end
+
+  def self.to_csv
+    attributes = %w{id description ticket_id created_at updated_at hours overtime scheduled_at guid user_id paid invoiced invoiced_at paid_at hours_type effective_hours}
+    ::CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |cc|
+        csv << attributes.map{ |attr| cc.send(attr) }
+      end
+    end
   end
 end
