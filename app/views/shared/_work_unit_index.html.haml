@@ -1,3 +1,14 @@
+%b Select a date range to export:
+= form_tag '/export_work_units', :method => :get do
+  = label_tag "Start Date"
+  = date_select :export_date, :start_date
+  = label_tag "End Date"
+  = date_select :export_date, :end_date
+  = hidden_field_tag :client_id, params[:id]
+  %br/
+  %br/
+  = submit_tag 'Export Selected Date Range', :class => "data_export_icon"
+%br/
 %table.work_units.table.table-striped
   %thead
     %tr

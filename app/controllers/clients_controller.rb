@@ -85,6 +85,16 @@ class ClientsController < ApplicationController
     @completed_projects = @bucket.complete
   end
 
+  def export_work_units
+    @client = Client.find(params[:client_id])
+    @work_units = WorkUnit.for_client(@client)
+    _params = params[:export_date]
+    @start_date = Date.parse("#{_params['start_date(1i)']}/#{_params['start_date(2i)']}/#{_params['start_date(3i)']}")
+    @end_date = Date.parse("#{_params['end_date(1i)']}/#{_params['end_date(2i)']}/#{_params['end_date(3i)']}") + 1.days
+    @work_units = @work_units.where(created_at: @start_date..@end_date)
+    send_data @work_units.to_csv, filename: "work_units_#{@start_date}_to_#{@end_date}.csv"
+  end
+
   def new
   end
 

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   end
   get '/admin', :controller => "admin/base", :action => "index"
   get '/admin/reports', :controller => "admin/base", :action => "reports"
+  get '/export_work_units', :controller => "clients", :action => "export_work_units"
 
   namespace :client_login do
     root :to => "clients#index"
