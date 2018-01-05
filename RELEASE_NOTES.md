@@ -1,3 +1,7 @@
+01/05/2018
+
+  - Work units can be exported to CSV via Date Range
+
 08/30/2012
 
   - Separete clients from normal users in admin report
