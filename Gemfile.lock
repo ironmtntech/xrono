@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    xrono (1.0.12)
+    xrono (1.0.14)
       acl9
       acts-as-taggable-on
       acts_as_commentable
@@ -369,3 +369,6 @@ DEPENDENCIES
   spork (= 0.9.0.rc9)
   trinidad
   xrono!
+
+BUNDLED WITH
+   1.10.6
