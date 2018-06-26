@@ -4,7 +4,12 @@
   = date_select :export_date, :start_date
   = label_tag "End Date"
   = date_select :export_date, :end_date
-  = hidden_field_tag :client_id, params[:id]
+  - if params[:controller] == 'projects'
+    = hidden_field_tag :scope, 'projects'
+    = hidden_field_tag :project_id, params[:id]
+  - elsif params[:controller] == 'clients'
+    = hidden_field_tag :scope, 'clients'
+    = hidden_field_tag :client_id, params[:id]
   %br/
   %br/
   = submit_tag 'Export Selected Date Range', :class => "data_export_icon"

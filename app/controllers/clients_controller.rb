@@ -86,8 +86,14 @@ class ClientsController < ApplicationController
   end
 
   def export_work_units
-    @client = Client.find(params[:client_id])
-    @work_units = WorkUnit.for_client(@client)
+    require 'pry';binding.pry
+    if params[:scope] == 'projects'
+      @project = Project.find(params[:project_id])
+      @work_units = WorkUnit.for_project(@project)
+    elsif params[:scope] == 'clients'
+      @client = Client.find(params[:client_id])
+      @work_units = WorkUnit.for_client(@client)
+    end
     _params = params[:export_date]
     @start_date = Date.parse("#{_params['start_date(1i)']}/#{_params['start_date(2i)']}/#{_params['start_date(3i)']}")
     @end_date = Date.parse("#{_params['end_date(1i)']}/#{_params['end_date(2i)']}/#{_params['end_date(3i)']}") + 1.days
