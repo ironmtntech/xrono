@@ -86,7 +86,6 @@ class ClientsController < ApplicationController
   end
 
   def export_work_units
-    require 'pry';binding.pry
     if params[:scope] == 'projects'
       @project = Project.find(params[:project_id])
       @work_units = WorkUnit.for_project(@project)
